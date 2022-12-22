@@ -1,0 +1,15 @@
+.arrivals-slider .slick-slide div:first-child {
+    margin: 0px 5px;
+}
+
+.trending-slider .slick-slide {
+    padding: 0px 10px;
+}
+
+.ranked-slider .slick-slide div:first-child {
+    margin: 5px 10px
+}
+
+.testimonials-slider .slick-slide {
+    padding: 0px 10px;
+}

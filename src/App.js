@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect, useState } from 'react'
+import { Route, Routes, Link, Outlet } from 'react-router-dom';
+import './app/constant.js';
+import { Layout } from './components/Layouts/Layout.jsx';
+import { NoMatch } from './components/Layouts/NoMatch.jsx';
+import Home from './pages/Home';
+import { ProductDetail } from './pages/ProductDetail.js';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Fragment>
+      
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='product/:product_url' element={<ProductDetail />} />
+          <Route path="*" element={<NoMatch />} />
+        </Route>
+      </Routes>
+    </Fragment>
+  )
 }
 
 export default App;
