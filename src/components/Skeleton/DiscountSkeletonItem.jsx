@@ -9,7 +9,7 @@ export const DiscountSkeletonItem = () => {
                 Array.from(
                     { length: 4 },
                     (_, i) => (
-                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12">
+                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={i}>
                             <div className="deals-box">
                                 <Skeleton />
                                 <ul>

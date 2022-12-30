@@ -21,7 +21,7 @@ export const HomeCarouselItem = ({banners}) => {
                                 <a href="#">Shop Now</a>
                             </Carousel.Caption>
                         </Carousel.Item>
-
+                    
                     ))
                 }
             </Carousel>
