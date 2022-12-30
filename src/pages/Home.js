@@ -25,12 +25,16 @@ import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 
 export default function Home() {
 
+    // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
+    
     const dispatch = useDispatch();
-
-    const openSideBar = () => {
-        dispatch(isOpenSideBar());
-    }
-    const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
+    useEffect(() => {
+    
+        const openSideBar = () => {
+            dispatch(isOpenSideBar());
+        }
+    }, [])
+    
 
     return (
         <Fragment>
@@ -51,10 +55,7 @@ export default function Home() {
             <RecentView />
             <Testimonials />
             <PackageSupport />
-            <Footer />
-            <Copyrights />
-            <MobileFooter />
-            <div className={`overlay ${isSideBarOpen ? 'overlay-bg' : '' }`} onClick={openSideBar}></div>
+            
         </Fragment>
     )
 }

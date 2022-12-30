@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 
-import 'font-awesome/css/font-awesome.min.css';
+
 
 export default function Footer() {
   return (
@@ -12,7 +12,7 @@ export default function Footer() {
                     <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between">
 
                         <div className="logo-social">
-                            <a href=""><img src="assets/images/bottom-logo.png" /></a>
+                            <a href=""><img src="/assets/images/bottom-logo.png" /></a>
                             <ul>
                                 <li>
                                     <a href=""> <i className="fa fa-facebook" aria-hidden="true"></i> </a>
@@ -52,13 +52,13 @@ export default function Footer() {
                             <h4>Information</h4>
                             <ul>
                                 <li>
-                                    <a href=""><img src="assets/images/loc.png" /> 73, Anna Salai, Chennai – 600 002 </a>
+                                    <a href=""><img src="/assets/images/loc.png" /> 73, Anna Salai, Chennai – 600 002 </a>
                                 </li>
                                 <li>
-                                    <a href=""><img src="assets/images/mail.png" /> info@museemusical.in </a>
+                                    <a href=""><img src="/assets/images/mail.png" /> info@museemusical.in </a>
                                 </li>
                                 <li>
-                                    <a href=""><img src="assets/images/call.png" /> +91 44 2852 2780 <br />+91 44 2851 6474 </a>
+                                    <a href=""><img src="/assets/images/call.png" /> +91 44 2852 2780 <br />+91 44 2851 6474 </a>
                                 </li>
                             </ul>
                         </div>

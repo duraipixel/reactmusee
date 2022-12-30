@@ -1,6 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import Slider from 'react-slick';
 import './testimonial.css';
+import { TestimonialImage } from './../Images/TestimonialImage';
+
 
 export const Testimonials = () => {
 
@@ -63,22 +67,36 @@ export const Testimonials = () => {
 
                         <Slider className="testimonials-slider " {...settings}>   
                             {
-                                testimonials && testimonials.map( (item) => (
+                                testimonials && testimonials.length > 0 ? testimonials.map( (item) => (
 
                                     <div className="patron text-left" key={item.id}>
                                         <div className="patron-detil">
-                                            {item.short_description}
+                                            {item.short_description || <Skeleton count={10} />}
                                         </div>
                                         <div className="patron-img">
                                             <span>
-                                                <img src={item.image} width="50px"/> 
-                                                {item.title}
+                                                <TestimonialImage itemImage={item.image} />
+                                                
+                                                {item.title || <Skeleton />}
                                             </span>
                                         </div>
                                     </div>
-                                ))
-                            }
+                                    )
+                                ) 
+                                : 
 
+                                    Array.from(
+                                        { length: 3 },
+                                        (_, i) => (
+                                            <div className="patron text-left" key={i}>
+                                                <div className="patron-detil">
+                                                    <Skeleton count={1} height={100} />
+                                                </div>
+                                            </div>
+                                        )
+                                    )
+                                
+                            }
                         </Slider>
 
                     </div>

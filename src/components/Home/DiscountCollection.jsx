@@ -1,4 +1,7 @@
 import React, { Fragment } from 'react'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import { DiscountSkeletonItem } from '../Skeleton/DiscountSkeletonItem'
 
 export default function DiscountCollection() {
   return (
@@ -14,102 +17,7 @@ export default function DiscountCollection() {
                     </div>
 
                     <div className="row">
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12">
-                            <div className="deals-box">
-                                <h4>Upto <span>40% OFF</span> on Recording Accessories</h4>
-                                <ul>
-                                    <li>
-                                        <img src="assets/images/deal-1.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-2.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-3.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-4.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12">
-                            <div className="deals-box">
-                                <h4>Upto <span>40% OFF</span> on Recording Accessories</h4>
-                                <ul>
-                                    <li>
-                                        <img src="assets/images/deal-1.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-2.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-3.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-4.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12">
-                            <div className="deals-box">
-                                <h4>Upto <span>40% OFF</span> on Recording Accessories</h4>
-                                <ul>
-                                    <li>
-                                        <img src="assets/images/deal-1.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-2.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-3.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-4.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12">
-                            <div className="deals-box">
-                                <h4>Upto <span>40% OFF</span> on Recording Accessories</h4>
-                                <ul>
-                                    <li>
-                                        <img src="assets/images/deal-1.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-2.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-3.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                    <li>
-                                        <img src="assets/images/deal-4.jpg" />
-                                        <span>Upto 30% OFF on Microphones</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <DiscountSkeletonItem />
 
                     </div>
 

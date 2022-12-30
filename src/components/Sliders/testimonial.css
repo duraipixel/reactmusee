@@ -13,3 +13,10 @@
 .testimonials-slider .slick-slide {
     padding: 0px 10px;
 }
+
+.testSkeleton{
+    float: left;
+    position: relative;
+    left: -74px;
+    top: -16px;
+}

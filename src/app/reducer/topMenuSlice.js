@@ -8,7 +8,6 @@ export const topMenuSlice = createSlice({
   reducers: {
     setTopmenu: (state, action ) => {
       state.value = state.value;
-      console.log(state.value);
     }
   },
 })

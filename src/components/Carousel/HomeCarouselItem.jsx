@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 export const HomeCarouselItem = ({banners}) => {
-    
+    console.log(banners, 'banners');
     return (
         <Fragment>
             <Carousel className="carousel-inner">
@@ -16,7 +16,7 @@ export const HomeCarouselItem = ({banners}) => {
                                 <img src="assets/images/banner-logo.png" alt="" className="img-fluid" />
                                 <h1 className="text-blue">
                                     {item.title}
-                                    <span>{item.tag_line}</span> {index}
+                                    <span>{item.tag_line}</span> 
                                 </h1>
                                 <a href="#">Shop Now</a>
                             </Carousel.Caption>

@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import {compile} from 'path-to-regexp';
 import Slider from 'react-slick'
+import { CollectionSectionOneSkeleton } from '../Skeleton/CollectionSectionOneSkeleton';
 
 export const CollectionSectionOne = () => {
     const navigate = useNavigate();
@@ -49,13 +50,18 @@ export const CollectionSectionOne = () => {
             },
         }, ],
     }
+
+    console.log(collectionOne);
     
-    const MY_ROUTE = '/product/:product_url/';
-    const toPath = compile(MY_ROUTE);
-    
+    const PRODUCT_ROUTE = '/product/:product_url/';
+    const FILTER_ROUTE = '/collection/:collection_slug/';
+    const toProductPath = compile(PRODUCT_ROUTE);
+    const toCollectionPath = compile(FILTER_ROUTE);
+    // console.log( toCollectionPath );
+
     return (
         <Fragment>
-            { collectionOne && 
+            { collectionOne ? (
                 <section className="new-arrivals pt-0" key={collectionOne.id}>
                     <div className="container">
                         <div className="row">
@@ -65,13 +71,15 @@ export const CollectionSectionOne = () => {
                                     <h2>New Arrivals for Fresh Tunes </h2>
                                 </div>
                                 <div className="next-jump">
-                                    <a href=""> Browse All <img src="assets/images/nxt.png" /></a>
+                                    <Link to={`/products/pfilter?collection=${collectionOne.collection_slug}`} >
+                                        Browse All <img src="/assets/images/nxt.png" />
+                                    </Link>
                                 </div>
                             </div>
                             <Slider className="arrivals-slider" {...settings}>
                                 {
                                     collectionOne.products && collectionOne.products.map((item) => (
-                                        <Link className="arrival-product" key={item.id} to={toPath({ product_url: item.product_url })}>
+                                        <Link className="arrival-product" key={item.id} to={toProductPath({ product_url: item.product_url })}>
                                             <div className="prdt-img">
                                                 <img src={item.image} />
                                             </div>
@@ -99,6 +107,9 @@ export const CollectionSectionOne = () => {
                         </div>
                     </div>
                 </section>
+            ) : 
+                <CollectionSectionOneSkeleton />                    
+
             }           
         </Fragment>
     )

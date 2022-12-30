@@ -4204,3 +4204,12 @@
                 padding: 15px 0px 70px !important;
             }
         }
+
+
+        .shopbybrand {
+            background-image:url('../images/banners/inner-banner-1.jpg');
+        }
+
+        .hide {
+            display: none;
+        }
