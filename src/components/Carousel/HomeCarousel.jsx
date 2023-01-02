@@ -9,13 +9,17 @@ export default function HomeCarousel() {
 
     const [banner, setBanner] = useState([]);
 
+    async function getBannerData() {
+        const response =  await fetch(window.API_URL+'/get/banners')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                setBanner(data.data) })
+                            .catch((err) => {
+                            });
+    }
+
     useEffect(()=>{
-        fetch(window.API_URL+'/get/banners')
-        .then((response) => response.json())
-        .then((data) => setBanner(data.data))
-        .catch((err) => {
-            console.log(err.message)
-        });
+        getBannerData();
     }, []);
 
   return (

@@ -8,13 +8,18 @@ export default function HistoryVideo() {
 
     const [video, setVideo] = useState([]);
 
+
+    async function getVideoData() {
+        const response =  await fetch(window.API_URL+'/get/history')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                setVideo(data.data) })
+                            .catch((err) => {
+                            });
+    }
+
     useEffect(()=>{
-        fetch(window.API_URL+'/get/history')
-        .then((response) => response.json())
-        .then((data) => setVideo(data.data))
-        .catch((err) => {
-            console.log(err.message)
-        });
+        getVideoData();
     }, []);
 
     const settings = {

@@ -2,9 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react'
 import DiscountCollection from '../components/Home/DiscountCollection';
 import SideCustomScrollbar from '../components/SideCustomScrollbar';
 import HistoryVideo from '../components/Home/HistoryVideo';
-import Footer from '../components/Layouts/Footer';
-import { MobileFooter } from '../components/Layouts/MobileFooter';
-import { Copyrights } from '../components/Layouts/Copyrights';
 import { CollectionSectionOne } from '../components/Sliders/CollectionSectionOne';
 import { LiveVideo } from '../components/LiveVideo';
 import { CollectionToprank } from '../components/Sliders/CollectionToprank';
@@ -25,7 +22,7 @@ import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 
 export default function Home() {
 
-    // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
+  
     
     const dispatch = useDispatch();
     useEffect(() => {

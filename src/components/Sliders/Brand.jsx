@@ -1,17 +1,22 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import Slider from 'react-slick'
+import { Link } from 'react-router-dom';
 
 export const Brand = () => {
 
     const [brand, setBrand] = useState([]);
 
-    useEffect(()=>{
-        fetch(window.API_URL+'/get/brands')
-        .then((response) => response.json())
-        .then((data) => setBrand(data.data))
-        .catch((err) => {
-            // console.log(err.message)
+    async function getBrands() {
+        const response =  await fetch(window.API_URL+'/get/brands')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                setBrand(data.data) })
+                            .catch((err) => {
         });
+    }
+
+    useEffect(()=>{
+        getBrands()
     }, []);
 
     const settings = {
@@ -51,7 +56,9 @@ export const Brand = () => {
                                 {
                                     brand && brand.map((item) => (
                                         <div className="brand" key={item.id}>
-                                            <img src={item.image} alt={item.title} />
+                                            <Link to={`/products/pfilter?brand=${item.slug}`}>
+                                                <img src={item.image} alt={item.title} />
+                                            </Link>
                                         </div>
                                     ))
                                 }
@@ -61,7 +68,7 @@ export const Brand = () => {
                         <div className="col-lg-2 col-md-2 col-sm-12 col-xs-12 d-flex justify-content-end">
                             
                             <div className="shopping-book">
-                                <a href="">Shop by Brand</a>
+                                <Link to='/brand'>Shop by Brand</Link>
                             </div>
 
                         </div>

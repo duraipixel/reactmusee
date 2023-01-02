@@ -1,7 +1,28 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Slider from 'react-slick'
+import { compile } from 'path-to-regexp';
+import { Link } from 'react-router-dom';
 
 export const CollectionKeyboards = () => {
+
+    const [collectionFive, setCollectionFive] = useState([]);
+
+    async function getCollectionFive() {
+        await fetch(window.API_COLLECTION_SECTION_FIVE_URL)
+            .then((response) => response.json())
+            .then((data) => {
+                setCollectionFive(data.data[0])
+            })
+            .catch((err) => {
+            });
+    }
+
+    useEffect(() => {
+
+        getCollectionFive();
+
+    }, []);
+
     const settings = {
         autoplay: true,
         autoplaySpeed: 3000,
@@ -27,158 +48,66 @@ export const CollectionKeyboards = () => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        }, ],
+        },],
     }
+
+    const PRODUCT_ROUTE = '/product/:product_url/';
+    const toProductPath = compile(PRODUCT_ROUTE);
+
+
     return (
         <Fragment>
-            <section className="best-keyboards">
-                <div className="container">
-                    <div className="row">
+            {collectionFive ? (
 
-                        <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between align-items-center">
+                <section className="best-keyboards" key={collectionFive.id}>
+                    <div className="container">
+                        <div className="row">
 
-                            <div className="shopping-video">
-                                <div className="common-heads light">
-                                    <h2>Best Selling Casio Keyboards </h2>
+                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between align-items-center">
+
+                                <div className="shopping-video">
+                                    <div className="common-heads light">
+                                        <h2> {collectionFive.collection_name} </h2>
+                                    </div>
                                 </div>
+
+                                <div className="shopping-book">
+                                    <Link to={`/products/pfilter?collection=${collectionFive.collection_slug}`} >
+                                        Visit {collectionFive.collection_name}</Link>
+                                </div>
+
                             </div>
 
-                            <div className="shopping-book">
-                                <a href="">Visit Casio Brand Store</a>
-                            </div>
+                            <Slider {...settings} className="keyboards-slider" >
+                                {
+                                    collectionFive.products && collectionFive.products.map((item) => (
+
+                                        <div className="arrival-product" key={item.id} to={toProductPath({ product_url: item.product_url })}>
+                                            <div className="prdt-img">
+                                                <img src={item.image} />
+                                            </div>
+                                            <div className="trend-access">
+                                                <div className="ratings d-flex justify-content-between">
+                                                    <div className="prdt-type">
+                                                        {item.category_name}
+                                                    </div>
+                                                </div>
+                                                <div className="prdt-nameprc">
+                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
+                                                    ₹{item.sale_prices.price}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))
+
+                                }
+                            </Slider>
 
                         </div>
-
-                        <Slider {...settings} className="keyboards-slider" >
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-1.jpg" />
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5><span>₹14,999</span>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-2.jpg" />
-                                    <div className="ofr-prc">
-                                        <h5>15%<span>Off</span></h5>
-                                    </div>
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-3.jpg" />
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-4.jpg" />
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-5.jpg" />
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/deals/deal-1.jpg" />
-                                </div>
-                                <div className="trend-access">
-                                    <div className="ratings d-flex justify-content-between">
-                                        <div className="prdt-type">
-                                            Ukuleles
-                                        </div>
-                                        <div className="prdt-ratngs">
-                                            <img src="assets/images/star.png" />4.9
-                                        </div>
-                                    </div>
-                                    <div className="prdt-nameprc">
-                                        <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                        <h5>₹24,296</h5>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </Slider>
-
                     </div>
-                </div>
-            </section>
+                </section>
+            ) : null
+            }
         </Fragment>
     )
 }

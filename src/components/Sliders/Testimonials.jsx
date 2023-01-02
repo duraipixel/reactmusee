@@ -9,14 +9,18 @@ import { TestimonialImage } from './../Images/TestimonialImage';
 export const Testimonials = () => {
 
     const [testimonials, setTestimonials] = useState([]);
+    
+    async function getTestimonials() {
+        await fetch(window.API_URL+'/get/testimonials')
+                .then((response) => response.json())
+                .then((data) => setTestimonials(data.data))
+                .catch((err) => {
+                    console.log(err.message)
+                });
+    }
 
     useEffect(() => {
-        fetch(window.API_URL+'/get/testimonials')
-        .then((response) => response.json())
-        .then((data) => setTestimonials(data.data))
-        .catch((err) => {
-            console.log(err.message)
-        });
+        getTestimonials();
     }, []);
 
     const settings = {

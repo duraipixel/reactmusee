@@ -63,7 +63,7 @@ export default function Topmenu({isTopPage}) {
                                         : ''
                                     }
                                     <li>
-                                        <Link to='brand'>Shop by Brand</Link>
+                                        <Link to='/brand'>Shop by Brand</Link>
                                     </li>
                                 </ul>
                             </nav>

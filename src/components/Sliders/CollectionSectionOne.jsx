@@ -51,7 +51,7 @@ export const CollectionSectionOne = () => {
         }, ],
     }
 
-    console.log(collectionOne);
+
     
     const PRODUCT_ROUTE = '/product/:product_url/';
     const FILTER_ROUTE = '/collection/:collection_slug/';
@@ -68,7 +68,7 @@ export const CollectionSectionOne = () => {
 
                             <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-between">
                                 <div className="common-heads">
-                                    <h2>New Arrivals for Fresh Tunes </h2>
+                                    <h2>{collectionOne.collection_name} </h2>
                                 </div>
                                 <div className="next-jump">
                                     <Link to={`/products/pfilter?collection=${collectionOne.collection_slug}`} >

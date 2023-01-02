@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 export const HomeCarouselItem = ({banners}) => {
-    console.log(banners, 'banners');
+    
     return (
         <Fragment>
             <Carousel className="carousel-inner">
