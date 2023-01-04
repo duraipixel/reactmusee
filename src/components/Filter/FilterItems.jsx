@@ -1,36 +1,56 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 export const FilterItems = () => {
+
+    const filterData = useSelector((state) => state.products);
+    const products = filterData.products.products;
+
     return (
         <Fragment>
-            <div class="col-lg-4 col-md-4">
-                <div class="project-bxe">
-                    <a href="product-detail.html">
-                        <div class="prdt-img">
-                            <img
-                                src="images/proj-3.jpg" />
-                            <div class="ofr-prc">
-                                <h5>10%<span>Off</span></h5>
+            {
+                products && products.length > 0 ? (
+
+                    products.map((item, i) => (
+                        <div className="col-lg-4 col-md-4" key={i}>
+                            <div className="project-bxe">
+                                <a href="product-detail.html">
+                                    <div className="prdt-img">
+                                        <img
+                                            src={item.image} />
+                                        <div className="ofr-prc">
+                                            <h5>10%<span>Off</span></h5>
+                                        </div>
+                                    </div>
+                                    <div className="ratings d-flex justify-content-between">
+                                        <div className="prdt-type">
+                                            {item.category_name}
+                                        </div>
+                                        {/* <div
+                                                className="prdt-ratngs">
+                                                <img
+                                                    src="images/star.png" />4.9
+                                            </div> */}
+                                    </div>
+                                    <div className="prdt-nameprc">
+                                        <h4>{item.product_name}</h4>
+                                        <h5>
+                                            {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
+                                            ₹{item.sale_prices.price}
+                                        </h5>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                        <div class="ratings d-flex justify-content-between">
-                            <div class="prdt-type">
-                                GRAND PIANOS
-                            </div>
-                            <div
-                                class="prdt-ratngs">
-                                <img
-                                    src="images/star.png" />4.9
-                            </div>
-                        </div>
-                        <div class="prdt-nameprc">
-                            <h4>Yamaha C7X Grand
-                                Piano</h4>
-                            <h5><span>₹14,999</span>₹24,296</h5>
-                        </div>
-                    </a>
+
+
+                    )
+                )) : 
+                <div>
+                    No Product Available
                 </div>
-            </div>
+            }
+
         </Fragment>
     )
 }

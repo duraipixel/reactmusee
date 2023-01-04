@@ -6,13 +6,16 @@ const initialState = {
     error: ''
 }
 
-export const fetchMenus = createAsyncThunk('menus/fetchMenus', () => {
-    return fetch(window.API_URL+'/get/allMenu')
+export const fetchMenus = createAsyncThunk('menus/fetchMenus', (slug) => {
+
+    return fetch(window.API_URL+'/get/topMenu/'+slug)
                 .then((response) => response.json())
-                .then((data) => data.data)
+                .then((data) => {
+                    return data.data})
                 .catch((err) => {
                     console.log(err.message)
                 });
+
 })
 
 export const menuSlice = createSlice({

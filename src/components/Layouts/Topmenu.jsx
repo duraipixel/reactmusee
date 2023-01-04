@@ -1,31 +1,47 @@
-import React, { Fragment, useState,useEffect } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
+import { fetchMenus } from './../../app/reducer/menuSlice';
+import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
-export default function Topmenu({isTopPage}) {
+export default function Topmenu({ isTopPage, topmenu }) {
 
-    const [topmenu, setTopmenu] = useState([]);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    async function getTopMenu() {
-        const response =  await fetch(window.API_URL+'/get/topMenu')
-                            .then((response) => response.json())
-                            .then((data) => setTopmenu(data.data))
-                            .catch((err) => {
-                                // console.log(err.message)
-                            });
+    const cUrl = new URL(window.location.href);
+
+    const getSubMenu = (category) => {
+
+        dispatch(fetchMenus(category));
+        
+        const url = new URL(window.location.href);
+        const SUrl = "/products/pfilter";
+        url.searchParams.set("category", category);
+        url.searchParams.delete("scategory");
+
+        navigate(SUrl + url.search);
+        dispatch(fetchProducts());
+
     }
-    useEffect(()=>{
 
-        getTopMenu();
-       
+    useEffect(() => {
+
+        // if (window.performance) {
+        //     if (performance.navigation.type == 1) {
+        //         if( cUrl.searchParams.get('category') ) {
+        //             getSubMenu(cUrl.searchParams.get('category'))
+        //         }
+        //     } 
+        // }
+
     }, []);
 
-    const dispatch = useDispatch();
+
     const openSideBar = () => {
         dispatch(isOpenSideBar());
     }
-    // console.log(topmenu);
 
     return (
         <Fragment>
@@ -48,19 +64,16 @@ export default function Topmenu({isTopPage}) {
                                             <img src="/assets/images/hamber.png" alt="" />All
                                         </a>
                                     </li>
-                                    {/* <li>
-                                        <a href="#">Today’s Top Deals</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">New Arrivals</a>
-                                    </li> */}
                                     {
-                                        topmenu.length !== 0 ? topmenu.map((item,i) => (
+                                        topmenu.length !== 0 ? topmenu.map((item, i) => (
                                             <li key={i}>
-                                                <Link to={`/products/pfilter?category=${item.slug}`}>{ item.name}</Link>
+                                                <button className={`menu-link ${cUrl.searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => getSubMenu(item.slug)}>
+                                                    {item.name}
+                                                </button>
+
                                             </li>
                                         ))
-                                        : ''
+                                            : ''
                                     }
                                     <li>
                                         <Link to='/brand'>Shop by Brand</Link>

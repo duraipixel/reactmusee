@@ -21,8 +21,6 @@ import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 
 
 export default function Home() {
-
-  
     
     const dispatch = useDispatch();
     useEffect(() => {

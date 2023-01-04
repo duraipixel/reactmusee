@@ -12,6 +12,7 @@ import { setAllBrand } from '../../app/reducer/brandSlice';
 export const Layout = () => {
 
     const [isTopPage, setIsTopPage] = useState(false);
+    const [topmenu, setTopmenu] = useState([]);
 
     const dispatch = useDispatch();
 
@@ -26,8 +27,19 @@ export const Layout = () => {
                             });
     }
 
+    async function getTopMenu() {
+        const response =  await fetch(window.API_URL+'/get/topMenu')
+                            .then((response) => response.json())
+                            .then((data) => setTopmenu(data.data))
+                            .catch((err) => {
+                                // console.log(err.message)
+                            });
+    }
+
+
     useEffect(() => {
         getAllMenu();
+        getTopMenu();
         window.addEventListener('scroll', stickNavbar);
         return () => {
             window.removeEventListener('scroll', stickNavbar);
@@ -49,7 +61,6 @@ export const Layout = () => {
         }
     };
 
-
     const openSideBar = () => {
         dispatch(isOpenSideBar());
     }
@@ -59,7 +70,7 @@ export const Layout = () => {
         <Fragment>
             <div className="main-content">
                 <Topbar isTopPage={isTopPage} />
-                <Topmenu isTopPage={isTopPage} />
+                <Topmenu isTopPage={isTopPage} topmenu={topmenu} />
                 
                 <Outlet />
                 <Footer />

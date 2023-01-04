@@ -8,13 +8,16 @@ import { Submenu } from '../components/Layouts/Submenu';
 import { OtherCategory } from '../components/Sliders/OtherCategory';
 import SideCustomScrollbar from './../components/SideCustomScrollbar';
 import { Filter } from './Filter';
+import { fetchProducts } from './../app/reducer/productFilterSlice';
 
 export const Collection = () => {
 
     const [filterStaticMenu, setFilterStaticMenu] = useState([]);
 
+    const dispatch = useDispatch();
+
     async function getFilterStaticMenuData() {
-        const response =  await fetch(window.API_URL+'/get/filter/static/sidemenus')
+        await fetch(window.API_URL+'/get/filter/static/sidemenus')
                             .then((response) => response.json())
                             .then((data) => setFilterStaticMenu(data))
                             .catch((err) => {
@@ -24,9 +27,10 @@ export const Collection = () => {
 
     useEffect(() => {
         getFilterStaticMenuData();
+        dispatch(fetchProducts());
     }, []);
 
-    // console.log(filterStaticMenu);
+   
     // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     return (
         <Fragment>
@@ -34,18 +38,18 @@ export const Collection = () => {
             <SideCustomScrollbar />
             <Submenu />
 
-            <section class="all-pianos-list">
-                <div class="container">
-                    <div class="row">
+            <section className="all-pianos-list">
+                <div className="container">
+                    <div className="row">
 
                         <Filter filterStaticMenu={filterStaticMenu}  />
 
-                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                            <div class="pianos-lists">
+                        <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                            <div className="pianos-lists">
 
-                                <div class="col-lg-12 col-md-12 col-sm-12 d-flex
+                                <div className="col-lg-12 col-md-12 col-sm-12 d-flex
                                     justify-content-between">
-                                    <div class="primary-heads">
+                                    <div className="primary-heads">
                                         <ProductCount />
                                     </div>
                                     <SortBy sort_by={filterStaticMenu.sory_by} />
@@ -58,12 +62,12 @@ export const Collection = () => {
                     </div>
                 </div>
             </section>
-            <section class="browse-categories">
-                <div class="container">
-                    <div class="row">
+            <section className="browse-categories">
+                <div className="container">
+                    <div className="row">
 
-                        <div class="col-lg-12">
-                            <div class="common-heads light">
+                        <div className="col-lg-12">
+                            <div className="common-heads light">
                                 <h2>Browse our other categories</h2>
                             </div>
                         </div>

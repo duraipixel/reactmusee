@@ -19,7 +19,7 @@ export const DiscountSkeletonItem = ({discountCollectionData}) => {
                             <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={item.id}>
                                 <div className="deals-box">
                                     <h4>
-                                        <Link to={`/products/pfilter?collection=${item.slug}`}>
+                                        <Link to={`/products/pfilter?discount=${item.slug}`}>
                                         {item.collection_name}
                                         </Link>
                                         
@@ -30,7 +30,7 @@ export const DiscountSkeletonItem = ({discountCollectionData}) => {
 
                                                 item.products.map((productItems, i) => (
                                                     <li key={i} >
-                                                        <Link to={`/products/pfilter?collection=${item.slug}&category=${productItems.category_slug}`}>
+                                                        <Link to={`/products/pfilter?discount=${item.slug}&category=${productItems.category_slug}`}>
                                                             <img src={productItems.image} />
                                                             <span>{productItems.category} </span>
                                                         </Link>

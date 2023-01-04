@@ -38,63 +38,63 @@ export const OtherCategory = () => {
             <Slider className="keyboards-slider" {...settings}>
 
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-2.jpg" />
                             <span>Guitars</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-5.jpg" />
                             <span>Electronic Keyboards</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-1.jpg" />
                             <span>Drumkits</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-4.jpg" />
                             <span>Strings</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-3.jpg" />
                             <span>Indian Instruments</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-2.jpg" />
                             <span>Guitars</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="arrival-product">
+                <div className="arrival-product">
                     <a href="">
-                        <div class="prdt-img">
+                        <div className="prdt-img">
                             <img src="/assets/images/other-5.jpg" />
                             <span>Electronic Keyboards</span>
                         </div>

@@ -1,79 +1,69 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { Link, useSearchParams, useParams, useLocation } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchMenus } from '../../app/reducer/menuSlice';
+import { fetchMenus } from './../../app/reducer/menuSlice';
+import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
 export const Submenu = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [paramCategory, setParamCategory] = useState('');
-    const [paramSCategory, setParamsCategory] = useState('');
-    const [filterMenu, setFilterMenu] = useState([]);
-
-    let params = (new URL(document.location)).searchParams;
- 
+    const navigate = useNavigate();
     const menuData = useSelector((state) => state.menus);
-
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchMenus());
-    }, [])
-
-    const filterMenuFucn = () => {
-
-        setFilterMenu(menuData.menus.filter(
-            menu => {
-                return menu.slug === searchParams.get('category');
-            }
-        ))
-     
-    }
+    const commonUrl = new URL(window.location.href);
 
     const setUrlCategory = (slug) => {
-        
         const url = new URL(window.location.href);
-        url.searchParams.set('scategory', slug);
-        window.history.pushState({}, '', url.toString());
-        
-        console.log(params);
-        var teste = params.map((itparams) => {
-            console.log(itparams.cateogry);
-        })
-        filterMenuFucn()
+        const SUrl = "/products/pfilter";
+        if (slug == 'all') {
+            url.searchParams.set("category", menuData.menus[0].slug);
+            url.searchParams.delete("scategory");
+        } else {
+            url.searchParams.set("category", menuData.menus[0].slug);
+            url.searchParams.set("scategory", slug);
+        }
+        navigate(SUrl + url.search);
+        dispatch(fetchProducts());
 
     }
 
     useEffect(() => {
-        filterMenuFucn()
+        if (window.performance) {
+            if (performance.navigation.type == 1) {
+                if (commonUrl.searchParams.get('category')) {
+                    dispatch(fetchMenus(commonUrl.searchParams.get('category')));
+                }
+            }
+        }
+        // setSubmenuData( menuData, 'submenus');
     }, [])
 
-    
+    // console.log(menuData);
+
     return (
         <Fragment>
-            <div class="secondary-menu text-center">
-                <div class="container">
-                    <div class="row">
+            <div className="secondary-menu text-center">
+                <div className="container">
+                    <div className="row">
                         <ul>
                             {
-                                filterMenu.length > 0 && (
+                                menuData.menus.length > 0 && (
                                     <li>
-                                        <a className={`${filterMenu[0].slug === searchParams.get('category') && !searchParams.get('scategory') ? 'active' : ''}`} href="javascript:void(0)">
-                                            All {filterMenu[0].name}
+                                        <a role="button" onClick={() => setUrlCategory('all')} className={`${menuData.menus[0].slug === commonUrl.searchParams.get('category') && !commonUrl.searchParams.get('scategory') ? 'active' : ''}`} >
+                                            All {menuData.menus[0].name}
                                         </a>
                                     </li>
                                 )
                             }
                             {
-                                filterMenu.length > 0 && filterMenu[0].child && filterMenu[0].child.map((item, i) => (
-                                    <li key={i}>
-                                        <a onClick={()=>setUrlCategory(item.slug)} className={`${item.slug === searchParams.get('scategory') ? 'active' : ''}`}> {item.name} </a>
+                                menuData.menus.length > 0 && menuData.menus[0].child && menuData.menus[0].child.map((item, i) => (
+                                    <li key={i} role="button">
+                                        <a onClick={() => setUrlCategory(item.slug)} className={`${item.slug === commonUrl.searchParams.get('scategory') ? 'active' : ''}`}> {item.name} </a>
                                     </li>
                                 ))
                             }
 
                         </ul>
-                        <span class="fil-optn"><a href="javascript:void(0)">
-                            <i class="fa fa-filter" aria-hidden="true"></i>
+                        <span className="fil-optn"><a href="javascript:void(0)">
+                            <i className="fa fa-filter" aria-hidden="true"></i>
                             Filter</a></span>
                     </div>
                 </div>
