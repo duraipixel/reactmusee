@@ -1,6 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Link, Outlet } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+
 import './app/constant.js';
 import { isOpenSideBar } from './app/reducer/sideMenuBarSlice.js';
 import { Copyrights } from './components/Layouts/Copyrights.jsx';
@@ -14,11 +16,14 @@ import { Collection } from './pages/Collection';
 import { Category } from './pages/Category.js';
 import { ShopByBrand } from './pages/ShopByBrand';
 
+import "react-toastify/dist/ReactToastify.css";
+
+
 const App = () => {
 
   return (
     <Fragment>
-      
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

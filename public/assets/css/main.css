@@ -1,5 +1,5 @@
         @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900;1000&family=Quicksand:wght@300;400;500;600;700&display=swap');
-
+        @import "~react-image-gallery/styles/css/image-gallery.css";
         body {
             font-family: 'Quicksand', sans-serif;
             color: #000000;

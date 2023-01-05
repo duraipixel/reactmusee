@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export const FilterItems = () => {
 
@@ -14,12 +15,12 @@ export const FilterItems = () => {
                     products.map((item, i) => (
                         <div className="col-lg-4 col-md-4" key={i}>
                             <div className="project-bxe">
-                                <a href="product-detail.html">
+                                <Link to={`/product/${item.product_url}`} >
                                     <div className="prdt-img">
                                         <img
                                             src={item.image} />
-                                        <div className="ofr-prc">
-                                            <h5>10%<span>Off</span></h5>
+                                        <div className={`ofr-prc ${item.sale_prices && item.sale_prices.overall_discount_percentage > 0 ? '':'hide'}`}>
+                                            <h5>{item.sale_prices.overall_discount_percentage}<span>Off</span></h5>
                                         </div>
                                     </div>
                                     <div className="ratings d-flex justify-content-between">
@@ -39,7 +40,7 @@ export const FilterItems = () => {
                                             ₹{item.sale_prices.price}
                                         </h5>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                         </div>
 
