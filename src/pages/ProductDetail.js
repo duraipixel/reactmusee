@@ -7,11 +7,8 @@ import { ImagePane } from '../components/Product/ImagePane';
 import { Specification } from '../components/Product/Specification';
 import { RelatedProduct } from './../components/Product/RelatedProduct';
 import { useDispatch } from 'react-redux';
-import {addToCart,
-    clearCart,
-    decreaseCart,
-    getTotals,
-    removeFromCart} from '../app/reducer/cartSlice';
+import { addToCart } from '../app/reducer/cartSlice';
+
 
 
 export const ProductDetail = () => {
@@ -37,6 +34,7 @@ export const ProductDetail = () => {
     const handleAddToCart = (product) => {
        console.log('clickde add');
         dispatch(addToCart(product));
+        
     }
 
   
@@ -235,6 +233,7 @@ export const ProductDetail = () => {
             }
 
             <FrequentlyPurchased />
+            
         </Fragment>
     )
 }

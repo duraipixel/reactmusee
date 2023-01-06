@@ -1,13 +1,23 @@
 import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {getTotals} from '../../app/reducer/cartSlice';
+import { getTotals } from '../../app/reducer/cartSlice';
 
 export default function Topbar({ isTopPage }) {
 
     const cart = useSelector((state) => state.cart);
     const [cartCount, setCartCount] = useState(0);
-    console.log('cart', cart);
+
+    const getTotalQuantity = () => {
+        let total = 0
+        console.log(cart, 'cart datat');
+        cart.cart.length > 0 && cart.cart.forEach(item => {
+            total += item.quantity
+        })
+        // setCartCount(total);
+        return total
+    }
+    console.log( 'getTotalQuantity', getTotalQuantity());
 
     return (
         <Fragment>
@@ -44,8 +54,10 @@ export default function Topbar({ isTopPage }) {
                                 <div className="top-icons">
                                     <ul>
                                         <li>
-                                            <a href="shopping-cart.html"><img src="/assets/images/cart.png" alt="" /></a>
-                                            <span className={`cart-tpimg ${cartCount > 0 ? '': 'hide'}`}>{cartCount}</span>
+                                            <Link to="cart">
+                                                <img src="/assets/images/cart.png" alt="" />
+                                            </Link>
+                                            <span className={`cart-tpimg ${getTotalQuantity() > 0 ? '' : 'hide'}`}>{getTotalQuantity()}</span>
                                         </li>
                                         <li>
                                             <a href="my-account.html"><img src="/assets/images/user.png" alt="" /></a>
