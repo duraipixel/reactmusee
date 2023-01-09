@@ -20,7 +20,7 @@ export const DiscountSkeletonItem = ({discountCollectionData}) => {
                                 <div className="deals-box">
                                     <h4>
                                         <Link to={`/products/pfilter?discount=${item.slug}`}>
-                                        {item.collection_name}
+                                       {item.collection_name} <span>20% OFF</span>
                                         </Link>
                                         
                                     </h4>

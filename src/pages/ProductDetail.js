@@ -184,9 +184,9 @@ export const ProductDetail = () => {
                                                                             <div className="col-lg-4">
                                                                                 <div className="fav-img">
                                                                                     <img src="/assets/images/favorite/fav-1.jpg" />
-                                                                                    <a id="play-video" className="video-play-button" href="#" tabIndex={-1}>
+                                                                                    {/* <a id="play-video" className="video-play-button" href="#" tabIndex={-1}>
                                                                                         <span></span>
-                                                                                    </a>
+                                                                                    </a> */}
                                                                                     <iframe src={items.video_url} width="100%" height="269px">
                                                                                     </iframe>
                                                                                 </div>
