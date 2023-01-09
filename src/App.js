@@ -11,6 +11,8 @@ import { ShopByBrand } from './pages/ShopByBrand';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Cart } from './pages/Cart';
+import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 
 
 const App = () => {
@@ -25,6 +27,8 @@ const App = () => {
           <Route path='products/:collection_slug' element={<Collection />} />
           <Route path='brand' element={<ShopByBrand />} />
           <Route path='cart' element={<Cart />} />
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

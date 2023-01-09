@@ -4425,3 +4425,84 @@
             width: 200px;
             border-radius: 4px;
         }
+
+        .form-data.sbm input[type="submit"] {
+            border: 2px solid #212363;
+            border-radius: 4px;
+            padding: 10px 20px;
+            background-color: #212363;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            font-family: 'Quicksand', sans-serif;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .form-data.sbm input[type="submit"]:hover {
+            transition: all 0.3s ease;
+            border: 2px solid #000;
+            color: #fff;
+            background-color: #000;
+        }
+        
+        .user-regster a {
+            color: #212363;
+            font-weight: 600;
+        }
+
+        .frm-fields h2 {
+            font-family: 'Mulish', sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            line-height: 48px;
+            color: #212363;
+        }
+        
+        .dhoni-bgm h2 span {
+            font-weight: 700;
+            font-size: 32px;
+        }
+
+        .row.fully-bxn input {
+            height: 50px;
+            border: 2px solid #212363;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 23px;
+            font-family: 'Mulish', sans-serif;
+            color: #8D8D8D;
+            width: 100%;
+        }
+
+        .row.fully-bxn {
+            border-radius: 5px;
+            background-color: #fff;
+            overflow: hidden;
+            box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.22);
+        }
+
+        .dhoni-bgm {
+            background: rgba(0, 0, 0, 0) url("/assets/images/login.jpg") no-repeat scroll center center;
+            background-size: cover;
+            min-height: 535px;
+            padding: 40px 35px;
+        }
+        
+        .dhoni-bgm.hgt-flx {
+            min-height: 620px;
+        }
+
+        .dhoni-bgm h2 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 48px;
+            color: #fff;
+        }
+
+        .cir-frm {
+            background-color: #fff;
+            padding: 45px 35px;
+        }

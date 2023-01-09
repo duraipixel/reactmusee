@@ -87,8 +87,10 @@ export const CollectionControlTunes = () => {
 
                                                 </div>
                                                 <div className="prdt-nameprc">
-                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
-                                                    ₹{item.sale_prices.price}
+                                                    <h4>{item.product_name}</h4>
+                                                    <h5>{item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
+                                                        ₹{item.sale_prices.price}
+                                                    </h5>
                                                 </div>
                                             </div>
                                         </Link>
