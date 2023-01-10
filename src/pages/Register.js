@@ -1,62 +1,130 @@
-import React, { Fragment } from 'react'
-import { Link } from 'react-router-dom';
+import React, { Fragment, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export const Register = () => {
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+        reset  
+    } = useForm();
+
+    const navigate = useNavigate();
+    const [formLoader, setFormLoader] = useState(false);
+
+    const onSubmit = (data) => {
+        registerCustomer(data);
+    }; // your form submit function which will invoke after successful validation
+
+    async function registerCustomer(formData) {
+        setFormLoader(true);
+        axios({
+            url: window.API_URL + '/register/customer',
+            method: 'POST',
+            data: formData,
+        }).then((res) => {
+            setFormLoader(false);
+            if( res.data.error == 1 ) {
+                let error_message = res.data.message;
+                error_message.forEach(x =>  toast.error(x, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                }));
+                reset();
+            } else {
+                toast.success( 'Register Successfull, Please try to login', {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+                setTimeout(() => {
+                    navigate('/login');
+                }, 300);
+              
+            }
+        }).catch((err) => {
+
+        })
+    }
+
     return (
         <Fragment>
-            <section class="tab-of-sectors lgon-pge">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-9 col-md-9 col-sm-9">
-                            <div class="row fully-bxn g-0">
-                                <div class="col-lg-6">
-                                    <div class="dhoni-bgm hgt-flx">
-                                        <div class="common-heading">
+            <section className="tab-of-sectors lgon-pge">
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-9 col-md-9 col-sm-9">
+                            <div className="row fully-bxn g-0">
+                                <div className="col-lg-6">
+                                    <div className="dhoni-bgm hgt-flx">
+                                        <div className="common-heading">
                                             <h2>
                                                 Welcome to<br /> <span>Musee Musical</span>
                                             </h2>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="cir-frm">
-                                        <form>
-                                            <div class="frm-fields row clearfix">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    <div class="common-heading">
+                                <div className="col-lg-6">
+                                    <div className="cir-frm">
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            <div className="frm-fields row clearfix">
+                                                <div className="col-lg-12 col-md-12 col-sm-12">
+                                                    <div className="common-heading">
                                                         <h2>
                                                             Register <span> Here! </span>
                                                         </h2>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="form-data col-lg-12 mb-3">
-                                                            <input class="form-control" type="text" name="name" placeholder="Full Name" />
+                                                    <div className="row">
+                                                        <div className="form-data col-lg-12 mb-3">
+                                                            <input className="form-control" type="text" {...register("firstName", { required: "Name is required", maxLength: 20 })} placeholder="Full Name" />
+                                                            <ErrorMessage errors={errors} name="firstName" as="p" />
                                                         </div>
-                                                        <div class="form-data col-lg-12 mb-3">
-                                                            <input class="form-control" type="text" name="name" placeholder="E-mail" />
+                                                        <div className="form-data col-lg-12 mb-3">
+                                                            <input className="form-control" type="email" {...register("email", {
+                                                                required: "Email is required", pattern: {
+                                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                                    message: "Invalid email address"
+                                                                }
+                                                            })} placeholder="E-mail" />
+                                                            <ErrorMessage errors={errors} name="email" as="p" />
                                                         </div>
-                                                        <div class="form-data col-lg-12 mb-3">
-                                                            <input class="form-control" type="text" name="name" placeholder="Password" />
+                                                        <div className="form-data col-lg-12 mb-3">
+                                                            <input className="form-control" type="text" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
+                                                            <ErrorMessage errors={errors} name="password" as="p" />
                                                         </div>
-                                                        <div class="form-data col-lg-12 mb-3">
-                                                            <input class="form-control" type="text" name="name" placeholder="Re-Enter Password" />
+                                                        <div className="form-data col-lg-12 mb-3">
+                                                            <input className="form-control" type="text" {...register("confirmPassword", {
+                                                                required: "Confirm Password is required", validate: (val: string) => {
+                                                                    if (watch('password') != val) {
+                                                                        return "Your password does not match";
+                                                                    }
+                                                                },
+                                                            })} placeholder="Re-Enter Password" />
+                                                            <ErrorMessage errors={errors} name="confirmPassword" as="p" />
                                                         </div>
-                                                        <div class="form-data sbm col-lg-12 mb-3">
-                                                            <input type="submit" name="submit" value="Sign Up" />
+                                                        <div className="form-data sbm col-lg-12 mb-3">
+                                                            {/* <input type="submit" name="submit" value="Sign Up" /> */}
+                                                            <button type='submit' disabled={formLoader} >
+                                                                {formLoader && (
+                                                                    <span className="spinner-grow spinner-grow-sm"></span>
+                                                                )} Sign Up
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-12 text-center p-0">
-                                                        <div class="mid-poart">
+                                                    <div className="col-lg-12 text-center p-0">
+                                                        <div className="mid-poart">
                                                             <h5>or</h5>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-12 text-center p-0">
-                                                        <div class="login-btn">
+                                                    <div className="col-lg-12 text-center p-0">
+                                                        <div className="login-btn">
                                                             <span> Login with <a href=""><img src="/assets/images/google.png" /></a> <a href=""><img src="/assets/images/facebook.png" /></a> </span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-12 text-center mt-3">
-                                                        <div class="user-regster">
+                                                    <div className="col-lg-12 text-center mt-3">
+                                                        <div className="user-regster">
                                                             Already have an account?
                                                             <Link to="/login"> Login Here! </Link>
                                                         </div>

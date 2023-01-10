@@ -16,7 +16,7 @@ export default function HomeCarousel() {
     useEffect(()=>{
         dispatch(fetchBanners());
     }, []);
-    console.log(banner);
+    
   return (
     <Fragment>
          <div id="homeCarousel" className="carousel slide" data-bs-ride="carousel" data-bs-touch="true">

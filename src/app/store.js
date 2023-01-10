@@ -5,6 +5,7 @@ import topMenuSlice from './reducer/topMenuSlice'
 import brandSlice from './reducer/brandSlice';
 import productFilterSlice from './reducer/productFilterSlice';
 import bannerSlice from './reducer/bannerSlice';
+import customerSlice from './reducer/customerSlice';
 import { cartReducer } from './reducer/cartSlice';
 
 import storage from 'redux-persist/lib/storage';
@@ -19,13 +20,16 @@ import {
   REGISTER,
 } from 'redux-persist'
 
+import { attemptedCartReducer } from './reducer/attemptedCartSlice';
+
 const persistConfig = {
   key: 'root',
   storage,
+  
 }
 
 const persistedReducer = persistReducer(persistConfig, cartReducer)
-
+const persistedAttemptedReducer = persistReducer(persistConfig, attemptedCartReducer)
 
 export const store = configureStore({
   reducer: {
@@ -33,10 +37,12 @@ export const store = configureStore({
     'topmenu': topMenuSlice,
     'brands': brandSlice,
     'menus': menuSlice,
-    'products': productFilterSlice,
+    'products': productFilterSlice,    
     'banners': bannerSlice,
-    'cart':persistedReducer
-
+    'cart':persistedReducer,    
+    'attempt_cart': persistedAttemptedReducer,
+    'customer': customerSlice,
+   
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

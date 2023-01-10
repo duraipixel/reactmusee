@@ -1,52 +1,67 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { CartButton } from '../components/Button/CartButton';
 import { FrequentlyPurchased } from '../components/Product/FrequentlyPurchased';
 import { ImagePane } from '../components/Product/ImagePane';
 import { Specification } from '../components/Product/Specification';
 import { RelatedProduct } from './../components/Product/RelatedProduct';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../app/reducer/cartSlice';
+import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 
-
-
-export const ProductDetail = () => {
+export const ProductDetail = () => {  
     
+    const [localCustomerSession, setLocalCustomerSession] = useState(null);
    
     const [productInfo, SetProductInfo] = useState(null);
-    const [cartCount, SetCartCount] = useState(0);
     const { product_url } = useParams();
     const dispatch  = useDispatch();
+    const navigate = useNavigate();
+
+    const setUserData = () => {
+        setLocalCustomerSession( window.localStorage.getItem('customer') );
+    }
+
+    useEffect(() => {
+        setUserData();
+    }, [])
+
+
     function getProductsInfo() {
 
         fetch(window.API_URL + '/get/products/by/slug/' + product_url)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data, 'from server')
                 SetProductInfo(data)
             })
             .catch((err) => {
-                // console.log(err.message)
             });
     }
+     
+    // console.log(localCustomerSession, 'localCustomerSession');
 
     const handleAddToCart = (product) => {
-       console.log('clickde add');
-        dispatch(addToCart(product));
         
+        if( localCustomerSession ) {
+            dispatch(addToCart(product));
+        } else {
+            
+            toast.error('Login to add Carts', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+            
+            dispatch(attemptToCart(product));
+            setTimeout(() => {
+                navigate('/login');
+            }, 200);
+        }
     }
 
-  
-
     useEffect(() => {
-        console.log(product_url, 'product_url');
-        
         getProductsInfo();
     }, [])
-
-
-    
 
     return (
         <Fragment>
@@ -89,18 +104,18 @@ export const ProductDetail = () => {
                                                 </h4>
                                             </div>
                                             <div>
-                                                <div className='cart-qty-pane'>
+                                                <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
                                                     <button><img src="/assets/images/sub.png" /></button>
                                                     <span>1</span>
                                                     <button><img src="/assets/images/add.png" /></button>
                                                 </div> 
                                             </div>
-                                            <div className={`flow-btns ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
+                                            <div className={`flow-btns `}>
                                                 <ul>
-                                                    <li className="oly-btn">
-                                                    <CartButton product={productInfo} add={handleAddToCart} />
+                                                    <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                        <CartButton product={productInfo} add={handleAddToCart} />
                                                     </li>
-                                                    <li className="oly-btn">
+                                                    <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
                                                         <a href="">Book Video Shopping</a>
                                                     </li>
                                                 </ul>
@@ -213,7 +228,7 @@ export const ProductDetail = () => {
             }
 
             {
-                productInfo !== null && productInfo.related_products && (
+                productInfo !== null && productInfo.related_products && productInfo.related_products.length > 0 && (
                     <section className="similar-products new-arrivals pt-0">
                         <div className="container">
                             <div className="row">

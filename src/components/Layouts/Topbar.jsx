@@ -1,24 +1,33 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getTotals } from '../../app/reducer/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { logoutCustomer } from '../../app/reducer/customerSlice';
+import { clearCart } from '../../app/reducer/cartSlice';
+import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 
-export default function Topbar({ isTopPage }) {
-
+export default function Topbar({ isTopPage }) { 
+    
+    const customer = useSelector((state) => state.customer);
     const cart = useSelector((state) => state.cart);
-    const [cartCount, setCartCount] = useState(0);
+    const dispatch = useDispatch();
 
     const getTotalQuantity = () => {
         let total = 0
-        console.log(cart, 'cart datat');
         cart.cart.length > 0 && cart.cart.forEach(item => {
             total += item.quantity
         })
-        // setCartCount(total);
         return total
     }
-    console.log( 'getTotalQuantity', getTotalQuantity());
 
+    const logout = () => {
+        localStorage.removeItem('customer');
+        dispatch(logoutCustomer());
+        dispatch(clearCart());
+        dispatch(clearAttemptItem())
+    }
+
+
+    
     return (
         <Fragment>
             <div className={`top-bar ${isTopPage ? "top-fix" : ""}`} >
@@ -60,8 +69,19 @@ export default function Topbar({ isTopPage }) {
                                             <span className={`cart-tpimg ${getTotalQuantity() > 0 ? '' : 'hide'}`}>{getTotalQuantity()}</span>
                                         </li>
                                         <li>
-                                            <a href="my-account.html"><img src="/assets/images/user.png" alt="" /></a>
+                                            <Link to={`${ customer.value ? '/profile' : '/login'}`}>
+                                                <img src="/assets/images/user.png" alt="" />
+                                            </Link>
                                         </li>
+                                        {
+                                            customer.value ? 
+                                        
+                                        <li>
+                                            <span onClick={()=> logout()}>
+                                                <img src="/assets/images/logout.png" alt="" />
+                                            </span>
+                                        </li>
+                                        : null }
                                     </ul>
                                 </div>
 
