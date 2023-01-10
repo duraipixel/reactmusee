@@ -46,7 +46,7 @@ export const FrequentlyPurchased = () => {
                                 <a href=""> Browse All <img src="/assets/images/nxt-w.png" /></a>
                             </div>
                         </div>
-                        <Slider className="arrivals-slider" {...settings}>
+                        <Slider className="keyboards-slider arrivals-slider" {...settings}>
 
                             <div className="arrival-product">
                                 <div className="prdt-img">

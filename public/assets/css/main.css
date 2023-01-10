@@ -592,6 +592,7 @@
             margin-right: 33px;
         }
 
+        .top-icons li:last-child{margin-right: 0px;}
         .top-search input[type=search] {
             width: 100%;
             border: 0px solid #d4d4d4;
@@ -701,6 +702,7 @@
         .arrivals-slider {margin: 0px -30px;} 
 
         .recently-viewed .arrivals-slider {margin: 0px -15px;}
+        .control-tunes.inside-pge .keyboards-slider {margin: 0px -15px;}
 
         .favorite-trends-slider .slick-slide div:first-child {margin: 0 !important;}
         .favorite-trends-slider .slick-slide > div{padding: 0px 16px 15px;}
@@ -712,7 +714,7 @@
         .keyboards-slider .slick-slide div:first-child {margin: 0px 0px !important;} 
         .keyboards-slider .slick-slide > div{padding: 0px 16px 15px;} 
         .keyboards-slider {margin: 0px -30px;}
-
+        .best-keyboards .keyboards-slider {margin: 0px -15px;}
         
 
 
@@ -900,7 +902,7 @@
 
         .next-jump a {
             font-weight: 700;
-            padding-right: 55px;
+            padding-right: 30px;
             font-size: 18px;
             position: relative;
             text-transform: uppercase;
@@ -911,7 +913,7 @@
 
         .next-jump a img {
             position: absolute;
-            right: 30px;
+            right:3px;
             top: 3px;
         }
 
@@ -1460,7 +1462,7 @@
 
         .next-jump {
             position: relative;
-            top: 16px;
+            top: 3px;
         }
 
         .mobile-footer {
@@ -1553,12 +1555,12 @@
         }
 
         .filter-lists input[type="search"] {
-            width: 80%;
+            width: 100%;
             border: 0px solid #d4d4d4;
             height: 45px;
             padding: 15px 35px 15px 15px;
             border-radius: 4px;
-            background: #fff url("../images/search.svg") no-repeat scroll 97% center;
+            background: #fff url("../images/search.svg") no-repeat scroll 94% center;
             margin-top: 0px;
             transition: all .3s ease;
             margin-bottom: 20px;
@@ -1653,7 +1655,7 @@
 
         .filter-lists ul li {
             display: inline-block;
-            width: 100%;
+            width: 80%;
             font-weight: 500;
             font-size: 18px;
             font-family: 'Mulish', sans-serif;
@@ -1744,6 +1746,26 @@
         }
 
         .load-btn a:hover {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #000;
+        }
+
+        .load-btn button {
+            background-color:transparent;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 12px 30px;
+            line-height: 20px;
+            display: inline-block;
+            font-family: 'Quicksand', sans-serif;
+            color: #1A1A1A;
+            border: 2px solid #1A1A1A;
+            border-radius: 4px;
+            transition: all 0.5s ease;
+        }
+
+        .load-btn button:hover {
             background-color: #000;
             color: #fff;
             border: 2px solid #000;
@@ -2272,6 +2294,7 @@
             line-height: 35px;
             font-family: 'Mulish', sans-serif;
             color: #212363;
+            margin-bottom: 20px;
         }
 
         .flow-btns ul {
@@ -2285,6 +2308,27 @@
             margin-right: 20px;
             display: inline-block;
         }
+
+        li.oly-btn button {
+            font-weight: 600;
+            font-size: 16px;
+            padding: 12px 30px;
+            line-height: 20px;
+            display: inline-block;
+            font-family: 'Quicksand', sans-serif;
+            color: #1A1A1A !important;
+            border: 2px solid #1A1A1A;
+            border-radius: 4px;
+            background-color: transparent !important;
+        }
+
+        li.oly-btn button:hover {
+            background-color: #000 !important;
+            color: #fff !important;
+            border: 2px solid #000 !important;
+        }
+
+        .cart-qty-pane{margin-bottom: 15px;}
 
         li.oly-btn a {
             font-weight: 600;
@@ -2344,8 +2388,19 @@
             font-family: 'Quicksand', sans-serif;
             color: #000000;
             display: block;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
+            margin-top: 15px;
         }
+
+        .cart-qty-pane button {
+            background: transparent !important;
+            box-shadow: none;
+            border: 0;
+          }
+
+          .cart-qty-pane span {
+            margin: 0px 5px;
+          }
 
         .abt-prduct ul {
             padding: 0px;
@@ -4447,23 +4502,17 @@
             line-height: 20px;
             background: none;
             border: none;
-        }
-
-
-        .menu-link.active {
-            border-bottom: 2px solid;
-        }
-
+        }  
 
         .clear_filter {
-
-            text-align: center;
-
-            color: #fff4f4;
-            background: black;
-            font-weight: 700;
-            width: 200px;
-            border-radius: 4px;
+            font-weight: 500;
+            font-size: 16px;
+            font-family: 'Mulish', sans-serif;
+            line-height: 20px;
+            text-decoration-line: underline;
+            color: #212363 !important;
+            cursor: pointer;
+            margin-bottom: 20px;
         }
 
         .form-data.sbm input[type="submit"] {

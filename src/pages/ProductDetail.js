@@ -88,22 +88,22 @@ export const ProductDetail = () => {
                                                     ₹{productInfo.sale_prices.price}
                                                 </h4>
                                             </div>
-                                            <div className={`flow-btns ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
-                                                <ul>
-                                                    <li className="oly-btn">
-                                                        <a href="">Book Video Shopping</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div >
+                                            <div>
                                                 <div className='cart-qty-pane'>
                                                     <button><img src="/assets/images/sub.png" /></button>
                                                     <span>1</span>
                                                     <button><img src="/assets/images/add.png" /></button>
-                                                </div>
-                                                <div>
+                                                </div> 
+                                            </div>
+                                            <div className={`flow-btns ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
+                                                <ul>
+                                                    <li className="oly-btn">
                                                     <CartButton product={productInfo} add={handleAddToCart} />
-                                                </div>
+                                                    </li>
+                                                    <li className="oly-btn">
+                                                        <a href="">Book Video Shopping</a>
+                                                    </li>
+                                                </ul>
                                             </div>
 
                                             <div className="abt-prduct">
