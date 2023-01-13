@@ -5,14 +5,16 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { addToCart } from '../app/reducer/cartSlice';
+import { fetchCarts } from '../app/reducer/cartSlice';
 import { removeAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { loginCustomer } from '../app/reducer/customerSlice';
+import { fetchAddress } from '../app/reducer/customerAddressSlice';
 
 export const Login = () => {
 
     const attempt_cart = useSelector((state) => state.attempt_cart);
     const dispatch = useDispatch();
+
     // const [localCustomerSession, setLocalCustomerSession] = useState(JSON.parse(window.localStorage.getItem('customer') || null));
     const {
         register,
@@ -28,7 +30,62 @@ export const Login = () => {
     const onSubmit = (data) => {
         doLoginCustomer(data);
     };
-    
+
+    async function fetchCartProducts() {
+
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+
+        await axios({
+            url: window.API_URL + '/get/cart',
+            method: 'POST',
+            data: { customer_id: customer.id },
+        }).then((res) => {
+
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
+    }
+
+    const setCustomerAddress = () => {
+        let address = JSON.parse(window.localStorage.getItem('addres'));
+                    
+        dispatch(fetchAddress(address ));
+        console.log('address assigned')   
+    }
+
+    async function addCartProduct(item) {
+
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        const res_data = { ...item, customer_id: customer.id, quantity: 1 };
+
+        await axios({
+            url: window.API_URL + '/add/cart',
+            method: 'POST',
+            data: res_data,
+        }).then((res) => {
+
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
+    }
+
+    async function getSiteInformation() {
+        await axios({
+            url: window.API_URL + '/get/site/info',
+            method: 'GET',
+        }).then((res) => {
+            localStorage.setItem('site_info', JSON.stringify(res.data));
+        }).catch((err) => {
+
+        })
+    }
+
     async function doLoginCustomer(formData) {
         setLoginFormLoader(true);
         axios({
@@ -40,7 +97,7 @@ export const Login = () => {
             if (res.data.error == 1) {
 
                 let error_message = res.data.message;
-                toast.error( error_message, {
+                toast.error(error_message, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
                 reset();
@@ -51,17 +108,26 @@ export const Login = () => {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
 
-                if( res.data.customer_data ) {
-                    
-                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
-                    // console.log(JSON.parse(window.localStorage.getItem('customer') ), 'from login page')
-                    dispatch( loginCustomer( JSON.parse(window.localStorage.getItem('customer')) ) );
-                    // setLocalCustomerSession( JSON.parse(window.localStorage.getItem('customer') ) );
+                if (res.data.customer_data) {
 
-                    if( attempt_cart.attempt_cart ) {
-                        dispatch( addToCart( attempt_cart.attempt_cart ));
+                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
+
+                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
+
+                    
+                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
+
+                    
+                    
+                    fetchCartProducts();
+                    setCustomerAddress()
+
+                    if (attempt_cart.attempt_cart.length > 0) {
+                        addCartProduct(attempt_cart.attempt_cart);
                         dispatch(removeAttemptItem(attempt_cart.attempt_cart))
                     }
+
+                    getSiteInformation();
                 }
                 setTimeout(() => {
                     navigate('/');

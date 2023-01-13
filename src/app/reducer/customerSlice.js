@@ -7,7 +7,6 @@ export const customerSlice = createSlice({
   },
   reducers: {
     loginCustomer: (state, action ) => {
-        console.log( 'custome rsession ', {...action.payload});
       state.value = {...action.payload};
     },
     logoutCustomer: (state, action) => {

@@ -1,33 +1,25 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
+import axios from 'axios';
 import { CartButton } from '../components/Button/CartButton';
 import { FrequentlyPurchased } from '../components/Product/FrequentlyPurchased';
 import { ImagePane } from '../components/Product/ImagePane';
 import { Specification } from '../components/Product/Specification';
 import { RelatedProduct } from './../components/Product/RelatedProduct';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../app/reducer/cartSlice';
+
 import { attemptToCart } from '../app/reducer/attemptedCartSlice';
+import { fetchCarts } from '../app/reducer/cartSlice';
 
 export const ProductDetail = () => {  
     
-    const [localCustomerSession, setLocalCustomerSession] = useState(null);
-   
     const [productInfo, SetProductInfo] = useState(null);
+    const [productSelectedQuantity, setProductSelectedQuantity] = useState(1);
+    const customer = useSelector((state) => state.customer);
     const { product_url } = useParams();
     const dispatch  = useDispatch();
     const navigate = useNavigate();
-
-    const setUserData = () => {
-        setLocalCustomerSession( window.localStorage.getItem('customer') );
-    }
-
-    useEffect(() => {
-        setUserData();
-    }, [])
-
 
     function getProductsInfo() {
 
@@ -39,13 +31,30 @@ export const ProductDetail = () => {
             .catch((err) => {
             });
     }
-     
-    // console.log(localCustomerSession, 'localCustomerSession');
 
+    const reduceCart = () => {
+        if ( productSelectedQuantity == 1 ) {
+
+        } else {
+            setProductSelectedQuantity(productSelectedQuantity-1);
+        }
+    }
+
+    const increaseCart = () => {
+        
+        if( productInfo.max_quantity == productSelectedQuantity ) {
+            toast.error('Product quantity reached max limit', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+        } else {
+            setProductSelectedQuantity(productSelectedQuantity+1);
+        }
+    }
+     
     const handleAddToCart = (product) => {
         
-        if( localCustomerSession ) {
-            dispatch(addToCart(product));
+        if( customer.value ) {
+            addCartProduct(product);
         } else {
             
             toast.error('Login to add Carts', {
@@ -57,6 +66,27 @@ export const ProductDetail = () => {
                 navigate('/login');
             }, 200);
         }
+    }
+
+    async function addCartProduct(item) {
+        
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        const res_data = {...item, customer_id:customer.id, quantity:productSelectedQuantity};
+        
+        await axios({
+                url: window.API_URL + '/add/cart',
+                method: 'POST',
+                data: res_data,
+              }).then((res) => {
+                toast.success('Product added to carts.', {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+                localStorage.setItem('cart', JSON.stringify(res.data) );
+                dispatch(fetchCarts( JSON.parse(window.localStorage.getItem('cart')) ))
+                
+              }).catch((err) => {
+      
+              })
     }
 
     useEffect(() => {
@@ -105,9 +135,9 @@ export const ProductDetail = () => {
                                             </div>
                                             <div>
                                                 <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
-                                                    <button><img src="/assets/images/sub.png" /></button>
-                                                    <span>1</span>
-                                                    <button><img src="/assets/images/add.png" /></button>
+                                                    <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
+                                                    <span >{productSelectedQuantity}</span>
+                                                    <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
                                                 </div> 
                                             </div>
                                             <div className={`flow-btns `}>
@@ -195,8 +225,8 @@ export const ProductDetail = () => {
                                                             <div className="row">
                                                                 {
                                                                     productInfo.videolinks.length > 0 ? (
-                                                                        productInfo.videolinks.map((items) => (
-                                                                            <div className="col-lg-4">
+                                                                        productInfo.videolinks.map((items, i) => (
+                                                                            <div className="col-lg-4" key={i}>
                                                                                 <div className="fav-img">
                                                                                     <img src="/assets/images/favorite/fav-1.jpg" />
                                                                                     {/* <a id="play-video" className="video-play-button" href="#" tabIndex={-1}>

@@ -18,6 +18,7 @@ import { PackageSupport } from '../components/Home/PackageSupport';
 import HomeCarousel from './../components/Carousel/HomeCarousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
+import { useLocation } from 'react-router-dom';
 
 
 export default function Home() {

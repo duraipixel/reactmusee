@@ -1,284 +1,274 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
+import { AddressForm } from '../components/Cart/AddressForm'
+import { CartDetails } from '../components/Cart/CartDetails'
+import { ProductDetails } from '../components/Cart/ProductDetails'
+import { ShippingAddress } from '../components/Cart/ShippingAddress'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from '@hookform/error-message';
 
 export const Cart = () => {
+    const cart = useSelector((state) => state.cart);
+    const [cartLength, setCartlength] = useState(0);
+    const [customerAddress, setCustomerAddress] = useState([]);
+    const [show, setShow] = useState(false);
+
+    const [formLoader, setFormLoader] = useState(false);
+    const [addressType, setAddressType] = useState([]);
+
+    let site_info = JSON.parse(window.localStorage.getItem('site_info'));
+    const customer = JSON.parse(window.localStorage.getItem('customer'));
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+        reset
+    } = useForm();
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    useEffect(() => {
+        if (Array.isArray(cart.cart.carts)) {
+            setCartlength(cart.cart.carts.length);
+        } else {
+            if (cart.cart.carts) {
+                setCartlength(Object.keys(cart.cart.carts).length);
+            }
+        }
+        if (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined') {
+
+            setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+        }
+    }, [])
+
+    const resetAddressForm = () => {
+        document.getElementById('address_form').reset();
+    }
+
+    const NumericOnly = (e) => {
+        const reg = /^[0-9\b]+$/
+        let preval = e.target.value
+        if (e.target.value === '' || reg.test(e.target.value)) return true
+        else e.target.value = preval.substring(0, (preval.length - 1))
+    }
+
+    const onSubmit = (data) => {
+        addAddress(data);
+    };
+
+    async function addAddress(formData) {
+
+        setFormLoader(true);
+        axios({
+            url: window.API_URL + '/add/customer/address',
+            method: 'POST',
+            data: formData,
+        }).then((res) => {
+            setFormLoader(false);
+            if (res.data.error == 1) {
+                let error_message = res.data.message;
+                error_message.forEach(x => toast.error(x, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                }));
+                reset();
+            } else {
+                toast.success(res.data.message, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+                });
+
+                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+
+            }
+        }).catch((err) => {
+        })
+    }
+
+    console.log(cart, 'cart');
+
     return (
         <Fragment>
-            <section class="shop-carts">
-                <div class="container">
-                    <div class="row">
+            <section className="shop-carts">
+                <div className="container">
+                    <div className="row">
 
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="common-heads text-center">
+                        <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="common-heads text-center">
                                 <h2>Shopping Cart</h2>
                             </div>
                         </div>
+                        {
+                            cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
+                                <>
+                                    <div className="col-lg-8">
+                                        <div className="finalcart-list">
 
-                        <div class="col-lg-8">
-                            <div class="finalcart-list">
-                                <table class="table table-bordered">
+                                            <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} />
 
-                                    <thead>
-                                        <tr>
-                                            <th>&nbsp;</th>
-                                            <th>Product</th>
-                                            <th>&nbsp;</th>
-                                            <th width="130">Quantity</th>
-                                            <th width="130">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <button><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </td>
-                                            <td>
-                                                <img src="/assets/images/sales-1.png" />
-                                            </td>
-                                            <td>
-                                                Yamaha PSR-I500 Portable Keyboard
-                                            </td>
-                                            <td>
-                                                <button><img src="/assets/images/sub.png" /></button>
-                                                <span>1</span>
-                                                <button><img src="/assets/images/add.png" /></button>
-                                            </td>
-                                            <td>
-                                                <span class="price"> ₹21,498 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <button><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </td>
-                                            <td>
-                                                <img src="/assets/images/sales-2.png" />
-                                            </td>
-                                            <td>
-                                                Yamaha FC5 Sustain Pedal for Keyboards and Pianos
-                                            </td>
-                                            <td>
-                                                <button><img src="/assets/images/sub.png" /></button>
-                                                <span>1</span>
-                                                <button><img src="/assets/images/add.png" /></button>
-                                            </td>
-                                            <td>
-                                                <span class="price"> ₹21,498 </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3" style={{border: '0px'}}>
-                                                Have a Coupon?
-                                                <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" maxlength="6" />
-                                                <a href="">Apply</a>
-                                            </td>
-                                            <td colspan="2" style={{textAlign: 'right',border: '0px'}}>
-                                                <button class="refreshing"> <img src="/assets/images/refresh.png" />
-                                                    Refresh Cart
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="shipping-addresss">
-                                    <h4>Select Shipping Address</h4>
-                                    <div class="">
-                                        <div class="load-btn">
-                                            <a href="javascript:void(0)" class="show-brands" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                Add New Address
-                                            </a>
-                                        </div>
+                                            <div className="shipping-addresss">
+                                                <h4>Select Shipping Address</h4>
+                                                <div className="">
+                                                    <div className="load-btn">
+                                                        <a href="javascript:void(0)" onClick={() => resetAddressForm()} className="show-brands" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Add New Address
+                                                        </a>
+                                                    </div>
 
-                                        <div class="load-btn del-btn">
-                                            <a href="javascript:void(0)" class="show-brands">
-                                                Delete Address
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="ship-list">
-                                        <h3>Ship to</h3>
-                                        <div class="line-spacer"></div>
-                                        <div class="addres-que customRadio">
-                                            <input type="radio" name="textEditor" id="addrs1" />
-                                                <label for="addrs1">
-                                                    <span>Kabir L</span>
-                                                    1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar West, Chennai, Tamil Nadu 600040
-                                                </label>
-                                        </div>
-                                        <div class="addres-que customRadio">
-                                            <input type="radio" name="textEditor" id="addrs2" />
-                                                <label for="addrs2">
-                                                    <span>Naya</span>
-                                                    Flat No-207, Eldams Square, 167/2, Eldams Road, Alwarpet, Chennai, Tamil Nadu  600018
-                                                </label>
-                                        </div>
-                                        <div class="addres-que customRadio">
-                                            <input type="radio" name="textEditor" id="addrs3" />
-                                                <label for="addrs3">
-                                                    <span>Inaya</span>
-                                                    01/02, Lalji Shopping Centre, S V Road, Borivali (West), Mumbai, Maharashtra 400092
-                                                </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                       
-
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog cstmzed">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Add a New Shipping Address</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form>
-                                            <h4>Contact Details</h4>
-                                            <div class="row">
-                                                <div class="mb-3 col-lg-6">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="Name" />
+                                                    <div className="load-btn del-btn">
+                                                        <a href="javascript:void(0)" className="show-brands">
+                                                            Delete Address
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="Mobile Number" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="Telephone Number" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <select class="form-control" id="enq" name="enq" placeholder="Telephone Number">
-                                                        <option value="">Address Type</option>
-                                                        <option value="office">Office</option>
-                                                        <option value="Home">Home</option>
-                                                    </select>
-                                                </div>
+                                                <ShippingAddress customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} />
                                             </div>
-                                            <h4>Address</h4>
-                                            <div class="row">
-                                                <div class="mb-3 col-lg-12">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="Building Number, Street Name & Locality" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="City" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <input type="text" class="form-control" id="recipient-name" placeholder="Pincode" />
-                                                </div>
-                                                <div class="mb-3 col-lg-6">
-                                                    <select class="form-control" id="enq" name="enq" placeholder="Telephone Number">
-                                                        <option value="">SelectState</option>
-                                                        <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                                        <option value="Assam">Assam</option>
-                                                        <option value="Bihar">Bihar</option>
-                                                        <option value="Chandigarh">Chandigarh</option>
-                                                        <option value="Chhattisgarh">Chhattisgarh</option>
-                                                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
-                                                        <option value="Daman and Diu">Daman and Diu</option>
-                                                        <option value="Delhi">Delhi</option>
-                                                        <option value="Lakshadweep">Lakshadweep</option>
-                                                        <option value="Puducherry">Puducherry</option>
-                                                        <option value="Goa">Goa</option>
-                                                        <option value="Gujarat">Gujarat</option>
-                                                        <option value="Haryana">Haryana</option>
-                                                        <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                                        <option value="Jharkhand">Jharkhand</option>
-                                                        <option value="Karnataka">Karnataka</option>
-                                                        <option value="Kerala">Kerala</option>
-                                                        <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                                        <option value="Maharashtra">Maharashtra</option>
-                                                        <option value="Manipur">Manipur</option>
-                                                        <option value="Meghalaya">Meghalaya</option>
-                                                        <option value="Mizoram">Mizoram</option>
-                                                        <option value="Nagaland">Nagaland</option>
-                                                        <option value="Odisha">Odisha</option>
-                                                        <option value="Punjab">Punjab</option>
-                                                        <option value="Rajasthan">Rajasthan</option>
-                                                        <option value="Sikkim">Sikkim</option>
-                                                        <option value="Tamil Nadu">Tamil Nadu</option>
-                                                        <option value="Telangana">Telangana</option>
-                                                        <option value="Tripura">Tripura</option>
-                                                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                                        <option value="Uttarakhand">Uttarakhand</option>
-                                                        <option value="West Bengal">West Bengal</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <Modal show={show} onHide={handleClose}>
+                                        {/* <AddressForm customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} handleClose={handleClose} /> */}
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Add a New Shipping Address</Modal.Title>
+                                        </Modal.Header>
+                                        <form onSubmit={handleSubmit(onSubmit)} id="address_form">
+                                            <Modal.Body>
+                                                <div className="modal-body">
+
+                                                    <h4>Contact Details</h4>
+                                                    <div className="row">
+                                                        <div className="mb-3 col-lg-6">
+                                                            <input type="text" className="form-control" {...register("contact_name", { required: "Name is required", maxLength: 50 })} id="contact_name" placeholder="Name" />
+                                                            <ErrorMessage errors={errors} name="contact_name" as="p" />
+                                                        </div>
+                                                        <div className="mb-3 col-lg-6">
+                                                            <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" onChange={NumericOnly} />
+                                                            <ErrorMessage errors={errors} name="mobile_no" as="p" />
+                                                        </div>
+                                                        <input type="hidden" name='customer_id' id="customer_id" value={customer.id} />
+                                                        <div className="mb-3 col-lg-6">
+                                                            <input className="form-control" type="email" {...register("email", {
+                                                                required: "Email is required", pattern: {
+                                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                                    message: "Invalid email address"
+                                                                }
+                                                            })} placeholder="E-mail" />
+                                                            <ErrorMessage errors={errors} name="email" as="p" />
+                                                        </div>
+                                                        <div className="mb-3 col-lg-6">
+                                                            <select className="form-control" id="address_type" {...register("address_type", { required: "Address type is required" })} placeholder="Telephone Number">
+                                                                <option value="">Address Type</option>
+                                                                {
+                                                                    addressType && addressType.length > 0 && addressType.map((item) => (
+                                                                        <option value={item.id}>{item.name}</option>
+                                                                    ))
+                                                                }
+                                                            </select>
+                                                            <ErrorMessage errors={errors} name="address_type" as="p" />
+                                                        </div>
+                                                    </div>
+                                                    <h4>Address</h4>
+                                                    <div className="row">
+                                                        <div className="mb-3 col-lg-12">
+                                                            <input type="text" className="form-control" id="address" {...register("address", { required: "Address is required" })} placeholder="Building Number, Street Name & Locality" />
+                                                            <ErrorMessage errors={errors} name="address" as="p" />
+                                                        </div>
+                                                        <div className="mb-3 col-lg-6">
+                                                            <input type="text" className="form-control" id="city" {...register("city", { required: "City is required" })} placeholder="City" />
+                                                            <ErrorMessage errors={errors} name="city" as="p" />
+                                                        </div>
+                                                        <div className="mb-3 col-lg-6">
+                                                            <input type="text" className="form-control" {...register("post_code", { required: "Post Code is required", maxLength: { value: 6, message: "Pincode is maximum 6 character" } })} id="post_code" placeholder="Pincode" onChange={NumericOnly} />
+                                                            <ErrorMessage errors={errors} name="post_code" as="p" />
+                                                        </div>
+                                                        <div className="mb-3 col-lg-6">
+                                                            <select className="form-control" id="state" {...register("state", { required: "State is required" })} >
+                                                                <option value="">SelectState</option>
+                                                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                                                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                                                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                                                <option value="Assam">Assam</option>
+                                                                <option value="Bihar">Bihar</option>
+                                                                <option value="Chandigarh">Chandigarh</option>
+                                                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                                                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                                                                <option value="Daman and Diu">Daman and Diu</option>
+                                                                <option value="Delhi">Delhi</option>
+                                                                <option value="Lakshadweep">Lakshadweep</option>
+                                                                <option value="Puducherry">Puducherry</option>
+                                                                <option value="Goa">Goa</option>
+                                                                <option value="Gujarat">Gujarat</option>
+                                                                <option value="Haryana">Haryana</option>
+                                                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                                                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                                                                <option value="Jharkhand">Jharkhand</option>
+                                                                <option value="Karnataka">Karnataka</option>
+                                                                <option value="Kerala">Kerala</option>
+                                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                                <option value="Maharashtra">Maharashtra</option>
+                                                                <option value="Manipur">Manipur</option>
+                                                                <option value="Meghalaya">Meghalaya</option>
+                                                                <option value="Mizoram">Mizoram</option>
+                                                                <option value="Nagaland">Nagaland</option>
+                                                                <option value="Odisha">Odisha</option>
+                                                                <option value="Punjab">Punjab</option>
+                                                                <option value="Rajasthan">Rajasthan</option>
+                                                                <option value="Sikkim">Sikkim</option>
+                                                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                                                <option value="Telangana">Telangana</option>
+                                                                <option value="Tripura">Tripura</option>
+                                                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                                <option value="Uttarakhand">Uttarakhand</option>
+                                                                <option value="West Bengal">West Bengal</option>
+                                                            </select>
+                                                            <ErrorMessage errors={errors} name="state" as="p" />
+                                                        </div>
+                                                    </div>
+                                                    {/* <div className="modal-footer text-center">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                            <button type='submit' className="btn btn-primary" disabled={formLoader} >
+                                {formLoader && (
+                                    <span className="spinner-grow spinner-grow-sm"></span>
+                                )} Save
+                            </button>
+                        </div> */}
+                                                </div>
+
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button variant="secondary" onClick={handleClose}>
+                                                    Cancel
+                                                </Button>
+                                                <Button variant="primary" onClick={handleClose} disabled={formLoader} >
+                                                    {formLoader && (
+                                                        <span className="spinner-grow spinner-grow-sm"></span>
+                                                    )}
+                                                    Save Changes
+                                                </Button>
+                                            </Modal.Footer>
                                         </form>
+                                    </Modal>
+
+                                    <div className="col-lg-4">
+                                        <CartDetails cart_total={cart.cart.cart_total} />
                                     </div>
-                                    <div class="modal-footer text-center">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Save</button>
+                                </>
+                                :
+                                <div className="col-lg-12">
+                                    <div className="finalcart-list">
+                                        <h3> Your cart is empty. </h3>
+                                        <Link to='/' > Go to Purchase </Link>
                                     </div>
                                 </div>
-                            </div>
-                        </div>                       
-
-                        <div class="col-lg-4">
-                            <div class="cart-boduy">
-                                <h4>Cart Details</h4>
-                                <h5>Cart Subtotal</h5>
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td>Sub Total</td>
-                                            <td>₹22,897</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Taxes</td>
-                                            <td>₹4,118.22</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="line-spacer"></div>
-                                <h5>Select Shipping Speed</h5>
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td>Ship To:</td>
-                                            <td><a href="">Changes Address</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">Kabir L <br /> 1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar West, Chennai, Tamil Nadu 600040</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="table table-borderless customRadio">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <input type="radio" name="textEditor" id="sublime" /><label for="sublime">Standard Shipping</label>
-                                            </td>
-                                            <td>
-                                                Free
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="220">
-                                                <input type="radio" name="textEditor" id="nextime" /><label for="nextime">2 Days Express Shipping</label>
-                                            </td>
-                                            <td>
-                                                ₹500
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="line-spacer"></div>
-                                <table class="table table-borderless end-point">
-                                    <tbody>
-                                        <tr>
-                                            <td>Grand Total</td>
-                                            <td> ₹27,515.22 </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><button>Proceed to Checkout</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        }
 
                     </div>
                 </div>

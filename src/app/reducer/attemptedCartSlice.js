@@ -8,25 +8,11 @@ const attemptedCartSlice = createSlice({
   },
   reducers: {
     attemptToCart: (state, action) => {
-      
       const itemInCart = state.attempt_cart.find((item) => item.id === action.payload.id);
-      console.log('atemsote processing');
       if (itemInCart) {
         itemInCart.quantity++;
       } else {
         state.attempt_cart.push({ ...action.payload, quantity: 1 });
-      }
-    },
-    incrementQuantity: (state, action) => {
-      const item = state.attempt_cart.find((item) => item.id === action.payload);
-      item.quantity++;
-    },
-    decrementQuantity: (state, action) => {
-      const item = state.attempt_cart.find((item) => item.id === action.payload);
-      if (item.quantity === 1) {
-        item.quantity = 1
-      } else {
-        item.quantity--;
       }
     },
     removeAttemptItem: (state, action) => {
@@ -41,7 +27,7 @@ const attemptedCartSlice = createSlice({
 
 export const attemptedCartReducer = attemptedCartSlice.reducer;
 export const {
-    attemptToCart,
+  attemptToCart,
   removeAttemptItem,
   clearAttemptItem,
 } = attemptedCartSlice.actions;

@@ -6,7 +6,7 @@ import brandSlice from './reducer/brandSlice';
 import productFilterSlice from './reducer/productFilterSlice';
 import bannerSlice from './reducer/bannerSlice';
 import customerSlice from './reducer/customerSlice';
-import { cartReducer } from './reducer/cartSlice';
+import cartReducer from './reducer/cartSlice';
 
 import storage from 'redux-persist/lib/storage';
 import {
@@ -21,14 +21,15 @@ import {
 } from 'redux-persist'
 
 import { attemptedCartReducer } from './reducer/attemptedCartSlice';
+import couponSlice from './reducer/couponSlice';
+import { customerAddressSlice } from './reducer/customerAddressSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
   
 }
-
-const persistedReducer = persistReducer(persistConfig, cartReducer)
+// const persistedReducer = persistReducer(persistConfig, cartReducer)
 const persistedAttemptedReducer = persistReducer(persistConfig, attemptedCartReducer)
 
 export const store = configureStore({
@@ -39,9 +40,11 @@ export const store = configureStore({
     'menus': menuSlice,
     'products': productFilterSlice,    
     'banners': bannerSlice,
-    'cart':persistedReducer,    
+    'cart':cartReducer,    
     'attempt_cart': persistedAttemptedReducer,
     'customer': customerSlice,
+    'coupon': couponSlice,
+    'address': customerAddressSlice,
    
   },
   middleware: (getDefaultMiddleware) =>

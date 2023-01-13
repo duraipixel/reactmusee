@@ -1,32 +1,47 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutCustomer } from '../../app/reducer/customerSlice';
-import { clearCart } from '../../app/reducer/cartSlice';
 import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
+import { clearCart } from '../../app/reducer/cartSlice';
 
 export default function Topbar({ isTopPage }) { 
     
     const customer = useSelector((state) => state.customer);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [cartCount, setCartCount] = useState(0);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
     const getTotalQuantity = () => {
+        
         let total = 0
-        cart.cart.length > 0 && cart.cart.forEach(item => {
-            total += item.quantity
+        cart.cart.carts && Object.entries(cart.cart.carts).map((key,item) => {
+           
+            return total += cart.cart.carts[item].quantity;
         })
+        
+        setCartCount(total);
         return total
     }
 
+    useEffect(() => {
+        getTotalQuantity();
+    }, [cart])
+    
+
     const logout = () => {
+
         localStorage.removeItem('customer');
-        dispatch(logoutCustomer());
         dispatch(clearCart());
+        dispatch(logoutCustomer());        
         dispatch(clearAttemptItem())
+
+        if( location.pathname == '/cart' ) {
+            navigate('/');
+        }
     }
-
-
     
     return (
         <Fragment>
@@ -66,7 +81,7 @@ export default function Topbar({ isTopPage }) {
                                             <Link to="cart">
                                                 <img src="/assets/images/cart.png" alt="" />
                                             </Link>
-                                            <span className={`cart-tpimg ${getTotalQuantity() > 0 ? '' : 'hide'}`}>{getTotalQuantity()}</span>
+                                            <span className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                                         </li>
                                         <li>
                                             <Link to={`${ customer.value ? '/profile' : '/login'}`}>
