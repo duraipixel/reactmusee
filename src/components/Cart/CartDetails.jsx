@@ -2,9 +2,9 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { ShippingFee } from './ShippingFee'
 import { useSelector } from 'react-redux';
 
-export const CartDetails = ({cart_total}) => {
-    const coupon = useSelector((state) => state.coupon);
-    
+export const CartDetails = ({ cart_total, shippingAddress, proceedCheckout }) => {
+    // const coupon = useSelector((state) => state.coupon);
+
     return (
         <Fragment >
             <div className="cart-boduy">
@@ -21,28 +21,38 @@ export const CartDetails = ({cart_total}) => {
                             <td>₹{cart_total.tax_total}</td>
                         </tr>
                         {
-                           cart_total.coupon_amount ? 
-                            <tr>
-                                <td>Coupon {cart_total.coupon_code} (-)</td>
-                                <td>₹{cart_total.coupon_amount}</td>
-                            </tr> 
-                           : null
+                            cart_total.coupon_amount ?
+                                <tr>
+                                    <td>Coupon {cart_total.coupon_code} (-)</td>
+                                    <td>₹{cart_total.coupon_amount}</td>
+                                </tr>
+                                : null
                         }
                     </tbody>
                 </table>
                 <div className="line-spacer"></div>
-                <h5>Select Shipping Speed</h5>
+                
                 <table className="table table-borderless">
                     <tbody>
                         <tr>
                             <td>Ship To:</td>
-                            <td><a href="">Changes Address</a></td>
+                            {/* <td><a href="">Changes Address</a></td> */}
                         </tr>
                         <tr>
-                            <td colSpan="2">Kabir L <br /> 1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar West, Chennai, Tamil Nadu 600040</td>
+                            {shippingAddress &&
+                                <td colSpan="2">
+                                    {shippingAddress.name}
+                                    <br /> {shippingAddress.address_line1},
+                                    {shippingAddress.city} 
+                                    {shippingAddress.state} 
+                                    {shippingAddress.post_code}
+                                </td>
+                            }
+
                         </tr>
                     </tbody>
                 </table>
+                <h5>Select Shipping Speed</h5>
                 <ShippingFee />
                 <div className="line-spacer"></div>
                 <table className="table table-borderless end-point">
@@ -52,7 +62,8 @@ export const CartDetails = ({cart_total}) => {
                             <td> ₹{cart_total.total} </td>
                         </tr>
                         <tr>
-                            <td colSpan="2"><button>Proceed to Checkout</button></td>
+                            <td colSpan="2">
+                                <button onClick={() => proceedCheckout()}>Proceed to Checkout</button></td>
                         </tr>
                     </tbody>
                 </table>

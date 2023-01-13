@@ -190,7 +190,7 @@ export const AddressForm = ({ customerAddress, setCustomerAddress, handleClose }
                 <Button variant="secondary" onClick={handleClose}>
                     Cancel
                 </Button>
-                <Button variant="primary" onClick={handleClose} disabled={formLoader} >
+                <Button variant="primary" disabled={formLoader} >
                 {formLoader && (
                                     <span className="spinner-grow spinner-grow-sm"></span>
                                 )} 

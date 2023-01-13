@@ -1,8 +1,8 @@
 import React, { Fragment} from 'react'
 
 
-export const ShippingAddress = ({ customerAddress, setCustomerAddress }) => {
-    console.log(customerAddress, 'address shipping');
+export const ShippingAddress = ({ customerAddress, setCustomerAddress, shipping_address, handleSetShippingAddress }) => {
+    
     return (
         <Fragment>
             <div className="ship-list">
@@ -11,7 +11,7 @@ export const ShippingAddress = ({ customerAddress, setCustomerAddress }) => {
                 {
                     customerAddress && customerAddress.length > 0 && customerAddress.map((item, i) => (
                         <div className="addres-que customRadio" key={i}>
-                            <input type="radio" name="ship_address" id={`addrs${item.id}`} value={item.id} />
+                            <input type="radio" name="ship_address" id={`addrs${item.id}`} value={item.id} onChange={() => handleSetShippingAddress(item)} checked={`${shipping_address.id == item.id ? 'selected' : ''}`} />
                             <label htmlFor={`addrs${item.id}`}>
                                 <span> {item.name} </span>
                                 {item.address_line1} 

@@ -3,7 +3,7 @@ import { AddressForm } from '../components/Cart/AddressForm'
 import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
 import { ShippingAddress } from '../components/Cart/ShippingAddress'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -11,19 +11,26 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
+import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
 
 export const Cart = () => {
+    
     const cart = useSelector((state) => state.cart);
+    const defaultShipping = useSelector((state) => state.shipping_address);
     const [cartLength, setCartlength] = useState(0);
+    const [shippingAddress, setShippingAddress] = useState('');
+    const [customerId, setCustomerId] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
     const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
 
     const [formLoader, setFormLoader] = useState(false);
     const [addressType, setAddressType] = useState([]);
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
-
+    const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
+    console.log( shipping_address, 'shipping_address');
     const {
         register,
         handleSubmit,
@@ -32,8 +39,11 @@ export const Cart = () => {
         reset
     } = useForm();
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        document.getElementById('address_form').reset();
+        setShow(false)
+    };
+    const handleShow = () => setShow(true);    
 
     useEffect(() => {
         if (Array.isArray(cart.cart.carts)) {
@@ -47,11 +57,17 @@ export const Cart = () => {
 
             setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
         }
-    }, [])
 
-    const resetAddressForm = () => {
-        document.getElementById('address_form').reset();
-    }
+        if (site_info) {
+            setAddressType(site_info.data.address_type);
+        }
+        setCustomerId(customer.id);
+        // dispatch(setDefaultShippingAddress(shippingAddress));
+        if( shipping_address ) {
+            setShippingAddress(shipping_address);    
+        }
+        
+    }, [])   
 
     const NumericOnly = (e) => {
         const reg = /^[0-9\b]+$/
@@ -63,6 +79,23 @@ export const Cart = () => {
     const onSubmit = (data) => {
         addAddress(data);
     };
+
+    const handleDeleteAddress = () => {
+        if( !shippingAddress ) {
+            toast.error('Please select address to delete', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+        }
+    }
+
+    const handleSetShippingAddress = (address) => {
+        setShippingAddress(address);
+        dispatch(setDefaultShippingAddress(address));
+        localStorage.setItem('shipping_address', JSON.stringify(address));
+        toast.success('Shipping address has been set successfully', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        })
+    }
 
     async function addAddress(formData) {
 
@@ -86,10 +119,19 @@ export const Cart = () => {
 
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
-
+                handleClose();
             }
         }).catch((err) => {
         })
+    }
+
+    const proceedCheckout = () => {
+        if( !shippingAddress ) {
+            toast.error('Please select address to proceed', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            return false;
+        }
     }
 
     console.log(cart, 'cart');
@@ -117,18 +159,18 @@ export const Cart = () => {
                                                 <h4>Select Shipping Address</h4>
                                                 <div className="">
                                                     <div className="load-btn">
-                                                        <a href="javascript:void(0)" onClick={() => resetAddressForm()} className="show-brands" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <a onClick={() => handleShow ()} >
                                                             Add New Address
                                                         </a>
                                                     </div>
 
                                                     <div className="load-btn del-btn">
-                                                        <a href="javascript:void(0)" className="show-brands">
+                                                        <a onClick={() => handleDeleteAddress()} className="show-brands">
                                                             Delete Address
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <ShippingAddress customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} />
+                                                <ShippingAddress customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} handleSetShippingAddress={handleSetShippingAddress} />
                                             </div>
                                         </div>
                                     </div>
@@ -149,10 +191,10 @@ export const Cart = () => {
                                                             <ErrorMessage errors={errors} name="contact_name" as="p" />
                                                         </div>
                                                         <div className="mb-3 col-lg-6">
-                                                            <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" onChange={NumericOnly} />
+                                                            <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
                                                             <ErrorMessage errors={errors} name="mobile_no" as="p" />
                                                         </div>
-                                                        <input type="hidden" name='customer_id' id="customer_id" value={customer.id} />
+                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required"})} id="customer_id" value={customer.id} />
                                                         <div className="mb-3 col-lg-6">
                                                             <input className="form-control" type="email" {...register("email", {
                                                                 required: "Email is required", pattern: {
@@ -176,6 +218,7 @@ export const Cart = () => {
                                                     </div>
                                                     <h4>Address</h4>
                                                     <div className="row">
+                                                        
                                                         <div className="mb-3 col-lg-12">
                                                             <input type="text" className="form-control" id="address" {...register("address", { required: "Address is required" })} placeholder="Building Number, Street Name & Locality" />
                                                             <ErrorMessage errors={errors} name="address" as="p" />
@@ -231,15 +274,6 @@ export const Cart = () => {
                                                             <ErrorMessage errors={errors} name="state" as="p" />
                                                         </div>
                                                     </div>
-                                                    {/* <div className="modal-footer text-center">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
-                            <button type='submit' className="btn btn-primary" disabled={formLoader} >
-                                {formLoader && (
-                                    <span className="spinner-grow spinner-grow-sm"></span>
-                                )} Save
-                            </button>
-                        </div> */}
                                                 </div>
 
                                             </Modal.Body>
@@ -247,7 +281,7 @@ export const Cart = () => {
                                                 <Button variant="secondary" onClick={handleClose}>
                                                     Cancel
                                                 </Button>
-                                                <Button variant="primary" onClick={handleClose} disabled={formLoader} >
+                                                <Button type="submit" variant="primary" disabled={formLoader} >
                                                     {formLoader && (
                                                         <span className="spinner-grow spinner-grow-sm"></span>
                                                     )}
@@ -258,7 +292,7 @@ export const Cart = () => {
                                     </Modal>
 
                                     <div className="col-lg-4">
-                                        <CartDetails cart_total={cart.cart.cart_total} />
+                                        <CartDetails cart_total={cart.cart.cart_total} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} />
                                     </div>
                                 </>
                                 :

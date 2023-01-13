@@ -8,8 +8,6 @@ export const customerAddressSlice = createSlice({
   reducers: {
     
     fetchAddress: (state, action) => {
-        console.log( 'testing slice', action);
-
         state.value = {...action.payload};
       
     },

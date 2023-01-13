@@ -23,6 +23,7 @@ import {
 import { attemptedCartReducer } from './reducer/attemptedCartSlice';
 import couponSlice from './reducer/couponSlice';
 import { customerAddressSlice } from './reducer/customerAddressSlice';
+import { shippingAddressSlice } from './reducer/shippingAddressSlice';
 
 const persistConfig = {
   key: 'root',
@@ -45,6 +46,7 @@ export const store = configureStore({
     'customer': customerSlice,
     'coupon': couponSlice,
     'address': customerAddressSlice,
+    'shipping_address': shippingAddressSlice,
    
   },
   middleware: (getDefaultMiddleware) =>
