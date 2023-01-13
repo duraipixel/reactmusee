@@ -297,7 +297,7 @@ export const Cart = () => {
                                 </>
                                 :
                                 <div className="col-lg-12">
-                                    <div className="finalcart-list">
+                                    <div className="finalcart-list text-center">
                                         <h3> Your cart is empty. </h3>
                                         <Link to='/' > Go to Purchase </Link>
                                     </div>
