@@ -19,7 +19,6 @@ export const Cart = () => {
     const defaultShipping = useSelector((state) => state.shipping_address);
     const [cartLength, setCartlength] = useState(0);
     const [shippingAddress, setShippingAddress] = useState('');
-    const [customerId, setCustomerId] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
@@ -30,7 +29,7 @@ export const Cart = () => {
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-    console.log( shipping_address, 'shipping_address');
+    
     const {
         register,
         handleSubmit,
@@ -46,6 +45,7 @@ export const Cart = () => {
     const handleShow = () => setShow(true);    
 
     useEffect(() => {
+
         if (Array.isArray(cart.cart.carts)) {
             setCartlength(cart.cart.carts.length);
         } else {
@@ -61,8 +61,7 @@ export const Cart = () => {
         if (site_info) {
             setAddressType(site_info.data.address_type);
         }
-        setCustomerId(customer.id);
-        // dispatch(setDefaultShippingAddress(shippingAddress));
+        
         if( shipping_address ) {
             setShippingAddress(shipping_address);    
         }
@@ -89,12 +88,14 @@ export const Cart = () => {
     }
 
     const handleSetShippingAddress = (address) => {
+
         setShippingAddress(address);
         dispatch(setDefaultShippingAddress(address));
         localStorage.setItem('shipping_address', JSON.stringify(address));
         toast.success('Shipping address has been set successfully', {
             position: toast.POSITION.BOTTOM_RIGHT
         })
+
     }
 
     async function addAddress(formData) {
@@ -123,18 +124,20 @@ export const Cart = () => {
             }
         }).catch((err) => {
         })
+
     }
 
     const proceedCheckout = () => {
+
         if( !shippingAddress ) {
             toast.error('Please select address to proceed', {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
             return false;
         }
-    }
 
-    console.log(cart, 'cart');
+    }
+    // console.log(cart, 'cart');
 
     return (
         <Fragment>
@@ -292,7 +295,7 @@ export const Cart = () => {
                                     </Modal>
 
                                     <div className="col-lg-4">
-                                        <CartDetails cart_total={cart.cart.cart_total} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} />
+                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} />
                                     </div>
                                 </>
                                 :

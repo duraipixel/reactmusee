@@ -24,11 +24,11 @@ import { attemptedCartReducer } from './reducer/attemptedCartSlice';
 import couponSlice from './reducer/couponSlice';
 import { customerAddressSlice } from './reducer/customerAddressSlice';
 import { shippingAddressSlice } from './reducer/shippingAddressSlice';
+import { paymentResponseSlice } from './reducer/paymentResponseSlice';
 
 const persistConfig = {
   key: 'root',
-  storage,
-  
+  storage,  
 }
 // const persistedReducer = persistReducer(persistConfig, cartReducer)
 const persistedAttemptedReducer = persistReducer(persistConfig, attemptedCartReducer)
@@ -47,6 +47,7 @@ export const store = configureStore({
     'coupon': couponSlice,
     'address': customerAddressSlice,
     'shipping_address': shippingAddressSlice,
+    'payment_response': paymentResponseSlice,
    
   },
   middleware: (getDefaultMiddleware) =>

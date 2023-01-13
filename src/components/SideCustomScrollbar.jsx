@@ -8,6 +8,7 @@ export default function SideCustomScrollbar() {
 
     const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     const openSideBar = () => {
+
         dispatch(isOpenSideBar());
     }
     
