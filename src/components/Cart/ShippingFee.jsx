@@ -1,26 +1,24 @@
 import React, { Fragment } from 'react'
 
-export const ShippingFee = () => {
+export const ShippingFee = ({ shippCharges }) => {
     return (
         <Fragment>
             <table className="table table-borderless customRadio">
                 <tbody>
-                    <tr>
-                        <td>
-                            <input type="radio" name="textEditor" id="sublime" /><label htmlFor="sublime">Standard Shipping</label>
-                        </td>
-                        <td>
-                            Free
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="220">
-                            <input type="radio" name="textEditor" id="nextime" /><label htmlFor="nextime">2 Days Express Shipping</label>
-                        </td>
-                        <td>
-                            ₹500
-                        </td>
-                    </tr>
+                    {
+                        shippCharges && shippCharges.map((item) => (
+                            <tr>
+                                <td>
+                                    <input type="radio" name="textEditor" id="sublime" value={item.id} checked={`${item.is_free == 'yes' ? 'checked' : ''}`} />
+                                    <label htmlFor="sublime">{item.shipping_title}</label>
+                                    <div className='shippingNotes'>{item.description}</div>
+                                </td>
+                                <td>
+                                    {item.charges != 0 ? item.charges : 'Free'}
+                                </td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
         </Fragment>

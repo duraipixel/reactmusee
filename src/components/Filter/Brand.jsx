@@ -60,7 +60,7 @@ export const Brand = () => {
                         <ul>
                             <h4>Brands</h4>
                             <li>
-                                <input type="search" placeholder="Search..." onChange={handleChange} />
+                                <input type="search" placeholder="Search..." onChange={() => handleChange} />
                             </li>
                             {
                                 filteredBrands ? filteredBrands.map((item, i) => (

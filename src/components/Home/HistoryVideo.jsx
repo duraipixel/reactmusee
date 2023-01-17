@@ -74,16 +74,13 @@ export default function HistoryVideo() {
                             video.map((item) => (
                                 <div className="favrite" key={item.id}>
                                     <div className="fav-img">
-                                        {/* <img src="assets/images/favorite/fav-1.jpg" /> */}
-                                        {/* <a id="play-video" className="video-play-button" href="javascript:void(0)">
-                                            <span></span>
-                                        </a> */}
+                                        
                                         <iframe src={item.video_url} width="100%" height="269px">
                                         </iframe>
                                     </div>
                                     <div className="fav-cnt">
                                         <h4>{item.title}</h4>
-                                        {/* <span><img src="assets/images/favorite/fav-1.png" /> A.R. Rahman</span> */}
+                                        
                                     </div>
                                 </div>
                             ))
@@ -96,10 +93,6 @@ export default function HistoryVideo() {
                                 <div key={i} className="col-sm-3">
                                     <div className="favrite">
                                         <div className="fav-img">
-                                            
-                                            {/* <a id="play-video" className="video-play-button" href="javascript:void(0)">
-                                                <span></span>
-                                            </a> */}
                                             <Skeleton height={269} />
                                         </div>
                                         <div className="fav-cnt">

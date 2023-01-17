@@ -76,7 +76,7 @@ export const ShopByBrand = () => {
 
                         <div className="col-lg-12 text-center">
                             <div className="load-btn">
-                                <a href="javascript:void(0)" onClick={openBrandAll}
+                                <a onClick={openBrandAll}
                                     className="show-brands">
                                     {isOpenBrand ? 'Show Less' : 'View all Brands'}
                                 </a>

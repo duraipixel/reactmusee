@@ -12,14 +12,18 @@ import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
+import { setShippingCharges } from '../app/reducer/shippingChargesSlice'
 
 export const Cart = () => {
     
     const cart = useSelector((state) => state.cart);
+
     const defaultShipping = useSelector((state) => state.shipping_address);
+    const charges = useSelector((state) => state.charges);
     const [cartLength, setCartlength] = useState(0);
     const [shippingAddress, setShippingAddress] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
+    const [shippCharges, setShippCharges] = useState([]);
     const [show, setShow] = useState(false);
     const dispatch = useDispatch();
 
@@ -44,6 +48,22 @@ export const Cart = () => {
     };
     const handleShow = () => setShow(true);    
 
+    const getShippingCharges = () => {
+        // console.log('runnign effect');
+        let amount = 0;
+        if(cartLength > 0){
+            amount = cart.cart.cart_total.total
+        }
+        axios({
+            url: window.API_URL + '/get/shipping/charges',
+            method: 'POST',
+            data: {customer_id:customer.id, amount:amount},
+        }).then((res) => {
+            setShippCharges(res.data);
+        }).catch((err) => {
+        })
+    }
+
     useEffect(() => {
 
         if (Array.isArray(cart.cart.carts)) {
@@ -65,8 +85,16 @@ export const Cart = () => {
         if( shipping_address ) {
             setShippingAddress(shipping_address);    
         }
+
+        // if( charges == 'undefined' ) {
+            
+        // }
+        getShippingCharges();
         
-    }, [])   
+    }, [])  
+    
+    // console.log(charges, 'charges carts');
+
 
     const NumericOnly = (e) => {
         const reg = /^[0-9\b]+$/
@@ -137,7 +165,7 @@ export const Cart = () => {
         }
 
     }
-    // console.log(cart, 'cart');
+    // console.log(shippingCharges, 'shippingCharges');
 
     return (
         <Fragment>
@@ -197,7 +225,7 @@ export const Cart = () => {
                                                             <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
                                                             <ErrorMessage errors={errors} name="mobile_no" as="p" />
                                                         </div>
-                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required"})} id="customer_id" value={customer.id} />
+                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required"})} id="customer_id" value={customer && customer.id} />
                                                         <div className="mb-3 col-lg-6">
                                                             <input className="form-control" type="email" {...register("email", {
                                                                 required: "Email is required", pattern: {
@@ -295,7 +323,7 @@ export const Cart = () => {
                                     </Modal>
 
                                     <div className="col-lg-4">
-                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} />
+                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={shippCharges} />
                                     </div>
                                 </>
                                 :

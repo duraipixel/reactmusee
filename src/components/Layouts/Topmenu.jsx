@@ -61,7 +61,7 @@ export default function Topmenu({ isTopPage, topmenu }) {
 
                                 <ul>
                                     <li className="having-hamber">
-                                        <a href="javascript:void(0)" className="toggle-button" onClick={openSideBar}>
+                                        <a className="toggle-button" onClick={openSideBar}>
                                             <img src="/assets/images/hamber.png" alt="" />All
                                         </a>
                                     </li>

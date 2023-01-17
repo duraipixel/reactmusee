@@ -12,13 +12,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
 
-export const ProductDetail = () => {  
-    
+export const ProductDetail = () => {
+
     const [productInfo, SetProductInfo] = useState(null);
     const [productSelectedQuantity, setProductSelectedQuantity] = useState(1);
     const customer = useSelector((state) => state.customer);
     const { product_url } = useParams();
-    const dispatch  = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     function getProductsInfo() {
@@ -33,34 +33,34 @@ export const ProductDetail = () => {
     }
 
     const reduceCart = () => {
-        if ( productSelectedQuantity == 1 ) {
+        if (productSelectedQuantity == 1) {
 
         } else {
-            setProductSelectedQuantity(productSelectedQuantity-1);
+            setProductSelectedQuantity(productSelectedQuantity - 1);
         }
     }
 
     const increaseCart = () => {
-        
-        if( productInfo.max_quantity == productSelectedQuantity ) {
+
+        if (productInfo.max_quantity == productSelectedQuantity) {
             toast.error('Product quantity reached max limit', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         } else {
-            setProductSelectedQuantity(productSelectedQuantity+1);
+            setProductSelectedQuantity(productSelectedQuantity + 1);
         }
     }
-     
+
     const handleAddToCart = (product) => {
-        
-        if( customer.value ) {
+
+        if (customer.value) {
             addCartProduct(product);
         } else {
-            
+
             toast.error('Login to add Carts', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
-            
+
             dispatch(attemptToCart(product));
             setTimeout(() => {
                 navigate('/login');
@@ -69,24 +69,24 @@ export const ProductDetail = () => {
     }
 
     async function addCartProduct(item) {
-        
+
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-        const res_data = {...item, customer_id:customer.id, quantity:productSelectedQuantity};
-        
+        const res_data = { ...item, customer_id: customer.id, quantity: productSelectedQuantity };
+
         await axios({
-                url: window.API_URL + '/add/cart',
-                method: 'POST',
-                data: res_data,
-              }).then((res) => {
-                toast.success('Product added to carts.', {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
-                localStorage.setItem('cart', JSON.stringify(res.data) );
-                dispatch(fetchCarts( JSON.parse(window.localStorage.getItem('cart')) ))
-                
-              }).catch((err) => {
-      
-              })
+            url: window.API_URL + '/add/cart',
+            method: 'POST',
+            data: res_data,
+        }).then((res) => {
+            toast.success('Product added to carts.', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
     }
 
     useEffect(() => {
@@ -117,8 +117,10 @@ export const ProductDetail = () => {
                                         </div>
                                     </div>
 
-                                   <ImagePane productInfo={productInfo}/>
-
+                                    <ImagePane productInfo={productInfo} />
+                                    {
+                                        console.log(productInfo)
+                                    }
                                     <div className="col-lg-6">
                                         <div className="product-details-explained">
                                             <div className="prdt-headng">
@@ -133,44 +135,41 @@ export const ProductDetail = () => {
                                                     ₹{productInfo.sale_prices.price}
                                                 </h4>
                                             </div>
-                                            <div>
-                                                <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
-                                                    <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
-                                                    <span >{productSelectedQuantity}</span>
-                                                    <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
-                                                </div> 
-                                            </div>
-                                            <div className={`flow-btns `}>
-                                                <ul>
-                                                    <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
-                                                        <CartButton product={productInfo} add={handleAddToCart} />
-                                                    </li>
-                                                    <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
-                                                        <a href="">Book Video Shopping</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            {
+                                                productInfo.stock_status != 'out_of_stock' ?
+                                                <Fragment>
+                                                    <div>
+                                                        <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                            <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
+                                                            <span >{productSelectedQuantity}</span>
+                                                            <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
+                                                        </div>
+                                                    </div>
+                                                    <div className={`flow-btns `}>
+                                                        <ul>
+                                                            <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                                <CartButton product={productInfo} add={handleAddToCart} />
+                                                            </li>
+                                                            <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
+                                                                <a href="">Book Video Shopping</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </Fragment>
+                                                :
+                                                <div className={`flow-btns `}>
+                                                    <ul>
+                                                        <li className={`oly-btn`}>
+                                                            <a >Out Of Stock</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            }
+
 
                                             <div className="abt-prduct">
                                                 <h4>About This Product</h4>
                                                 <div dangerouslySetInnerHTML={{ __html: productInfo.feature_information }}></div>
-
-                                                {/* <li>
-                                                    <img src="/assets/images/music-icn.png" />
-                                                    <span>Thickened Back Frame</span>- Nearly 20% thicker than other pianos
-                                                </li>
-                                                <li>
-                                                    <img src="/assets/images/music-icn.png" />
-                                                    <span>Updated Soundboard</span>- Yamaha’s piano engineers have fine-tuned the CX soundboard to ensure superb projection and response.
-                                                </li>
-                                                <li>
-                                                    <img src="/assets/images/music-icn.png" />
-                                                    <span>New Music Wire</span>- The CX Series utilizes a new music wire that produces a rich sound with a full complexity of overtones in its middle and upper registers.
-                                                </li>
-                                                <li>
-                                                    <img src="/assets/images/music-icn.png" />
-                                                    <span>High-Quality Frame</span>- Yamaha knows a piano frame will contribute to the acoustic characteristics of the piano while withstanding total string tension in excess of twenty tons.
-                                                </li> */}
                                             </div>
 
                                         </div>
@@ -278,7 +277,7 @@ export const ProductDetail = () => {
             }
 
             <FrequentlyPurchased />
-            
+
         </Fragment>
     )
 }

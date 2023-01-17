@@ -19,13 +19,21 @@ import HomeCarousel from './../components/Carousel/HomeCarousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 import { useLocation } from 'react-router-dom';
+import { clearCart } from '../app/reducer/cartSlice';
+import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
 
 
 export default function Home() {
     
     const dispatch = useDispatch();
+    const customer = JSON.parse(window.localStorage.getItem('customer'));
+
     useEffect(() => {
-    
+        if( !customer ) {
+            console.log('remover cart if customer not exist');
+            dispatch(clearCart());
+            // dispatch(clearAttemptItem())
+        }
         const openSideBar = () => {
             dispatch(isOpenSideBar());
         }

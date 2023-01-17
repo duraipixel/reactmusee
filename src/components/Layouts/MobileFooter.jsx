@@ -13,7 +13,7 @@ export const MobileFooter = () => {
     return (
         <Fragment >
             <div className="mobile-footer">
-                <a href="javascript:void(0)" className="toggle-button" data-toggle="tooltip" title="Download Your Reports" onClick={openSideBar}>
+                <a className="toggle-button" data-toggle="tooltip" title="Download Your Reports" onClick={openSideBar}>
                     <img src="assets/images/mob-ic-1.png" alt="" className="img-fluid" /> Products
                 </a>
                 <a href="" data-toggle="tooltip" title="Current Location">

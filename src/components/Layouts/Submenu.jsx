@@ -62,7 +62,8 @@ export const Submenu = () => {
                             }
 
                         </ul>
-                        <span className="fil-optn"><a href="javascript:void(0)">
+                        <span className="fil-optn">
+                            <a href="">
                             <i className="fa fa-filter" aria-hidden="true"></i>
                             Filter</a></span>
                     </div>
