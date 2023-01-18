@@ -15,7 +15,6 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
     const handlePayment = async () => {
-
         setCheckoutFormLoading(true);
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
@@ -28,7 +27,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
         axios({
             url: window.API_URL + '/proceed/checkout',
             method: 'POST',
-            data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items },
+            data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
         }).then((response) => {
             verifyPayment(response.data);
             setCheckoutFormLoading(false);
