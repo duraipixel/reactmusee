@@ -17,7 +17,7 @@ export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
                                     cartInfo.shipping_charges.map((item) => (
                                         <tr key={item.id}>
                                             <td>
-                                                <input type="radio" onClick={() => updateCartAmount(item.id)} name="shippingChargeId" id={`ship${item.id}`} value={item.id} />
+                                                <input type="radio" checked={`${cartInfo.shipping_id == item.id ? 'checked' : ''}`} onClick={() => updateCartAmount(item.id)} name="shippingChargeId" id={`ship${item.id}`} value={item.id} />
                                                 <label htmlFor={`ship${item.id}`}>{item.shipping_title}</label>
                                                 <div className='shippingNotes'>{item.description}</div>
                                             </td>

@@ -24,6 +24,14 @@ export const brandSlice = createSlice({
             state.loading = false
             state.brands = action.payload
             state.error = ''
+        }).addCase(fetchBrands.pending, (state, action) => {
+            state.loading = true
+            state.brands = []
+            state.error = ''
+        }).addCase(fetchBrands.rejected, (state, action) => {
+            state.loading = true
+            state.brands = []
+            state.error = ''
         })
     }
 })

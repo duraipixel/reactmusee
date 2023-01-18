@@ -27,6 +27,14 @@ export const menuSlice = createSlice({
             state.loading = false
             state.menus = action.payload
             state.error = ''
+        }).addCase(fetchMenus.pending, (state, action) => {
+            state.loading = true
+            state.menus = []
+            state.error = ''
+        }).addCase(fetchMenus.rejected, (state, action) => {
+            state.loading = true
+            state.menus = []
+            state.error = ''
         })
     }
 })

@@ -36,7 +36,7 @@ export const Submenu = () => {
         // setSubmenuData( menuData, 'submenus');
     }, [])
 
-    // console.log(menuData);
+    console.log(menuData, 'menudata');
 
     return (
         <Fragment>

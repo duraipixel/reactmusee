@@ -22,6 +22,7 @@ export const bannerSlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(fetchBanners.pending, (state, action) => {
             state.loading = true;
+            state.banners = [];
         })
         .addCase(fetchBanners.fulfilled, (state, action) => {
             state.loading = false;
@@ -30,7 +31,7 @@ export const bannerSlice = createSlice({
         })
         .addCase(fetchBanners.rejected, (state, action) => {
             state.loading = false;
-            state.banners = action.payload;
+            state.banners = [];
             state.isSuccess = false;
         })
     }
