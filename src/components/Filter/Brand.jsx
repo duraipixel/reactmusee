@@ -56,7 +56,7 @@ export const Brand = () => {
         <Fragment>
             {
                 brandData.brands && (
-                    <div className="filter-lists">
+                    <div className="filter-lists mnh-ght mCustomScrollbar">
                         <ul>
                             <h4>Brands</h4>
                             <li>

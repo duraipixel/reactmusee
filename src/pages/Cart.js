@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import axios from 'axios'; 
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
@@ -215,7 +215,7 @@ export const Cart = () => {
                                         </div>
                                     </div>
 
-                                    <Modal show={show} onHide={handleClose}>
+                                    <Modal className='cstmzed' show={show} onHide={handleClose}>
                                         {/* <AddressForm customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} handleClose={handleClose} /> */}
                                         <Modal.Header closeButton>
                                             <Modal.Title>Add a New Shipping Address</Modal.Title>
@@ -338,8 +338,11 @@ export const Cart = () => {
                                 :
                                 <div className="col-lg-12">
                                     <div className="finalcart-list text-center">
-                                        <h3> Your cart is empty. </h3>
-                                        <Link to='/' > Go to Purchase </Link>
+                                        <img src='/assets/images/cart_empty.png' alt="call" className="img-fluid" />
+                                        <h3> Your cart is empty. </h3><br />
+                                        <div className='load-btn'>
+                                        <Link to='/' > Shop today’s deals </Link>
+                                        </div>
                                     </div>
                                 </div>
                         }

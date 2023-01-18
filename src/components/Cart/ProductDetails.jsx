@@ -178,7 +178,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
                                     <button onClick={() => removeCartProduct(cart[item])}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
                                 </td>
                                 <td>
-                                    <img src={cart[item].image} />
+                                    <img className="prdt-clsimg" src={cart[item].image} />
                                 </td>
                                 <td>
                                     {cart[item].product_name}
@@ -199,7 +199,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
                     }
 
                     <tr>
-                        <td colSpan="3" style={{ border: '0px' }}>
+                        <td colSpan="4" style={{ border: '0px' }}>
                             Have a Coupon?
                             <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={cart_total.coupon_code} disabled={cart_total.coupon_code ? 'disabled':''}   maxLength="6" />
                             {

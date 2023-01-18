@@ -177,6 +177,7 @@ nav {
     font-weight: 400;
     font-size: 16px;
     line-height: 20px;
+    cursor: pointer;
 }
 
 #cssmenu>ul>li>a::before {
@@ -244,8 +245,7 @@ body.town-bus header #cssmenu>ul>li>a {
     position: relative;
     color: #FFF;
     font-weight: 400;
-    border-radius: 50px;
-    font-weight: 400;
+    border-radius: 50px; 
     font-size: 16px;
     line-height: 20px;
 }
@@ -390,11 +390,19 @@ body.town-bus header #cssmenu>ul>li.has-sub>a:before {
     height: 1px;
 }
 
+.fixed-top #cssmenu>ul>li>button:before,
+body.town-bus header #cssmenu>ul>li.has-sub>button:before {
+    top: 34px;
+    height: 1px;
+}
+
 .top-bar.top-fix {
     position: fixed;
     width: 100%;
     top: 0;
 }
+
+.fixed-top{z-index: 99;}
 
 .top-bar.top-fix {
     animation-name: fadeInDown;
@@ -404,7 +412,7 @@ body.town-bus header #cssmenu>ul>li.has-sub>a:before {
     padding: 6px 0px 10px;
     transition: all .3s ease;
     box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.2);
-    z-index: 999;
+    z-index: 99;
 }
 
 .top-bar.top-fix .top-search select {
@@ -836,6 +844,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
     position: absolute;
     right: 15px;
     top: 15px;
+    cursor: pointer;
 }
 
 .togmenu-header h4 {
