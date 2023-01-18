@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
 import { setShippingCharges } from '../app/reducer/shippingChargesSlice'
+import { fetchCarts } from '../app/reducer/cartSlice'
 
 export const Cart = () => {
     
@@ -50,10 +51,10 @@ export const Cart = () => {
 
     const getShippingCharges = () => {
         // console.log('runnign effect');
-        let amount = 0;
-        if(cartLength > 0){
-            amount = cart.cart.cart_total.total
-        }
+        console.log(cart);        
+        let amount = cart.cart.cart_total.total || 0;
+
+        console.log('getting charges');
         axios({
             url: window.API_URL + '/get/shipping/charges',
             method: 'POST',
@@ -74,7 +75,6 @@ export const Cart = () => {
             }
         }
         if (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined') {
-
             setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
         }
 
@@ -85,17 +85,10 @@ export const Cart = () => {
         if( shipping_address ) {
             setShippingAddress(shipping_address);    
         }
-
-        // if( charges == 'undefined' ) {
-            
-        // }
-        getShippingCharges();
         
     }, [])  
     
-    // console.log(charges, 'charges carts');
-
-
+    
     const NumericOnly = (e) => {
         const reg = /^[0-9\b]+$/
         let preval = e.target.value
@@ -165,7 +158,23 @@ export const Cart = () => {
         }
 
     }
-    // console.log(shippingCharges, 'shippingCharges');
+
+    async function updateCartAmount(shipping_id) {
+
+        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        await axios({
+            url: window.API_URL + '/update/cartAmount',
+            method: 'POST',
+            data: { shipping_id: shipping_id, customer_id: customer.id },
+        }).then((res) => {
+
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
+    }
 
     return (
         <Fragment>
@@ -323,7 +332,7 @@ export const Cart = () => {
                                     </Modal>
 
                                     <div className="col-lg-4">
-                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={shippCharges} />
+                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
                                     </div>
                                 </>
                                 :

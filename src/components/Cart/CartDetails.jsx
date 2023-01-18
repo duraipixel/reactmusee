@@ -8,7 +8,7 @@ import { setPaymentResponse } from '../../app/reducer/paymentResponseSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../../app/reducer/cartSlice';
 
-export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges }) => {
+export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
     // const coupon = useSelector((state) => state.coupon);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -100,7 +100,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
         });
 
     }
-
+    
     return (
         <Fragment >
             <div className="cart-boduy">
@@ -148,8 +148,8 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
                         </tr>
                     </tbody>
                 </table>
-                {/* <h5>Select Shipping Speed</h5> */}
-                {/* <ShippingFee shippCharges={shippCharges} /> */}
+                
+                <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo}/>
                 <div className="line-spacer"></div>
                 <table className="table table-borderless end-point">
                     <tbody>
