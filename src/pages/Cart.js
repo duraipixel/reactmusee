@@ -34,7 +34,7 @@ export const Cart = () => {
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-    
+    // console.log(customer, 'customer');
     const {
         register,
         handleSubmit,
