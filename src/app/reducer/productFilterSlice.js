@@ -25,6 +25,7 @@ export const productFilterSlice = createSlice({
     extraReducers:(builder) => {
         builder.addCase(fetchProducts.pending, (state, action) => {
             state.loading = true;
+            state.products = [];
         })
         .addCase(fetchProducts.fulfilled, (state, action) => {
             state.loading = false;
@@ -33,7 +34,7 @@ export const productFilterSlice = createSlice({
         })
         .addCase(fetchProducts.rejected, (state, action) => {
             state.loading = false;
-            state.products = action.payload;
+            state.products = [];
             state.isSuccess = false;
         })
     }

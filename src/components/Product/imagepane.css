@@ -1,0 +1,27 @@
+.imgStyles{
+    width: 300px !important;
+    height: 450px !important;
+    object-fit: fill;
+}
+
+.details-images-container {
+    display: flex;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  .details-images-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  .details-img-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .active {
+    border: 2px solid #003858;
+  }
