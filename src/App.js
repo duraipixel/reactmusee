@@ -15,6 +15,7 @@ import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Profile } from './pages/Profile';
 import { PaymentResponse } from './pages/PaymentResponse.js';
+import OrderSummary from './pages/OrderSummary.js';
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='profile' element={<Profile />} />
+          <Route path='ordersummary' element={<OrderSummary />} />
           <Route path='thankyou/:payment_response' element={<PaymentResponse />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
