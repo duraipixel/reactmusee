@@ -37,10 +37,10 @@ export const ImagePane = ({ productInfo }) => {
   // };
   const imgClickHandler = (image, i) => {
     setImg(image);
-    imgRef.current[i].classList.add("active");
+    imgRef.current[i].classList.add("details-images-container-active");
     for (let j = 0; j < image.length; j++) {
       if (i !== j) {
-        imgRef.current[j].classList.remove("active");
+        imgRef.current[j].classList.remove("details-images-container-active");
       }
     }
   };
@@ -71,7 +71,7 @@ export const ImagePane = ({ productInfo }) => {
                 onClick={() => imgClickHandler(image, i)}
                 src={image}
                 alt="details-pic"
-                className={i === 0 ? "active" : ""}
+                className={i === 0 ? "details-images-container-active" : ""}
                 ref={addRefs}
               />
             ))}
