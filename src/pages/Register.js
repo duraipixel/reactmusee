@@ -12,7 +12,7 @@ export const Register = () => {
         handleSubmit,
         watch,
         formState: { errors },
-        reset  
+        reset
     } = useForm();
 
     const navigate = useNavigate();
@@ -30,24 +30,31 @@ export const Register = () => {
             data: formData,
         }).then((res) => {
             setFormLoader(false);
-            if( res.data.error == 1 ) {
+            if (res.data.error == 1) {
                 let error_message = res.data.message;
-                error_message.forEach(x =>  toast.error(x, {
+                error_message.forEach(x => toast.error(x, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 }));
                 reset();
             } else {
-                toast.success( 'Register Successfull, Please try to login', {
+                toast.success('Register Successfull, Please try to login', {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
                 setTimeout(() => {
                     navigate('/login');
                 }, 300);
-              
+
             }
         }).catch((err) => {
 
         })
+    }
+
+    const NumericOnly = (e) => {
+        const reg = /^[0-9\b]+$/
+        let preval = e.target.value
+        if (e.target.value === '' || reg.test(e.target.value)) return true
+        else e.target.value = preval.substring(0, (preval.length - 1))
     }
 
     return (
@@ -89,6 +96,10 @@ export const Register = () => {
                                                                 }
                                                             })} placeholder="E-mail" />
                                                             <ErrorMessage errors={errors} name="email" as="p" />
+                                                        </div>
+                                                        <div className="form-data col-lg-12 mb-3">
+                                                            <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" onChange={NumericOnly} />
+                                                            <ErrorMessage errors={errors} name="mobile_no" as="p" />
                                                         </div>
                                                         <div className="form-data col-lg-12 mb-3">
                                                             <input className="form-control" type="text" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />

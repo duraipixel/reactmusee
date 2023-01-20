@@ -27,10 +27,10 @@ export default function Home() {
     
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
+    
 
     useEffect(() => {
         if( !customer ) {
-            console.log('remover cart if customer not exist');
             dispatch(clearCart());
             // dispatch(clearAttemptItem())
         }
@@ -42,7 +42,7 @@ export default function Home() {
 
     return (
         <Fragment>
-            <SideCustomScrollbar />
+            
             <HomeCarousel />
             <DiscountCollection />
             <HistoryVideo />

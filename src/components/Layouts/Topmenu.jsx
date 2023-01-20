@@ -40,7 +40,6 @@ export default function Topmenu({ isTopPage, topmenu }) {
 
 
     const openSideBar = () => {
-        console.log('clode or open sidebar');
         dispatch(isOpenSideBar());
     }
 

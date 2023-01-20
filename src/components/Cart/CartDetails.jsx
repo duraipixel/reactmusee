@@ -30,7 +30,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
             data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
         }).then((response) => {
             verifyPayment(response.data);
-            setCheckoutFormLoading(false);
+            
         });
     }
 
@@ -79,7 +79,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
             data: { razor_response: data, customer_id: customer.id, status: type },
         }).then((response) => {
             
-
+            setCheckoutFormLoading(false);
             if (response.data.success) {
                 localStorage.removeItem('shipping_address');
                 localStorage.removeItem('cart');

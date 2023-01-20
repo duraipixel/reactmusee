@@ -21,12 +21,30 @@ export const ProductDetail = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const setRecentProduct = (product_url) => {
+        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        axios({
+            url: window.API_URL + '/set/recent',
+            method: 'POST',
+            data: {product_url:product_url, customer_id:customer.id},
+        }).then((res) => {
+            
+            if (res.data.error == 1) {
+              
+            } else {
+
+            }
+        }).catch((err) => {
+        })
+    }
+
     function getProductsInfo() {
 
         fetch(window.API_URL + '/get/products/by/slug/' + product_url)
             .then((response) => response.json())
             .then((data) => {
-                SetProductInfo(data)
+                SetProductInfo(data);
+                setRecentProduct(product_url);
             })
             .catch((err) => {
             });

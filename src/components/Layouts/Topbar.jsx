@@ -13,7 +13,7 @@ export default function Topbar({ isTopPage }) {
     const [cartCount, setCartCount] = useState(0);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    console.log(typeof cart,'from topbar');//when cart empty it returns empty array;
+    
     const getTotalQuantity = () => {
         
         let total = 0;

@@ -1,0 +1,26 @@
+img.payment-success-image{
+    /* width: -webkit-fill-available; */
+    max-width: 400px;
+    width: 100%;
+}
+
+.common-primary-button {
+    
+    align-items: center;
+    padding: 12px 20px;
+    background: #1a1a1a;
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    width: 100%;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    font-family: "Quicksand", sans-serif;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+.common-primary-button:hover {
+    background-color: #141f80;
+    transition: all 0.5s ease;
+}

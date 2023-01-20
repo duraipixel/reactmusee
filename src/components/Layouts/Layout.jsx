@@ -8,6 +8,7 @@ import { MobileFooter } from './MobileFooter';
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
 import { setAllBrand } from '../../app/reducer/brandSlice';
+import SideCustomScrollbar from './../SideCustomScrollbar';
 
 export const Layout = () => {
 
@@ -69,6 +70,7 @@ export const Layout = () => {
     return (
         <Fragment>
             <div className="main-content">
+                <SideCustomScrollbar  />
                 <Topbar isTopPage={isTopPage} />
                 <Topmenu isTopPage={isTopPage} topmenu={topmenu} />
                 

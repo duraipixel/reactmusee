@@ -51,10 +51,7 @@ export const Cart = () => {
 
     const getShippingCharges = () => {
         // console.log('runnign effect');
-        console.log(cart);        
         let amount = cart.cart.cart_total.total || 0;
-
-        console.log('getting charges');
         axios({
             url: window.API_URL + '/get/shipping/charges',
             method: 'POST',

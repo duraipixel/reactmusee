@@ -1,68 +1,88 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Accordion } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
+import { useNavigate } from 'react-router-dom';
+import './sideMenuBar.css';
+import { useState } from 'react';
+import { fetchProducts } from './../app/reducer/productFilterSlice';
+import { fetchMenus } from './../app/reducer/menuSlice';
 
 export default function SideCustomScrollbar() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     const openSideBar = () => {
 
         dispatch(isOpenSideBar());
+
     }
-    
+
+    const cUrl = new URL(window.location.href);
+
+    const getSubMenu = (categorySlug, subCategorySlug) => {
+        //?category=keyboard-case-keyboard&scategory=gator-keyboard-case-keyboard-case
+        const url = new URL(window.location.href);
+        const SUrl = "/products/pfilter";
+        url.searchParams.set("category", categorySlug);
+        url.searchParams.set("scategory", subCategorySlug);
+        navigate(SUrl + url.search);
+        dispatch(isOpenSideBar());
+        dispatch(fetchProducts());
+        dispatch(fetchMenus(categorySlug));
+
+    }
+
+    const [menuall, setMenuAll] = useState([]);
+
+    async function getAllMenu() {
+        
+        const response =  await fetch(window.API_URL+'/get/allMenu')
+                            .then((response) => response.json())
+                            .then((data) => setMenuAll(data.data))
+                            .catch((err) => {
+                                // console.log(err.message)
+                            });
+    }
+
+    useEffect(() => {
+        getAllMenu();
+    }, [])
+
     return (
         <Fragment>
             <div className={`togle-menu mCustomScrollbar ${isSideBarOpen ? 'show' : ''}`} data-mcs-theme="dark">
                 <div className="togmenu-header">
-                    <a className="clse-menu"  onClick={openSideBar}><img src="/assets/images/close.png" /></a>
+                    <a className="clse-menu" onClick={openSideBar}><img src="/assets/images/close.png" /></a>
                     <h4>What are you looking<br /> for today?</h4>
                 </div>
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>
-                                Pianos
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ul>
-                                    <li><a href="all-pianos.html">- All Pianos</a></li>
-                                    <li><a href="">- Grand Pianos</a></li>
-                                    <li><a href="">- Acoustic Pianos</a></li>
-                                    <li><a href="">- Digital Pianos</a></li>
-                                </ul>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>
-                                Guitars
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ul>
-                                    <li><a href="">- Acoustic Guitars</a></li>
-                                    <li><a href="">- Classical Guitars</a></li>
-                                    <li><a href="">- Electric Guitars</a></li>
-                                    <li><a href="">- Bass Guitars</a></li>
-                                    <li><a href="">- Ukuleles</a></li>
-                                    <li><a href="">- Mandolin</a></li>
-                                </ul>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                            <Accordion.Header>
-                                Keyboards
-                            </Accordion.Header>
-                            <Accordion.Body>
-                                <ul>
-                                    <li><a href="">- Compact Keyboards</a></li>
-                                    <li><a href="">- Portable Keyboards</a></li>
-                                    <li><a href="">- Midi Keyboards</a></li>
-                                    <li><a href="">- Synthesizers</a></li>
-                                    <li><a href="">- Workstation</a></li>
-                                </ul>
-                            </Accordion.Body>
-                        </Accordion.Item>
+                        {
+                            menuall && menuall.map((item, i) => (
+                                <Accordion.Item eventKey={i}>
+                                    <Accordion.Header>
+                                        {item.name}
+                                    </Accordion.Header>
+                                    <Accordion.Body>
+                                        <ul>
+                                            {
+                                                item.child && item.child.length > 0 && item.child.map((items) => (
+                                                    <li>
+                                                        <button className='sidemenu-button' onClick={() => getSubMenu(item.slug, items.slug)}>
+                                                           - {items.name}
+                                                        </button>
+                                                    </li>
+
+                                                ))
+                                            }
+                                        </ul>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            ))
+                        }
+
                     </Accordion>
                 </div>
             </div>
