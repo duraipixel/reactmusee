@@ -8,7 +8,7 @@ import { ImagePane } from '../components/Product/ImagePane';
 import { Specification } from '../components/Product/Specification';
 import { RelatedProduct } from './../components/Product/RelatedProduct';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { PopupWidget } from "react-calendly";
 import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
 
@@ -26,11 +26,11 @@ export const ProductDetail = () => {
         axios({
             url: window.API_URL + '/set/recent',
             method: 'POST',
-            data: {product_url:product_url, customer_id:customer.id},
+            data: { product_url: product_url, customer_id: customer.id },
         }).then((res) => {
-            
+
             if (res.data.error == 1) {
-              
+
             } else {
 
             }
@@ -155,33 +155,39 @@ export const ProductDetail = () => {
                                             </div>
                                             {
                                                 productInfo.stock_status != 'out_of_stock' ?
-                                                <Fragment>
-                                                    <div>
-                                                        <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
-                                                            <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
-                                                            <span >{productSelectedQuantity}</span>
-                                                            <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
+                                                    <Fragment>
+                                                        <div>
+                                                            <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                                <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
+                                                                <span >{productSelectedQuantity}</span>
+                                                                <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                        <div className={`flow-btns `}>
+                                                            <ul>
+                                                                <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                                    <CartButton product={productInfo} add={handleAddToCart} />
+                                                                </li>
+                                                                <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
+                                                                    <PopupWidget
+                                                                        url="https://calendly.com/fahd-pixel/class"
+                                                                        rootElement={document.getElementById("root")}
+                                                                        text="Book Video Shopping"
+                                                                        textColor="#ffffff"
+                                                                        color="#00a2ff"
+                                                                    />
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </Fragment>
+                                                    :
                                                     <div className={`flow-btns `}>
                                                         <ul>
-                                                            <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
-                                                                <CartButton product={productInfo} add={handleAddToCart} />
-                                                            </li>
-                                                            <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
-                                                                <a href="">Book Video Shopping</a>
+                                                            <li className={`oly-btn`}>
+                                                                <a >Out Of Stock</a>
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                </Fragment>
-                                                :
-                                                <div className={`flow-btns `}>
-                                                    <ul>
-                                                        <li className={`oly-btn`}>
-                                                            <a >Out Of Stock</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             }
 
 

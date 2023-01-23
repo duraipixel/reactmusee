@@ -1,26 +1,49 @@
-img.payment-success-image{
-    /* width: -webkit-fill-available; */
-    max-width: 400px;
-    width: 100%;
+img.payment-success-image {
+  /* width: -webkit-fill-available; */
+  max-width: 400px;
+  width: 100%;
 }
 
 .common-primary-button {
-    
-    align-items: center;
-    padding: 12px 20px;
-    background: #1a1a1a;
-    border: 2px solid #ffffff;
-    border-radius: 4px;
-    width: 100%;
-    color: #fff;
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 22px;
-    font-family: "Quicksand", sans-serif;
-    color: #ffffff;
-    transition: all 0.5s ease;
+  align-items: center;
+  padding: 12px 20px;
+  background: #1a1a1a;
+  border: 2px solid #ffffff;
+  border-radius: 4px;
+  width: 100%;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: "Quicksand", sans-serif;
+  color: #ffffff;
+  transition: all 0.5s ease;
 }
 .common-primary-button:hover {
-    background-color: #141f80;
-    transition: all 0.5s ease;
+  background-color: #141f80;
+  transition: all 0.5s ease;
+}
+
+/* calendly */
+
+.calendly-badge-widget {
+  position: relative !important;
+  margin-top: 0.8rem;
+  margin-left: 1.3rem;
+  z-index: 1 !important;
+}
+
+.calendly-badge-widget .calendly-badge-content {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  line-height: 20px !important;
+  font-family: "Quicksand", sans-serif !important;
+  color: #1a1a1a !important;
+  border: 2px solid #1a1a1a !important;
+  border-radius: 4px !important;
+  background-color: transparent !important;
+}
+
+.abt-prduct h4{
+    margin-top: 0px !important;
 }
