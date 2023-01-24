@@ -67,14 +67,14 @@ export default function Topbar({ isTopPage }) {
                                     </div>
                                     <div className="form-data">
                                         <input className="src-blnk" type="search" placeholder="Search..." />
-                                        {/* <ul className="src-fndings">
+                                       <ul className="src-fndings">
                                         <li>
                                             <a href="">
                                                 <img src="/assets/images/sum-1.png" /> Yamaha FC5 Sustain Pedal for Keyboards and Pianos
                                                 <span>Home | Products | Yamaha | FC5 Sustain Pedal for Keyboards and Pianos</span>
                                             </a>
                                         </li>
-                                    </ul> */}
+                                    </ul>
                                     </div>
                                 </div>
                                 <div className="top-icons">

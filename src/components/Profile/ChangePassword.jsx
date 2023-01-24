@@ -48,7 +48,7 @@ const ChangePassword = ({passwordShow, handlePasswordClose, handlePasswordShow, 
 
   }
   return (
-    <Modal className='passwordModal' show={passwordShow} onHide={handlePasswordClose}>
+    <Modal className='passwordModal cstmzed' show={passwordShow} onHide={handlePasswordClose}>
       <Modal.Header closeButton>
         <Modal.Title> Change Password </Modal.Title>
       </Modal.Header>

@@ -4481,13 +4481,15 @@ ul.lst-edit li:last-child:before {
   display: none;
 }
 
-ul.lst-edit li a {
+ul.lst-edit li a, ul.lst-edit li button{
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
   text-transform: capitalize;
   color: #212363;
+  background: transparent;
+border: 0;
 }
 
 .myorders-lsts {
@@ -6297,15 +6299,13 @@ button.refreshing img {
   left: 5px;
 }
 
-.modal-dialog.cstmzed {
-  max-width: 950px !important;
-}
+ 
 
-.modal-dialog.cstmzed .modal-header {
+.cstmzed .modal-header {
   display: block;
 }
 
-.modal-dialog.cstmzed .modal-title {
+.cstmzed .modal-title {
   text-align: center;
   font-weight: 600;
   font-size: 36px;
@@ -6314,7 +6314,7 @@ button.refreshing img {
   color: #000000;
 }
 
-.modal-dialog.cstmzed .modal-body h4 {
+.cstmzed .modal-body h4 {
   font-weight: 600;
   font-size: 24px;
   line-height: 30px;
@@ -6323,7 +6323,7 @@ button.refreshing img {
   color: #000000;
 }
 
-.modal-dialog.cstmzed .modal-body input {
+.cstmzed .modal-body input {
   height: 50px;
   border: 2px solid #212363;
   border-radius: 4px;
@@ -6334,7 +6334,7 @@ button.refreshing img {
   color: #8d8d8d;
 }
 
-.modal-dialog.cstmzed .modal-body select {
+.cstmzed .modal-body select {
   height: 50px;
   border: 2px solid #212363;
   border-radius: 4px;
@@ -6345,11 +6345,11 @@ button.refreshing img {
   color: #8d8d8d;
 }
 
-.modal-dialog.cstmzed .modal-footer {
+.cstmzed .modal-footer {
   justify-content: center;
 }
 
-.modal-dialog.cstmzed .modal-footer button.btn.btn-secondary {
+.cstmzed .modal-footer button.btn.btn-secondary {
   border: 2px solid #212363;
   border-radius: 4px;
   padding: 10px 20px;
@@ -6362,14 +6362,14 @@ button.refreshing img {
   transition: all 0.3s ease;
 }
 
-.modal-dialog.cstmzed .modal-footer button.btn.btn-secondary:hover {
+.cstmzed .modal-footer button.btn.btn-secondary:hover {
   transition: all 0.3s ease;
   border: 2px solid #000;
   color: #fff;
   background-color: #000;
 }
 
-.modal-dialog.cstmzed .modal-footer button.btn.btn-primary {
+.cstmzed .modal-footer button.btn.btn-primary {
   border: 2px solid #212363;
   border-radius: 4px;
   padding: 10px 20px;
@@ -6382,14 +6382,14 @@ button.refreshing img {
   transition: all 0.3s ease;
 }
 
-.modal-dialog.cstmzed .modal-footer button.btn.btn-primary:hover {
+.cstmzed .modal-footer button.btn.btn-primary:hover {
   transition: all 0.3s ease;
   border: 2px solid #000;
   color: #fff;
   background-color: #000;
 }
 
-.modal-dialog.cstmzed button.btn-close {
+.cstmzed button.btn-close {
   position: absolute;
   right: 20px;
   top: 20px;
@@ -6567,13 +6567,15 @@ ul.lst-edit li:last-child:before {
   display: none;
 }
 
-ul.lst-edit li a {
+ul.lst-edit li a, ul.lst-edit li button{
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
   text-transform: capitalize;
   color: #212363;
+  background: transparent;
+border: 0;
 }
 
 .myorders-lsts {
@@ -7513,6 +7515,7 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 800px) {
+  .addres-que label{width:100%;}
   .brands-list-ftntion .nav-tabs .nav-link {
     margin-bottom: 10px;
   }
@@ -7525,6 +7528,9 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 760px) {
+  .ship-list { 
+    margin-bottom: 50px;
+  }
   .sdmnu-repnsve {
     top: 132px;
   }
@@ -8062,6 +8068,8 @@ img.prdt-clsimg {
 
 input + p {
   color: red;
+  margin-bottom:0px;
+  font-size: 12px;
 }
 
 /* no match page */
@@ -8070,4 +8078,6 @@ input + p {
   height: auto;
   object-fit: contain;
   margin: 3rem auto 5rem;
-};
+}
+
+.address-flow{height: 350px;overflow: scroll;overflow-x: hidden;}

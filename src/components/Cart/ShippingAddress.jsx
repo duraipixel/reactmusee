@@ -7,7 +7,9 @@ export const ShippingAddress = ({ customerAddress, setCustomerAddress, shipping_
         <Fragment>
             <div className="ship-list">
                 <h3>Ship to</h3>
+
                 <div className="line-spacer"></div>
+                <div className='address-flow mCustomScrollbar'>
                 {
                     customerAddress && customerAddress.length > 0 && customerAddress.map((item, i) => (
                         <div className="addres-que customRadio" key={i}>
@@ -23,7 +25,7 @@ export const ShippingAddress = ({ customerAddress, setCustomerAddress, shipping_
                         </div>
                     ))
                 }
-                
+                </div>
             </div>
         </Fragment>
     )
