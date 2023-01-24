@@ -19,11 +19,8 @@
     "path-to-regexp": "^6.2.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.0",
-<<<<<<< Updated upstream
     "react-calendly": "^4.1.1",
-=======
     "react-bootstrap-sweetalert": "^5.2.0",
->>>>>>> Stashed changes
     "react-dom": "^18.2.0",
     "react-fontawesome": "^1.7.1",
     "react-hook-form": "^7.41.5",

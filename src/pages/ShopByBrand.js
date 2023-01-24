@@ -30,11 +30,15 @@ export const ShopByBrand = () => {
                                 // console.log(err.message)
                             });
     }
-
+    
     useEffect(()=>{
 
-        getAllBrands();
-        getAllBrandsAlphabets()
+        if( brands.length === 0 ) {
+            getAllBrands();
+        }
+        if( brandsalphs.length === 0 ) {
+            getAllBrandsAlphabets()
+        }
 
     }, []);
 

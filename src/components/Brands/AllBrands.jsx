@@ -16,7 +16,7 @@ export const AllBrands = ({ isOpenBrand, brands, brandsalphs }) => {
                             {
                                  brandsalphs && Object.keys(brandsalphs).map((brandkey, i) => (
                                     <li className="nav-item"
-                                        role="presentation">
+                                        role="presentation" key={i}>
                                         <button className={`nav-link ${brandkey == 'A' ? 'active' : '' }`}
                                             id={`${brandkey}-tab`} data-bs-toggle="tab"
                                             data-bs-target={`#${brandkey}`}
