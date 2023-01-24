@@ -15,7 +15,7 @@ export const NoMatch = () => {
               <div class="finalcart-list text-center">
                 <img
                   className="no-match-image"
-                  src="../../assets/illustrations/sigma-1/18.png"
+                  src="../../assets/illustrations/sigma-1/18-dark.png"
                   alt="call"
                 />
                 <h3> We can't seem to find the page you're looking for </h3>
