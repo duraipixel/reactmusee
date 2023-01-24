@@ -170,7 +170,7 @@ export const ProductDetail = () => {
                                                                 </li>
                                                                 <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
                                                                     <PopupWidget
-                                                                        url="https://calendly.com/fahd-pixel/class"
+                                                                        url="https://calendly.com/museemusical/30min"
                                                                         rootElement={document.getElementById("root")}
                                                                         text="Book Video Shopping"
                                                                         textColor="#ffffff"

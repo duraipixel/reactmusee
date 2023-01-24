@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import { PopupWidget } from "react-calendly";
 
 export const LiveVideo = () => {
   return (
@@ -21,13 +20,7 @@ export const LiveVideo = () => {
               </div>
 
               <div className="shopping-book">
-                <PopupWidget
-                  url="https://calendly.com/fahd-pixel/class"
-                  rootElement={document.getElementById("root")}
-                  text="Book Video Shopping"
-                  textColor="#ffffff"
-                  color="#00a2ff"
-                />
+                <a href="">Book Video Shopping</a>
               </div>
             </div>
           </div>
