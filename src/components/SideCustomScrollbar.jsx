@@ -61,15 +61,15 @@ export default function SideCustomScrollbar() {
                     <Accordion defaultActiveKey="0">
                         {
                             menuall && menuall.map((item, i) => (
-                                <Accordion.Item eventKey={i}>
+                                <Accordion.Item eventKey={i} key={i}>
                                     <Accordion.Header>
                                         {item.name}
                                     </Accordion.Header>
                                     <Accordion.Body>
                                         <ul>
                                             {
-                                                item.child && item.child.length > 0 && item.child.map((items) => (
-                                                    <li>
+                                                item.child && item.child.length > 0 && item.child.map((items, j) => (
+                                                    <li key={j}>
                                                         <button className='sidemenu-button' onClick={() => getSubMenu(item.slug, items.slug)}>
                                                            - {items.name}
                                                         </button>

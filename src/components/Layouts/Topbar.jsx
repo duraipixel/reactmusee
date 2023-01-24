@@ -40,6 +40,8 @@ export default function Topbar({ isTopPage }) {
 
         if( location.pathname == '/cart' ) {
             navigate('/');
+        } else {
+            navigate('/login');
         }
     }
     

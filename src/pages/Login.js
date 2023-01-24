@@ -177,7 +177,7 @@ export const Login = () => {
                                                             <ErrorMessage errors={errors} name="email" as="p" />
                                                         </div>
                                                         <div className="form-data col-lg-12 mb-3">
-                                                            <input className="form-control" type="text" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
+                                                            <input className="form-control" type="password" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
                                                             <ErrorMessage errors={errors} name="password" as="p" />
                                                         </div>
                                                         <div className="form-data sbm col-lg-12 mb-3">

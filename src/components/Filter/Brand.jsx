@@ -19,14 +19,19 @@ export const Brand = () => {
     if( CommonUrl.searchParams.get('brand') ) {
         brandSelected = CommonUrl.searchParams.get('brand').split("_") ;
     }
+    var filteredBrands = '';
+    
+    if( brandData.brands !== undefined ) {
+        
+        filteredBrands = brandData.brands.filter(
+            brand => {
+                return (
+                    brand.title.toLowerCase().includes(searchField.toLocaleLowerCase())
+                )
+            }
+        );
 
-    const filteredBrands = brandData.brands.filter(
-        brand => {
-            return (
-                brand.title.toLowerCase().includes(searchField.toLocaleLowerCase())
-            )
-        }
-    );
+    }
 
     const handleChange = e => {
         setSearchField(e.target.value);
@@ -55,7 +60,7 @@ export const Brand = () => {
     return (
         <Fragment>
             {
-                brandData.brands && (
+                brandData.brands &&  brandData.brands !== 'undefined' && (
                     <div className="filter-lists mnh-ght mCustomScrollbar">
                         <ul>
                             <h4>Brands</h4>

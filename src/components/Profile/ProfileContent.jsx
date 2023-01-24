@@ -1,7 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AddressListPane } from "./AddressListPane";
+import axios from 'axios';
+import './modal.css';
 
-const ProfileContent = () => {
+const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePasswordShow, handleAddressModalShow, customerAddress, handleAddressModalClose, setCustomerAddress, setUpdateAddressId, handleEditAddressModalShow }) => {
+
+  const handleOpenAddressAddForm = () => {
+    setUpdateAddressId(0);
+    handleAddressModalShow();
+    getAddressInfo(0);
+  }
+
+  async function getAddressInfo(id) {
+
+    await axios({
+      url: window.API_URL + '/get/customer/address',
+      method: 'POST',
+      data: {address_id:id,customer_id:customer.id},
+    }).then((res) => {
+        
+        setAddressInfo(res.data);
+      
+    }).catch((err) => {
+    })
+
+  }
+
   return (
     <section className="tab-of-sectors">
       <div className="container">
@@ -72,29 +97,27 @@ const ProfileContent = () => {
                     <div className="presonal-detils">
                       <div className="deatils-fill d-flex justify-content-between">
                         <h4 className="accnt-deti">Personal Details</h4>
-                        <button
-                          data-bs-toggle="modal"
-                          className="link-btn"
-                          data-bs-target="#exampleModal"
+                        <button className="edit_btn"
+                          onClick={() => handlePersonalShow()}
                         >
                           <img src="../assets/images/edit.png" /> Edit{" "}
                         </button>
                       </div>
                       <div className="frame-detils">
                         <h5>First Name</h5>
-                        <span>Kabir</span>
+                        <span>{customer.first_name}</span>
                       </div>
                       <div className="frame-detils">
                         <h5>Last Name</h5>
-                        <span>Oberoi</span>
+                        <span>{customer.last_name || 'N/A'}</span>
                       </div>
                       <div className="frame-detils">
                         <h5>E-mail</h5>
-                        <span>kabir.o_6396@gmail.com</span>
+                        <span>{customer.email}</span>
                       </div>
                       <div className="frame-detils">
                         <h5>Contact Number</h5>
-                        <span>+91 12345 12345</span>
+                        <span>{customer.mobile_no}</span>
                       </div>
 
                       <div className="deatils-fill">
@@ -114,13 +137,11 @@ const ProfileContent = () => {
                               <li></li>
                               <li></li>
                             </ul>
-                            <span>Last Changed: 4 May 2022</span>
+                            {/* <span>Last Profile Changed: {customer.updated_at}</span> */}
                           </div>
                           <div className="load-btn">
                             <button
-                              data-bs-toggle="modal"
-                              className="link-btn"
-                              data-bs-target="#passwordModal"
+                              onClick={() => handlePasswordShow()}
                             >
                               Change Password
                             </button>
@@ -142,11 +163,7 @@ const ProfileContent = () => {
                   <div className="col-lg-4">
                     <div className="adres-det ad-ing d-flex align-items-center">
                       <div className="text-center w-100">
-                        <button
-                          data-bs-toggle="modal"
-                          className="link-btn"
-                          data-bs-target="#addressModal"
-                        >
+                        <button className='addressAddBtn' onClick={() => handleOpenAddressAddForm()} >
                           <img src="../assets/images/plus.png" />
                           <span>Add Address</span>
                         </button>
@@ -154,90 +171,8 @@ const ProfileContent = () => {
                     </div>
                   </div>
 
-                  <div className="col-lg-4">
-                    <div className="adres-det">
-                      <div className="d-flex justify-content-between">
-                        <h4>Kabir L</h4>
-                        <span>
-                          <img src="../assets/images/locate.png" /> Default
-                          Address
-                        </span>
-                      </div>
-                      <ul>
-                        <li>
-                          1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar
-                          West
-                        </li>
-                        <li>Chennai - 600040</li>
-                        <li>Tamil Nadu, India</li>
-                        <li>Phone: +91 00000 00000</li>
-                      </ul>
-                      <ul className="lst-edit">
-                        <li>
-                          <a href=""> Edit </a>
-                        </li>
-                        <li>
-                          <a href=""> Remove </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+                  <AddressListPane handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
 
-                  <div className="col-lg-4">
-                    <div className="adres-det">
-                      <div className="d-flex justify-content-between">
-                        <h4>Naya</h4>
-                      </div>
-                      <ul>
-                        <li>
-                          1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar
-                          West
-                        </li>
-                        <li>Chennai - 600040</li>
-                        <li>Tamil Nadu, India</li>
-                        <li>Phone: +91 00000 00000</li>
-                      </ul>
-                      <ul className="lst-edit">
-                        <li>
-                          <a href=""> Edit </a>
-                        </li>
-                        <li>
-                          <a href=""> Remove </a>
-                        </li>
-                        <li>
-                          <a href=""> Set as Default </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="col-lg-4">
-                    <div className="adres-det">
-                      <div className="d-flex justify-content-between">
-                        <h4>Inaya</h4>
-                      </div>
-                      <ul>
-                        <li>
-                          1833, 18th Main Road, Thiruvalluvar Colony, Anna Nagar
-                          West
-                        </li>
-                        <li>Chennai - 600040</li>
-                        <li>Tamil Nadu, India</li>
-                        <li>Phone: +91 00000 00000</li>
-                      </ul>
-                      <ul className="lst-edit">
-                        <li>
-                          <a href=""> Edit </a>
-                        </li>
-                        <li>
-                          <a href=""> Remove </a>
-                        </li>
-                        <li>
-                          <a href=""> Set as Default </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
               </div>
 

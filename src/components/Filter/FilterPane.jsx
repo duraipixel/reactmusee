@@ -9,11 +9,11 @@ export const FilterPane = (props) => {
     const dispatch = useDispatch();
     const navaigate = useNavigate();
     const filterData = useSelector((state) => state.products);
-
-    const products = filterData.products.products;
-    const from = filterData.products.from;
-    const to = filterData.products.to;
-    const total_count = filterData.products.total_count;
+    
+    const products = filterData.products != undefined ? filterData.products.products : [];
+    // const from = filterData.products.from;
+    const to = filterData.products != undefined ? filterData.products.to : 0;
+    // const total_count = filterData.products.total_count;
 
     const loadMoreProduct = () => {
 

@@ -7,20 +7,18 @@ export const ProductSkeletonItem = () => {
         <Fragment>
             <div className="col-lg-4 col-md-4">
                 <div className="project-bxe">
-                    <a href="product-detail.html">
-                        <div className="prdt-img">
-                            <Skeleton  height={240} width={300} />
+                    <div className="prdt-img">
+                        <Skeleton  height={240} width={300} />
+                    </div>
+                    <div className="ratings d-flex justify-content-between">
+                        <div className="prdt-type">
+                        <Skeleton count={1} />
                         </div>
-                        <div className="ratings d-flex justify-content-between">
-                            <div className="prdt-type">
-                            <Skeleton count={1} />
-                            </div>
-                        </div>
-                        <div className="prdt-nameprc">
-                            <Skeleton/>
-                            <Skeleton height={35}/>
-                        </div>
-                    </a>
+                    </div>
+                    <div className="prdt-nameprc">
+                        <Skeleton/>
+                        <Skeleton height={35}/>
+                    </div>
                 </div>
             </div>
         </Fragment>

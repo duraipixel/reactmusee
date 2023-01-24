@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 
 export const LiveVideo = () => {
   return (
@@ -12,17 +13,17 @@ export const LiveVideo = () => {
                   <h2>Live Video Shopping</h2>
                 </div>
                 <div className="secondary-para">
-                  Connect with us via video call and our experts will help you
-                  choose
-                  <br /> the perfect musical instrument from the comfort of your
-                  home
+                  Connect with us via video call and our experts will help you choose<br /> the perfect musical instrument from the comfort of your home
                 </div>
               </div>
-
               <div className="shopping-book">
-                <a href="">Book Video Shopping</a>
+                <Link to='/products/pfilter?booking=video_shopping'>
+                  Book Virtual Shopping
+                </Link>
               </div>
+
             </div>
+
           </div>
         </div>
       </section>

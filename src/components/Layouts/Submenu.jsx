@@ -33,10 +33,7 @@ export const Submenu = () => {
                 }
             }
         }
-        // setSubmenuData( menuData, 'submenus');
     }, [])
-
-    console.log(menuData, 'menudata');
 
     return (
         <Fragment>
@@ -45,7 +42,7 @@ export const Submenu = () => {
                     <div className="row">
                         <ul>
                             {
-                                menuData.menus.length > 0 && (
+                                menuData.menus != undefined && menuData.menus.length > 0 && (
                                     <li>
                                         <a role="button" onClick={() => setUrlCategory('all')} className={`${menuData.menus[0].slug === commonUrl.searchParams.get('category') && !commonUrl.searchParams.get('scategory') ? 'active' : ''}`} >
                                             All {menuData.menus[0].name}
@@ -54,13 +51,12 @@ export const Submenu = () => {
                                 )
                             }
                             {
-                                menuData.menus.length > 0 && menuData.menus[0].child && menuData.menus[0].child.map((item, i) => (
+                                menuData.menus != undefined && menuData.menus.length > 0 && menuData.menus[0].child && menuData.menus[0].child.map((item, i) => (
                                     <li key={i} role="button">
                                         <a onClick={() => setUrlCategory(item.slug)} className={`${item.slug === commonUrl.searchParams.get('scategory') ? 'active' : ''}`}> {item.name} </a>
                                     </li>
                                 ))
                             }
-
                         </ul>
                         <span className="fil-optn">
                             <a href="">

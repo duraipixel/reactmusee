@@ -1,0 +1,27 @@
+.cstmzed .modal-dialog {
+    max-width: 950px !important;
+}
+
+.modal .cstmzed .modal-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 45px;
+    font-family: 'Quicksand', sans-serif;
+    color: #000000;
+}
+
+.edit_btn {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    font-family: 'Quicksand', sans-serif;
+    color: #000;
+    border: none;
+    background: transparent;
+}
+
+.addressAddBtn {
+    background: transparent;
+    border: none;
+}

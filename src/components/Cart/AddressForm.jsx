@@ -174,15 +174,6 @@ export const AddressForm = ({ customerAddress, setCustomerAddress, handleClose }
                                 <ErrorMessage errors={errors} name="state" as="p" />
                             </div>
                         </div>
-                        {/* <div className="modal-footer text-center">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
-                            <button type='submit' className="btn btn-primary" disabled={formLoader} >
-                                {formLoader && (
-                                    <span className="spinner-grow spinner-grow-sm"></span>
-                                )} Save
-                            </button>
-                        </div> */}
                     </div>
                 
             </Modal.Body>

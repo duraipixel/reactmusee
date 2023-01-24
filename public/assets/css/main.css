@@ -4335,22 +4335,22 @@ h4.accnt-deti {
 }
 
 .frame-detils {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .frame-detils h5 {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 25px;
+  font-size: 18px;
+  line-height: 8px;
   margin-bottom: 10px;
   color: #212363;
 }
 
 .frame-detils span {
   font-weight: 600;
-  font-size: 22px;
-  line-height: 28px;
+  font-size: 19px;
+  line-height: 10px;
   font-family: "Mulish", sans-serif;
   color: #000000;
 }
@@ -6479,7 +6479,7 @@ h4.accnt-deti {
   border: 3px dashed #a2a2a2;
   box-shadow: 7px 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-  min-height: 380px;
+  min-height: 315px;
   margin-top: 30px;
 }
 
@@ -6499,8 +6499,8 @@ h4.accnt-deti {
 
 .adres-det h4 {
   font-weight: 600;
-  font-size: 28px;
-  line-height: 35px;
+  font-size: 25px;
+  line-height: 5px;
   font-family: "Mulish", sans-serif;
   color: #000000;
 }
@@ -6511,16 +6511,17 @@ h4.accnt-deti {
   box-shadow: 7px 7px 25px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   margin-top: 30px;
+  min-height: 315px;
 }
 
 .adres-det span {
   font-weight: 600;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 0px;
   font-family: "Mulish", sans-serif;
   color: #212363;
   position: relative;
-  top: 7px;
+  top: 0px;
 }
 
 .adres-det ul {
@@ -6534,11 +6535,11 @@ h4.accnt-deti {
   display: inline-block;
   width: 100%;
   font-weight: 600;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 14px;
+  line-height: 16px;
   font-family: "Mulish", sans-serif;
   color: #000000;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 ul.lst-edit {

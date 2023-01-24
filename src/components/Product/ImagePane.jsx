@@ -12,13 +12,14 @@ export const ImagePane = ({ productInfo }) => {
       imgRef.current.push(el);
     }
   };
-  const imgSrc = [
+  const sampleImgSrc = [
     "/assets/images/product-view-1.jpg",
     "/assets/images/product-view-2.jpg",
     "/assets/images/product-view-3.jpg",
     "/assets/images/product-view-4.jpg",
     "/assets/images/product-view-5.jpg",
   ];
+  const imgSrc = productInfo.gallery || sampleImgSrc;
   const [img, setImg] = useState(imgSrc[0]);
   // const settings = {
   //   customPaging: function (i) {
@@ -67,7 +68,7 @@ export const ImagePane = ({ productInfo }) => {
           </div>
           <div className="details-images-container">
             {imgSrc.map((image, i) => (
-              <img
+              <img key={i}
                 onClick={() => imgClickHandler(image, i)}
                 src={image}
                 alt="details-pic"
