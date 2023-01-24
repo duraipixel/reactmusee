@@ -9,6 +9,7 @@ import { OtherCategory } from '../components/Sliders/OtherCategory';
 import SideCustomScrollbar from './../components/SideCustomScrollbar';
 import { Filter } from './Filter';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
+import { Helmet } from 'react-helmet';
 
 export const Collection = () => {
 
@@ -17,12 +18,12 @@ export const Collection = () => {
     const dispatch = useDispatch();
 
     async function getFilterStaticMenuData() {
-        await fetch(window.API_URL+'/get/filter/static/sidemenus')
-                            .then((response) => response.json())
-                            .then((data) => setFilterStaticMenu(data))
-                            .catch((err) => {
-                                // console.log(err.message)
-                            });
+        await fetch(window.API_URL + '/get/filter/static/sidemenus')
+            .then((response) => response.json())
+            .then((data) => setFilterStaticMenu(data))
+            .catch((err) => {
+                // console.log(err.message)
+            });
     }
 
     useEffect(() => {
@@ -30,11 +31,20 @@ export const Collection = () => {
         dispatch(fetchProducts());
     }, []);
 
-   
+
     // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     return (
         <Fragment>
-            
+            <Helmet>
+
+                <title> Product Filters | Musee Musical</title>
+                <link rel="canonical" href={window.location.href} />
+                
+                {/* <meta name="keyword" content="" /> */}
+                
+               
+                {/* <meta name="description" content={productInfo.meta.meta_description} /> */}
+            </Helmet>
             <SideCustomScrollbar />
             <Submenu />
 
@@ -42,7 +52,7 @@ export const Collection = () => {
                 <div className="container">
                     <div className="row">
 
-                        <Filter filterStaticMenu={filterStaticMenu}  />
+                        <Filter filterStaticMenu={filterStaticMenu} />
 
                         <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div className="pianos-lists">

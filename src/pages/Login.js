@@ -9,6 +9,7 @@ import { fetchCarts } from '../app/reducer/cartSlice';
 import { removeAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { loginCustomer } from '../app/reducer/customerSlice';
 import { fetchAddress } from '../app/reducer/customerAddressSlice';
+import { Helmet } from 'react-helmet';
 
 export const Login = () => {
 
@@ -142,6 +143,11 @@ export const Login = () => {
 
     return (
         <Fragment>
+            <Helmet>
+                <title>Login | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/login" />
+                <meta name='description' content='login page'/>
+            </Helmet>
             <section className="tab-of-sectors lgon-pge">
                 <div className="container">
                     <div className="row justify-content-center">

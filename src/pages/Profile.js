@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { Fragment } from 'react'
 import EditAddress from './../components/Profile/EditAddress';
 import axios from 'axios';
+import { Helmet } from 'react-helmet';
 
 export const Profile = () => {
 
@@ -18,7 +19,7 @@ export const Profile = () => {
 
     const [personalShow, setPersonalShow] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
-    const [states, setStates] = useState('');
+    const [states, setStates] = useState([]);
     
     const [addressFormShow, setAddressFormShow] = useState(false);
     const [editAddressFormShow, setEditAddressFormShow] = useState(false);
@@ -76,13 +77,13 @@ export const Profile = () => {
             document.getElementById('editAddressForm').reset();
         }, 100);
     }
-
+    
     useEffect(() => {
 
         if (!window.localStorage.getItem('customer')) {
             navigate('/login');
         }
-        if( !states ) {
+        if( states.length === 0 ) {
 
             getAllStates()
         }
@@ -91,6 +92,13 @@ export const Profile = () => {
 
     
     return (
+        <Fragment>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Profile | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/profile" />
+            </Helmet>
+
         <div>
             {
                 customer &&
@@ -106,5 +114,6 @@ export const Profile = () => {
                 </Fragment>
             }
         </div>
+        </Fragment>
     )
 }

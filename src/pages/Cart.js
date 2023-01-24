@@ -14,6 +14,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
 import { setShippingCharges } from '../app/reducer/shippingChargesSlice'
 import { fetchCarts } from '../app/reducer/cartSlice'
+import { Helmet } from 'react-helmet';
 
 export const Cart = () => {
     
@@ -179,6 +180,11 @@ export const Cart = () => {
 
     return (
         <Fragment>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Cart | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/cart" />
+            </Helmet>
             <section className="shop-carts">
                 <div className="container">
                     <div className="row">

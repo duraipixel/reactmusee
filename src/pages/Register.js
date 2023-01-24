@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet';
 
 export const Register = () => {
 
@@ -59,6 +60,11 @@ export const Register = () => {
 
     return (
         <Fragment>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Register | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/register" />
+            </Helmet>
             <section className="tab-of-sectors lgon-pge">
                 <div className="container">
                     <div className="row justify-content-center">

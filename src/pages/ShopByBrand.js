@@ -2,6 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { AllBrands } from '../components/Brands/AllBrands'
 import { BrandList } from '../components/Brands/BrandList'
 import { OtherCategory } from './../components/Sliders/OtherCategory';
+import { Helmet } from 'react-helmet';
 
 export const ShopByBrand = () => {
 
@@ -45,6 +46,11 @@ export const ShopByBrand = () => {
 
     return (
         <Fragment>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title> Brand | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/brand" />
+            </Helmet>
             <section className="inner-banner shopbybrand"
                 >
                 <div className="container">

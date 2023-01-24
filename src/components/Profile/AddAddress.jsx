@@ -233,7 +233,7 @@ const AddAddress = ({ states, addressInfo, addressFormShow, handleAddressModalCl
                   >
                     <option value="">SelectState</option>
                     {states && states.map((item) => (
-                      <option value={item.id}>{item.state_name}</option>
+                      <option value={item.id} key={item.id}>{item.state_name}</option>
                     )) }
                   </select>
                   {validation.state && <p>{validation.state}</p>}

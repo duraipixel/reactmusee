@@ -39,8 +39,12 @@ export const Layout = () => {
 
 
     useEffect(() => {
-        getAllMenu();
-        getTopMenu();
+        if( menuall.length === 0 ){
+            getAllMenu();
+        }
+        if( topmenu.length === 0 ) {
+            getTopMenu();
+        }
         window.addEventListener('scroll', stickNavbar);
         return () => {
             window.removeEventListener('scroll', stickNavbar);

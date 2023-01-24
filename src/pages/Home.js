@@ -21,6 +21,7 @@ import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 import { useLocation } from 'react-router-dom';
 import { clearCart } from '../app/reducer/cartSlice';
 import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
+import { Helmet } from 'react-helmet';
 
 
 export default function Home() {
@@ -42,7 +43,11 @@ export default function Home() {
 
     return (
         <Fragment>
-            
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Home | Musee Musical</title>
+                <link rel="canonical" href="https://museemusical.shop/" />
+            </Helmet>
             <HomeCarousel />
             <DiscountCollection />
             <HistoryVideo />

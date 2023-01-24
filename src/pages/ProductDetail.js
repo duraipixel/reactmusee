@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { PopupWidget } from "react-calendly";
 import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
+import { Helmet } from 'react-helmet';
 
 export const ProductDetail = () => {
 
@@ -113,9 +114,23 @@ export const ProductDetail = () => {
 
     return (
         <Fragment>
+
             {
                 productInfo !== null && (
                     <>
+                        <Helmet>
+
+                            <title> {productInfo.meta.meta_title} | Musee Musical</title>
+                            <link rel="canonical" href={window.location.href} />
+                            {
+                                productInfo.meta.meta_keyword &&
+                                <meta name="keyword" content={productInfo.meta.meta_keyword} />
+                            }
+                            {
+                                productInfo.meta.meta_description &&
+                                <meta name="description" content={productInfo.meta.meta_description} />
+                            }
+                        </Helmet>
                         <section className="section product-details">
                             <div className="container">
                                 <div className="row">
@@ -137,7 +152,7 @@ export const ProductDetail = () => {
 
                                     <ImagePane productInfo={productInfo} />
                                     {
-                                       
+
                                     }
                                     <div className="col-lg-6">
                                         <div className="product-details-explained">
