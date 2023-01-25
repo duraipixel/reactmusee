@@ -18,7 +18,7 @@ export const HomeCarouselItem = ({banners}) => {
                                     {item.title}
                                     <span>{item.tag_line}</span> 
                                 </h1>
-                                <a href="#">Shop Now</a>
+                                {/* <a href="#">Shop Now</a> */}
                             </Carousel.Caption>
                         </Carousel.Item>
                     

@@ -21,7 +21,7 @@ export const ProductDetail = () => {
     const { product_url } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    
     const setRecentProduct = (product_url) => {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         axios({
@@ -110,7 +110,7 @@ export const ProductDetail = () => {
 
     useEffect(() => {
         getProductsInfo();
-    }, [])
+    }, [product_url])
 
     return (
         <Fragment>

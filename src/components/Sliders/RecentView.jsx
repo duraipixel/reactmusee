@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react'
 import Slider from 'react-slick';
+import { Link } from 'react-router-dom';
 
-export const RecentView = () => {
+export const RecentView = ({ recentData }) => {
 
     const settings = {
         autoplay: true,
@@ -28,7 +29,7 @@ export const RecentView = () => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        }, ],
+        },],
     }
 
     return (
@@ -43,62 +44,19 @@ export const RecentView = () => {
                             </div>
                         </div>
 
-                        <Slider className="arrivals-slider" {...settings}>   
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-5.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-2.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-3.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-4.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-1.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
-                            <div className="arrival-product">
-                                <div className="prdt-img">
-                                    <img src="assets/images/arrivals/product-5.jpg" />
-                                </div>
-                                <div className="prdt-nameprc">
-                                    <h4>Juarez 53.34 cm (21") Soprano Ukulele Kit</h4>
-                                </div>
-                            </div>
-
+                        <Slider className="arrivals-slider" {...settings}>
+                            {
+                                recentData && recentData.map((item) => (
+                                    <Link className="arrival-product" key={item.id} to={`/product/${item.product_url}`} >
+                                        <div className="prdt-img">
+                                            <img src={item.image} />
+                                        </div>
+                                        <div className="prdt-nameprc">
+                                            <h4>{item.product_name}</h4>
+                                        </div>
+                                    </Link>
+                                ))
+                            }
 
                         </Slider>
 

@@ -72,7 +72,7 @@ export const CollectionBestSeller = () => {
                                     </Link>
                                 </div>
                             </div>
-
+ 
                             <Slider className="arrivals-slider" {...settings}>
                                 {
                                     collectionSix.products && collectionSix.products.map((item) => (

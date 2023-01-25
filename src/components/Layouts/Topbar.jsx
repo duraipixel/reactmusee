@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logoutCustomer } from '../../app/reducer/customerSlice';
 import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 import { clearCart } from '../../app/reducer/cartSlice';
+import axios from 'axios';
 
-export default function Topbar({ isTopPage }) { 
-    
+export default function Topbar({ isTopPage }) {
+
     const customer = useSelector((state) => state.customer);
     const location = useLocation();
     const navigate = useNavigate();
@@ -14,14 +15,16 @@ export default function Topbar({ isTopPage }) {
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     
+    const [searchData, setSearchData] = useState([]);
+
     const getTotalQuantity = () => {
-        
+
         let total = 0;
-        (cart.length > 0 || typeof cart == 'object')  && cart.cart.carts && Object.entries(cart.cart.carts).map((key,item) => {
-           
+        (cart.length > 0 || typeof cart == 'object') && cart.cart.carts && Object.entries(cart.cart.carts).map((key, item) => {
+
             return total += cart.cart.carts[item].quantity;
         })
-        
+
         setCartCount(total);
         return total
     }
@@ -29,22 +32,51 @@ export default function Topbar({ isTopPage }) {
     useEffect(() => {
         getTotalQuantity();
     }, [cart])
-    
+
 
     const logout = () => {
 
         localStorage.removeItem('customer');
         dispatch(clearCart());
-        dispatch(logoutCustomer());        
+        dispatch(logoutCustomer());
         dispatch(clearAttemptItem())
 
-        if( location.pathname == '/cart' ) {
+        if (location.pathname == '/cart') {
             navigate('/');
         } else {
             navigate('/login');
         }
     }
-    
+
+    const globalSearch = (event) => {
+        var search_type = document.getElementById("enq").value;
+        var search_field = event.target.value;
+        getAllStates(search_type, search_field);
+    }
+
+    async function getAllStates(search_type, search_field) {
+        await axios({
+            url: window.API_URL + '/get/global/search',
+            method: 'POST',
+            data: { search_type: search_type, search_field: search_field }
+        }).then((res) => {
+            setSearchData(res.data);
+        }).catch((err) => {
+        })
+    }
+
+    window.addEventListener('click', function (e) {
+        if (document.getElementById('parent_search_tab').contains(e.target)) {
+
+            var element = document.getElementById('parent_search_tab');
+            element.classList.add('bluebg')
+        } else {
+
+            var element = document.getElementById('parent_search_tab');
+            element.classList.remove('bluebg')
+        }
+    });
+   
     return (
         <Fragment>
             <div className={`top-bar ${isTopPage ? "top-fix" : ""}`} >
@@ -59,22 +91,40 @@ export default function Topbar({ isTopPage }) {
                                 </div>
                                 <div className="top-search">
                                     <div className="">
-                                        <select className="form-control" id="enq" name="enq">
-                                            <option value="">All Products</option>
-                                            <option value="Dealer">Dealer</option>
-
+                                        <select className="form-control" id="enq" name="enq" >
+                                            <option value="product">All Products</option>
                                         </select>
                                     </div>
-                                    <div className="form-data">
-                                        <input className="src-blnk" type="search" placeholder="Search..." />
-                                       <ul className="src-fndings">
-                                        <li>
-                                            <a href="">
-                                                <img src="/assets/images/sum-1.png" /> Yamaha FC5 Sustain Pedal for Keyboards and Pianos
-                                                <span>Home | Products | Yamaha | FC5 Sustain Pedal for Keyboards and Pianos</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
+                                        <input className="src-blnk" type="search" onChange={globalSearch} placeholder="Search..." />
+                                        <ul className="src-fndings" id='searchPane'>
+                                            {searchData.length > 0 && searchData.map((item, i) => (
+                                                <li key={i}>
+                                                    {
+                                                        item.has_data === 'yes' ?
+                                                            item.product_name ?
+                                                                <Link to={`/product/${item.product_url}`} >
+                                                                    <img src={item.image} width="100" /> {item.product_name}
+                                                                    <span>
+                                                                        Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
+                                                                    </span>
+                                                                </Link>
+                                                                :
+                                                                <Link to='/'>
+                                                                    <img src={item.image} width="100" /> {item.product_name}
+                                                                    <span>
+                                                                        Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
+                                                                    </span>
+                                                                </Link>
+
+                                                            :
+                                                            <div> {item.message}</div>
+                                                    }
+                                                </li>
+
+                                            ))}
+
+                                        </ul>
                                     </div>
                                 </div>
                                 <div className="top-icons">
@@ -86,19 +136,19 @@ export default function Topbar({ isTopPage }) {
                                             <span className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                                         </li>
                                         <li>
-                                            <Link to={`${ customer.value ? '/profile' : '/login'}`}>
+                                            <Link to={`${customer.value ? '/profile' : '/login'}`}>
                                                 <img src="/assets/images/user.png" alt="" />
                                             </Link>
                                         </li>
                                         {
-                                            customer.value ? 
-                                        
-                                        <li>
-                                            <span onClick={()=> logout()}>
-                                                <img src="/assets/images/logout.png" alt="" />
-                                            </span>
-                                        </li>
-                                        : null }
+                                            customer.value ?
+
+                                                <li>
+                                                    <span onClick={() => logout()}>
+                                                        <img src="/assets/images/logout.png" alt="" />
+                                                    </span>
+                                                </li>
+                                                : null}
                                     </ul>
                                 </div>
 

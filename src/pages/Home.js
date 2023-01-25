@@ -22,24 +22,44 @@ import { useLocation } from 'react-router-dom';
 import { clearCart } from '../app/reducer/cartSlice';
 import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { Helmet } from 'react-helmet';
+import axios from 'axios';
 
 
 export default function Home() {
     
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
-    
+    const [recentData, setRecentData] = useState([]);
+
+    async function getRecentViewData() {
+
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+
+        await axios({
+            url: window.API_URL + '/get/recent/view',
+            method: 'POST',
+            data: {customer_id:customer.id},
+        }).then((res) => {
+           console.log( 'recent view', res.data);
+           setRecentData(res.data);
+        }).catch((err) => {
+
+        })
+    }
 
     useEffect(() => {
         if( !customer ) {
             dispatch(clearCart());
             // dispatch(clearAttemptItem())
+        } else {
+            if( recentData.length == 0 ){
+                getRecentViewData();
+            }
         }
         const openSideBar = () => {
             dispatch(isOpenSideBar());
         }
     }, [])
-    
 
     return (
         <Fragment>
@@ -61,7 +81,10 @@ export default function Home() {
             <CollectionBestSeller />
             <CollectionControlTunes />
             <CollectionRecommend />
-            <RecentView />
+            {
+            recentData.length > 0 &&
+            <RecentView recentData={recentData}/>
+            }
             <Testimonials />
             <PackageSupport />
             
