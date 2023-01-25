@@ -1,32 +1,51 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { AddressListPane } from "./AddressListPane";
-import axios from 'axios';
-import './modal.css';
+import axios from "axios";
+import "./modal.css";
+import OrderListItems from "../OrderSummary/OrderListItems";
 
-const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePasswordShow, handleAddressModalShow, customerAddress, handleAddressModalClose, setCustomerAddress, setUpdateAddressId, handleEditAddressModalShow }) => {
-
+const ProfileContent = ({
+  setAddressInfo,
+  customer,
+  handlePersonalShow,
+  handlePasswordShow,
+  handleAddressModalShow,
+  customerAddress,
+  handleAddressModalClose,
+  setCustomerAddress,
+  setUpdateAddressId,
+  handleEditAddressModalShow,
+  customerOrders,
+  setCustomerOrders,
+}) => {
   const handleOpenAddressAddForm = () => {
     setUpdateAddressId(0);
     handleAddressModalShow();
     getAddressInfo(0);
-  }
+  };
 
   async function getAddressInfo(id) {
-
     await axios({
-      url: window.API_URL + '/get/customer/address',
-      method: 'POST',
-      data: {address_id:id,customer_id:customer.id},
-    }).then((res) => {
-        
-        setAddressInfo(res.data);
-      
-    }).catch((err) => {
+      url: window.API_URL + "/get/customer/address",
+      method: "POST",
+      data: { address_id: id, customer_id: customer.id },
     })
-
+      .then((res) => {
+        setAddressInfo(res.data);
+      })
+      .catch((err) => {});
   }
-
+  async function getOrderInfo(id) {
+    await axios({
+      url: window.API_URL + "/get/orders",
+      method: "POST",
+      data: { customer_id: customer.id },
+    })
+      .then((res) => {
+        setCustomerOrders(res.data);
+      })
+      .catch((err) => {});
+  }
   return (
     <section className="tab-of-sectors">
       <div className="container">
@@ -72,6 +91,7 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
               </li>
               <li className="nav-item" role="presentation">
                 <button
+                  onClick={() => getOrderInfo()}
                   className="nav-link"
                   id="orders-tab"
                   data-bs-toggle="tab"
@@ -97,7 +117,8 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
                     <div className="presonal-detils">
                       <div className="deatils-fill d-flex justify-content-between">
                         <h4 className="accnt-deti">Personal Details</h4>
-                        <button className="edit_btn"
+                        <button
+                          className="edit_btn"
                           onClick={() => handlePersonalShow()}
                         >
                           <img src="../assets/images/edit.png" /> Edit{" "}
@@ -109,7 +130,7 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
                       </div>
                       <div className="frame-detils">
                         <h5>Last Name</h5>
-                        <span>{customer.last_name || 'N/A'}</span>
+                        <span>{customer.last_name || "N/A"}</span>
                       </div>
                       <div className="frame-detils">
                         <h5>E-mail</h5>
@@ -140,9 +161,7 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
                             {/* <span>Last Profile Changed: {customer.updated_at}</span> */}
                           </div>
                           <div className="load-btn">
-                            <button
-                              onClick={() => handlePasswordShow()}
-                            >
+                            <button onClick={() => handlePasswordShow()}>
                               Change Password
                             </button>
                           </div>
@@ -163,7 +182,10 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
                   <div className="col-lg-4">
                     <div className="adres-det ad-ing d-flex align-items-center">
                       <div className="text-center w-100">
-                        <button className='addressAddBtn' onClick={() => handleOpenAddressAddForm()} >
+                        <button
+                          className="addressAddBtn"
+                          onClick={() => handleOpenAddressAddForm()}
+                        >
                           <img src="../assets/images/plus.png" />
                           <span>Add Address</span>
                         </button>
@@ -171,140 +193,19 @@ const ProfileContent = ({ setAddressInfo, customer, handlePersonalShow, handlePa
                     </div>
                   </div>
 
-                  <AddressListPane handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
-
+                  <AddressListPane
+                    handleEditAddressModalShow={handleEditAddressModalShow}
+                    setAddressInfo={setAddressInfo}
+                    customerAddress={customerAddress}
+                    handleAddressModalClose={handleAddressModalClose}
+                    handleAddressModalShow={handleAddressModalShow}
+                    setCustomerAddress={setCustomerAddress}
+                    customer={customer}
+                    setUpdateAddressId={setUpdateAddressId}
+                  />
                 </div>
               </div>
-
-              <div
-                className="tab-pane fade"
-                id="orders"
-                role="tabpanel"
-                aria-labelledby="orders-tab"
-              >
-                <div className="myorders-lsts">
-                  <div className="col-lg-12">
-                    <table className="table">
-                      <tbody>
-                        <tr>
-                          <td width="180">
-                            <h5>
-                              Order placed on: <span>25 October 2022</span>
-                            </h5>
-                          </td>
-                          <td width="180">
-                            <h5>
-                              Order ID: <span>403-9499889-4551543</span>
-                            </h5>
-                          </td>
-                          <td>
-                            <h5>
-                              Ship to: <span>Kabir L</span>
-                            </h5>
-                          </td>
-                          <td>
-                            <a className="" href="">
-                              View Order Details
-                              <img src="../assets/images/bckp.png" />
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div className="productlist-detail">
-                      <div className="row align-items-center">
-                        <div className="col-lg-9">
-                          <div className="prodtlst-detils align-items-center">
-                            <ul>
-                              <li>
-                                <img src="../assets/images/det-1.jpg" />
-                                <h4>Yamaha PSR-I500 Portable Keyboard</h4>
-                              </li>
-                              <li>
-                                <img src="../assets/images/det-2.jpg" />
-                                <h4>
-                                  Yamaha FC5 Sustain Pedal for Keyboards and
-                                  Pianos
-                                </h4>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="amt-prc text-center">
-                            <h4>₹27,515.22</h4>
-                            <Link className="trc-ordr" to="/ordersummary">
-                              Track Order
-                            </Link>
-                            <a className="in-vce" href="">
-                              View Invoice
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="myorders-lsts">
-                  <div className="col-lg-12">
-                    <table className="table">
-                      <tbody>
-                        <tr>
-                          <td width="180">
-                            <h5>
-                              Order placed on: <span>25 October 2022</span>
-                            </h5>
-                          </td>
-                          <td width="180">
-                            <h5>
-                              Order ID: <span>403-9499889-4551543</span>
-                            </h5>
-                          </td>
-                          <td>
-                            <h5>
-                              Ship to: <span>Kabir L</span>
-                            </h5>
-                          </td>
-                          <td>
-                            <a className="" href="">
-                              View Order Details
-                              <img src="../assets/images/accordion-arrow.png" />
-                            </a>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div className="productlist-detail">
-                      <div className="row align-items-center">
-                        <div className="col-lg-9">
-                          <div className="prodtlst-detils align-items-center">
-                            <ul>
-                              <li>
-                                <img src="../assets/images/det-3.jpg" />
-                                <h4>
-                                  Yamaha FC5 Sustain Pedal for Keyboards and
-                                  Pianos
-                                </h4>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="col-lg-3">
-                          <div className="amt-prc text-center">
-                            <h4>₹9,515.22</h4>
-                            <a className="trc-ordr" href="">
-                              Buy it Again
-                            </a>
-                            <a className="in-vce" href="">
-                              View Invoice
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <OrderListItems customerOrders={customerOrders} />
             </div>
           </div>
         </div>

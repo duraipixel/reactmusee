@@ -15,6 +15,7 @@ export const Profile = () => {
 
     const [customer, setCustomer] = useState(JSON.parse(window.localStorage.getItem('customer')));
     const [customerAddress, setCustomerAddress] = useState(JSON.parse(window.localStorage.getItem('address')));
+    const [customerOrders, setCustomerOrders] = useState(JSON.parse(window.localStorage.getItem('orders')));
     const navigate = useNavigate();
 
     const [personalShow, setPersonalShow] = useState(false);
@@ -103,7 +104,7 @@ export const Profile = () => {
             {
                 customer &&
                 <Fragment>
-                    <ProfileContent setAddressInfo={setAddressInfo} customer={customer} handlePersonalShow={handlePersonalShow} handlePasswordShow={handlePasswordShow} handleAddressModalShow={handleAddressModalShow} handleAddressModalClose={handleAddressModalClose} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} setUpdateAddressId={setUpdateAddressId} handleEditAddressModalShow={handleEditAddressModalShow} />
+                    <ProfileContent setAddressInfo={setAddressInfo} customer={customer} handlePersonalShow={handlePersonalShow} handlePasswordShow={handlePasswordShow} handleAddressModalShow={handleAddressModalShow} handleAddressModalClose={handleAddressModalClose} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} setUpdateAddressId={setUpdateAddressId} handleEditAddressModalShow={handleEditAddressModalShow} customerOrders={customerOrders} setCustomerOrders={setCustomerOrders}/>
                     <EditPersonalDetailsModal setCustomer={setCustomer} customer={customer} handlePersonalShow={handlePersonalShow} handlePersonalClose={handlePersonalClose} personalShow={personalShow} />
                     <ChangePassword passwordShow={passwordShow} handlePasswordClose={handlePasswordClose} handlePasswordShow={handlePasswordShow} customer={customer} />
                     <AddAddress states={states} addressInfo={addressInfo} addressFormShow={addressFormShow} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} customer={customer} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} updateAddressId={updateAddressId} />

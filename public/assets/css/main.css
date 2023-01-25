@@ -4481,7 +4481,8 @@ ul.lst-edit li:last-child:before {
   display: none;
 }
 
-ul.lst-edit li a, ul.lst-edit li button{
+ul.lst-edit li a,
+ul.lst-edit li button {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -4489,7 +4490,7 @@ ul.lst-edit li a, ul.lst-edit li button{
   text-transform: capitalize;
   color: #212363;
   background: transparent;
-border: 0;
+  border: 0;
 }
 
 .myorders-lsts {
@@ -6299,8 +6300,6 @@ button.refreshing img {
   left: 5px;
 }
 
- 
-
 .cstmzed .modal-header {
   display: block;
 }
@@ -6567,7 +6566,8 @@ ul.lst-edit li:last-child:before {
   display: none;
 }
 
-ul.lst-edit li a, ul.lst-edit li button{
+ul.lst-edit li a,
+ul.lst-edit li button {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -6575,7 +6575,7 @@ ul.lst-edit li a, ul.lst-edit li button{
   text-transform: capitalize;
   color: #212363;
   background: transparent;
-border: 0;
+  border: 0;
 }
 
 .myorders-lsts {
@@ -7515,7 +7515,9 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 800px) {
-  .addres-que label{width:100%;}
+  .addres-que label {
+    width: 100%;
+  }
   .brands-list-ftntion .nav-tabs .nav-link {
     margin-bottom: 10px;
   }
@@ -7528,7 +7530,7 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 760px) {
-  .ship-list { 
+  .ship-list {
     margin-bottom: 50px;
   }
   .sdmnu-repnsve {
@@ -8068,7 +8070,7 @@ img.prdt-clsimg {
 
 input + p {
   color: red;
-  margin-bottom:0px;
+  margin-bottom: 0px;
   font-size: 12px;
 }
 
@@ -8079,5 +8081,13 @@ input + p {
   object-fit: contain;
   margin: 3rem auto 5rem;
 }
-
-.address-flow{height: 350px;overflow: scroll;overflow-x: hidden;}
+.no-order-image {
+  width: 20rem;
+  height: auto;
+  object-fit: contain;
+}
+.address-flow {
+  height: 350px;
+  overflow: scroll;
+  overflow-x: hidden;
+}

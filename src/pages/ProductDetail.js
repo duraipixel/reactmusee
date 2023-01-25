@@ -118,7 +118,7 @@ export const ProductDetail = () => {
             {
                 productInfo !== null && (
                     <>
-                        <Helmet>
+                        {/* <Helmet>
 
                             <title> {productInfo.meta.meta_title} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
@@ -130,7 +130,7 @@ export const ProductDetail = () => {
                                 productInfo.meta.meta_description &&
                                 <meta name="description" content={productInfo.meta.meta_description} />
                             }
-                        </Helmet>
+                        </Helmet> */}
                         <section className="section product-details">
                             <div className="container">
                                 <div className="row">
