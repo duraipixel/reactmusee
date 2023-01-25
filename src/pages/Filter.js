@@ -5,6 +5,8 @@ import { ProductAvailability } from '../components/Filter/ProductAvailability'
 import { useNavigate } from 'react-router-dom';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';
+import { AttributeCollection } from '../components/Filter/AttributeCollection';
+import axios from 'axios';
 
 export const Filter = ({filterStaticMenu}) => {
 
@@ -41,6 +43,18 @@ export const Filter = ({filterStaticMenu}) => {
         navigate(SUrl + url.search);
         dispatch(fetchProducts());
 
+    }
+
+    const getDynamicFilter = () => {
+        axios({
+            url: window.API_URL + '/add/cart',
+            method: 'POST',
+            data: '',
+        }).then((res) => {
+
+        }).catch((err) => {
+
+        })
     }
 
     const clearFilter = () => {
@@ -81,6 +95,7 @@ export const Filter = ({filterStaticMenu}) => {
                     <ProductAvailability product_availability={product_availability} />
                 </div>
                 <Brand />
+                {/* <AttributeCollection /> */}
                 <div className="filter-lists">
                     <ul>
                         <h4>Video Shopping</h4>

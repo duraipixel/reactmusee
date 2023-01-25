@@ -2,9 +2,6 @@ import React, { Fragment } from 'react'
 
 export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
 
-
-    console.log('cartInfo', cartInfo);
-
     return (
         <Fragment>
             {

@@ -1,8 +1,10 @@
 import React from "react";
 import { AddressListPane } from "./AddressListPane";
-import axios from "axios";
-import "./modal.css";
+import axios from 'axios';
+import './modal.css';
 import OrderListItems from "../OrderSummary/OrderListItems";
+
+
 
 const ProfileContent = ({
   setAddressInfo,
@@ -193,18 +195,10 @@ const ProfileContent = ({
                     </div>
                   </div>
 
-                  <AddressListPane
-                    handleEditAddressModalShow={handleEditAddressModalShow}
-                    setAddressInfo={setAddressInfo}
-                    customerAddress={customerAddress}
-                    handleAddressModalClose={handleAddressModalClose}
-                    handleAddressModalShow={handleAddressModalShow}
-                    setCustomerAddress={setCustomerAddress}
-                    customer={customer}
-                    setUpdateAddressId={setUpdateAddressId}
-                  />
+                  <AddressListPane handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
+
                 </div>
-              </div>
+              </div>              
               <OrderListItems customerOrders={customerOrders} />
             </div>
           </div>

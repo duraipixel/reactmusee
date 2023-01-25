@@ -25,6 +25,7 @@ import couponSlice from './reducer/couponSlice';
 import { customerAddressSlice } from './reducer/customerAddressSlice';
 import { shippingAddressSlice } from './reducer/shippingAddressSlice';
 import { paymentResponseSlice } from './reducer/paymentResponseSlice';
+import browseSlice from './reducer/otherCategorySlice';
 
 const persistConfig = {
   key: 'root',
@@ -38,6 +39,7 @@ export const store = configureStore({
     'sideMenuBar': sideMenuBarReducer,
     'topmenu': topMenuSlice,
     'brands': brandSlice,
+    'browse': browseSlice,
     'menus': menuSlice,
     'products': productFilterSlice,    
     'banners': bannerSlice,

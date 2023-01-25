@@ -111,7 +111,8 @@ export const ProductDetail = () => {
     useEffect(() => {
         getProductsInfo();
     }, [product_url])
-
+    
+    
     return (
         <Fragment>
 
@@ -120,14 +121,14 @@ export const ProductDetail = () => {
                     <>
                         {/* <Helmet>
 
-                            <title> {productInfo.meta.meta_title} | Musee Musical</title>
+                            <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
                             {
-                                productInfo.meta.meta_keyword &&
+                                productInfo.meta && productInfo.meta.meta_keyword &&
                                 <meta name="keyword" content={productInfo.meta.meta_keyword} />
                             }
                             {
-                                productInfo.meta.meta_description &&
+                                productInfo.meta && productInfo.meta.meta_description &&
                                 <meta name="description" content={productInfo.meta.meta_description} />
                             }
                         </Helmet> */}
@@ -315,7 +316,7 @@ export const ProductDetail = () => {
                 )
             }
 
-            <FrequentlyPurchased />
+            {/* <FrequentlyPurchased /> */}
 
         </Fragment>
     )

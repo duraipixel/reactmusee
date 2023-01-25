@@ -7,9 +7,7 @@ export const shippingChargesSlice = createSlice({
     },
     reducers: {
       setShippingCharges: (state, action ) => {
-        console.log('action', action);
         state.value = {...action.payload};
-        
       }
     },
   })

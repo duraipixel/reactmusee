@@ -30,20 +30,21 @@ export default function Home() {
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const [recentData, setRecentData] = useState([]);
+    const [recentDataLoading, setRecentDataLoading] = useState(true);
 
     async function getRecentViewData() {
-
+        
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-
+        setRecentDataLoading(false);
         await axios({
             url: window.API_URL + '/get/recent/view',
             method: 'POST',
             data: {customer_id:customer.id},
         }).then((res) => {
-           console.log( 'recent view', res.data);
+           
            setRecentData(res.data);
         }).catch((err) => {
-
+            setRecentDataLoading(true);
         })
     }
 
@@ -52,7 +53,8 @@ export default function Home() {
             dispatch(clearCart());
             // dispatch(clearAttemptItem())
         } else {
-            if( recentData.length == 0 ){
+            if( recentData.length == 0 && recentDataLoading ){
+                
                 getRecentViewData();
             }
         }
@@ -66,7 +68,7 @@ export default function Home() {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Home | Musee Musical</title>
-                <link rel="canonical" href="https://museemusical.shop/" />
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
             <HomeCarousel />
             <DiscountCollection />

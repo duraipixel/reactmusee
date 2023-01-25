@@ -8,7 +8,7 @@ export const shippingAddressSlice = createSlice({
   reducers: {
     
     setDefaultShippingAddress: (state, action) => {
-        state.shipping = {...action.payload};
+      state.shipping = {...action.payload};
     },
     clearDefaultShippingAddress:(state,action) => {
       state.shipping = [];

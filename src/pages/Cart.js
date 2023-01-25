@@ -36,7 +36,7 @@ export const Cart = () => {
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-    // console.log(customer, 'customer');
+    
     const {
         register,
         handleSubmit,
@@ -183,7 +183,7 @@ export const Cart = () => {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Cart | Musee Musical</title>
-                <link rel="canonical" href="https://museemusical.shop/cart" />
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
             <section className="shop-carts">
                 <div className="container">
@@ -211,11 +211,11 @@ export const Cart = () => {
                                                         </a>
                                                     </div>
 
-                                                    <div className="load-btn del-btn">
+                                                    {/* <div className="load-btn del-btn">
                                                         <a onClick={() => handleDeleteAddress()} className="show-brands">
                                                             Delete Address
                                                         </a>
-                                                    </div>
+                                                    </div> */}
                                                 </div>
                                                 <ShippingAddress customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} handleSetShippingAddress={handleSetShippingAddress} />
                                             </div>
@@ -256,7 +256,7 @@ export const Cart = () => {
                                                                 <option value="">Address Type</option>
                                                                 {
                                                                     addressType && addressType.length > 0 && addressType.map((item) => (
-                                                                        <option value={item.id}>{item.name}</option>
+                                                                        <option value={item.id} key={item.id}>{item.name}</option>
                                                                     ))
                                                                 }
                                                             </select>
@@ -283,7 +283,7 @@ export const Cart = () => {
                                                                 <option value="">SelectState</option>
                                                                 {
                                                                     states && states.map((items) => (
-                                                                        <option value={items.id}>{items.state_name}</option>
+                                                                        <option value={items.id} key={items.id}>{items.state_name}</option>
                                                                     ))
                                                                 }
                                                             </select>

@@ -111,7 +111,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
             data: { coupon_code: coupon_code, customer_id: customer.id },
 
         }).then((res) => {
-            console.log(res.data);
+            
             if( res.data.status == 'error') {
                 toast.error(res.data.message, {
                     position: toast.POSITION.BOTTOM_RIGHT
@@ -154,8 +154,6 @@ export const ProductDetails = ({ cart, cart_total }) => {
         dispatch(setCoupon(''));
         document.getElementById('coupon').value = '';
     }
-
-    console.log(coupon, 'coupon');
 
     return (
         <Fragment>

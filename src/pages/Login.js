@@ -145,7 +145,7 @@ export const Login = () => {
         <Fragment>
             <Helmet>
                 <title>Login | Musee Musical</title>
-                <link rel="canonical" href="https://museemusical.shop/login" />
+                <link rel="canonical" href={window.location.href} />
                 <meta name='description' content='login page'/>
             </Helmet>
             <section className="tab-of-sectors lgon-pge">

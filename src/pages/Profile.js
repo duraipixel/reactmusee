@@ -97,7 +97,7 @@ export const Profile = () => {
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>Profile | Musee Musical</title>
-                <link rel="canonical" href="https://museemusical.shop/profile" />
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
 
         <div>

@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, { Fragment, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
 import { fetchMenus } from './../../app/reducer/menuSlice';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
+import { fetchBrowseCategory } from './../../app/reducer/otherCategorySlice';
 
 export default function Topmenu({ isTopPage, topmenu }) {
 
@@ -23,7 +25,21 @@ export default function Topmenu({ isTopPage, topmenu }) {
 
         navigate(SUrl + url.search);
         dispatch(fetchProducts());
+        getOtherCategoryList(category)
 
+    }
+
+    async function getOtherCategoryList(category) {
+
+        await axios({
+            url: window.API_URL + '/get/other/category',
+            method: 'POST',
+            data: {category:category},
+        }).then((res) => {
+            dispatch(fetchBrowseCategory(res.data) );
+        }).catch((err) => {
+        })
+       
     }
 
     useEffect(() => {
