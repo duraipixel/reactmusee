@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import { Brand } from '../components/Filter/Brand'
 import { DiscountCollection } from '../components/Filter/DiscountCollection'
 import { ProductAvailability } from '../components/Filter/ProductAvailability'
@@ -15,6 +15,8 @@ export const Filter = ({filterStaticMenu}) => {
     const discounts = filterStaticMenu.discounts;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [dynamicFilter, setDynamicFilter] = useState([]);
 
     const CommonUrl = new URL(window.location.href);
 
@@ -45,13 +47,14 @@ export const Filter = ({filterStaticMenu}) => {
 
     }
 
+    const categoryUrl = CommonUrl.searchParams.get('category');
     const getDynamicFilter = () => {
         axios({
-            url: window.API_URL + '/add/cart',
+            url: window.API_URL + '/get/dynamic/filter/category',
             method: 'POST',
-            data: '',
+            data: {category_slug: categoryUrl},
         }).then((res) => {
-
+            setDynamicFilter(res.data);
         }).catch((err) => {
 
         })
@@ -69,7 +72,10 @@ export const Filter = ({filterStaticMenu}) => {
         url.searchParams.delete("page");
         url.searchParams.delete("sort");
         url.searchParams.delete("category");
+        url.searchParams.delete("attributes_category");
+        
         document.getElementsByClassName("product_availability").checked = false;
+        document.getElementsByClassName("filter_dynamic_attributes").checked = false;
         document.getElementsByClassName("filter_brand").checked = false;
         document.getElementsByClassName("video_shopping").checked = false;
         document.getElementsByClassName("filter_discounts").checked = false;
@@ -79,6 +85,12 @@ export const Filter = ({filterStaticMenu}) => {
         dispatch(fetchProducts());
 
     }
+
+    useMemo(() => {
+        if( dynamicFilter.length == 0 ){
+            getDynamicFilter()
+        }
+    }, [categoryUrl])
 
     return (
         <Fragment >
@@ -95,7 +107,10 @@ export const Filter = ({filterStaticMenu}) => {
                     <ProductAvailability product_availability={product_availability} />
                 </div>
                 <Brand />
-                {/* <AttributeCollection /> */}
+                {
+                    dynamicFilter && dynamicFilter.length > 0 && 
+                    <AttributeCollection dynamicFilter={dynamicFilter   } />
+                }
                 <div className="filter-lists">
                     <ul>
                         <h4>Video Shopping</h4>
