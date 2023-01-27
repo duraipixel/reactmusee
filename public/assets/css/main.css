@@ -6832,9 +6832,7 @@ ul.track-order li.active:last-child:after {
   display: none;
   transition: all 0.3s ease;
 }
-
-.order-frequent .table td {
-}
+ 
 
 .filter-lists {
   position: relative;
