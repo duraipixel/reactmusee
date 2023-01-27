@@ -7033,6 +7033,8 @@ ul.track-order li.active:last-child:after {
   transition: all 0.3s ease;
 }
 
+.top-fix .form-data.bluebg .src-fndings {top:30px;border-radius: 0px;}
+
 .form-data.bluebg .src-fndings {
   position: absolute;
   background-color: #e9e9e9;
@@ -7042,6 +7044,7 @@ ul.track-order li.active:last-child:after {
   opacity: 1;
   transition: all 0.3s ease;
   border-radius: 4px;
+  overflow-y: scroll;
 }
 
 .form-data.bluebg ul.src-fndings {

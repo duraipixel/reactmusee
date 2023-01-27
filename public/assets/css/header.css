@@ -402,7 +402,7 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
     top: 0;
 }
 
-.fixed-top{z-index: 99;}
+.fixed-top{z-index: 10;}
 
 .top-bar.top-fix {
     animation-name: fadeInDown;
