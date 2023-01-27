@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -17,9 +17,10 @@ export const CollectionKeyboards = () => {
             });
     }
 
-    useEffect(() => {
-
-        getCollectionFive();
+    useMemo(() => {
+        if( collectionFive.length === 0 ) {
+            getCollectionFive();
+        }
 
     }, []);
 

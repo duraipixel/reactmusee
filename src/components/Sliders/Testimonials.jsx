@@ -4,6 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Slider from 'react-slick';
 import './testimonial.css';
 import { TestimonialImage } from './../Images/TestimonialImage';
+import { useMemo } from 'react';
 
 
 export const Testimonials = () => {
@@ -19,8 +20,10 @@ export const Testimonials = () => {
                 });
     }
 
-    useEffect(() => {
-        getTestimonials();
+    useMemo(() => {
+        if( testimonials.length === 0 ){
+            getTestimonials();
+        }
     }, []);
 
     const settings = {

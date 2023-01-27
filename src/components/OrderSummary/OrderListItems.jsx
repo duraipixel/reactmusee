@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderListItems = ({ customerOrders }) => {
-  console.log(customerOrders, 'customerOrders')
+  // console.log(customerOrders, 'customerOrders')
   return (
     <div
       className="tab-pane fade"

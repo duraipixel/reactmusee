@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
 import { Link } from 'react-router-dom';
 
@@ -15,8 +15,10 @@ export const Brand = () => {
         });
     }
 
-    useEffect(()=>{
-        getBrands()
+    useMemo(()=>{
+        if( brand.length === 0){
+            getBrands()
+        }
     }, []);
 
     const settings = {

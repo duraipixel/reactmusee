@@ -19,7 +19,8 @@ export const Filter = ({filterStaticMenu}) => {
     const [dynamicFilter, setDynamicFilter] = useState([]);
 
     const CommonUrl = new URL(window.location.href);
-
+    // console.log(CommonUrl, 'CommonUrl')
+    // console.log(CommonUrl.searchParams.get('category'))
     var bookingSelected = [];
    
     if( CommonUrl.searchParams.get('booking') ) {
@@ -48,6 +49,7 @@ export const Filter = ({filterStaticMenu}) => {
     }
 
     const categoryUrl = CommonUrl.searchParams.get('category');
+    // console.log(categoryUrl, 'categoryUrl')
     const getDynamicFilter = () => {
         axios({
             url: window.API_URL + '/get/dynamic/filter/category',
@@ -94,6 +96,7 @@ export const Filter = ({filterStaticMenu}) => {
 
     useMemo(() => {
         if( dynamicFilter.length == 0 ){
+            console.log("first")
             getDynamicFilter()
         }
     }, [categoryUrl])

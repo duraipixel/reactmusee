@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { Outlet } from 'react-router-dom';
 import Topbar from './Topbar'
 import Topmenu from './Topmenu'
@@ -13,56 +13,57 @@ import SideCustomScrollbar from './../SideCustomScrollbar';
 export const Layout = () => {
 
     const [isTopPage, setIsTopPage] = useState(false);
-    const [topmenu, setTopmenu] = useState([]);
-
-    const dispatch = useDispatch();
-
-    const [menuall, setMenuAll] = useState([]);
+    const [topmenu, setTopmenu]     = useState([]);
+    const dispatch                  = useDispatch();
+    const [menuall, setMenuAll]     = useState([]);
 
     async function getAllMenu() {
-        const response =  await fetch(window.API_URL+'/get/allMenu')
-                            .then((response) => response.json())
-                            .then((data) => setMenuAll(data.data))
-                            .catch((err) => {
-                                // console.log(err.message)
-                            });
+        const response = await fetch(window.API_URL + '/get/allMenu')
+            .then((response) => response.json())
+            .then((data) => setMenuAll(data.data))
+            .catch((err) => {
+                // console.log(err.message)
+            });
     }
 
     async function getTopMenu() {
-        const response =  await fetch(window.API_URL+'/get/topMenu')
-                            .then((response) => response.json())
-                            .then((data) => setTopmenu(data.data))
-                            .catch((err) => {
-                                // console.log(err.message)
-                            });
+        const response = await fetch(window.API_URL + '/get/topMenu')
+            .then((response) => response.json())
+            .then((data) => setTopmenu(data.data))
+            .catch((err) => {
+                // console.log(err.message)
+            });
     }
 
 
-    useEffect(() => {
-        if( menuall.length === 0 ){
+    // useEffect(() => {
+
+    //     window.addEventListener('scroll', stickNavbar);
+    //     return () => {
+    //         window.removeEventListener('scroll', stickNavbar);
+    //     };
+    // }, []);
+
+    useMemo(() => {
+        if (menuall.length === 0) {
             getAllMenu();
         }
-        if( topmenu.length === 0 ) {
+        if (topmenu.length === 0) {
             getTopMenu();
         }
-        window.addEventListener('scroll', stickNavbar);
-        return () => {
-            window.removeEventListener('scroll', stickNavbar);
-        };
-
-    }, []);
+    }, [])
 
     const stickNavbar = () => {
         if (window !== undefined) {
             let windowHeight = window.scrollY;
-            
-            if( windowHeight >= 100 ) {
+
+            if (windowHeight >= 100) {
                 setIsTopPage(isTopPage => true);
                 document.body.classList.add('pad-top');
             } else {
                 setIsTopPage(isTopPage => false);
                 document.body.classList.remove('pad-top');
-            }   
+            }
         }
     };
 
@@ -74,15 +75,14 @@ export const Layout = () => {
     return (
         <Fragment>
             <div className="main-content">
-                <SideCustomScrollbar  />
+                <SideCustomScrollbar />
                 <Topbar isTopPage={isTopPage} />
                 <Topmenu isTopPage={isTopPage} topmenu={topmenu} />
-                
                 <Outlet />
                 <Footer />
                 <Copyrights />
                 <MobileFooter />
-                <div className={`overlay ${isSideBarOpen ? 'overlay-bg' : '' }`} onClick={openSideBar}></div>
+                <div className={`overlay ${isSideBarOpen ? 'overlay-bg' : ''}`} onClick={openSideBar}></div>
             </div>
         </Fragment>
     )

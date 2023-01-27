@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState, useMemo } from 'react'
 import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -17,10 +17,10 @@ export const CollectionBlockBuster = () => {
             });
     }
 
-    useEffect(() => {
-
-        getCollectionFour();
-
+    useMemo(() => {
+        if( collectionFour.length === 0 ) {
+            getCollectionFour();
+        }
     }, []);
 
     const settings = {

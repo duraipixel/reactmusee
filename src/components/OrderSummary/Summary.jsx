@@ -22,9 +22,9 @@ const Summary = () => {
       .catch((err) => { });
   }
 
-  useEffect(() => {
+  useMemo(() => {
     getOrderInfo(order_no)
-  }, [order_no])
+  }, [])
 
   return (
 

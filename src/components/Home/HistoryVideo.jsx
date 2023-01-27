@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useMemo } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Slider from "react-slick";
@@ -7,7 +7,6 @@ import './video.css';
 export default function HistoryVideo() {
 
     const [video, setVideo] = useState([]);
-
 
     async function getVideoData() {
         const response =  await fetch(window.API_URL+'/get/history')
@@ -18,8 +17,10 @@ export default function HistoryVideo() {
                             });
     }
 
-    useEffect(()=>{
-        getVideoData();
+    useMemo(()=>{
+        if( video.length == 0 ) {
+            getVideoData();
+        }
     }, []);
 
     const settings = {

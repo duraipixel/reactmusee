@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useMemo } from 'react'
 import { Accordion } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
@@ -46,9 +46,7 @@ export default function SideCustomScrollbar() {
                             });
     }
 
-    useEffect(() => {
-        getAllMenu();
-    }, [])
+    useMemo(() => getAllMenu() , [])
 
     return (
         <Fragment>

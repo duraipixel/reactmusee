@@ -42,7 +42,7 @@ export default function Topmenu({ isTopPage, topmenu }) {
        
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
         // if (window.performance) {
         //     if (performance.navigation.type == 1) {
@@ -52,7 +52,7 @@ export default function Topmenu({ isTopPage, topmenu }) {
         //     } 
         // }
 
-    }, []);
+    // }, []);
 
 
     const openSideBar = () => {

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutCustomer } from '../../app/reducer/customerSlice';
@@ -29,7 +29,7 @@ export default function Topbar({ isTopPage }) {
         return total
     }
 
-    useEffect(() => {
+    useMemo(() => {
         getTotalQuantity();
     }, [cart])
 

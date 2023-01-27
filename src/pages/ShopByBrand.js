@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { AllBrands } from '../components/Brands/AllBrands'
 import { BrandList } from '../components/Brands/BrandList'
 import { OtherCategory } from './../components/Sliders/OtherCategory';
@@ -32,7 +32,7 @@ export const ShopByBrand = () => {
                             });
     }
     
-    useEffect(()=>{
+    useMemo(()=>{
 
         if( brands.length === 0 ) {
             getAllBrands();

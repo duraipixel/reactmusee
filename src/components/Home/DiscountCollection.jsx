@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { DiscountSkeletonItem } from '../Skeleton/DiscountSkeletonItem'
@@ -7,17 +7,20 @@ export default function DiscountCollection() {
 
     const [discountCollectionData, setDiscountCollectionData] = useState([]);
 
-    useEffect( () => {
+    async function getDiscountData() {
+        const response =  await fetch(window.API_URL+'/get/discount/collections')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                setDiscountCollectionData(data) })
+                            .catch((err) => {
+                            });
+    }
 
-        async function getDiscountData() {
-            const response =  await fetch(window.API_URL+'/get/discount/collections')
-                                .then((response) => response.json())
-                                .then((data) => { 
-                                    setDiscountCollectionData(data) })
-                                .catch((err) => {
-                                });
+    useMemo( () => {
+
+        if( discountCollectionData.length == 0 ){
+            getDiscountData();
         }
-        getDiscountData();
        
     }, [] );
 

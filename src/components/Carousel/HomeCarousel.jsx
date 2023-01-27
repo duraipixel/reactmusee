@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import './homecarousel.css';
 import { HomeCarouselItem } from './HomeCarouselItem';
@@ -13,7 +13,7 @@ export default function HomeCarousel() {
     const dispatch = useDispatch();
     const banner = useSelector((state) => state.banners);
 
-    useEffect(()=>{
+    useMemo(()=>{
         dispatch(fetchBanners());
     }, []);
     

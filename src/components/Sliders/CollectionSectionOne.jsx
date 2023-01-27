@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import {compile} from 'path-to-regexp';
 import Slider from 'react-slick'
@@ -9,18 +9,19 @@ export const CollectionSectionOne = () => {
 
     const [collectionOne, setCollectionOne] = useState([]);
 
-    useEffect( () => {
+    async function getCollection() {
+        const response =  await fetch(window.API_URL+'/get/product/collections/1')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                setCollectionOne(data.data[0]) })
+                            .catch((err) => {
+                            });
+    }
 
-        async function getCollection() {
-            const response =  await fetch(window.API_URL+'/get/product/collections/1')
-                                .then((response) => response.json())
-                                .then((data) => { 
-                                    setCollectionOne(data.data[0]) })
-                                .catch((err) => {
-                                });
+    useMemo( () => {
+        if( collectionOne.length === 0 ) {
+            getCollection();
         }
-        getCollection();
-       
     }, [] );
 
     const settings = {

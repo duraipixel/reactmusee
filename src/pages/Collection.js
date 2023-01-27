@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 import { FilterPane } from '../components/Filter/FilterPane';
@@ -49,7 +49,7 @@ export const Collection = () => {
         })
     }
 
-    useEffect(() => {
+    useMemo(() => {
         getFilterStaticMenuData();
         dispatch(fetchProducts());
         getOtherCategoryList(categoryUrl);
