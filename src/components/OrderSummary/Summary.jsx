@@ -1,8 +1,33 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 const Summary = () => {
+
+  const [orderInfo, setOrderInfo] = useState([]);
+  const { order_no } = useParams();
+
+  const customer = JSON.parse(window.localStorage.getItem('customer'))
+
+  async function getOrderInfo(order_no) {
+    await axios({
+      url: window.API_URL + "/get/orderByno",
+      method: "POST",
+      data: { customer_id: customer.id, order_no: order_no },
+    })
+      .then((res) => {
+        console.log(res.data);
+        setOrderInfo(res.data);
+      })
+      .catch((err) => { });
+  }
+
+  useEffect(() => {
+    getOrderInfo(order_no)
+  }, [order_no])
+
   return (
+
     <section className="shop-carts ordes-lsts">
       <div className="container">
         <div className="row">
@@ -16,45 +41,45 @@ const Summary = () => {
           </div>
           <div className="col-lg-5">
             <div className="common-heads text-left">
-              <h2>Your order has been shipped and it’s out for delivery</h2>
+              {/* {
+                orderInfo && orderInfo.tracking.length > 0 && end(orderInfo.tracking).map((orderdata) => (
+                  console.log(orderdata)
+                ))
+              } */}
+              <h2>Your order History</h2>
             </div>
             <div className="ordercart-list">
               <ul className="track-order">
-                <li className="active">
-                  <span>
-                    <img src="../assets/images/tick.png" alt="" />
-                  </span>
-                  <h5>10:30 AM - 25 October 2022</h5>
-                  <p>Your order has been placed successfully</p>
-                </li>
-                <li className="active">
-                  <span>
-                    <img src="../assets/images/tick.png" alt="" />
-                  </span>
-                  <h5>10:30 AM - 25 October 2022</h5>
-                  <p>Your order has been placed successfully</p>
-                </li>
-                <li className="active nearby">
-                  <span>
-                    <img src="../assets/images/tick.png" alt="" />
-                  </span>
-                  <h5>10:30 AM - 25 October 2022</h5>
-                  <p>Your order has been placed successfully</p>
-                </li>
-                <li>
-                  <span>
-                    <img src="../assets/images/tick.png" alt="" />
-                  </span>
-                  <h4>Your order will reach you shortly</h4>
-                </li>
+                {
+                  orderInfo && orderInfo.tracking && orderInfo.tracking.length > 0 && orderInfo.tracking.map((item) => (
+                    <li className="active">
+                      <span>
+                        <img src="../assets/images/tick.png" alt="" />
+                      </span>
+                      <h5>{item.created_at}</h5>
+                      <p>{item.description}</p>
+                    </li>
+                  ))
+                }
+                {
+                  orderInfo.status !== 'delivered' ?
+                    <li>
+                      <span>
+                        <img src="../assets/images/tick.png" alt="" />
+                      </span>
+                      <h4>Your order will reach you shortly</h4>
+                    </li> :
+                    null
+                }
+
               </ul>
             </div>
-            <div className="status-delvry">
+            {/* <div className="status-delvry">
               <h4>Delivery By</h4>
               <h5>
                 Blue Dart <span>AWB No: 123-12345678</span>
               </h5>
-            </div>
+            </div> */}
           </div>
 
           <div className="col-lg-7">
@@ -69,22 +94,19 @@ const Summary = () => {
                       <th width="120">Quantitty</th>
                       <th width="120">Price</th>
                     </tr>
-                    <tr>
-                      <td>
-                        <img src="../assets/images/sum-2.png" alt="" />
-                      </td>
-                      <td>Yamaha PSR-I500 Portable Keyboard</td>
-                      <td>1</td>
-                      <td>₹21,498</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <img src="../assets/images/sum-1.png" alt="" />
-                      </td>
-                      <td>Yamaha FC5 Sustain Pedal for Keyboards and Pianos</td>
-                      <td>1</td>
-                      <td>₹21,498</td>
-                    </tr>
+                    {
+                      orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro) => (
+                        <tr>
+                          <td>
+                            <img src={pro.image} alt="" />
+                          </td>
+                          <td>{pro.product_name}</td>
+                          <td>{pro.quantity}</td>
+                          <td>₹{pro.sub_total}</td>
+                        </tr>
+                      ))
+                    }
+
                   </tbody>
                 </table>
               </div>
@@ -94,9 +116,8 @@ const Summary = () => {
                     <tr>
                       <td width="350">
                         <a href="">Get Help with this Order</a>
-                        <a className="dwd-qry" href="">
-                          {" "}
-                          Download Order Summary{" "}
+                        <a className="dwd-qry" href={orderInfo.invoice_file}>
+                          Download Order Summary
                         </a>
                       </td>
                       <td>
@@ -107,31 +128,37 @@ const Summary = () => {
                                 <h3>Sub Total</h3>
                               </td>
                               <td width="180">
-                                <span>₹22,897</span>
+                                <span>₹{orderInfo.sub_total}</span>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <h3>Taxes</h3>
-                              </td>
-                              <td width="180">
-                                <span>₹22,897</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <h3>Shipping</h3>
-                              </td>
-                              <td width="180">
-                                <span>₹500</span>
-                              </td>
-                            </tr>
+                            {
+                              orderInfo.tax_amount > 0 &&
+                              <tr>
+                                <td>
+                                  <h3>Taxes</h3>
+                                </td>
+                                <td width="180">
+                                  <span>₹{orderInfo.tax_amount}</span>
+                                </td>
+                              </tr>
+                            }
+                            {
+                              orderInfo.shipping_amount > 0 &&
+                              <tr>
+                                <td>
+                                  <h3>Shipping</h3>
+                                </td>
+                                <td width="180">
+                                  <span>₹{orderInfo.shipping_amount}</span>
+                                </td>
+                              </tr>
+                            }
                             <tr>
                               <td>
                                 <h4>Grand Total</h4>
                               </td>
                               <td width="180">
-                                <h5>₹27,515.22</h5>
+                                <h5>₹{orderInfo.amount}</h5>
                               </td>
                             </tr>
                           </tbody>

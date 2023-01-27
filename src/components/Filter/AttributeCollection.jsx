@@ -27,7 +27,6 @@ export const AttributeCollection = ({ dynamicFilter }) => {
         dispatch(fetchProducts());
 
     }
-    console.log('dynamicFilter', dynamicFilter);
     return (
         <Fragment>
             <div className="filter-lists">

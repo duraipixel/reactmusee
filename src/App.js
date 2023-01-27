@@ -32,7 +32,7 @@ const App = () => {
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           <Route path='profile' element={<Profile />} />
-          <Route path='ordersummary' element={<OrderSummary />} />
+          <Route path='ordersummary/:order_no' element={<OrderSummary />} />
           <Route path='thankyou/:payment_response' element={<PaymentResponse />} />
           <Route path="*" element={<NoMatch />} />
         </Route>

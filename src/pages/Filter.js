@@ -73,9 +73,15 @@ export const Filter = ({filterStaticMenu}) => {
         url.searchParams.delete("sort");
         url.searchParams.delete("category");
         url.searchParams.delete("attributes_category");
+        var checkboxes = document.querySelectorAll('.filter_dynamic_attributes:checked')
         
+        for(var i= 0; i<checkboxes.length; i++){
+            checkboxes[i].checked= false;
+        }
+        
+        console.log(checkboxes);
         document.getElementsByClassName("product_availability").checked = false;
-        document.getElementsByClassName("filter_dynamic_attributes").checked = false;
+        document.querySelectorAll('input[name=filter_dynamic_attributes]').checked = false;
         document.getElementsByClassName("filter_brand").checked = false;
         document.getElementsByClassName("video_shopping").checked = false;
         document.getElementsByClassName("filter_discounts").checked = false;

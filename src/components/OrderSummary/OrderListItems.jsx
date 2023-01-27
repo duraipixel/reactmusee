@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderListItems = ({ customerOrders }) => {
+  console.log(customerOrders, 'customerOrders')
   return (
     <div
       className="tab-pane fade"
@@ -64,9 +65,12 @@ const OrderListItems = ({ customerOrders }) => {
                   <div className="col-lg-3">
                     <div className="amt-prc text-center">
                       <h4>₹{item.amount}</h4>
-                      <Link className="trc-ordr" to="/ordersummary">
-                        Track Order
-                      </Link>
+                      {
+                        item.tracking.length > 0  &&
+                        <Link className="trc-ordr" to={`/ordersummary/${item.order_no}`}>
+                          Track Order
+                        </Link>
+                      }
                       <a
                         className="in-vce"
                         href={item.invoice_file}

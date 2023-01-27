@@ -84,7 +84,7 @@ export default function Home() {
             <CollectionControlTunes />
             <CollectionRecommend />
             {
-            recentData.length > 0 &&
+            recentData.length > 5 &&
             <RecentView recentData={recentData}/>
             }
             <Testimonials />
