@@ -61,15 +61,17 @@ export default function Topbar({ isTopPage }) {
             data: { search_type: search_type, search_field: search_field }
         }).then((res) => {
             setSearchData(res.data);
+            var element = document.getElementById('parent_search_tab');
+            element.classList.add('bluebg')
         }).catch((err) => {
         })
     }
 
     window.addEventListener('click', function (e) {
-        if (document.getElementById('parent_search_tab').contains(e.target)) {
+        if (document.getElementById('search-input').contains(e.target)) {
 
             var element = document.getElementById('parent_search_tab');
-            element.classList.add('bluebg')
+            element.classList.remove('bluebg')
         } else {
 
             var element = document.getElementById('parent_search_tab');
@@ -96,7 +98,7 @@ export default function Topbar({ isTopPage }) {
                                         </select>
                                     </div>
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
-                                        <input className="src-blnk" type="search" onChange={globalSearch} placeholder="Search..." />
+                                        <input className="src-blnk" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
                                         <ul className="src-fndings" id='searchPane'>
                                             {searchData.length > 0 && searchData.map((item, i) => (
                                                 <li key={i}>

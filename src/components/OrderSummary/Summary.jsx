@@ -16,7 +16,6 @@ const Summary = () => {
       data: { customer_id: customer.id, order_no: order_no },
     })
       .then((res) => {
-        console.log(res.data);
         setOrderInfo(res.data);
       })
       .catch((err) => { });

@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { AddressListPane } from "./AddressListPane";
 import axios from 'axios';
 import './modal.css';
 import OrderListItems from "../OrderSummary/OrderListItems";
-
-
 
 const ProfileContent = ({
   setAddressInfo,
@@ -26,6 +24,8 @@ const ProfileContent = ({
     getAddressInfo(0);
   };
 
+  const [loadingOrderItems, setLoadingOrderItems] = useState(false);
+
   async function getAddressInfo(id) {
     await axios({
       url: window.API_URL + "/get/customer/address",
@@ -38,6 +38,7 @@ const ProfileContent = ({
       .catch((err) => {});
   }
   async function getOrderInfo(id) {
+    setLoadingOrderItems(true);
     await axios({
       url: window.API_URL + "/get/orders",
       method: "POST",
@@ -45,6 +46,7 @@ const ProfileContent = ({
     })
       .then((res) => {
         setCustomerOrders(res.data);
+        setLoadingOrderItems(false);
       })
       .catch((err) => {});
   }
@@ -199,7 +201,7 @@ const ProfileContent = ({
 
                 </div>
               </div>              
-              <OrderListItems customerOrders={customerOrders} />
+              <OrderListItems customerOrders={customerOrders} loadingOrderItems={loadingOrderItems} />
             </div>
           </div>
         </div>

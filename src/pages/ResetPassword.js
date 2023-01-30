@@ -18,6 +18,7 @@ export const ResetPassword = () => {
     } = useForm();
 
     const [sendResetPassword, setSendResetPassword] = useState(false);
+    const [checkToken, setCheckToken] = useState(false);
     const navigate = useNavigate();
     const { token } = useParams();
 
@@ -61,17 +62,18 @@ export const ResetPassword = () => {
     }
 
     async function checkValidToken(token) {
-        
+        setCheckToken(true)
         axios({
             url: window.API_URL + '/check/tokenValid',
             method: 'POST',
             data: {token_id:token},
         }).then((res) => {
-            console.log(res.data);
+            setCheckToken(false)
             if (res.data.error == 1) {
                 
             } else {
                 setValidCustomer(res.data.data)
+                
             }
             return false;
         }).catch((err) => {
@@ -80,7 +82,7 @@ export const ResetPassword = () => {
     }
 
     useMemo(() => checkValidToken(token), [token])
-
+    
     return (
         <Fragment>
             <Helmet>
@@ -117,6 +119,7 @@ export const ResetPassword = () => {
                                                     <div className="row">
                                                         <div className="form-data col-lg-12 mb-3">
                                                             <input className="form-control" type="password" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
+                                                            <input type="hidden" {...register("customer_id")} value={validCustomer[0].id} />
                                                             <ErrorMessage errors={errors} name="password" as="p" />
                                                         </div>
                                                         <div className="form-data col-lg-12 mb-3">
@@ -144,7 +147,17 @@ export const ResetPassword = () => {
                                         </form>
                                         : 
                                         <div className='token-expired'>
-                                            Token expired or invalid
+                                            {
+                                                checkToken ? 
+                                                <div>
+                                                    Please wait checking token...
+                                                </div>
+                                                :
+                                                <div>
+                                                    Token expired or invalid
+                                                </div>
+                                            }
+                                            
                                         </div>
                                         }
                                     </div>

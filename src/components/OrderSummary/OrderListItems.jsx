@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const OrderListItems = ({ customerOrders }) => {
+const OrderListItems = ({ customerOrders, loadingOrderItems }) => {
   // console.log(customerOrders, 'customerOrders')
   return (
     <div
@@ -66,7 +66,7 @@ const OrderListItems = ({ customerOrders }) => {
                     <div className="amt-prc text-center">
                       <h4>₹{item.amount}</h4>
                       {
-                        item.tracking.length > 0  &&
+                        item.tracking.length > 0 &&
                         <Link className="trc-ordr" to={`/ordersummary/${item.order_no}`}>
                           Track Order
                         </Link>
@@ -86,30 +86,47 @@ const OrderListItems = ({ customerOrders }) => {
           </div>
         ))
       ) : (
-        <section class="shop-carts">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-              <div class="common-heads text-center">
-                <h2>Your basket is empty!</h2>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="finalcart-list text-center">
-                <img
-                  className="no-order-image"
-                  src="../../assets/illustrations/sigma-1/9-dark.png"
-                  alt="call"
-                />
-                <br />
-                <div class="load-btn">
-                  <a href="/"> Shop today’s deals </a>
+
+
+        loadingOrderItems ?
+          <section class="shop-carts">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="common-heads text-center">
+                    <h2>Please wait checking your orders.....</h2>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
+          :
+
+
+          <section class="shop-carts">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="common-heads text-center">
+                    <h2>Your basket is empty!</h2>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="finalcart-list text-center">
+                    <img
+                      className="no-order-image"
+                      src="../../assets/illustrations/sigma-1/9-dark.png"
+                      alt="call"
+                    />
+                    <br />
+                    <div class="load-btn">
+                      <a href="/"> Shop today’s deals </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
       )}
     </div>
   );
