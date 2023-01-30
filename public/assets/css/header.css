@@ -950,6 +950,11 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         font-weight: 600;
         font-size: 17px !important;
     }
+    #cssmenu>ul>li>button {
+        color: #000;
+        font-weight: 600;
+        font-size: 17px !important;
+    }
     li.having-hamber {
         display: none !important;
     }

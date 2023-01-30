@@ -674,8 +674,6 @@ section {
   width: 100%;
   border-radius: 3px;
   margin-bottom: 6px;
-  width: 121px;
-  height: 115px;
 }
 
 .deals-box ul li span {
@@ -1951,15 +1949,7 @@ section {
   width: 42%;
   margin: 0px 9px 20px;
   vertical-align: top;
-}
-
-.deals-box ul li img {
-  width: 100%;
-  border-radius: 3px;
-  margin-bottom: 6px;
-  width: 121px;
-  height: 115px;
-}
+} 
 
 .deals-box ul li span {
   display: block;
@@ -7309,6 +7299,13 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 1000px) {
+  .favorite-letter .slick-dots, .keyboards-slider .slick-dots, .new-arrivals .slick-dots, .the-trending .slick-dots {
+    bottom: -30px;
+  } 
+
+  header{z-index: 9;}
+  .top-bar.top-fix{z-index: 9;}
+  .deals-box{margin-bottom: 30px;}
   .filter-lists h3 {
     margin-top: 20px;
   }
