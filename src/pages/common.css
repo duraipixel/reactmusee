@@ -47,3 +47,9 @@ img.payment-success-image {
 /* .abt-prduct h4{
     margin-top: 0px !important;
 } */
+
+.token-expired {
+  font-size: 18px;
+  font-weight: bold;
+  color: #c85555;
+}

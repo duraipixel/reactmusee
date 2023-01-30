@@ -1,22 +1,14 @@
-import React, { Fragment, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { toast } from 'react-toastify';
-import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
-import { fetchCarts } from '../app/reducer/cartSlice';
-import { removeAttemptItem } from '../app/reducer/attemptedCartSlice';
-import { loginCustomer } from '../app/reducer/customerSlice';
-import { fetchAddress } from '../app/reducer/customerAddressSlice';
+import React from 'react'
+import { Fragment, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { ErrorMessage } from '@hookform/error-message'
+import { Link, useNavigate } from 'react-router-dom';
 
-export const Login = () => {
+export const ForgotPassword = () => {
 
-    const attempt_cart = useSelector((state) => state.attempt_cart);
-    const dispatch = useDispatch();
-
-    // const [localCustomerSession, setLocalCustomerSession] = useState(JSON.parse(window.localStorage.getItem('customer') || null));
     const {
         register,
         handleSubmit,
@@ -25,76 +17,21 @@ export const Login = () => {
         reset
     } = useForm();
 
+    const [sendPasswordLink, setSendPasswordLink] = useState(false);
     const navigate = useNavigate();
-    const [loginFormLoader, setLoginFormLoader] = useState(false);
 
     const onSubmit = (data) => {
-        doLoginCustomer(data);
+        doSendPasswordLink(data);
     };
 
-    async function fetchCartProducts() {
-
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-
-        await axios({
-            url: window.API_URL + '/get/cart',
-            method: 'POST',
-            data: { customer_id: customer.id },
-        }).then((res) => {
-
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
-        }).catch((err) => {
-
-        })
-    }
-
-    const setCustomerAddress = () => {
-        let address = JSON.parse(window.localStorage.getItem('addres'));
-                    
-        dispatch(fetchAddress(address ));
-        console.log('address assigned')   
-    }
-
-    async function addCartProduct(item) {
-
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-        const res_data = { ...item, customer_id: customer.id, quantity: 1 };
-
-        await axios({
-            url: window.API_URL + '/add/cart',
-            method: 'POST',
-            data: res_data,
-        }).then((res) => {
-
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
-        }).catch((err) => {
-
-        })
-    }
-
-    async function getSiteInformation() {
-        await axios({
-            url: window.API_URL + '/get/site/info',
-            method: 'GET',
-        }).then((res) => {
-            localStorage.setItem('site_info', JSON.stringify(res.data));
-        }).catch((err) => {
-
-        })
-    }
-
-    async function doLoginCustomer(formData) {
-        setLoginFormLoader(true);
+    async function doSendPasswordLink(formData) {
+        setSendPasswordLink(true);
         axios({
-            url: window.API_URL + '/login',
+            url: window.API_URL + '/send/password/link',
             method: 'POST',
             data: formData,
         }).then((res) => {
-            setLoginFormLoader(false);
+            setSendPasswordLink(false);
             if (res.data.error == 1) {
 
                 let error_message = res.data.message;
@@ -105,33 +42,12 @@ export const Login = () => {
 
             } else {
 
-                toast.success('Login Successfull', {
+                toast.success('Reset Password link sent to your mail Successfull', {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
 
-                if (res.data.customer_data) {
-
-                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
-
-                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
-
-                    
-                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
-
-                    
-                    
-                    fetchCartProducts();
-                    setCustomerAddress()
-
-                    if (attempt_cart.attempt_cart.length > 0) {
-                        addCartProduct(attempt_cart.attempt_cart);
-                        dispatch(removeAttemptItem(attempt_cart.attempt_cart))
-                    }
-
-                    getSiteInformation();
-                }
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/login');
                 }, 300);
 
             }
@@ -144,9 +60,9 @@ export const Login = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Login | Musee Musical</title>
+                <title>Forgot Password | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
-                <meta name='description' content='login page'/>
+                <meta name='description' content='forgot password page'/>
             </Helmet>
             <section className="tab-of-sectors lgon-pge">
                 <div className="container">
@@ -169,7 +85,7 @@ export const Login = () => {
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <div className="common-heading">
                                                         <h2>
-                                                            Login <span> Here! </span>
+                                                            Forgot Password 
                                                         </h2>
                                                     </div>
                                                     <div className="row">
@@ -182,18 +98,12 @@ export const Login = () => {
                                                             })} placeholder="Email" />
                                                             <ErrorMessage errors={errors} name="email" as="p" />
                                                         </div>
-                                                        <div className="form-data col-lg-12 mb-3">
-                                                            <input className="form-control" type="password" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
-                                                            <ErrorMessage errors={errors} name="password" as="p" />
-                                                        </div>
-                                                        <div className='mb-3 text-end user-register'>
-                                                            <Link to='/forgotpassword' style={{ color: '#212363', fontWeight: '800' }}> Forgot Password? </Link>
-                                                        </div>
+                                                        
                                                         <div className="form-data sbm col-lg-12 mb-3">
-                                                            <button type='submit' disabled={loginFormLoader} >
-                                                                {loginFormLoader && (
+                                                            <button type='submit' disabled={sendPasswordLink} >
+                                                                {sendPasswordLink && (
                                                                     <span className="spinner-grow spinner-grow-sm"></span>
-                                                                )} Sign In
+                                                                )} Send Password Link
                                                             </button>
 
                                                         </div>
@@ -203,9 +113,11 @@ export const Login = () => {
                                                             <h5>or</h5>
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-12 text-center p-0">
-                                                        <div className="login-btn">
-                                                            <span> Login with <a href=""><img src="/assets/images/google.png" /></a> <a href=""><img src="/assets/images/facebook.png" /></a> </span>
+                                                   
+                                                    <div className="col-lg-12 text-center mt-3">
+                                                        <div className="user-regster">
+                                                            Having credentials?
+                                                            <Link to="/login"> Login Here! </Link>
                                                         </div>
                                                     </div>
                                                     <div className="col-lg-12 text-center mt-3">

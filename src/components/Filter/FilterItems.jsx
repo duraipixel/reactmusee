@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const FilterItems = () => {
 
     const filterData = useSelector((state) => state.products);
-    const products = filterData.products.products;
+    const products = filterData.products && filterData.products != 'undefined' ? filterData.products.products : []
 
     return (
         <Fragment>

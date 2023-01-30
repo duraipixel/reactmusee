@@ -16,6 +16,8 @@ import { Register } from './pages/Register';
 import { Profile } from './pages/Profile';
 import { PaymentResponse } from './pages/PaymentResponse.js';
 import OrderSummary from './pages/OrderSummary.js';
+import { ForgotPassword } from './pages/ForgotPassword.js';
+import { ResetPassword } from './pages/ResetPassword.js';
 
 const App = () => {
 
@@ -31,6 +33,8 @@ const App = () => {
           <Route path='cart' element={<Cart />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='forgotpassword' element={<ForgotPassword />} />
+          <Route path='reset-password/:token' element={<ResetPassword />} />
           <Route path='profile' element={<Profile />} />
           <Route path='ordersummary/:order_no' element={<OrderSummary />} />
           <Route path='thankyou/:payment_response' element={<PaymentResponse />} />
