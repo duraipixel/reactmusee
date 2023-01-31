@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBrands } from '../../app/reducer/brandSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
 export const Brand = () => {
@@ -10,14 +10,16 @@ export const Brand = () => {
     const [searchField, setSearchField] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
     useEffect(() => {
         dispatch(fetchBrands());
     }, [])
-
-    const CommonUrl = new URL(window.location.href);
+    
     var brandSelected = [];
-    if( CommonUrl.searchParams.get('brand') ) {
-        brandSelected = CommonUrl.searchParams.get('brand').split("_") ;
+    if( searchParams.get('brand') ) {
+        brandSelected = searchParams.get('brand').split("_") ;
     }
     var filteredBrands = '';
     
@@ -48,12 +50,12 @@ export const Brand = () => {
         }
         if (array.length > 0) {
             let checkedAvailabilityString = array.join("_");
-            url.searchParams.set("brand", checkedAvailabilityString);
+            searchParams.set("brand", checkedAvailabilityString);
         } else {
-            url.searchParams.delete("brand");
+            searchParams.delete("brand");
         }
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl + '?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
 
     }
 

@@ -2,7 +2,7 @@ import React, { Fragment, useMemo, useState } from 'react'
 import { Brand } from '../components/Filter/Brand'
 import { DiscountCollection } from '../components/Filter/DiscountCollection'
 import { ProductAvailability } from '../components/Filter/ProductAvailability'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';
 import { AttributeCollection } from '../components/Filter/AttributeCollection';
@@ -15,17 +15,21 @@ export const Filter = ({filterStaticMenu}) => {
     const discounts = filterStaticMenu.discounts;
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location  = useLocation();
 
     const [dynamicFilter, setDynamicFilter] = useState([]);
 
+    const searchParams = new URLSearchParams(location.search);
+
     const CommonUrl = new URL(window.location.href);
-    // console.log(CommonUrl, 'CommonUrl')
-    // console.log(CommonUrl.searchParams.get('category'))
+    
     var bookingSelected = [];
    
-    if( CommonUrl.searchParams.get('booking') ) {
-        bookingSelected = CommonUrl.searchParams.get('booking').split("-") ;
+    if( searchParams.get('booking') ) {
+        bookingSelected = searchParams.get('booking').split("-") ;
     }
+
+    const categoryUrl = searchParams.get('category');
 
     const getProduct = () => {
         
@@ -39,18 +43,17 @@ export const Filter = ({filterStaticMenu}) => {
         }
         if (array.length > 0) {
             let checkedAvailabilityString = array.join("_");
-            url.searchParams.set("booking", checkedAvailabilityString);
+            searchParams.set("booking", checkedAvailabilityString);
         } else {
-            url.searchParams.delete("booking");
+            searchParams.delete("booking");
         }
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl + '?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
 
     }
-
-    const categoryUrl = CommonUrl.searchParams.get('category');
-    // console.log(categoryUrl, 'categoryUrl')
+    
     const getDynamicFilter = () => {
+
         axios({
             url: window.API_URL + '/get/dynamic/filter/category',
             method: 'POST',
@@ -81,7 +84,6 @@ export const Filter = ({filterStaticMenu}) => {
             checkboxes[i].checked= false;
         }
         
-        console.log(checkboxes);
         document.getElementsByClassName("product_availability").checked = false;
         document.querySelectorAll('input[name=filter_dynamic_attributes]').checked = false;
         document.getElementsByClassName("filter_brand").checked = false;
@@ -96,7 +98,6 @@ export const Filter = ({filterStaticMenu}) => {
 
     useMemo(() => {
         if( dynamicFilter.length == 0 ){
-            console.log("first")
             getDynamicFilter()
         }
     }, [categoryUrl])
@@ -106,7 +107,7 @@ export const Filter = ({filterStaticMenu}) => {
             <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 sdmnu-repnsve mCustomScrollbar sticky-wraper" data-spy="affix" data-offset-top="224" data-offset-bottom="320">
                 <div className="filter-lists d-flex">
                     <h3>Filters</h3>
-                    <div className={`clear_filter ${Array.from(CommonUrl.searchParams).length > 0 ? '':'hide'}`} onClick={() => clearFilter()}> 
+                    <div className={`clear_filter ${Array.from(searchParams).length > 0 ? '':'hide'}`} onClick={() => clearFilter()}> 
                         Clear Filter  
                         <i className="fa fa-times" aria-hidden="true"></i></div>
                 </div>
@@ -133,7 +134,6 @@ export const Filter = ({filterStaticMenu}) => {
                     </ul>
                 </div>
                 <DiscountCollection discounts={discounts} />
-
             </div>
         </Fragment>
     )

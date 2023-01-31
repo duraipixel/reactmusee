@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Fragment, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
 import { fetchMenus } from './../../app/reducer/menuSlice';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
@@ -11,7 +11,9 @@ export default function Topmenu({ isTopPage, topmenu }) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
 
+    const searchParams = new URLSearchParams(location.search);
     const cUrl = new URL(window.location.href);
 
     const getSubMenu = (category) => {
@@ -20,11 +22,11 @@ export default function Topmenu({ isTopPage, topmenu }) {
         
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
-        url.searchParams.set("category", category);
-        url.searchParams.delete("scategory");
+        searchParams.set("category", category);
+        searchParams.delete("scategory");
 
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl +'?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
         getOtherCategoryList(category)
 
     }
@@ -41,19 +43,6 @@ export default function Topmenu({ isTopPage, topmenu }) {
         })
        
     }
-
-    // useEffect(() => {
-
-        // if (window.performance) {
-        //     if (performance.navigation.type == 1) {
-        //         if( cUrl.searchParams.get('category') ) {
-        //             getSubMenu(cUrl.searchParams.get('category'))
-        //         }
-        //     } 
-        // }
-
-    // }, []);
-
 
     const openSideBar = () => {
         dispatch(isOpenSideBar());

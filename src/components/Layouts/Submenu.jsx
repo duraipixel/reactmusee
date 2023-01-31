@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMenus } from './../../app/reducer/menuSlice';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
@@ -8,20 +8,23 @@ export const Submenu = () => {
     const navigate = useNavigate();
     const menuData = useSelector((state) => state.menus);
     const dispatch = useDispatch();
+    const location = useLocation();
+
+    const searchParams = new URLSearchParams(location.search);
     const commonUrl = new URL(window.location.href);
 
     const setUrlCategory = (slug) => {
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
         if (slug == 'all') {
-            url.searchParams.set("category", menuData.menus[0].slug);
-            url.searchParams.delete("scategory");
+            searchParams.set("category", menuData.menus[0].slug);
+            searchParams.delete("scategory");
         } else {
-            url.searchParams.set("category", menuData.menus[0].slug);
-            url.searchParams.set("scategory", slug);
+            searchParams.set("category", menuData.menus[0].slug);
+            searchParams.set("scategory", slug);
         }
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl +'?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
 
     }
 

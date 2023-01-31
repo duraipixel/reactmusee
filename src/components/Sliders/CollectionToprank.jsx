@@ -104,7 +104,8 @@ export const CollectionToprank = () => {
                 </div>
             </section>
              ) :
-             <CollectionSectionOneSkeleton />  
+             null
+            //  <CollectionSectionOneSkeleton />  
             }
         </Fragment>
     )

@@ -109,7 +109,8 @@ export const CollectionSectionOne = () => {
                     </div>
                 </section>
             ) : 
-                <CollectionSectionOneSkeleton />                    
+                // <CollectionSectionOneSkeleton />    
+                null                
 
             }           
         </Fragment>
