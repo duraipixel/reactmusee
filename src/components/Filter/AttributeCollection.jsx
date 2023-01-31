@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react'
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 export const AttributeCollection = ({ dynamicFilter }) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
 
     const getProduct = (e) => {
         const url = new URL(window.location.href);
@@ -19,12 +21,12 @@ export const AttributeCollection = ({ dynamicFilter }) => {
         }
         if (array.length > 0) {
             let checkedAvailabilityString = array.join("-");
-            url.searchParams.set("attributes_category", checkedAvailabilityString);
+            searchParams.set("attributes_category", checkedAvailabilityString);
         } else {
-            url.searchParams.delete("attributes_category");
+            searchParams.delete("attributes_category");
         }
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl + '?' + searchParams.toString() );
+        dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
     return (

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
@@ -7,6 +7,8 @@ export const SortBy = ({sort_by}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
 
     const getProducts = () => {
         
@@ -16,12 +18,12 @@ export const SortBy = ({sort_by}) => {
         var sortby  = document.getElementById('sort_by').value
         
         if (sortby != '' || sort_by != 'undefined' || sort_by != null ) {
-            url.searchParams.set( "sort", sortby );
+            searchParams.set( "sort", sortby );
         } else {
-            url.searchParams.delete( "sort" );
+            searchParams.delete( "sort" );
         }
-        navigate(SUrl + url.search);
-        dispatch(fetchProducts());
+        navigate(SUrl + '?' +searchParams.toString());
+        dispatch(fetchProducts('?' +searchParams.toString()));
         
     }
     

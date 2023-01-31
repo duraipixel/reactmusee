@@ -10,7 +10,7 @@ import SideCustomScrollbar from './../components/SideCustomScrollbar';
 import { Filter } from './Filter';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { fetchBrowseCategory } from './../app/reducer/otherCategorySlice';
 
@@ -21,8 +21,11 @@ export const Collection = () => {
     const otherCategory = useSelector((state) => state.browse);
     const [browseCategory, setBrowseCategory] = useState([]);
 
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
     const cUrl = new URL(window.location.href);    
-    const categoryUrl = cUrl.searchParams.get('category');
+    const categoryUrl = searchParams.get('category');
 
     const dispatch = useDispatch();
     

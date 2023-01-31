@@ -1,17 +1,19 @@
 import React, { Fragment } from 'react'
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const DiscountCollection = ({ discounts }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
   const CommonUrl = new URL(window.location.href);
   var discountSelected = [];
   
-  if( CommonUrl.searchParams.get('discount') ) {
-    discountSelected = CommonUrl.searchParams.get('discount').split("_") ;
+  if( searchParams.get('discount') ) {
+    discountSelected = searchParams.get('discount').split("_") ;
   }
   
   const getProduct = () => {
@@ -26,12 +28,12 @@ export const DiscountCollection = ({ discounts }) => {
     }
     if (array.length > 0) {
         let checkedAvailabilityString = array.join("_");
-        url.searchParams.set("discount", checkedAvailabilityString);
+        searchParams.set("discount", checkedAvailabilityString);
     } else {
-        url.searchParams.delete("discount");
+        searchParams.delete("discount");
     }
-    navigate(SUrl + url.search);
-    dispatch(fetchProducts());
+    navigate(SUrl + '?'+ searchParams.toString());
+    dispatch(fetchProducts('?'+ searchParams.toString()));
 
   }
 
