@@ -2,12 +2,15 @@ import React, { Fragment } from 'react'
 import { FilterItems } from './FilterItems';
 import { ProductSkeletonItem } from './../Skeleton/ProductSkeletonItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, createSearchParams } from 'react-router-dom';
+import { useNavigate, createSearchParams, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
 export const FilterPane = (props) => {
     const dispatch = useDispatch();
-    const navaigate = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
     const filterData = useSelector((state) => state.products);
     
     const products = filterData.products != undefined ? filterData.products.products : [];
@@ -19,11 +22,12 @@ export const FilterPane = (props) => {
 
         let page = parseInt(to) / parseInt(window.productLimit);
         const url = new URL(window.location.href);
+        const SUrl = "/products/pfilter";
         
-        url.searchParams.set("page", page);       
-        navaigate(url.search);
+        searchParams.set("page", page);       
+        navigate(SUrl +'?'+ searchParams.toString());
 
-        dispatch(fetchProducts());
+        dispatch(fetchProducts( '?'+ searchParams.toString()));
         
     }
     

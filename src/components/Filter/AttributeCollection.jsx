@@ -37,8 +37,8 @@ export const AttributeCollection = ({ dynamicFilter }) => {
                         <ul>
                             <h4> {item.filter_title} </h4>
                             {
-                                item.child && item.child.map((items) => (
-                                    <li >
+                                item.child && item.child.map((items, i) => (
+                                    <li key={i}>
                                         <label className="cstm-chkbx">
                                             {items.title } : {items.attribute_values}
 

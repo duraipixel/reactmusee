@@ -94,7 +94,7 @@ export default function Topbar({ isTopPage }) {
                                 <div className="top-search">
                                     <div className="">
                                         <select className="form-control" id="enq" name="enq" >
-                                            <option value="product">All Products</option>
+                                            <option value="product" selected >All Products</option>
                                         </select>
                                     </div>
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>

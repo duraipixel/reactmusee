@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
@@ -12,24 +12,31 @@ export default function Topmenu({ isTopPage, topmenu }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
+    
+    const [isFetchUrl, setIsFetchUrl] = useState('');
 
     const searchParams = new URLSearchParams(location.search);
     const cUrl = new URL(window.location.href);
 
     const getSubMenu = (category) => {
-
         dispatch(fetchMenus(category));
         
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
         searchParams.set("category", category);
         searchParams.delete("scategory");
-
         navigate(SUrl +'?'+ searchParams.toString());
-        dispatch(fetchProducts('?'+ searchParams.toString()));
         getOtherCategoryList(category)
+        
+        setIsFetchUrl('?'+ searchParams.toString());
 
     }
+
+    useMemo(() => {
+        console.log(isFetchUrl, 'isFetchUrl')
+        dispatch(fetchProducts(isFetchUrl));
+    }, [isFetchUrl])
+    
 
     async function getOtherCategoryList(category) {
 

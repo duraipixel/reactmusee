@@ -53,10 +53,11 @@ export const Collection = () => {
     }
 
     useMemo(() => {
-        getFilterStaticMenuData();
-        dispatch(fetchProducts());
+        // dispatch(fetchProducts());
         getOtherCategoryList(categoryUrl);
     }, [categoryUrl]);
+
+    useMemo(() => getFilterStaticMenuData(), [])
     // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     return (
         <Fragment>

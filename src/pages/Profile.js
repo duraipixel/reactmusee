@@ -10,6 +10,7 @@ import { Fragment } from 'react'
 import EditAddress from './../components/Profile/EditAddress';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
+import { CancelOrderRequested } from '../components/OrderSummary/CancelOrderRequested'
 
 export const Profile = () => {
 
@@ -20,13 +21,13 @@ export const Profile = () => {
 
     const [personalShow, setPersonalShow] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
+    
     const [states, setStates] = useState([]);
     
     const [addressFormShow, setAddressFormShow] = useState(false);
     const [editAddressFormShow, setEditAddressFormShow] = useState(false);
     const [updateAddressId, setUpdateAddressId] = useState(0);
     const [addressInfo, setAddressInfo] = useState(null);
-
 
     async function getAllStates() {
         await axios({
@@ -44,8 +45,7 @@ export const Profile = () => {
         setPasswordShow(false)
     };
     const handlePasswordShow = () => setPasswordShow(true);
-
-
+    
     const handlePersonalClose = () => {
         document.getElementById('profileForm').reset();
         setPersonalShow(false)
@@ -90,7 +90,6 @@ export const Profile = () => {
         }
 
     }, [])
-
     
     return (
         <Fragment>

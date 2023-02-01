@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';
@@ -10,11 +10,13 @@ export const ProductAvailability = ({ product_availability }) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
+    const [isFetchUrl, setIsFetchUrl] = useState('');
+
     var availabilitySelected = [];
     if( searchParams.get('availability') ) {
         availabilitySelected = searchParams.get('availability').split("-") ;
     }
-
+    
     const getProduct = (e) => {
         // const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
@@ -31,10 +33,13 @@ export const ProductAvailability = ({ product_availability }) => {
         } else {
             searchParams.delete("availability");
         }
-        console.log(SUrl +'?'+ searchParams.toString());
         navigate(SUrl +'?'+ searchParams.toString());
+        setIsFetchUrl('?'+ searchParams.toString());
         dispatch(fetchProducts( '?'+ searchParams.toString()));
     }
+
+    
+    
 
     return (
         <Fragment>

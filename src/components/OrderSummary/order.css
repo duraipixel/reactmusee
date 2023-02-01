@@ -13,6 +13,25 @@
   
   .trc-order:hover {
     background: black;
-      color:white;
+    color:white;
+  }
+
+  .mussee-btn-border-black {
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 30px;
+    line-height: 20px;
+    display: inline-block;
+    font-family: "Quicksand", sans-serif;
+    color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    border-radius: 4px;
+    transition: all 0.5s ease;
+  }
+
+  .mussee-btn-border-black:hover {
+    background: black;
+    color: white;
   }
   

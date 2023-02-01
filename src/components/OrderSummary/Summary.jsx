@@ -1,13 +1,29 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import './order.css';
+import { CancelOrderRequested } from './CancelOrderRequested';
 
 const Summary = () => {
 
   const [orderInfo, setOrderInfo] = useState([]);
+  const [orderId, setOrderId] = useState('');
   const { order_no } = useParams();
-
+  const [cancelShow, setCancelShow] = useState(false);
   const customer = JSON.parse(window.localStorage.getItem('customer'))
+
+
+  const handleCancelRequestShow = (id) => {
+    setCancelShow(true)
+    setOrderId(id);
+  }
+
+  const handleCancelRequestClose = () => {
+    document.getElementById('cancelOrderForm').reset();
+    setCancelShow(false)
+  }
+
+
 
   async function getOrderInfo(order_no) {
     await axios({
@@ -50,8 +66,8 @@ const Summary = () => {
             <div className="ordercart-list">
               <ul className="track-order">
                 {
-                  orderInfo && orderInfo.tracking && orderInfo.tracking.length > 0 && orderInfo.tracking.map((item) => (
-                    <li className="active">
+                  orderInfo && orderInfo.tracking && orderInfo.tracking.length > 0 && orderInfo.tracking.map((item, i) => (
+                    <li className="active" key={i}>
                       <span>
                         <img src="../assets/images/tick.png" alt="" />
                       </span>
@@ -94,8 +110,8 @@ const Summary = () => {
                       <th width="120">Price</th>
                     </tr>
                     {
-                      orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro) => (
-                        <tr>
+                      orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro, i) => (
+                        <tr key={i}>
                           <td>
                             <img src={pro.image} alt="" />
                           </td>
@@ -114,7 +130,8 @@ const Summary = () => {
                   <tbody>
                     <tr>
                       <td width="350">
-                        <a href="">Get Help with this Order</a>
+                        
+                        <button className="mussee-btn-border-black" onClick={() => handleCancelRequestShow(orderInfo.id)}> Request Cancel Order </button>
                         <a className="dwd-qry" href={orderInfo.invoice_file}>
                           Download Order Summary
                         </a>
@@ -171,6 +188,7 @@ const Summary = () => {
           </div>
         </div>
       </div>
+      <CancelOrderRequested orderId={orderId} handleCancelRequestShow={handleCancelRequestShow} cancelShow={cancelShow} handleCancelRequestClose={handleCancelRequestClose} customer={customer} />
     </section>
   );
 };
