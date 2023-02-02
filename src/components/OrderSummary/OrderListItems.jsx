@@ -33,10 +33,10 @@ const OrderListItems = ({ customerOrders, loadingOrderItems }) => {
                       </h5>
                     </td>
                     <td>
-                      <a className="" href="">
+                      <Link to={`/ordersummary/${item.order_no}`}>
                         View Order Details
                         <img src="../assets/images/bckp.png" />
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 </tbody>

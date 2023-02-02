@@ -2,15 +2,17 @@ import React, { Fragment, useEffect, useMemo } from 'react'
 import { Accordion } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './sideMenuBar.css';
 import { useState } from 'react';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { fetchMenus } from './../app/reducer/menuSlice';
 
-export default function SideCustomScrollbar() {
+export default function SideCustomScrollbar({menuAll, getSubMenu}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
 
     const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     const openSideBar = () => {
@@ -21,32 +23,17 @@ export default function SideCustomScrollbar() {
 
     const cUrl = new URL(window.location.href);
 
-    const getSubMenu = (categorySlug, subCategorySlug) => {
+    const handleSubMenu = (categorySlug, subCategorySlug) => {
         //?category=keyboard-case-keyboard&scategory=gator-keyboard-case-keyboard-case
-        const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
-        url.searchParams.set("category", categorySlug);
-        url.searchParams.set("scategory", subCategorySlug);
-        navigate(SUrl + url.search);
+        searchParams.set("category", categorySlug);
+        searchParams.set("scategory", subCategorySlug);
+        getSubMenu(categorySlug);
+        navigate(SUrl +'?'+ searchParams.toString());
         dispatch(isOpenSideBar());
-        dispatch(fetchProducts());
-        dispatch(fetchMenus(categorySlug));
+        dispatch(fetchProducts('?'+ searchParams.toString()));
 
     }
-
-    const [menuall, setMenuAll] = useState([]);
-
-    async function getAllMenu() {
-        
-        const response =  await fetch(window.API_URL+'/get/allMenu')
-                            .then((response) => response.json())
-                            .then((data) => setMenuAll(data.data))
-                            .catch((err) => {
-                                // console.log(err.message)
-                            });
-    }
-
-    useMemo(() => getAllMenu() , [])
 
     return (
         <Fragment>
@@ -58,7 +45,7 @@ export default function SideCustomScrollbar() {
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">
                         {
-                            menuall && menuall.map((item, i) => (
+                            menuAll && menuAll.map((item, i) => (
                                 <Accordion.Item eventKey={i} key={i}>
                                     <Accordion.Header>
                                         {item.name}
@@ -68,7 +55,7 @@ export default function SideCustomScrollbar() {
                                             {
                                                 item.child && item.child.length > 0 && item.child.map((items, j) => (
                                                     <li key={j}>
-                                                        <button className='sidemenu-button' onClick={() => getSubMenu(item.slug, items.slug)}>
+                                                        <button className='sidemenu-button' onClick={() => handleSubMenu(item.slug, items.slug)}>
                                                            - {items.name}
                                                         </button>
                                                     </li>

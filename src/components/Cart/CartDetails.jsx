@@ -23,15 +23,24 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
                 position: toast.POSITION.BOTTOM_RIGHT
             });
             setCheckoutFormLoading(false);
+
+        } else {
+
+            axios({
+                url: window.API_URL + '/proceed/checkout',
+                method: 'POST',
+                data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
+            }).then((response) => {
+                if( response.error == 1 ) {
+                    toast.error(response.message, {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                } else {
+                    verifyPayment(response.data);
+                }
+                
+            });
         }
-        axios({
-            url: window.API_URL + '/proceed/checkout',
-            method: 'POST',
-            data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
-        }).then((response) => {
-            verifyPayment(response.data);
-            
-        });
     }
 
     const verifyPayment = async (params) => {

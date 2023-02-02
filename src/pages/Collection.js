@@ -26,14 +26,17 @@ export const Collection = () => {
 
     const cUrl = new URL(window.location.href);    
     const categoryUrl = searchParams.get('category');
-
+    const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
     const dispatch = useDispatch();
     
     async function getFilterStaticMenuData() {
         
         await fetch(window.API_URL + '/get/filter/static/sidemenus')
             .then((response) => response.json())
-            .then((data) => setFilterStaticMenu(data))
+            .then((data) => {
+                    localStorage.setItem('filterStaticMenu', JSON.stringify(data));
+                }
+            )
             .catch((err) => {
                 // console.log(err.message)
             });
@@ -53,11 +56,10 @@ export const Collection = () => {
     }
 
     useMemo(() => {
-        // dispatch(fetchProducts());
-        getOtherCategoryList(categoryUrl);
-    }, [categoryUrl]);
-
-    useMemo(() => getFilterStaticMenuData(), [])
+        if( filterStaticSideMenu.length === 0 ) {
+            getFilterStaticMenuData();
+        }
+    }, []);
     // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     return (
         <Fragment>
@@ -68,13 +70,11 @@ export const Collection = () => {
                 {/* <meta name="keyword" content="" /> */}
                 {/* <meta name="description" content={productInfo.meta.meta_description} /> */}
             </Helmet>
-            <SideCustomScrollbar />
-            <Submenu />
 
             <section className="all-pianos-list">
                 <div className="container">
                     <div className="row">
-                        <Filter filterStaticMenu={filterStaticMenu} />
+                        <Filter filterStaticMenu={filterStaticSideMenu} />
                         <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div className="pianos-lists">
                                 <div className="col-lg-12 col-md-12 col-sm-12 d-flex
@@ -82,7 +82,7 @@ export const Collection = () => {
                                     <div className="primary-heads">
                                         <ProductCount />
                                     </div>
-                                    <SortBy sort_by={filterStaticMenu.sory_by} />
+                                    <SortBy sort_by={filterStaticSideMenu.sory_by} />
                                 </div>
                                 <FilterPane />
                             </div>

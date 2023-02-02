@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const fetchBrowseCategory = createAsyncThunk('browse/fetchBrowseCategory', (category) => {
-   
+    console.log( category, 'category params');
     return axios({
         url: window.API_URL + '/get/other/category',
         method: 'POST',

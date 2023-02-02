@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchBrands } from '../../app/reducer/brandSlice';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -13,19 +13,36 @@ export const Brand = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
-    useEffect(() => {
-        dispatch(fetchBrands());
-    }, [])
+    const getBrandList = localStorage.getItem('brands') ? JSON.parse(localStorage.getItem('brands')) : [];
+
+    async function getBrands() {
+        
+        const response =  await fetch(window.API_URL+'/get/brands')
+                            .then((response) => response.json())
+                            .then((data) => { 
+                                localStorage.setItem('brands', JSON.stringify(data.data));
+                            })
+                            .catch((err) => {
+        });
+    }
+
+
+    useMemo(()=>{
+        if( getBrandList.length === 0){
+            getBrands()
+        }
+    }, [getBrandList]);
     
+    console.log(getBrandList, 'getBrandList');
     var brandSelected = [];
     if( searchParams.get('brand') ) {
         brandSelected = searchParams.get('brand').split("_") ;
     }
     var filteredBrands = '';
     
-    if( brandData.brands !== undefined ) {
+    if( getBrandList !== undefined && getBrandList.length > 0 ) {
         
-        filteredBrands = brandData.brands.filter(
+        filteredBrands = getBrandList.filter(
             brand => {
                 return (
                     brand.title.toLowerCase().includes(searchField.toLocaleLowerCase())
@@ -62,7 +79,7 @@ export const Brand = () => {
     return (
         <Fragment>
             {
-                brandData.brands &&  brandData.brands !== 'undefined' && (
+                getBrandList &&  getBrandList !== 'undefined' && (
                     <div className="filter-lists mnh-ght mCustomScrollbar">
                         <ul>
                             <h4>Brands</h4>

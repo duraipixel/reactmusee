@@ -7,50 +7,26 @@ import { fetchMenus } from './../../app/reducer/menuSlice';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { fetchBrowseCategory } from './../../app/reducer/otherCategorySlice';
 
-export default function Topmenu({ isTopPage, topmenu }) {
+export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     
     const [isFetchUrl, setIsFetchUrl] = useState('');
+    const [menu, setMenu] = useState('');
 
     const searchParams = new URLSearchParams(location.search);
     const cUrl = new URL(window.location.href);
 
-    const getSubMenu = (category) => {
-        dispatch(fetchMenus(category));
-        
-        const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
-        searchParams.set("category", category);
-        searchParams.delete("scategory");
-        navigate(SUrl +'?'+ searchParams.toString());
-        getOtherCategoryList(category)
-        
-        setIsFetchUrl('?'+ searchParams.toString());
-
-    }
-
-    useMemo(() => {
-        console.log(isFetchUrl, 'isFetchUrl')
-        dispatch(fetchProducts(isFetchUrl));
-    }, [isFetchUrl])
     
 
-    async function getOtherCategoryList(category) {
-
-        await axios({
-            url: window.API_URL + '/get/other/category',
-            method: 'POST',
-            data: {category:category},
-        }).then((res) => {
-            dispatch(fetchBrowseCategory(res.data) );
-        }).catch((err) => {
-        })
-       
-    }
-
+    // useMemo(() => {
+    //     if( menu ) {
+    //         dispatch(fetchMenus(menu));
+    //     }
+    // }, [menu])
+    
     const openSideBar = () => {
         dispatch(isOpenSideBar());
     }

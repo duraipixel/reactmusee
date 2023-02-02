@@ -4,22 +4,22 @@ import { Link } from 'react-router-dom';
 
 export const Brand = () => {
 
-    const [brand, setBrand] = useState([]);
-
+    const getBrandList = localStorage.getItem('brands') ? JSON.parse(localStorage.getItem('brands')) : [];
     async function getBrands() {
         const response =  await fetch(window.API_URL+'/get/brands')
                             .then((response) => response.json())
                             .then((data) => { 
-                                setBrand(data.data) })
+                                localStorage.setItem('brands', JSON.stringify(data.data));
+                            })
                             .catch((err) => {
         });
     }
 
     useMemo(()=>{
-        if( brand.length === 0){
+        if( getBrandList.length === 0){
             getBrands()
         }
-    }, []);
+    }, [getBrandList]);
 
     const settings = {
         autoplay: true,
@@ -56,7 +56,7 @@ export const Brand = () => {
                         <div className="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                             <Slider {...settings} className="brands-slider" >
                                 {
-                                    brand && brand.map((item) => (
+                                    getBrandList && getBrandList.map((item) => (
                                         <div className="brand" key={item.id}>
                                             <Link to={`/products/pfilter?brand=${item.slug}`}>
                                                 <img src={item.image} alt={item.title} />

@@ -33,8 +33,8 @@ export const AttributeCollection = ({ dynamicFilter }) => {
         <Fragment>
             <div className="filter-lists">
                 {
-                    dynamicFilter.map((item) => (
-                        <ul>
+                    dynamicFilter.map((item, k) => (
+                        <ul key={k}>
                             <h4> {item.filter_title} </h4>
                             {
                                 item.child && item.child.map((items, i) => (

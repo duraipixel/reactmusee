@@ -9,18 +9,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
 import { setAllBrand } from '../../app/reducer/brandSlice';
 import SideCustomScrollbar from './../SideCustomScrollbar';
+import { Submenu } from './Submenu';
 
 export const Layout = () => {
 
     const [isTopPage, setIsTopPage] = useState(false);
     const [topmenu, setTopmenu]     = useState([]);
+    const [topSubmenu, setTopSubmenu]     = useState([]);
     const dispatch                  = useDispatch();
-    const [menuall, setMenuAll]     = useState([]);
 
     async function getAllMenu() {
         const response = await fetch(window.API_URL + '/get/allMenu')
             .then((response) => response.json())
-            .then((data) => setMenuAll(data.data))
+            .then((data) => {
+                localStorage.setItem('allMenu', JSON.stringify(data.data));
+            }
+            )
             .catch((err) => {
                 // console.log(err.message)
             });
@@ -29,26 +33,23 @@ export const Layout = () => {
     async function getTopMenu() {
         const response = await fetch(window.API_URL + '/get/topMenu')
             .then((response) => response.json())
-            .then((data) => setTopmenu(data.data))
+            .then((data) => {
+                localStorage.setItem('topMenu', JSON.stringify(data.data));
+            }
+            )
             .catch((err) => {
                 // console.log(err.message)
             });
     }
 
-
-    // useEffect(() => {
-
-    //     window.addEventListener('scroll', stickNavbar);
-    //     return () => {
-    //         window.removeEventListener('scroll', stickNavbar);
-    //     };
-    // }, []);
+    const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : []
+    const menuAll = localStorage.getItem('allMenu') ? JSON.parse(localStorage.getItem('allMenu')) : []
 
     useMemo(() => {
-        if (menuall.length === 0) {
+        if (menuAll.length === 0) {
             getAllMenu();
         }
-        if (topmenu.length === 0) {
+        if (topMenuAll.length === 0) {
             getTopMenu();
         }
     }, [])
@@ -67,6 +68,22 @@ export const Layout = () => {
         }
     };
 
+    const getSubMenu = (category) => {
+
+        const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : [];
+
+        var subMenus = topMenuAll.filter(
+            menu => {
+                return (
+                    menu.slug.toLowerCase().includes(category.toLocaleLowerCase())
+                )
+            }
+        );
+        
+        localStorage.setItem('topSubMenu', JSON.stringify(subMenus));
+        setTopSubmenu(category)
+    }
+
     const openSideBar = () => {
         dispatch(isOpenSideBar());
     }
@@ -75,9 +92,10 @@ export const Layout = () => {
     return (
         <Fragment>
             <div className="main-content">
-                <SideCustomScrollbar />
+                <SideCustomScrollbar menuAll={menuAll} getSubMenu={getSubMenu} />
                 <Topbar isTopPage={isTopPage} />
-                <Topmenu isTopPage={isTopPage} topmenu={topmenu} />
+                <Topmenu isTopPage={isTopPage} topmenu={topMenuAll} getSubMenu={getSubMenu} />
+                <Submenu topSubmenu={topSubmenu} />
                 <Outlet />
                 <Footer />
                 <Copyrights />

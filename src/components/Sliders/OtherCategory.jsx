@@ -42,7 +42,7 @@ export const OtherCategory = ({ otherCategory, categoryUrl }) => {
                         
                             item.slug !== categoryUrl && 
                         <div className="arrival-product" key={item.id}>
-                            <Link >
+                            <Link to={`/products/pfilter?category=${item.slug}`}>
                                 <div className="prdt-img">
                                     <img src={item.image} />
                                     <span>{item.name}</span>

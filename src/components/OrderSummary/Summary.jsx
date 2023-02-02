@@ -132,7 +132,7 @@ const Summary = () => {
                       <td width="350">
                         
                         <button className="mussee-btn-border-black" onClick={() => handleCancelRequestShow(orderInfo.id)}> Request Cancel Order </button>
-                        <a className="dwd-qry" href={orderInfo.invoice_file}>
+                        <a className="dwd-qry" target="_blank" href={orderInfo.invoice_file}>
                           Download Order Summary
                         </a>
                       </td>
