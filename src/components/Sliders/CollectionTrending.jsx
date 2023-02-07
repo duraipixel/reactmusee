@@ -3,26 +3,15 @@ import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionTrending = () => {
+export const CollectionTrending = ({homeData}) => {
 
-    const [collectionThree, setCollectionThree] = useState([]);
-
-    async function getCollectionSectionThree() {
-        await fetch(window.API_COLLECTION_SECTION_THREE_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionThree(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionThree.length === 0 ) {
-            getCollectionSectionThree();
+    const [collectionThree, setCollectionThree] = useState('');
+    useMemo( () => {
+        if( collectionThree === '' && homeData.collection ) {
+            setCollectionThree( homeData.collection.find( (car) => car.order_by === 3 ) )
         }
-    }, []);
-
+    }, [] );
+    
     const settings = {
         autoplay: true,
         autoplaySpeed: 3000,

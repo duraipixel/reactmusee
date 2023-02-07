@@ -21,9 +21,10 @@ export const Profile = () => {
 
     const [personalShow, setPersonalShow] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
-    
+
     const [states, setStates] = useState([]);
-    
+    const [addressType, setAddressType] = useState([]);
+
     const [addressFormShow, setAddressFormShow] = useState(false);
     const [editAddressFormShow, setEditAddressFormShow] = useState(false);
     const [updateAddressId, setUpdateAddressId] = useState(0);
@@ -34,7 +35,7 @@ export const Profile = () => {
             url: window.API_URL + '/get/states',
             method: 'GET',
         }).then((res) => {
-            
+
             setStates(res.data);
         }).catch((err) => {
         })
@@ -45,7 +46,7 @@ export const Profile = () => {
         setPasswordShow(false)
     };
     const handlePasswordShow = () => setPasswordShow(true);
-    
+
     const handlePersonalClose = () => {
         document.getElementById('profileForm').reset();
         setPersonalShow(false)
@@ -57,7 +58,7 @@ export const Profile = () => {
         setAddressInfo(null);
         document.getElementById('addressForm').reset();
         setAddressFormShow(false)
-        
+
     };
     const handleAddressModalShow = () => {
         setAddressFormShow(true);
@@ -67,10 +68,10 @@ export const Profile = () => {
     }
 
     const handleEditAddressModalClose = () => {
-        
+
         document.getElementById('editAddressForm').reset();
         setEditAddressFormShow(false)
-        
+
     };
     const handleEditAddressModalShow = () => {
         setTimeout(() => {
@@ -78,19 +79,35 @@ export const Profile = () => {
             document.getElementById('editAddressForm').reset();
         }, 100);
     }
-    
+
+    async function getAddressInfo(id) {
+        await axios({
+          url: window.API_URL + "/get/customer/address",
+          method: "POST",
+          data: { address_id: id, customer_id: customer.id },
+        })
+          .then((res) => {
+            
+            if( res.data.address_type ) {
+              setAddressType( res.data.address_type );
+            }
+            setAddressInfo(res.data);
+          })
+          .catch((err) => {});
+      }
+
     useEffect(() => {
 
         if (!window.localStorage.getItem('customer')) {
             navigate('/login');
         }
-        if( states.length === 0 ) {
+        if (states.length === 0) {
 
             getAllStates()
         }
 
     }, [])
-    
+
     return (
         <Fragment>
             <Helmet>
@@ -99,21 +116,21 @@ export const Profile = () => {
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
 
-        <div>
-            {
-                customer &&
-                <Fragment>
-                    <ProfileContent setAddressInfo={setAddressInfo} customer={customer} handlePersonalShow={handlePersonalShow} handlePasswordShow={handlePasswordShow} handleAddressModalShow={handleAddressModalShow} handleAddressModalClose={handleAddressModalClose} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} setUpdateAddressId={setUpdateAddressId} handleEditAddressModalShow={handleEditAddressModalShow} customerOrders={customerOrders} setCustomerOrders={setCustomerOrders}/>
-                    <EditPersonalDetailsModal setCustomer={setCustomer} customer={customer} handlePersonalShow={handlePersonalShow} handlePersonalClose={handlePersonalClose} personalShow={personalShow} />
-                    <ChangePassword passwordShow={passwordShow} handlePasswordClose={handlePasswordClose} handlePasswordShow={handlePasswordShow} customer={customer} />
-                    <AddAddress states={states} addressInfo={addressInfo} addressFormShow={addressFormShow} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} customer={customer} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} updateAddressId={updateAddressId} />
-                    {editAddressFormShow &&
-                    <EditAddress states={states} addressInfo={addressInfo} editAddressFormShow={editAddressFormShow} handleEditAddressModalClose={handleEditAddressModalClose} customer={customer} setCustomerAddress={setCustomerAddress} />
-                    }
-                    <PackageSupport />
-                </Fragment>
-            }
-        </div>
+            <div>
+                {
+                    customer &&
+                    <Fragment>
+                        <ProfileContent getAddressInfo={getAddressInfo} setAddressInfo={setAddressInfo} customer={customer} handlePersonalShow={handlePersonalShow} handlePasswordShow={handlePasswordShow} handleAddressModalShow={handleAddressModalShow} handleAddressModalClose={handleAddressModalClose} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} setUpdateAddressId={setUpdateAddressId} handleEditAddressModalShow={handleEditAddressModalShow} customerOrders={customerOrders} setCustomerOrders={setCustomerOrders} />
+                        <EditPersonalDetailsModal setCustomer={setCustomer} customer={customer} handlePersonalShow={handlePersonalShow} handlePersonalClose={handlePersonalClose} personalShow={personalShow} />
+                        <ChangePassword passwordShow={passwordShow} handlePasswordClose={handlePasswordClose} handlePasswordShow={handlePasswordShow} customer={customer} />
+                        <AddAddress addressType={addressType} states={states} addressInfo={addressInfo} addressFormShow={addressFormShow} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} customer={customer} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} updateAddressId={updateAddressId} />
+                        {editAddressFormShow &&
+                            <EditAddress addressType={addressType} states={states} addressInfo={addressInfo} editAddressFormShow={editAddressFormShow} handleEditAddressModalClose={handleEditAddressModalClose} customer={customer} setCustomerAddress={setCustomerAddress} />
+                        }
+                        <PackageSupport />
+                    </Fragment>
+                }
+            </div>
         </Fragment>
     )
 }

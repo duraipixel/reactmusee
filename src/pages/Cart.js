@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios'; 
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
@@ -15,18 +15,24 @@ import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
 import { setShippingCharges } from '../app/reducer/shippingChargesSlice'
 import { fetchCarts } from '../app/reducer/cartSlice'
 import { Helmet } from 'react-helmet';
+import { AddressList } from '../components/Cart/AddressList'
+import { WaveSpinner } from "react-spinners-kit";
 
 export const Cart = () => {
-    
+
     const cart = useSelector((state) => state.cart);
 
     const defaultShipping = useSelector((state) => state.shipping_address);
     const charges = useSelector((state) => state.charges);
     const [cartLength, setCartlength] = useState(0);
     const [shippingAddress, setShippingAddress] = useState('');
+    const [billingAddress, setBillingAddress] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
     const [shippCharges, setShippCharges] = useState([]);
     const [show, setShow] = useState(false);
+    const [showList, setShowList] = useState(false);
+    const [paymentLoader, setPaymentLoader] = useState(false);
+    const [fromList, setFromList] = useState('');
     const dispatch = useDispatch();
 
     const [formLoader, setFormLoader] = useState(false);
@@ -36,7 +42,7 @@ export const Cart = () => {
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-    
+
     const {
         register,
         handleSubmit,
@@ -49,14 +55,22 @@ export const Cart = () => {
         document.getElementById('address_form').reset();
         setShow(false)
     };
-    const handleShow = () => setShow(true);    
+    const handleShow = () => setShow(true);
+
+    const handleListClose = () => {
+        setShowList(false)
+    };
+    const handleListShow = (from_type) => {
+        setFromList(from_type)
+        setShowList(true);
+    };
 
     async function getAllStates() {
         await axios({
             url: window.API_URL + '/get/states',
             method: 'GET',
         }).then((res) => {
-            
+
             setStates(res.data);
         }).catch((err) => {
         })
@@ -78,19 +92,19 @@ export const Cart = () => {
         if (site_info) {
             setAddressType(site_info.data.address_type);
         }
-        
-        if( shipping_address ) {
-            setShippingAddress(shipping_address);    
+
+        if (shipping_address) {
+            setShippingAddress(shipping_address);
         }
 
-        if( !states ) {
+        if (!states) {
 
             getAllStates();
         }
-        
-    }, [])  
-    
-    
+
+    }, [])
+
+
     const NumericOnly = (e) => {
         const reg = /^[0-9\b]+$/
         let preval = e.target.value
@@ -102,22 +116,41 @@ export const Cart = () => {
         addAddress(data);
     };
 
-    const handleDeleteAddress = () => {
-        if( !shippingAddress ) {
-            toast.error('Please select address to delete', {
+    const sameAsBilling = (e) => {
+        
+        if( e.target.checked ) {
+            setShippingAddress(billingAddress);
+            localStorage.setItem('shipping_address', JSON.stringify(billingAddress));
+            toast.success('Shipping address has been set successfully', {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
+        } else {
+            setShippingAddress('');
+            localStorage.setItem('shipping_address', JSON.stringify(''));
         }
     }
 
-    const handleSetShippingAddress = (address) => {
+    const handleSetAddress = (address, from_type) => {
+        
+        if (from_type === 'billing') {
 
-        setShippingAddress(address);
-        dispatch(setDefaultShippingAddress(address));
-        localStorage.setItem('shipping_address', JSON.stringify(address));
-        toast.success('Shipping address has been set successfully', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        })
+            setBillingAddress(address);
+            localStorage.setItem('billing_address', JSON.stringify(address));
+            toast.success('Billing address has been set successfully', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+
+        } else {
+
+            setShippingAddress(address);
+            dispatch(setDefaultShippingAddress(address));
+            localStorage.setItem('shipping_address', JSON.stringify(address));
+            toast.success('Shipping address has been set successfully', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            document.getElementById('same_as_billing').checked = false;
+        }
+        handleListClose();
 
     }
 
@@ -152,7 +185,7 @@ export const Cart = () => {
 
     const proceedCheckout = () => {
 
-        if( !shippingAddress ) {
+        if (!shippingAddress) {
             toast.error('Please select address to proceed', {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
@@ -203,21 +236,7 @@ export const Cart = () => {
                                             <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} />
 
                                             <div className="shipping-addresss">
-                                                <h4>Select Shipping Address</h4>
-                                                <div className="">
-                                                    <div className="load-btn">
-                                                        <a onClick={() => handleShow ()} >
-                                                            Add New Address
-                                                        </a>
-                                                    </div>
-
-                                                    {/* <div className="load-btn del-btn">
-                                                        <a onClick={() => handleDeleteAddress()} className="show-brands">
-                                                            Delete Address
-                                                        </a>
-                                                    </div> */}
-                                                </div>
-                                                <ShippingAddress customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} handleSetShippingAddress={handleSetShippingAddress} />
+                                                <ShippingAddress sameAsBilling={sameAsBilling} billingAddress={billingAddress} handleListShow={handleListShow} handleShow={handleShow} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} />
                                             </div>
                                         </div>
                                     </div>
@@ -241,7 +260,7 @@ export const Cart = () => {
                                                             <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
                                                             <ErrorMessage errors={errors} name="mobile_no" as="p" />
                                                         </div>
-                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required"})} id="customer_id" value={customer && customer.id} />
+                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
                                                         <div className="mb-3 col-lg-6">
                                                             <input className="form-control" type="email" {...register("email", {
                                                                 required: "Email is required", pattern: {
@@ -265,7 +284,7 @@ export const Cart = () => {
                                                     </div>
                                                     <h4>Address</h4>
                                                     <div className="row">
-                                                        
+
                                                         <div className="mb-3 col-lg-12">
                                                             <input type="text" className="form-control" id="address" {...register("address", { required: "Address is required" })} placeholder="Building Number, Street Name & Locality" />
                                                             <ErrorMessage errors={errors} name="address" as="p" />
@@ -307,8 +326,9 @@ export const Cart = () => {
                                         </form>
                                     </Modal>
 
+                                    <AddressList fromList={fromList} handleListClose={handleListClose} showList={showList} customerAddress={customerAddress} handleSetAddress={handleSetAddress} shipping_address={shipping_address} />
                                     <div className="col-lg-4">
-                                        <CartDetails cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
+                                        <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
                                     </div>
                                 </>
                                 :
@@ -317,7 +337,7 @@ export const Cart = () => {
                                         <img src='/assets/images/cart_empty.png' alt="call" className="img-fluid" />
                                         <h3> Your cart is empty. </h3><br />
                                         <div className='load-btn'>
-                                        <Link to='/' > Shop today’s deals </Link>
+                                            <Link to='/' > Shop today’s deals </Link>
                                         </div>
                                     </div>
                                 </div>
@@ -325,7 +345,24 @@ export const Cart = () => {
 
                     </div>
                 </div>
+                {
+                    paymentLoader &&
+
+                    <div id="cart-loader" >
+                        <div className='loader-wrapper'>
+                            <WaveSpinner
+                                size={100}
+                                color="#0a1d4a"
+                                loading={paymentLoader}
+
+                                style={{ top: '50%', left: '45%' }}
+
+                            />
+                        </div>
+                    </div>
+                }
             </section>
+
         </Fragment>
     )
 }

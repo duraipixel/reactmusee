@@ -6,26 +6,24 @@ import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
 export const Brand = () => {
     
-    const brandData = useSelector((state) => state.brands);
     const [searchField, setSearchField] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
-    const getBrandList = localStorage.getItem('brands') ? JSON.parse(localStorage.getItem('brands')) : [];
+    const getBrandList = sessionStorage.getItem('brands') ? JSON.parse(sessionStorage.getItem('brands')) : [];
 
     async function getBrands() {
         
         const response =  await fetch(window.API_URL+'/get/brands')
                             .then((response) => response.json())
                             .then((data) => { 
-                                localStorage.setItem('brands', JSON.stringify(data.data));
+                                sessionStorage.setItem('brands', JSON.stringify(data.data));
                             })
                             .catch((err) => {
         });
     }
-
 
     useMemo(()=>{
         if( getBrandList.length === 0){
@@ -33,7 +31,6 @@ export const Brand = () => {
         }
     }, [getBrandList]);
     
-    console.log(getBrandList, 'getBrandList');
     var brandSelected = [];
     if( searchParams.get('brand') ) {
         brandSelected = searchParams.get('brand').split("_") ;

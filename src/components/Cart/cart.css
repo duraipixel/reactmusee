@@ -1,0 +1,95 @@
+.btn-address {
+  font-weight: 800;
+  color: #393a73;
+  margin: 0px 10px;
+  border-radius: 6px;
+  padding: 2px 10px;
+}
+
+.btn-address-billing {
+  background: #b8b8ff;
+  border: 1px solid #a39ec8;
+}
+
+.btn-address-billing:hover,
+.btn-address-billing:hover {
+  background: aliceblue;
+}
+
+.btn-address-shipping {
+  background: #23b72354;
+  color: green;
+}
+
+.btn-pane {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.addres-que {
+  position: relative;
+  margin-top: 3px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.addres-que:hover {
+  background: #fefeff;
+}
+
+.address-list-panel {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.m-font {
+  color: #212363;
+  font-weight: 800;
+}
+
+.coupon-pane {
+  margin: 5px;
+  border: 1px dashed #ddd;
+  padding: 5px;
+  font-size: 13px;
+  background: aliceblue;
+}
+
+.address-title-pane {
+  display: inline-flex;
+  width: 100%;
+}
+
+.address-data-pane {
+  background: white;
+  padding: 48px 23px;
+  box-shadow: 1px 2px 3px 1px #ddd;
+  margin-top: 30px;
+  height: 220px;
+}
+
+.m-flex {
+  display: inline-flex;
+}
+
+#cart-loader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+
+.loader-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

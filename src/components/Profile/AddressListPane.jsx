@@ -4,14 +4,16 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { computeHeadingLevel } from '@testing-library/react';
 
 export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, customerAddress, handleAddressModalShow, handleAddressModalClose, setCustomerAddress, customer, setUpdateAddressId }) => {
 
     const updateAddress = (id) => {
+        console.log( id, 'id');
         setUpdateAddressId(id);
-        getAddressInfo(id);
         setTimeout(() => {
             handleEditAddressModalShow()
+            getAddressInfo(id);
         }, 300);
     }
 
@@ -22,6 +24,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
             method: 'POST',
             data: { address_id: id, customer_id: customer.id },
         }).then((res) => {
+            
             setAddressInfo(res.data);
 
         }).catch((err) => {
@@ -77,7 +80,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
         <Fragment>
 
             {
-                customerAddress.length > 0 && customerAddress.map((item) => (
+                customerAddress && customerAddress.length > 0 && customerAddress.map((item) => (
                     <div className="col-lg-4" key={item.id}>
                         <div className="adres-det">
                             <div className="d-flex justify-content-between">

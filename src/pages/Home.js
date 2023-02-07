@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import DiscountCollection from '../components/Home/DiscountCollection';
 import SideCustomScrollbar from '../components/SideCustomScrollbar';
 import HistoryVideo from '../components/Home/HistoryVideo';
@@ -32,6 +32,8 @@ export default function Home() {
     const [recentData, setRecentData] = useState([]);
     const [recentDataLoading, setRecentDataLoading] = useState(true);
 
+    const homeData = sessionStorage.getItem('homeData') ? JSON.parse(sessionStorage.getItem('homeData')) : []
+
     async function getRecentViewData() {
         
         let customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -47,6 +49,24 @@ export default function Home() {
             setRecentDataLoading(true);
         })
     }
+
+    async function getHomeData() {
+        await axios({
+            url: window.API_URL + '/get/home/details',
+            method: 'GET',            
+        }).then((res) => {
+            if( res.data ) {
+                sessionStorage.setItem('homeData', JSON.stringify(res.data));
+            }
+        }).catch((err) => {
+        })
+    }
+
+    useMemo(() => {
+        if( homeData.length === 0 ) {
+            getHomeData()
+        }
+    }, [homeData])
 
     useEffect(() => {
         if( !customer ) {
@@ -70,24 +90,24 @@ export default function Home() {
                 <title>Home | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
-            <HomeCarousel />
+            <HomeCarousel homeData={homeData} />
             <DiscountCollection />
-            <HistoryVideo />
-            <CollectionSectionOne />
+            <HistoryVideo homeData={homeData} />
+            <CollectionSectionOne homeData={homeData} />
             <LiveVideo />
-            <CollectionToprank />
-            <CollectionTrending />
-            <CollectionBlockBuster />
+            <CollectionToprank homeData={homeData} />
+            <CollectionTrending homeData={homeData} />
+            <CollectionBlockBuster homeData={homeData} />
             <Brand />
-            <CollectionKeyboards />
-            <CollectionBestSeller />
-            <CollectionControlTunes />
-            <CollectionRecommend />
+            <CollectionKeyboards homeData={homeData} />
+            <CollectionBestSeller homeData={homeData} />
+            <CollectionControlTunes homeData={homeData} />
+            <CollectionRecommend homeData={homeData} />
             {
             recentData.length > 5 &&
             <RecentView recentData={recentData}/>
             }
-            <Testimonials />
+            <Testimonials homeData={homeData} />
             <PackageSupport />
             
         </Fragment>

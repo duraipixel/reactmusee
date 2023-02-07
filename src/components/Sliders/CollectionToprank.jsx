@@ -4,25 +4,16 @@ import {compile} from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 import { CollectionSectionOneSkeleton } from './../Skeleton/CollectionSectionOneSkeleton';
 
-export const CollectionToprank = () => {
+export const CollectionToprank = ({homeData}) => {
 
-    const [collectionTwo, setCollectionTwo] = useState([]);
-
-    async function getCollection() {
-        await fetch(window.API_COLLECTION_SECTION_TWO_URL)
-                            .then((response) => response.json())
-                            .then((data) => { 
-                                setCollectionTwo(data.data[0]) })
-                            .catch((err) => {
-                            });
-    }
-
+    const [collectionTwo, setCollectionTwo] = useState('');
+   
     useMemo( () => {
-        if( collectionTwo.length === 0 ){
-            getCollection();
+        if( collectionTwo === '' && homeData.collection ) {
+            setCollectionTwo( homeData.collection.find( (car) => car.order_by === 2 ) )
         }
     }, [] );
-
+   
     const setttings = {
         autoplay: true,
         autoplaySpeed: 3000,

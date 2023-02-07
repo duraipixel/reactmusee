@@ -14,11 +14,12 @@ import { Submenu } from './Submenu';
 export const Layout = () => {
 
     const [isTopPage, setIsTopPage] = useState(false);
-    const [topmenu, setTopmenu]     = useState([]);
-    const [topSubmenu, setTopSubmenu]     = useState([]);
-    const dispatch                  = useDispatch();
+    const [topmenu, setTopmenu] = useState([]);
+    const [topSubmenu, setTopSubmenu] = useState([]);
+    const dispatch = useDispatch();
 
     async function getAllMenu() {
+        console.log('feticn');
         const response = await fetch(window.API_URL + '/get/allMenu')
             .then((response) => response.json())
             .then((data) => {
@@ -34,7 +35,8 @@ export const Layout = () => {
         const response = await fetch(window.API_URL + '/get/topMenu')
             .then((response) => response.json())
             .then((data) => {
-                localStorage.setItem('topMenu', JSON.stringify(data.data));
+                sessionStorage.setItem('topMenu', JSON.stringify(data.data));
+                setTopmenu(data.data);
             }
             )
             .catch((err) => {
@@ -42,16 +44,18 @@ export const Layout = () => {
             });
     }
 
-    const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : []
+    const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : []
     const menuAll = localStorage.getItem('allMenu') ? JSON.parse(localStorage.getItem('allMenu')) : []
 
     useMemo(() => {
+        
         if (menuAll.length === 0) {
             getAllMenu();
         }
         if (topMenuAll.length === 0) {
             getTopMenu();
         }
+        
     }, [])
 
     const stickNavbar = () => {
@@ -70,7 +74,7 @@ export const Layout = () => {
 
     const getSubMenu = (category) => {
 
-        const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : [];
+        const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : [];
 
         var subMenus = topMenuAll.filter(
             menu => {
@@ -79,8 +83,8 @@ export const Layout = () => {
                 )
             }
         );
-        
-        localStorage.setItem('topSubMenu', JSON.stringify(subMenus));
+
+        sessionStorage.setItem('topSubMenu', JSON.stringify(subMenus));
         setTopSubmenu(category)
     }
 

@@ -3,26 +3,15 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionRecommend = () => {
+export const CollectionRecommend = ({homeData}) => {
 
-    const [collectionEight, setCollectionEight] = useState([]);
+    const [collectionEight, setCollectionEight] = useState('');
 
-    async function getCollectionEight() {
-        await fetch(window.API_COLLECTION_SECTION_EIGHT_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionEight(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionEight.length === 0 ) {
-            getCollectionEight();
+    useMemo( () => {
+        if( collectionEight === '' && homeData.collection ) {
+            setCollectionEight( homeData.collection.find( (car) => car.order_by === 8 ) )
         }
-    }, []);
-
+    }, [] );
 
     const settings = {
         autoplay: true,

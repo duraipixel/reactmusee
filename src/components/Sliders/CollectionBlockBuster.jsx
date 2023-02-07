@@ -3,26 +3,17 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionBlockBuster = () => {
+export const CollectionBlockBuster = ({homeData}) => {
 
-    const [collectionFour, setCollectionFour] = useState([]);
+    const [collectionFour, setCollectionFour] = useState('');
 
-    async function getCollectionFour() {
-        await fetch(window.API_COLLECTION_SECTION_FOUR_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionFour(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionFour.length === 0 ) {
-            getCollectionFour();
+    useMemo( () => {
+        if( collectionFour === '' && homeData.collection ) {
+            setCollectionFour( homeData.collection.find( (car) => car.order_by === 4 ) )
         }
-    }, []);
+    }, [] );
 
+   
     const settings = {
         autoplay: true,
         autoplaySpeed: 3000,

@@ -3,8 +3,10 @@ import { AddressListPane } from "./AddressListPane";
 import axios from 'axios';
 import './modal.css';
 import OrderListItems from "../OrderSummary/OrderListItems";
+import { computeHeadingLevel } from '@testing-library/react';
 
 const ProfileContent = ({
+  getAddressInfo,
   setAddressInfo,
   customer,
   handlePersonalShow,
@@ -26,17 +28,7 @@ const ProfileContent = ({
 
   const [loadingOrderItems, setLoadingOrderItems] = useState(false);
 
-  async function getAddressInfo(id) {
-    await axios({
-      url: window.API_URL + "/get/customer/address",
-      method: "POST",
-      data: { address_id: id, customer_id: customer.id },
-    })
-      .then((res) => {
-        setAddressInfo(res.data);
-      })
-      .catch((err) => {});
-  }
+  
   async function getOrderInfo(id) {
     setLoadingOrderItems(true);
     await axios({
@@ -197,7 +189,7 @@ const ProfileContent = ({
                     </div>
                   </div>
 
-                  <AddressListPane handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
+                  <AddressListPane  handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
 
                 </div>
               </div>              

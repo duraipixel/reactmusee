@@ -7,15 +7,21 @@ import { toast } from 'react-toastify';
 import { setPaymentResponse } from '../../app/reducer/paymentResponseSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../../app/reducer/cartSlice';
+import './cart.css';
 
-export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
+
+export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
     // const coupon = useSelector((state) => state.coupon);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
+    const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
+    console.log(billingAddress, 'billingAddress');
     const handlePayment = async () => {
         setCheckoutFormLoading(true);
+        setPaymentLoader(true);
+
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
         if (!shippingAddress) {
@@ -23,13 +29,22 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
                 position: toast.POSITION.BOTTOM_RIGHT
             });
             setCheckoutFormLoading(false);
+            setPaymentLoader(false);
+
+
+        } else if(!billingAddress) {
+            toast.error('Billing address is required', {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+            setCheckoutFormLoading(false);
+            setPaymentLoader(false);
 
         } else {
 
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
-                data: { customer_id: customer.id, shipping_address: shipping_address, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
+                data: { customer_id: customer.id, shipping_address: shipping_address, billing_address:billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
             }).then((response) => {
                 if( response.error == 1 ) {
                     toast.error(response.message, {
@@ -89,6 +104,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
         }).then((response) => {
             
             setCheckoutFormLoading(false);
+            setPaymentLoader(false);
             if (response.data.success) {
                 localStorage.removeItem('shipping_address');
                 localStorage.removeItem('cart');
@@ -109,6 +125,8 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
 
     }
     
+    console.log( couponInfo, 'couponInfo')
+
     return (
         <Fragment >
             <div className="cart-boduy">
@@ -127,7 +145,21 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
                         {
                             cart_total.coupon_amount ?
                                 <tr>
-                                    <td>Coupon {cart_total.coupon_code} (-)</td>
+                                    <td>
+                                        Coupon {cart_total.coupon_code} (-)
+                                        <div className='coupon-pane'>
+                                            {
+                                                couponInfo && couponInfo.length > 0 && 
+                                                couponInfo.map((items) => (
+                                                    <div>
+                                                        <div>Coupon Applied for {items.category_name}</div>
+                                                        <div>Coupon Applied amount for {items.coupon_applied_amount}</div>
+                                                        <div>Coupon Amount : {items.discount_amount} {items.coupon_type.discount_type == 'percentage' ? '('+parseInt(items.coupon_type.discount_value)+'%)' : ''} </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    </td>
                                     <td>₹{cart_total.coupon_amount}</td>
                                 </tr>
                                 : null
@@ -177,6 +209,7 @@ export const CartDetails = ({ cart_total, cart_items, shippingAddress, proceedCh
                         </tr>
                     </tbody>
                 </table>
+                
             </div>
         </Fragment>
     )

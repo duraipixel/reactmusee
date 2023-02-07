@@ -7,24 +7,7 @@ import { TestimonialImage } from './../Images/TestimonialImage';
 import { useMemo } from 'react';
 
 
-export const Testimonials = () => {
-
-    const [testimonials, setTestimonials] = useState([]);
-    
-    async function getTestimonials() {
-        await fetch(window.API_URL+'/get/testimonials')
-                .then((response) => response.json())
-                .then((data) => setTestimonials(data.data))
-                .catch((err) => {
-                    console.log(err.message)
-                });
-    }
-
-    useMemo(() => {
-        if( testimonials.length === 0 ){
-            getTestimonials();
-        }
-    }, []);
+export const Testimonials = ({homeData}) => {
 
     const settings = {
         autoplay: true,
@@ -74,7 +57,7 @@ export const Testimonials = () => {
 
                         <Slider className="testimonials-slider " {...settings}>   
                             {
-                                testimonials && testimonials.length > 0 ? testimonials.map( (item) => (
+                                homeData.testimonials && homeData.testimonials.length > 0 ? homeData.testimonials.map( (item) => (
 
                                     <div className="patron text-left" key={item.id}>
                                         <div className="patron-detil">
@@ -83,7 +66,6 @@ export const Testimonials = () => {
                                         <div className="patron-img">
                                             <span>
                                                 <TestimonialImage itemImage={item.image} />
-                                                
                                                 {item.title || <Skeleton />}
                                             </span>
                                         </div>
@@ -91,7 +73,6 @@ export const Testimonials = () => {
                                     )
                                 ) 
                                 : 
-
                                     Array.from(
                                         { length: 3 },
                                         (_, i) => (

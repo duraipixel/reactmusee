@@ -1,31 +1,15 @@
-import axios from 'axios';
 import React, { Fragment, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
-import { fetchMenus } from './../../app/reducer/menuSlice';
-import { fetchProducts } from './../../app/reducer/productFilterSlice';
-import { fetchBrowseCategory } from './../../app/reducer/otherCategorySlice';
+
 
 export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
     
-    const [isFetchUrl, setIsFetchUrl] = useState('');
-    const [menu, setMenu] = useState('');
-
     const searchParams = new URLSearchParams(location.search);
-    const cUrl = new URL(window.location.href);
-
-    
-
-    // useMemo(() => {
-    //     if( menu ) {
-    //         dispatch(fetchMenus(menu));
-    //     }
-    // }, [menu])
     
     const openSideBar = () => {
         dispatch(isOpenSideBar());
@@ -55,7 +39,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                     {
                                         topmenu.length !== 0 ? topmenu.map((item, i) => (
                                             <li key={i}>
-                                                <button className={`menu-link ${cUrl.searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => getSubMenu(item.slug)}>
+                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => getSubMenu(item.slug)}>
                                                     {item.name}
                                                 </button>
 

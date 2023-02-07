@@ -3,25 +3,15 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionControlTunes = () => {
+export const CollectionControlTunes = ({homeData}) => {
 
-    const [collectionSeven, setCollectionSeven] = useState([]);
+    const [collectionSeven, setCollectionSeven] = useState('');
 
-    async function getCollectionSeven() {
-        await fetch(window.API_COLLECTION_SECTION_SEVEN_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionSeven(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionSeven.length === 0 ) {
-            getCollectionSeven();
+    useMemo( () => {
+        if( collectionSeven === '' && homeData.collection ) {
+            setCollectionSeven( homeData.collection.find( (car) => car.order_by === 7 ) )
         }
-    }, []);
+    }, [] );
 
     const settings = {
         autoplay: true,

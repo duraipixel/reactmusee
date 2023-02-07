@@ -3,26 +3,15 @@ import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionKeyboards = () => {
+export const CollectionKeyboards = ({homeData}) => {
 
-    const [collectionFive, setCollectionFive] = useState([]);
+    const [collectionFive, setCollectionFive] = useState('');
 
-    async function getCollectionFive() {
-        await fetch(window.API_COLLECTION_SECTION_FIVE_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionFive(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionFive.length === 0 ) {
-            getCollectionFive();
+    useMemo( () => {
+        if( collectionFive === '' && homeData.collection ) {
+            setCollectionFive( homeData.collection.find( (car) => car.order_by === 5 ) )
         }
-
-    }, []);
+    }, [] );
 
     const settings = {
         autoplay: true,

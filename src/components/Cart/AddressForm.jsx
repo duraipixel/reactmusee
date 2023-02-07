@@ -65,7 +65,7 @@ export const AddressForm = ({ customerAddress, setCustomerAddress, handleClose }
                 toast.success(res.data.message, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
-
+                
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
 

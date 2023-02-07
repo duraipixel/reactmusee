@@ -3,27 +3,15 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionBestSeller = () => {
+export const CollectionBestSeller = ({homeData}) => {
 
-    const [collectionSix, setCollectionSix] = useState([]);
+    const [collectionSix, setCollectionSix] = useState('');
 
-    async function getCollectionSix() {
-        await fetch(window.API_COLLECTION_SECTION_SIX_URL)
-            .then((response) => response.json())
-            .then((data) => {
-                setCollectionSix(data.data[0])
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if( collectionSix.length === 0 ) {
-            getCollectionSix();
+    useMemo( () => {
+        if( collectionSix === '' && homeData.collection ) {
+            setCollectionSix( homeData.collection.find( (car) => car.order_by === 6 ) )
         }
-
-    }, []);
-
+    }, [] );
 
     const settings = {
         autoplay: true,

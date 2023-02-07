@@ -7,6 +7,7 @@ import { fetchBrowseCategory } from '../../app/reducer/otherCategorySlice';
 import { useState, useMemo } from 'react';
 
 export const Submenu = ({ topSubmenu }) => {
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation();
@@ -16,7 +17,7 @@ export const Submenu = ({ topSubmenu }) => {
     const searchParams = new URLSearchParams(location.search);
     const commonUrl = new URL(window.location.href);
 
-    const topSubMenuAll = localStorage.getItem('topSubMenu') ? JSON.parse(localStorage.getItem('topSubMenu')) : [];
+    const topSubMenuAll = sessionStorage.getItem('topSubMenu') ? JSON.parse(sessionStorage.getItem('topSubMenu')) : [];
 
     const setUrlCategory = (slug) => {
         
@@ -34,11 +35,9 @@ export const Submenu = ({ topSubmenu }) => {
     }
 
     useMemo(() => {
+            
         dispatch(fetchProducts('?' + searchParams.toString()));
-        if (menuCategory) {
-
-            dispatch(fetchBrowseCategory(menuCategory));
-        }
+        // dispatch(fetchBrowseCategory(menuCategory));
     }, [menuCategory, menuSubCategory])
 
     useEffect(() => {
@@ -50,7 +49,7 @@ export const Submenu = ({ topSubmenu }) => {
             }
         }
     }, [])
-    
+
     return (
         <Fragment>
             <div className="secondary-menu text-center">
@@ -60,7 +59,7 @@ export const Submenu = ({ topSubmenu }) => {
                             {
                                 topSubMenuAll != undefined && topSubMenuAll.length > 0 && (
                                     <li>
-                                        <a role="button" onClick={() => setUrlCategory('all')} className={`${topSubMenuAll[0].slug === commonUrl.searchParams.get('category') && !commonUrl.searchParams.get('scategory') ? 'active' : ''}`} >
+                                        <a role="button" onClick={() => setUrlCategory('all')} className={`${topSubMenuAll[0].slug === searchParams.get('category') && !searchParams.get('scategory') ? 'active' : ''}`} >
                                             All {topSubMenuAll[0].name}
                                         </a>
                                     </li>
@@ -69,7 +68,7 @@ export const Submenu = ({ topSubmenu }) => {
                             {
                                 topSubMenuAll != undefined && topSubMenuAll.length > 0 && topSubMenuAll[0].child && topSubMenuAll[0].child.map((item, i) => (
                                     <li key={i} role="button">
-                                        <a onClick={() => setUrlCategory(item.slug)} className={`${item.slug === commonUrl.searchParams.get('scategory') ? 'active' : ''}`}> {item.name} </a>
+                                        <a onClick={() => setUrlCategory(item.slug)} className={`${item.slug === searchParams.get('scategory') ? 'active' : ''}`}> {item.name} </a>
                                     </li>
                                 ))
                             }

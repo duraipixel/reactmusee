@@ -5,12 +5,11 @@ import './modal.css';
 import { toast } from 'react-toastify';
 import axios from "axios";
 
-const EditAddress = ({ states,addressInfo, editAddressFormShow, handleEditAddressModalClose, customer, setCustomerAddress }) => {
+const EditAddress = ({ addressType, states, addressInfo, editAddressFormShow, handleEditAddressModalClose, customer, setCustomerAddress }) => {
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
-
-    const [formLoader, setFormLoader] = useState(false);
-    const [addressType, setAddressType] = useState([]);
+    
+    const [formLoader, setFormLoader] = useState(false);   
 
     const defaultValues = {
         name: '',
@@ -166,15 +165,15 @@ const EditAddress = ({ states,addressInfo, editAddressFormShow, handleEditAddres
 
 
 useEffect(() => {
-    if (site_info) {
-        setAddressType(site_info.data.address_type);
-    }
+   
     checkValidation();
     if( addressInfo ) {
 
         getApiAddressInfo(addressInfo.address_id)
     }
 }, [inputValues, addressInfo])
+
+
 
 const NumericOnly = (e) => {
     const reg = /^[0-9\b]+$/
@@ -193,7 +192,6 @@ const handleSubmit = (e) => {
         console.log('validation has errors');
     }
 };
-
 
 return (
     <Modal className='cstmzed' show={editAddressFormShow} onHide={makeResetFromClose}>
@@ -227,12 +225,12 @@ return (
                             </div>
                             <div className="mb-3 col-lg-6">
 
-                                <select className="form-control" name="address_type_id" onChange={(e) => handleChange(e)}
+                                <select className="form-control" value={addressInfo.address_type_id} name="address_type_id" onChange={(e) => handleChange(e)}
                                 >
                                     <option value="">Address Type</option>
                                     {
                                         addressType && addressType.length > 0 && addressType.map((item) => (
-                                            <option value={item.id} key={item.id} selected={item.id == inputValues.address_type_id ? true : false}>{item.name}</option>
+                                            <option value={item.id} key={item.id}>{item.name}</option>
                                         ))
                                     }
                                 </select>

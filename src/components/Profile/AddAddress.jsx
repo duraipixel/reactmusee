@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 import { ErrorMessage } from '@hookform/error-message';
 
-const AddAddress = ({ states, addressInfo, addressFormShow, handleAddressModalClose, handleAddressModalShow, customer, setCustomerAddress, customerAddress, updateAddressId }) => {
-
+const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleAddressModalClose, handleAddressModalShow, customer, setCustomerAddress, customerAddress, updateAddressId }) => {
+  
   let site_info = JSON.parse(window.localStorage.getItem('site_info'));
   const [formLoader, setFormLoader] = useState(false);
-  const [addressType, setAddressType] = useState([]);
+  
   const defaultValues = {
     name: '',
     email: '',
@@ -35,6 +35,8 @@ const AddAddress = ({ states, addressInfo, addressFormShow, handleAddressModalCl
     post_code: '',
     address_type_id: '',
   });
+
+
 
   //handle submit updates
   function handleChange(event) {
@@ -142,9 +144,6 @@ const AddAddress = ({ states, addressInfo, addressFormShow, handleAddressModalCl
   };
 
   useEffect(() => {
-    if (site_info) {
-      setAddressType(site_info.data.address_type);
-    }
     checkValidation();
   }, [inputValues])
 

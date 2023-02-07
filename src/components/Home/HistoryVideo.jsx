@@ -4,25 +4,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Slider from "react-slick";
 import './video.css';
 
-export default function HistoryVideo() {
-
-    const [video, setVideo] = useState([]);
-
-    async function getVideoData() {
-        const response =  await fetch(window.API_URL+'/get/history')
-                            .then((response) => response.json())
-                            .then((data) => { 
-                                setVideo(data.data) })
-                            .catch((err) => {
-                            });
-    }
-
-    useMemo(()=>{
-        if( video.length == 0 ) {
-            getVideoData();
-        }
-    }, []);
-
+export default function HistoryVideo({homeData}) {
+    
     const settings = {
         autoplay: true,
             autoplaySpeed: 3000,
@@ -70,9 +53,9 @@ export default function HistoryVideo() {
                   
                     <Slider {...settings} className="favorite-trends-slider">
                     {
-                        video.length > 0 ? (
+                        homeData.video && homeData.video.length > 0 ? (
                            
-                            video.map((item) => (
+                            homeData.video.map((item) => (
                                 <div className="favrite" key={item.id}>
                                     <div className="fav-img">
                                         

@@ -84,6 +84,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
+            sessionStorage.removeItem('cart_coupon');
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
         }).catch((err) => {
@@ -123,6 +124,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
             }
             dispatch(setCoupon(res.data));
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
+            sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
         }).catch((err) => {

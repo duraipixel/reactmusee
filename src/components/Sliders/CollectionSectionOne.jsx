@@ -4,23 +4,13 @@ import {compile} from 'path-to-regexp';
 import Slider from 'react-slick'
 import { CollectionSectionOneSkeleton } from '../Skeleton/CollectionSectionOneSkeleton';
 
-export const CollectionSectionOne = () => {
-    const navigate = useNavigate();
-
-    const [collectionOne, setCollectionOne] = useState([]);
-
-    async function getCollection() {
-        const response =  await fetch(window.API_URL+'/get/product/collections/1')
-                            .then((response) => response.json())
-                            .then((data) => { 
-                                setCollectionOne(data.data[0]) })
-                            .catch((err) => {
-                            });
-    }
+export const CollectionSectionOne = ({homeData}) => {
+    
+    const [collectionOne, setCollectionOne] = useState('');
 
     useMemo( () => {
-        if( collectionOne.length === 0 ) {
-            getCollection();
+        if( collectionOne === '' && homeData.collection ) {
+            setCollectionOne( homeData.collection.find( (car) => car.order_by === 1 ) )
         }
     }, [] );
 
@@ -51,8 +41,6 @@ export const CollectionSectionOne = () => {
             },
         }, ],
     }
-
-
     
     const PRODUCT_ROUTE = '/product/:product_url/';
     const FILTER_ROUTE = '/collection/:collection_slug/';
@@ -66,7 +54,6 @@ export const CollectionSectionOne = () => {
                 <section className="new-arrivals pt-0" key={collectionOne.id}>
                     <div className="container">
                         <div className="row">
-
                             <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-between">
                                 <div className="common-heads">
                                     <h2>{collectionOne.collection_name} </h2>
@@ -102,16 +89,13 @@ export const CollectionSectionOne = () => {
                                         </Link>
                                     ))
                                 }
-                                
                             </Slider>
-
                         </div>
                     </div>
                 </section>
             ) : 
                 // <CollectionSectionOneSkeleton />    
                 null                
-
             }           
         </Fragment>
     )
