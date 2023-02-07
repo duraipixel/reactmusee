@@ -110,7 +110,7 @@ export const ProductDetail = () => {
 
     useMemo(() => {
         getProductsInfo();
-    }, [])
+    }, [product_url])
     
     
     return (

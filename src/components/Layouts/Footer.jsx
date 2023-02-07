@@ -58,7 +58,7 @@ export default function Footer() {
                                     <a href=""><img src="/assets/images/mail.png" /> info@museemusical.in </a>
                                 </li>
                                 <li>
-                                    <a href=""><img src="/assets/images/call.png" /> +91 44 2852 2780 <br />+91 44 2851 6474 </a>
+                                    <a href=""><img src="/assets/images/call.png" /> +91 44 2852 2780  </a>
                                 </li>
                             </ul>
                         </div>

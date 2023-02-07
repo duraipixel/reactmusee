@@ -17,25 +17,26 @@ import { fetchBrowseCategory } from './../app/reducer/otherCategorySlice';
 export const Collection = () => {
 
     const [filterStaticMenu, setFilterStaticMenu] = useState([]);
-    
+
     const otherCategory = useSelector((state) => state.browse);
     const [browseCategory, setBrowseCategory] = useState([]);
+    
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
-    const cUrl = new URL(window.location.href);    
+    const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
     const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
     const dispatch = useDispatch();
-    
+
     async function getFilterStaticMenuData() {
-        
+
         await fetch(window.API_URL + '/get/filter/static/sidemenus')
             .then((response) => response.json())
             .then((data) => {
-                    localStorage.setItem('filterStaticMenu', JSON.stringify(data));
-                }
+                localStorage.setItem('filterStaticMenu', JSON.stringify(data));
+            }
             )
             .catch((err) => {
                 // console.log(err.message)
@@ -48,15 +49,15 @@ export const Collection = () => {
         await axios({
             url: window.API_URL + '/get/other/category',
             method: 'POST',
-            data: {category:category},
+            data: { category: category },
         }).then((res) => {
-            dispatch(fetchBrowseCategory(res.data) );
+            dispatch(fetchBrowseCategory(res.data));
         }).catch((err) => {
         })
     }
 
     useMemo(() => {
-        if( filterStaticSideMenu.length === 0 ) {
+        if (filterStaticSideMenu.length === 0) {
             getFilterStaticMenuData();
         }
     }, []);
@@ -106,6 +107,8 @@ export const Collection = () => {
                     </div>
                 </section>
             }
+
+            
         </Fragment>
     )
 }

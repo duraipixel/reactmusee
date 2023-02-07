@@ -203,11 +203,7 @@ export const Login = () => {
                                                             <h5>or</h5>
                                                         </div>
                                                     </div>
-                                                    <div className="col-lg-12 text-center p-0">
-                                                        <div className="login-btn">
-                                                            <span> Login with <a href=""><img src="/assets/images/google.png" /></a> <a href=""><img src="/assets/images/facebook.png" /></a> </span>
-                                                        </div>
-                                                    </div>
+                                                   
                                                     <div className="col-lg-12 text-center mt-3">
                                                         <div className="user-regster">
                                                             Don't have an account?

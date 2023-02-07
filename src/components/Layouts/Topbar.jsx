@@ -5,6 +5,7 @@ import { logoutCustomer } from '../../app/reducer/customerSlice';
 import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
+import { WaveSpinner } from "react-spinners-kit";
 
 export default function Topbar({ isTopPage }) {
 
@@ -12,9 +13,10 @@ export default function Topbar({ isTopPage }) {
     const location = useLocation();
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
+    const [paymentLoader, setPaymentLoader] = useState(false);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-    
+
     const [searchData, setSearchData] = useState([]);
 
     const getTotalQuantity = () => {
@@ -50,7 +52,7 @@ export default function Topbar({ isTopPage }) {
 
     const globalSearch = (event) => {
         var search_type = document.getElementById("enq").value;
-        var search_field = event.target.value;
+        var search_field = event.target.value;        
         getAllStates(search_type, search_field);
     }
 
@@ -63,6 +65,7 @@ export default function Topbar({ isTopPage }) {
             setSearchData(res.data);
             var element = document.getElementById('parent_search_tab');
             element.classList.add('bluebg')
+            
         }).catch((err) => {
         })
     }
@@ -78,7 +81,7 @@ export default function Topbar({ isTopPage }) {
             element.classList.remove('bluebg')
         }
     });
-   
+
     return (
         <Fragment>
             <div className={`top-bar ${isTopPage ? "top-fix" : ""}`} >
@@ -158,6 +161,22 @@ export default function Topbar({ isTopPage }) {
                         </div>
                     </div>
                 </div>
+                {
+                    paymentLoader &&
+
+                    <div id="cart-loader" >
+                        <div className='loader-wrapper'>
+                            <WaveSpinner
+                                size={100}
+                                color="#0a1d4a"
+                                loading={paymentLoader}
+
+                                style={{ top: '50%', left: '45%' }}
+
+                            />
+                        </div>
+                    </div>
+                }
             </div>
         </Fragment>
     )
