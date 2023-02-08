@@ -5,7 +5,8 @@ import { logoutCustomer } from '../../app/reducer/customerSlice';
 import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
-import { WaveSpinner } from "react-spinners-kit";
+import { MagicSpinner } from "react-spinners-kit";
+import './globalsearch.css';
 
 export default function Topbar({ isTopPage }) {
 
@@ -18,6 +19,7 @@ export default function Topbar({ isTopPage }) {
     const dispatch = useDispatch();
 
     const [searchData, setSearchData] = useState([]);
+    const [searchStart, setSearchStart] = useState(false);
 
     const getTotalQuantity = () => {
 
@@ -51,8 +53,11 @@ export default function Topbar({ isTopPage }) {
     }
 
     const globalSearch = (event) => {
+        setSearchStart(true)
         var search_type = document.getElementById("enq").value;
-        var search_field = event.target.value;        
+        var search_field = event.target.value;
+        var element = document.getElementById('parent_search_tab');
+        element.classList.add('bluebg')
         getAllStates(search_type, search_field);
     }
 
@@ -63,9 +68,7 @@ export default function Topbar({ isTopPage }) {
             data: { search_type: search_type, search_field: search_field }
         }).then((res) => {
             setSearchData(res.data);
-            var element = document.getElementById('parent_search_tab');
-            element.classList.add('bluebg')
-            
+            setSearchStart(false)
         }).catch((err) => {
         })
     }
@@ -103,16 +106,27 @@ export default function Topbar({ isTopPage }) {
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
                                         <input className="src-blnk" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
                                         <ul className="src-fndings" id='searchPane'>
-                                            {searchData.length > 0 && searchData.map((item, i) => (
+
+                                            {searchData.length > 0 ? searchData.map((item, i) => (
                                                 <li key={i}>
                                                     {
                                                         item.has_data === 'yes' ?
                                                             item.product_name ?
-                                                                <Link to={`/product/${item.product_url}`} >
-                                                                    <img src={item.image} width="100" /> {item.product_name}
-                                                                    <span>
-                                                                        Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
-                                                                    </span>
+                                                                <Link to={`/product/${item.product_url}`} className="w-100" >
+                                                                    <div className='w-100 m-flex'>
+                                                                        <div className='w-20'>
+                                                                            <img src={item.image} width="100" />
+                                                                        </div>
+                                                                        <div className='w-80'>
+                                                                            <label htmlFor="">
+                                                                                {item.product_name}
+                                                                            </label>
+                                                                            <span>
+                                                                                Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </Link>
                                                                 :
                                                                 <Link to='/'>
@@ -127,7 +141,21 @@ export default function Topbar({ isTopPage }) {
                                                     }
                                                 </li>
 
-                                            ))}
+                                            ))
+                                                :
+                                                <li style={{ height: 'inherit' }}>
+                                                    <div id="product-loader" className='w-100' >
+                                                        <div className='product-wrapper'>
+                                                            <MagicSpinner
+                                                                size={100}
+                                                                color="#0a1d4a"
+                                                                loading={true}
+                                                                style={{ top: '50%', left: '45%' }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
 
                                         </ul>
                                     </div>
@@ -161,22 +189,7 @@ export default function Topbar({ isTopPage }) {
                         </div>
                     </div>
                 </div>
-                {
-                    paymentLoader &&
 
-                    <div id="cart-loader" >
-                        <div className='loader-wrapper'>
-                            <WaveSpinner
-                                size={100}
-                                color="#0a1d4a"
-                                loading={paymentLoader}
-
-                                style={{ top: '50%', left: '45%' }}
-
-                            />
-                        </div>
-                    </div>
-                }
             </div>
         </Fragment>
     )

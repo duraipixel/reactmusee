@@ -8,7 +8,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', (functionUrl = '') => {
     const url = new URL(window.location.href);
-    console.log(functionUrl, 'functionUrl');
+    
     return fetch(window.API_URL+'/get/products'+functionUrl)
                 .then((response) => response.json())
                 .then((data) => { 
