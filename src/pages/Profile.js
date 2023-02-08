@@ -5,7 +5,7 @@ import ChangePassword from '../components/Profile/ChangePassword'
 import EditPersonalDetailsModal from '../components/Profile/EditPersonalDetailsModal'
 import ProfileContent from '../components/Profile/ProfileContent'
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Fragment } from 'react'
 import EditAddress from './../components/Profile/EditAddress';
 import axios from 'axios';
@@ -15,10 +15,11 @@ import { CancelOrderRequested } from '../components/OrderSummary/CancelOrderRequ
 export const Profile = () => {
 
     const [customer, setCustomer] = useState(JSON.parse(window.localStorage.getItem('customer')));
-    const [customerAddress, setCustomerAddress] = useState(JSON.parse(window.localStorage.getItem('address')));
+    const [customerAddress, setCustomerAddress] = useState([]);
     const [customerOrders, setCustomerOrders] = useState(JSON.parse(window.localStorage.getItem('orders')));
     const navigate = useNavigate();
-
+    
+    const cAddress = (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined' ) ? JSON.parse(window.localStorage.getItem('address')) : [];
     const [personalShow, setPersonalShow] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
 
@@ -106,6 +107,12 @@ export const Profile = () => {
             getAllStates()
         }
 
+    }, [])
+
+    useMemo(() => {
+        if( customerAddress.length === 0 ) {
+            setCustomerAddress(cAddress)
+        }
     }, [])
 
     return (

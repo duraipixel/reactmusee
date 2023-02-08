@@ -10,6 +10,7 @@ import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
 import { setAllBrand } from '../../app/reducer/brandSlice';
 import SideCustomScrollbar from './../SideCustomScrollbar';
 import { Submenu } from './Submenu';
+import { computeHeadingLevel } from '@testing-library/react';
 
 export const Layout = () => {
 
@@ -19,7 +20,7 @@ export const Layout = () => {
     const dispatch = useDispatch();
 
     async function getAllMenu() {
-        console.log('feticn');
+        
         const response = await fetch(window.API_URL + '/get/allMenu')
             .then((response) => response.json())
             .then((data) => {
@@ -47,6 +48,7 @@ export const Layout = () => {
     const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : []
     const menuAll = localStorage.getItem('allMenu') ? JSON.parse(localStorage.getItem('allMenu')) : []
 
+    
     useMemo(() => {
         
         if (menuAll.length === 0) {
@@ -73,7 +75,7 @@ export const Layout = () => {
     };
 
     const getSubMenu = (category) => {
-
+        
         const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : [];
 
         var subMenus = topMenuAll.filter(
@@ -83,7 +85,7 @@ export const Layout = () => {
                 )
             }
         );
-
+        
         sessionStorage.setItem('topSubMenu', JSON.stringify(subMenus));
         setTopSubmenu(category)
     }

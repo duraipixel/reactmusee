@@ -66,9 +66,12 @@ export default function Home() {
         if( homeData.length === 0 ) {
             getHomeData()
         }
+        
+        
     }, [homeData])
 
     useEffect(() => {
+        
         if( !customer ) {
             dispatch(clearCart());
             // dispatch(clearAttemptItem())
@@ -82,7 +85,7 @@ export default function Home() {
             dispatch(isOpenSideBar());
         }
     }, [])
-
+    
     return (
         <Fragment>
             <Helmet>

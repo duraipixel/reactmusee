@@ -19,7 +19,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                         </div>
                         <div className='m-flex'>
                             <div className="load-btn">
-                                <a onClick={() => handleShow()} >
+                                <a onClick={() => handleShow('billing')} >
                                     Add New Address
                                 </a>
                             </div>
@@ -52,7 +52,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                         </div>
                         <div className='m-flex'>
                             <div className="load-btn">
-                                <a onClick={() => handleShow()} >
+                                <a onClick={() => handleShow('shipping')} >
                                     Add New Address
                                 </a>
                             </div>

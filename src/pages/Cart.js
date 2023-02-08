@@ -33,6 +33,7 @@ export const Cart = () => {
     const [showList, setShowList] = useState(false);
     const [paymentLoader, setPaymentLoader] = useState(false);
     const [fromList, setFromList] = useState('');
+    const [fromAdd, setFromAdd] = useState('');
     const dispatch = useDispatch();
 
     const [formLoader, setFormLoader] = useState(false);
@@ -55,7 +56,10 @@ export const Cart = () => {
         document.getElementById('address_form').reset();
         setShow(false)
     };
-    const handleShow = () => setShow(true);
+    const handleShow = (from_type) => {
+        setFromAdd(from_type);
+        setShow(true);
+    }
 
     const handleListClose = () => {
         setShowList(false)
@@ -117,8 +121,8 @@ export const Cart = () => {
     };
 
     const sameAsBilling = (e) => {
-        
-        if( e.target.checked ) {
+
+        if (e.target.checked) {
             setShippingAddress(billingAddress);
             localStorage.setItem('shipping_address', JSON.stringify(billingAddress));
             toast.success('Shipping address has been set successfully', {
@@ -131,7 +135,7 @@ export const Cart = () => {
     }
 
     const handleSetAddress = (address, from_type) => {
-        
+
         if (from_type === 'billing') {
 
             setBillingAddress(address);
@@ -173,9 +177,20 @@ export const Cart = () => {
                 toast.success(res.data.message, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
-
+                
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+
+
+                if (fromAdd == 'billing') {
+                    setBillingAddress(res.data.address_info);
+                    localStorage.setItem('billing_address', JSON.stringify(res.data.address_info));
+                } else {
+                    setShippingAddress(res.data.address_info);
+                    dispatch(setDefaultShippingAddress(res.data.address_info));
+                    localStorage.setItem('shipping_address', JSON.stringify(res.data.address_info));
+                }
+                reset();
                 handleClose();
             }
         }).catch((err) => {
@@ -244,7 +259,7 @@ export const Cart = () => {
                                     <Modal className='cstmzed' show={show} onHide={handleClose}>
                                         {/* <AddressForm customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} handleClose={handleClose} /> */}
                                         <Modal.Header closeButton>
-                                            <Modal.Title>Add a New Shipping Address</Modal.Title>
+                                            <Modal.Title> ADD NEW {fromAdd.toUpperCase()} ADDRESS </Modal.Title>
                                         </Modal.Header>
                                         <form onSubmit={handleSubmit(onSubmit)} id="address_form">
                                             <Modal.Body>
@@ -358,6 +373,7 @@ export const Cart = () => {
                                 style={{ top: '50%', left: '45%' }}
 
                             />
+                        <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
                         </div>
                     </div>
                 }

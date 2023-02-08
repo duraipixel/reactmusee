@@ -7,6 +7,7 @@ import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
 import { MagicSpinner } from "react-spinners-kit";
 import './globalsearch.css';
+import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
 
 export default function Topbar({ isTopPage }) {
 
@@ -85,6 +86,18 @@ export default function Topbar({ isTopPage }) {
         }
     });
 
+    const commonUrl = new URL(window.location.href);
+    var checkUrlChanged = commonUrl.hash.replace('/', '');
+    useMemo(() => {
+        var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
+        if (incUrl.includes(checkUrlChanged)) {
+            console.log(checkUrlChanged, 'checkUrlChanged');
+
+            sessionStorage.removeItem('topSubMenu');
+        }
+
+    }, [checkUrlChanged])
+
     return (
         <Fragment>
             <div className={`top-bar ${isTopPage ? "top-fix" : ""}`} >
@@ -137,7 +150,7 @@ export default function Topbar({ isTopPage }) {
                                                                 </Link>
 
                                                             :
-                                                            <div> {item.message}</div>
+                                                            <div className='w-100' style={{ textAlign: 'center' }}> {item.message}</div>
                                                     }
                                                 </li>
 

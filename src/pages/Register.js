@@ -5,6 +5,8 @@ import { ErrorMessage } from '@hookform/error-message';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
+import { useDispatch } from 'react-redux';
+import { loginCustomer } from '../app/reducer/customerSlice';
 
 export const Register = () => {
 
@@ -15,6 +17,8 @@ export const Register = () => {
         formState: { errors },
         reset
     } = useForm();
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [formLoader, setFormLoader] = useState(false);
@@ -38,12 +42,19 @@ export const Register = () => {
                 }));
                 reset();
             } else {
-                toast.success('Register Successfull, Please try to login', {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
-                setTimeout(() => {
-                    navigate('/login');
-                }, 300);
+                if (res.data.customer_data) {
+
+                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
+                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
+                    
+                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
+                    toast.success('Register Successfull', {
+                        position: toast.POSITION.BOTTOM_RIGHT
+                    });
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 300);
+                }
 
             }
         }).catch((err) => {
@@ -81,7 +92,7 @@ export const Register = () => {
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="cir-frm">
-                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                                             <div className="frm-fields row clearfix">
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <div className="common-heading">

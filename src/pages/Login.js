@@ -164,7 +164,7 @@ export const Login = () => {
                                 </div>
                                 <div className="col-lg-6">
                                     <div className="cir-frm">
-                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                                             <div className="frm-fields row clearfix">
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <div className="common-heading">

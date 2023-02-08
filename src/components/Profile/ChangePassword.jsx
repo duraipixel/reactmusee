@@ -52,7 +52,7 @@ const ChangePassword = ({passwordShow, handlePasswordClose, handlePasswordShow, 
       <Modal.Header closeButton>
         <Modal.Title> Change Password </Modal.Title>
       </Modal.Header>
-      <form id="passwordForm" onSubmit={handleSubmit(onSubmit)} >
+      <form id="passwordForm" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
         <Modal.Body>
           <div className="row">
             <div className="mb-3 col-lg-12">
