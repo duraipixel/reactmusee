@@ -12,6 +12,7 @@ import { PopupWidget } from "react-calendly";
 import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
 import { Helmet } from 'react-helmet';
+import { WaveSpinner } from 'react-spinners-kit';
 
 export const ProductDetail = () => {
 
@@ -21,7 +22,7 @@ export const ProductDetail = () => {
     const { product_url } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const setRecentProduct = (product_url) => {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         axios({
@@ -111,8 +112,8 @@ export const ProductDetail = () => {
     useMemo(() => {
         getProductsInfo();
     }, [product_url])
-    
-    
+
+
     return (
         <Fragment>
 
@@ -314,6 +315,22 @@ export const ProductDetail = () => {
                         </div>
                     </section>
                 )
+            }
+
+            {
+                productInfo === null &&
+                <div id="cart-loader" >
+                    <div className='loader-wrapper'>
+                        <WaveSpinner
+                            size={100}
+                            color="#0a1d4a"
+                            loading={true}
+
+                            style={{ top: '50%', left: '45%' }}
+
+                        />
+                    </div>
+                </div>
             }
 
             {/* <FrequentlyPurchased /> */}
