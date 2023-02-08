@@ -939,6 +939,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
 }
 
 @media (max-width:1000px) {
+    .top-bar{z-index: 0;}
     header.fixed-top .srch-btn {
         top: -39px;
     }

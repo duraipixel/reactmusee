@@ -18,6 +18,7 @@ import { PaymentResponse } from './pages/PaymentResponse.js';
 import OrderSummary from './pages/OrderSummary.js';
 import { ForgotPassword } from './pages/ForgotPassword.js';
 import { ResetPassword } from './pages/ResetPassword.js';
+import { PrivacyPolicy } from './pages/PrivacyPolicy.js';
 
 const App = () => {
 
@@ -38,6 +39,7 @@ const App = () => {
           <Route path='profile' element={<Profile />} />
           <Route path='ordersummary/:order_no' element={<OrderSummary />} />
           <Route path='thankyou/:payment_response' element={<PaymentResponse />} />
+          <Route path='privacypolicy' element={<PrivacyPolicy />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

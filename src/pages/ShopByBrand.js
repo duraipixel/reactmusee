@@ -51,11 +51,9 @@ export const ShopByBrand = () => {
                 <title> Brand | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
-            <section className="inner-banner shopbybrand"
-                >
+            <section className="inner-banner shopbybrand">
                 <div className="container">
                     <div className="row">
-
                         <div className="inner-liners">
                             <h1>
                                 Your search for the perfect brand 
@@ -63,7 +61,6 @@ export const ShopByBrand = () => {
                                 of instruments ends here
                             </h1>
                         </div>
-
                     </div>
                 </div>
             </section>

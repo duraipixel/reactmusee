@@ -676,6 +676,8 @@ section {
   margin-bottom: 6px;
 }
 
+.control-tunes .common-heads.light{width:80%;}
+
 .deals-box ul li span {
   display: block;
   font-weight: 500;
@@ -7300,6 +7302,8 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 1000px) {
+  .all-pianos-list{z-index: -1;}
+  .togle-menu.show{overflow-y: scroll;}
   .favorite-letter .slick-dots, .keyboards-slider .slick-dots, .new-arrivals .slick-dots, .the-trending .slick-dots {
     bottom: -30px;
   } 
@@ -7496,8 +7500,7 @@ ul.track-order li.active:last-child:after {
   }
 
   .modal-body .top-search input[type="search"] {
-    border: 1px solid #d4d4d4;
-    margin-top: 15px;
+    border: 1px solid #d4d4d4; 
   }
 
   .secondary-menu ul li {
@@ -7614,6 +7617,14 @@ ul.track-order li.active:last-child:after {
 }
 
 @media (max-width: 580px) {
+  .ranked-slider, .arrivals-slider {
+    margin: 0px 0px;
+  }
+  section.the-trending{padding: 40px 0px 70px;}
+  .arrival-product, .the-trending .arrival-product{margin: 0px;}
+  .trending-slider {
+    margin-top: 20px;
+  }
   .description-details .inner-headngs h2 {
     font-size: 24px;
     margin-bottom: 20px;

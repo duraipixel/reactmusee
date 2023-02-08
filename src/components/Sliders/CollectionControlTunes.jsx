@@ -57,7 +57,7 @@ export const CollectionControlTunes = ({homeData}) => {
                                 </div>
                                 <div className="next-jump light">
                                     <Link to={`/products/pfilter?collection=${collectionSeven.collection_slug}`} >
-                                        Browse All <img src="/assets/images/nxt.png" />
+                                        Browse All <img src="/assets/images/nxt-w.png" />
                                     </Link>
                                 </div>
                             </div>
