@@ -3,7 +3,7 @@ import React from 'react'
 export const PrivacyPolicy = () => {
   return (
     <div>
-               <section className="inner-banner shopbybrand">
+            <section className="inner-banner shopbybrand">
                 <div className="container">
                     <div className="row">
                         <div className="inner-liners">
@@ -15,7 +15,9 @@ export const PrivacyPolicy = () => {
                         </div>
                     </div>
                 </div>
-            </section>     
+            </section>  
+            
+               
 
     </div>
   )

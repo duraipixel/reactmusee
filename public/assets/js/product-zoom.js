@@ -10,7 +10,7 @@
     function GlassCase(element, options) {
         var gcBase = this;
 
-        gcBase.element = element.wrap('<div class="glass-case"></div>').parent();
+        gcBase.element = element.wrap('<div className="glass-case"></div>').parent();
         gcBase.init(options);
     }
 
@@ -197,7 +197,7 @@
             });
             gcBase.gcThumbsLi = gcBase.gcThumbsUl.find('li');
             gcBase.gcThumbsImg = gcBase.gcThumbsLi.find('img');
-            gcBase.gcThumbsImg.wrap('<div class="gc-li-display-container"></div>');
+            gcBase.gcThumbsImg.wrap('<div className="gc-li-display-container"></div>');
             gcBase.gcThumbsLiDiv = gcBase.gcThumbsLi.find('.gc-li-display-container');
             gcBase.gcThumbsUl.removeClass('gc-start');
 
@@ -206,7 +206,7 @@
             var cssClass;
 
             if (gcBase.config.isZCapEnabled === true) {
-                gcBase.gcCaption = $('<div class="gc-caption-container"><div></div></div>');
+                gcBase.gcCaption = $('<div className="gc-caption-container"><div></div></div>');
                 gcBase.gcCaptionDisplay = gcBase.gcCaption.find('div');
 
                 if (gcBase.config.zoomPosition === 'inner') gcBase.config.capZType = 'in';

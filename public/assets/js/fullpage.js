@@ -1045,7 +1045,7 @@
         * Creates the control arrows for the given section
         */
         function createSlideArrows(section){
-            var arrows = [createElementFromHTML('<div class="' + SLIDES_ARROW_PREV + '"></div>'), createElementFromHTML('<div class="' + SLIDES_ARROW_NEXT + '"></div>')];
+            var arrows = [createElementFromHTML('<div className="' + SLIDES_ARROW_PREV + '"></div>'), createElementFromHTML('<div className="' + SLIDES_ARROW_NEXT + '"></div>')];
             after($(SLIDES_WRAPPER_SEL, section)[0], arrows);
 
             if(options.controlArrowColor !== '#fff'){
@@ -1085,13 +1085,13 @@
                     link = options.anchors[i];
                 }
 
-                li += '<li><a href="#' + link + '"><span class="fp-sr-only">' + getBulletLinkName(i, 'Section') + '</span><span></span></a>';
+                li += '<li><a href="#' + link + '"><span className="fp-sr-only">' + getBulletLinkName(i, 'Section') + '</span><span></span></a>';
 
                 // Only add tooltip if needed (defined by user)
                 var tooltip = options.navigationTooltips[i];
 
                 if (typeof tooltip !== 'undefined' && tooltip !== '') {
-                    li += '<div class="' + SECTION_NAV_TOOLTIP + ' fp-' + options.navigationPosition + '">' + tooltip + '</div>';
+                    li += '<div className="' + SECTION_NAV_TOOLTIP + ' fp-' + options.navigationPosition + '">' + tooltip + '</div>';
                 }
 
                 li += '</li>';
@@ -2931,7 +2931,7 @@
         * Creates a landscape navigation bar with dots for horizontal sliders.
         */
         function addSlidesNavigation(section, numSlides){
-            appendTo(createElementFromHTML('<div class="' + SLIDES_NAV + '"><ul></ul></div>'), section);
+            appendTo(createElementFromHTML('<div className="' + SLIDES_NAV + '"><ul></ul></div>'), section);
             var nav = $(SLIDES_NAV_SEL, section)[0];
 
             //top or bottom
@@ -2939,7 +2939,7 @@
 
             for(var i=0; i< numSlides; i++){
                 var slide = $(SLIDE_SEL, section)[i];
-                appendTo(createElementFromHTML('<li><a href="#"><span class="fp-sr-only">'+ getBulletLinkName(i, 'Slide', slide) +'</span><span></span></a></li>'), $('ul', nav)[0] );
+                appendTo(createElementFromHTML('<li><a href="#"><span className="fp-sr-only">'+ getBulletLinkName(i, 'Slide', slide) +'</span><span></span></a></li>'), $('ul', nav)[0] );
             }
 
             //centering it
@@ -3926,7 +3926,7 @@
 
     /**
     * Usage:
-    * wrapInner(document.querySelector('#pepe'), '<div class="test">afdas</div>');
+    * wrapInner(document.querySelector('#pepe'), '<div className="test">afdas</div>');
     * wrapInner(document.querySelector('#pepe'), element);
     *
     * https://jsfiddle.net/zexxz0tw/6/

@@ -909,7 +909,7 @@ jQuery.validator.addMethod("integer", function (value, element) {
 *
 * Works with all kind of text inputs.
 *
-* @example <input type="text" size="20" name="VehicleID" class="{required:true,vinUS:true}" />
+* @example <input type="text" size="20" name="VehicleID" className="{required:true,vinUS:true}" />
 * @desc Declares a required input element whose value must be a valid vehicle identification number.
 *
 * @name jQuery.validator.methods.vinUS
@@ -969,7 +969,7 @@ jQuery.validator.addMethod(
 * @example jQuery.validator.methods.date("01.01.1900")
 * @result false
 *
-* @example <input name="pippo" class="{dateITA:true}" />
+* @example <input name="pippo" className="{dateITA:true}" />
 * @desc Declares an optional input element whose value must be a valid date.
 *
 * @name jQuery.validator.methods.dateITA

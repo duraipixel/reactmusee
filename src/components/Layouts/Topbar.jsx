@@ -55,7 +55,7 @@ export default function Topbar({ isTopPage }) {
 
     const globalSearch = (event) => {
         setSearchStart(true)
-        var search_type = document.getElementById("enq").value;
+        var search_type = 'product';
         var search_field = event.target.value;
         var element = document.getElementById('parent_search_tab');
         element.classList.add('bluebg')

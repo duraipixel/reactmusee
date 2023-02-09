@@ -65,26 +65,26 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <div
-      class="modal fade"
+      className="modal fade"
       id="exampleModal"
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLabel">
               Search your Products
             </h5>
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div class="top-search"> 
-              <div class="form-data">
+          <div className="modal-body">
+            <div className="top-search"> 
+              <div className="form-data">
                 <input type="search" placeholder="Search..." />
               </div>
             </div>
@@ -148,7 +148,7 @@
                 });
                 cssmenu.find('li ul').parent().addClass('has-sub');
                 multiTg = function() {
-                    cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
+                    cssmenu.find(".has-sub").prepend('<span className="submenu-button"></span>');
                     cssmenu.find('.submenu-button').on('click', function() {
                         $(this).toggleClass('submenu-opened');
                         if ($(this).siblings('ul').hasClass('open')) {
@@ -206,5 +206,5 @@
   });
 </script>
 
-  <a href="#" class="back-to-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
+  <a href="#" className="back-to-top"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
 </html>
