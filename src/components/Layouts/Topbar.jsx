@@ -68,7 +68,7 @@ export default function Topbar({ isTopPage }) {
             method: 'POST',
             data: { search_type: search_type, search_field: search_field }
         }).then((res) => {
-            setSearchData(res.data);
+            setSearchData(res.data.products);
             setSearchStart(false)
         }).catch((err) => {
         })
@@ -156,18 +156,27 @@ export default function Topbar({ isTopPage }) {
 
                                             ))
                                                 :
-                                                <li style={{ height: 'inherit' }}>
-                                                    <div id="product-loader" className='w-100' >
-                                                        <div className='product-wrapper'>
-                                                            <MagicSpinner
-                                                                size={100}
-                                                                color="#0a1d4a"
-                                                                loading={true}
-                                                                style={{ top: '50%', left: '45%' }}
-                                                            />
+
+                                                
+                                                    !searchStart ? 
+                                                    (
+                                                    <div className='w-100' style={{ textAlign: 'center' }}> No records found</div>
+                                                    )
+
+                                                    :
+                                                    (<li style={{ height: 'inherit' }}>
+                                                        <div id="product-loader" className='w-100' >
+                                                            <div className='product-wrapper'>
+                                                                <MagicSpinner
+                                                                    size={100}
+                                                                    color="#0a1d4a"
+                                                                    loading={true}
+                                                                    style={{ top: '50%', left: '45%' }}
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </li>
+                                                    </li>)
+                                                
                                             }
 
                                         </ul>
