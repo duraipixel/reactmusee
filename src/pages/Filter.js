@@ -96,6 +96,15 @@ export const Filter = ({filterStaticMenu}) => {
 
     }
 
+    const closeFilterMenu = () => {
+
+        var filtermenu = document.getElementById('fil-optn')
+        filtermenu.classList.add('show')
+        
+        var sidefilter = document.getElementById('sdmnu-repnsve');
+        sidefilter.classList.add('hide')
+    }
+
     useMemo(() => {
         if( dynamicFilter.length == 0 ){
             getDynamicFilter()
@@ -104,16 +113,16 @@ export const Filter = ({filterStaticMenu}) => {
 
     return (
         <Fragment >
-            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 sdmnu-repnsve mCustomScrollbar sticky-wraper" data-spy="affix" data-offset-top="224" data-offset-bottom="320">
+            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 sdmnu-repnsve mCustomScrollbar sticky-wraper" data-spy="affix" data-offset-top="224" data-offset-bottom="320" id="sdmnu-repnsve">
                 <div className="filter-lists d-flex">
-                    <h3>Filters</h3>
+                    <h3>Filters </h3>
                     <div className={`clear_filter ${Array.from(searchParams).length > 0 ? '':'hide'}`} onClick={() => clearFilter()}> 
                         Clear Filter  
                         <i className="fa fa-times" aria-hidden="true"></i></div>
                 </div>
                 <div className="filter-lists">
-                    <span className="cl-se-btn">
-                        <a > <img src="images/filter-close.png" /> </a></span>
+                    <span className="cl-se-btn" onClick={closeFilterMenu}>
+                        <a > <img src="/assets/images/filter-close.png" /> </a></span>
                     <ProductAvailability product_availability={product_availability} />
                 </div>
                 <Brand />

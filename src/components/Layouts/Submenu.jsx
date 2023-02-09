@@ -33,6 +33,14 @@ export const Submenu = ({ topSubmenu }) => {
         setMenuCategory(top_sub_MenuAll[0].slug);
         setMenuSubCategory(slug);
     }
+
+    const getFilterTab = () => {    
+        var filtermenu = document.getElementById('fil-optn')
+        filtermenu.classList.add('hide')
+        
+        var sidefilter = document.getElementById('sdmnu-repnsve');
+        sidefilter.classList.add('show')
+    }
     
     useMemo(() => {
         dispatch(fetchProducts('?' + searchParams.toString()));
@@ -72,7 +80,7 @@ export const Submenu = ({ topSubmenu }) => {
                                 ))
                             }
                         </ul>
-                        <span className="fil-optn">
+                        <span className="fil-optn" id='fil-optn' onClick={getFilterTab}>
                             <i className="fa fa-filter" aria-hidden="true"></i>
                             Filter
                         </span>
