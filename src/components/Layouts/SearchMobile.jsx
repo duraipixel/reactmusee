@@ -54,7 +54,7 @@ export const SearchMobile = ({searchShow, handleSearchModalClose}) => {
                                                                 <Link to={`/product/${item.product_url}`} className="w-100" >
                                                                     <div className='w-100 m-flex'>
                                                                         <div className='w-20'>
-                                                                            <img src={item.image} width="100" />
+                                                                            <img src={item.image} width="75" />
                                                                         </div>
                                                                         <div className='w-80'>
                                                                             <label htmlFor="">

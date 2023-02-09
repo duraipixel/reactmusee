@@ -20,7 +20,7 @@ export const Collection = () => {
 
     const otherCategory = useSelector((state) => state.browse);
     const [browseCategory, setBrowseCategory] = useState([]);
-    
+
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -56,6 +56,14 @@ export const Collection = () => {
         })
     }
 
+    const getFilterTab = () => {    
+        var filtermenu = document.getElementById('fil-optn')
+        filtermenu.classList.add('hide')
+        
+        var sidefilter = document.getElementById('sdmnu-repnsve');
+        sidefilter.classList.add('show')
+    }
+
     useMemo(() => {
         if (filterStaticSideMenu.length === 0) {
             getFilterStaticMenuData();
@@ -71,6 +79,12 @@ export const Collection = () => {
                 {/* <meta name="keyword" content="" /> */}
                 {/* <meta name="description" content={productInfo.meta.meta_description} /> */}
             </Helmet>
+            <div>
+                <span className="fil-optn" id='fil-optn' onClick={getFilterTab}>
+                    <i className="fa fa-filter" aria-hidden="true"></i>
+                    Filter
+                </span>
+            </div>
 
             <section className="all-pianos-list">
                 <div className="container">
@@ -108,7 +122,7 @@ export const Collection = () => {
                 </section>
             }
 
-            
+
         </Fragment>
     )
 }

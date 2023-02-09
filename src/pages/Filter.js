@@ -97,7 +97,7 @@ export const Filter = ({filterStaticMenu}) => {
     }
 
     const closeFilterMenu = () => {
-
+        
         var filtermenu = document.getElementById('fil-optn')
         filtermenu.classList.remove('hide')
         filtermenu.classList.add('show')
@@ -119,11 +119,13 @@ export const Filter = ({filterStaticMenu}) => {
                     <h3>Filters </h3>
                     <div className={`clear_filter ${Array.from(searchParams).length > 0 ? '':'hide'}`} onClick={() => clearFilter()}> 
                         Clear Filter  
-                        <i className="fa fa-times" aria-hidden="true"></i></div>
+                        {/* <i className="fa fa-times" aria-hidden="true"></i> */}
+                    </div>
                 </div>
                 <div className="filter-lists">
-                    <span className="cl-se-btn" onClick={closeFilterMenu}>
-                        <a > <img src="/assets/images/filter-close.png" /> </a></span>
+                    <span className="cl-se-btn" onClick={() => closeFilterMenu()}>
+                        <a > <img src="/assets/images/filter-close.png" /> </a>
+                    </span>
                     <ProductAvailability product_availability={product_availability} />
                 </div>
                 <Brand />

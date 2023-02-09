@@ -7562,8 +7562,6 @@ input + p {
   span.fil-optn {
     display: block;
     position: absolute;
-    left: -2px;
-    bottom: -34px;
     width: auto;
     z-index: 4;
     border-radius: 4px;
@@ -7593,7 +7591,7 @@ input + p {
     background: #dfdfdf;
     position: fixed;
     height: 100vh;
-    top: 144px;
+    top: 82px;
     width: 300px;
     z-index: 9999;
     padding-top: 20px;
@@ -7602,7 +7600,7 @@ input + p {
   }
 
   body.pad-top .sdmnu-repnsve {
-    top: 110px;
+    top: 63px;
   }
 
   .favorite-letter .slick-list {
@@ -7761,7 +7759,7 @@ input + p {
     margin-bottom: 50px;
   }
   .sdmnu-repnsve {
-    top: 132px;
+    top: 82px;
   }
 
   .main-det-prdt .row > * {
