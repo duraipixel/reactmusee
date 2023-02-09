@@ -99,10 +99,11 @@ export const Filter = ({filterStaticMenu}) => {
     const closeFilterMenu = () => {
 
         var filtermenu = document.getElementById('fil-optn')
+        filtermenu.classList.remove('hide')
         filtermenu.classList.add('show')
         
         var sidefilter = document.getElementById('sdmnu-repnsve');
-        sidefilter.classList.add('hide')
+        sidefilter.classList.remove('show')
     }
 
     useMemo(() => {
