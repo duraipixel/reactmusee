@@ -76,3 +76,16 @@ img.payment-success-image {
   border: 1px solid black;
 
 }
+
+.success-pop-left {
+  position: absolute;
+  left: 0;
+  top: 27%;
+}
+
+.success-pop-right {
+  position: absolute;
+  right: 0;
+  top: 27%;
+  transform: scaleX(-1);
+}
