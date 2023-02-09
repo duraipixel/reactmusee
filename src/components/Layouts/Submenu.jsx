@@ -80,7 +80,7 @@ export const Submenu = ({ topSubmenu }) => {
                                 ))
                             }
                         </ul>
-                        <span className="fil-optn" id='fil-optn' onClick={getFilterTab}>
+                        <span className="fil-optn hide" id='fil-optn' onClick={getFilterTab}>
                             <i className="fa fa-filter" aria-hidden="true"></i>
                             Filter
                         </span>

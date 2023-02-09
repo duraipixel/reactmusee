@@ -2,17 +2,27 @@ import React, { Fragment, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
+import './globalsearch.css'
 
+import { SearchMobile } from './SearchMobile';
 
 export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
     const dispatch = useDispatch();
     const location = useLocation();
-    
+    const [searchShow, setSearchShow] = useState(false);
     const searchParams = new URLSearchParams(location.search);
     
     const openSideBar = () => {
         dispatch(isOpenSideBar());
+    }
+
+    const openGlobalMobileSearch = () => {
+        setSearchShow(true)
+    }
+
+    const handleSearchModalClose = () => {
+        setSearchShow(false)
     }
 
     return (
@@ -23,9 +33,9 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                         <div className="col">
                             <nav id='cssmenu'>
                                 <div className="srch-btn">
-                                    <a href="#" className="clk-srch" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button className='clk-src' onClick={openGlobalMobileSearch}>
                                         <img src="/assets/images/srch.png" />
-                                    </a>
+                                    </button>
                                 </div>
 
                                 <div className="button"></div>
@@ -57,6 +67,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                     </div>
                 </div>
             </header>
+            <SearchMobile searchShow={searchShow} handleSearchModalClose={handleSearchModalClose} />
         </Fragment>
     )
 }
