@@ -19,11 +19,11 @@ export default function HomeCarousel({ homeData }) {
                         <Skeleton height={510} />
                 }
 
-                <a href="#home-content" className="scroll-down-btn home">
+                {/* <a href="#home-content" className="scroll-down-btn home">
                     <div className="chevron"></div>
                     <div className="chevron"></div>
                     <div className="chevron"></div>
-                </a>
+                </a> */}
             </div>
         </Fragment>
     )

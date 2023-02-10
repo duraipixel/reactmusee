@@ -104,7 +104,7 @@ export const PrivacyPolicy = () => {
                             <p> To protect against the loss, misuse and alteration of the information under our control, we have in place appropriate physical, electronic and managerial procedures. For example, our servers are accessible only to authorized personnel and that your information is shared with respective personnel on need to know basis to complete the transaction and to provide the services requested by you.</p>
                             <p>Although we will endeavor to safeguard the confidentiality of your personally identifiable information, transmissions made by means of the Internet cannot be made absolutely secure. By using this site, you agree that we will have no liability for disclosure of your information due to errors in transmission or unauthorized acts of third parties.</p>
                             <h4>Opt-Out Policy</h4>
-                            <p>Please email <b><a href="mailto:info@museemusical" target="_blank">info@museemusical.in</a></b>  if you no longer wish to receive any information from us.</p>
+                            <p>Please email <b><a href="mailto:info@museemusical" target="_blank">support@museemusical.in</a></b>  if you no longer wish to receive any information from us.</p>
                             <h4>Policy updates</h4>
                             <p>We reserve the right to change or update this policy at any time by placing a prominent notice on our site. Such changes shall be effective immediately upon posting to this site. </p>
                         </div>
