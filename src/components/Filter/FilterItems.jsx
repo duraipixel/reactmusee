@@ -1,11 +1,19 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 
 export const FilterItems = () => {
+    const [isPageLoaded, setIsPageLoaded] = useOutletContext();
 
     const filterData = useSelector((state) => state.products);
     const products = filterData.products && filterData.products != 'undefined' ? filterData.products.products : []
+    console.log( 'isPageLoaded', isPageLoaded);
+
+    useEffect(() => {
+        if(products.length > 0 ) {
+            setIsPageLoaded(false);
+        }
+    }, [products])
 
     return (
         <Fragment>

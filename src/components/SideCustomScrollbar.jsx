@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { fetchMenus } from './../app/reducer/menuSlice';
 
-export default function SideCustomScrollbar({menuAll, getSubMenu}) {
+export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoaded}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();

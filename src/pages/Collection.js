@@ -10,7 +10,7 @@ import SideCustomScrollbar from './../components/SideCustomScrollbar';
 import { Filter } from './Filter';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { Helmet } from 'react-helmet';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import { fetchBrowseCategory } from './../app/reducer/otherCategorySlice';
 
@@ -24,7 +24,7 @@ export const Collection = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-
+    
     const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
     const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
@@ -69,6 +69,9 @@ export const Collection = () => {
             getFilterStaticMenuData();
         }
     }, []);
+
+    
+
     // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
     return (
         <Fragment>

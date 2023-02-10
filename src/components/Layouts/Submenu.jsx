@@ -9,11 +9,12 @@ import { useState, useMemo } from 'react';
 export const Submenu = ({ topSubmenu }) => {
     
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const location = useLocation();
+    const dispatch = useDispatch();
     const [menuCategory, setMenuCategory] = useState('');
     const [menuSubCategory, setMenuSubCategory] = useState('');
     const [topSubMenuAll, setTopSubMenuAll] = useState([]);
+
     const searchParams = new URLSearchParams(location.search);
     const commonUrl = new URL(window.location.href);
 
@@ -49,6 +50,7 @@ export const Submenu = ({ topSubmenu }) => {
                 }
             }
         }
+
     }, [])
 
     return (
