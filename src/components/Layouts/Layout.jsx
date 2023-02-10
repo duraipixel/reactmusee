@@ -31,7 +31,7 @@ export const Layout = () => {
         const response = await fetch(window.API_URL + '/get/allMenu')
             .then((response) => response.json())
             .then((data) => {
-                localStorage.setItem('allMenu', JSON.stringify(data.data));
+                sessionStorage.setItem('allMenu', JSON.stringify(data.data));
             }
             )
             .catch((err) => {
@@ -53,7 +53,7 @@ export const Layout = () => {
     }
 
     const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : []
-    const menuAll = localStorage.getItem('allMenu') ? JSON.parse(localStorage.getItem('allMenu')) : []
+    const menuAll = sessionStorage.getItem('allMenu') ? JSON.parse(sessionStorage.getItem('allMenu')) : []
 
 
     useMemo(() => {
@@ -113,7 +113,7 @@ export const Layout = () => {
         dispatch(isOpenSideBar());
     }
     const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
-
+    
     return (
         <Fragment>
             <div className="main-content">

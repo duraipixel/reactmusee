@@ -7,10 +7,9 @@ export const FilterItems = () => {
 
     const filterData = useSelector((state) => state.products);
     const products = filterData.products && filterData.products != 'undefined' ? filterData.products.products : []
-    console.log( 'isPageLoaded', isPageLoaded);
 
     useEffect(() => {
-        if(products.length > 0 ) {
+        if(filterData.isSuccess ) {
             setIsPageLoaded(false);
         }
     }, [products])

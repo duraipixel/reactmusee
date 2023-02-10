@@ -28,6 +28,10 @@ export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoade
         const SUrl = "/products/pfilter";
         searchParams.set("category", categorySlug);
         searchParams.set("scategory", subCategorySlug);
+        searchParams.delete("page");
+        searchParams.delete("brand");
+        searchParams.delete("availability");
+        searchParams.delete("booking");
         getSubMenu(categorySlug);
         navigate(SUrl +'?'+ searchParams.toString());
         dispatch(isOpenSideBar());

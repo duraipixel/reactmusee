@@ -33,14 +33,12 @@ export const Submenu = ({ topSubmenu }) => {
         navigate(SUrl + '?' + searchParams.toString());
         setMenuCategory(top_sub_MenuAll[0].slug);
         setMenuSubCategory(slug);
-    }
-
-   
-    
-    useMemo(() => {
         dispatch(fetchProducts('?' + searchParams.toString()));
-        // dispatch(fetchBrowseCategory(menuCategory));
-    }, [menuCategory, menuSubCategory])
+    }
+    // useMemo(() => {
+    //     dispatch(fetchProducts('?' + searchParams.toString()));
+    //     // dispatch(fetchBrowseCategory(menuCategory));
+    // }, [menuCategory, menuSubCategory])
   
     useEffect(() => {
         if (window.performance) {
