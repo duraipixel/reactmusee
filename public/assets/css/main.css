@@ -5852,6 +5852,7 @@ li.oly-btn a:hover {
 .abt-prduct ul li {
   display: inline-block;
   position: relative;
+  width:100%;
   font-weight: 600;
   font-size: 16px;
   line-height: 23px;
@@ -5860,6 +5861,8 @@ li.oly-btn a:hover {
   padding-left: 25px;
   margin-bottom: 20px;
 }
+
+.abt-prduct ul li:before{position: absolute;content:"";background: url("../images/music-icn.png") no-repeat scroll 0 0;width:13px;height:20px;left:0;top:2px;}
 
 .abt-prduct ul li img {
   position: absolute;
