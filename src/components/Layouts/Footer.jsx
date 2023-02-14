@@ -49,10 +49,18 @@ export default function Footer() {
                             <div className="quick-links">
                                 <h4>Information</h4>
                                 <ul>
-                                    <li><a href="">Privacy Policy</a></li>
-                                    <li><a href="">Terms Of Use</a></li>
-                                    <li><a href="">Returns Policy</a></li>
-                                    <li><a href="">Shipping Policy</a></li>
+                                <li>
+                                    <Link to='/privacypolicy'>Privacy Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to='/TermsofUse'>Terms of Use</Link>
+                                </li>
+                                <li>
+                                    <Link to='/returnpolicy'>Returns Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to='/shippingpolicy'>Shipping Policy</Link>
+                                </li> 
                                 </ul>
                             </div>
 

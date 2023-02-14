@@ -19,6 +19,9 @@ import OrderSummary from './pages/OrderSummary.js';
 import { ForgotPassword } from './pages/ForgotPassword.js';
 import { ResetPassword } from './pages/ResetPassword.js';
 import { PrivacyPolicy } from './pages/PrivacyPolicy.js';
+import { TermsofUse } from './pages/TermsofUse.js';
+import { ReturnPolicy } from './pages/ReturnPolicy.js';
+import { ShippingPolicy } from './pages/ShippingPolicy.js';
 
 const App = () => {
 
@@ -40,6 +43,9 @@ const App = () => {
           <Route path='ordersummary/:order_no' element={<OrderSummary />} />
           <Route path='thankyou/:payment_response' element={<PaymentResponse />} />
           <Route path='privacypolicy' element={<PrivacyPolicy />} />
+          <Route path='termsofuse' element={<TermsofUse />} />
+          <Route path='returnpolicy' element={<ReturnPolicy />} />
+          <Route path='shippingpolicy' element={<ShippingPolicy />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
