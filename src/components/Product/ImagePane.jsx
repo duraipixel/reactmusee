@@ -49,7 +49,7 @@ export const ImagePane = ({ productInfo }) => {
     <Fragment>
       <div className="col-lg-6">
         <div className="details-img-section">
-          <div style={{ width: "300px", height: "450px" }}>
+          <div style={{ width: "100%", height: "100%" }}>
             <ReactImageMagnify
               imageClassName="imgStyles"
               {...{
