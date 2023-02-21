@@ -154,8 +154,23 @@ export const Cart = () => {
             })
             document.getElementById('same_as_billing').checked = false;
         }
+        getShippingRocketCharges(address, from_type);
         handleListClose();
 
+    }
+
+    const getShippingRocketCharges = (address, from_type) => {
+
+        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        axios({
+            url: window.API_URL + '/get/shipping/rocket/charges',
+            method: 'POST',
+            data: {customer_id:customer.id, address:address, from_type:from_type},
+        }).then((res) => {
+            console.log(res)
+        }).catch((err) => {
+        })
+        
     }
 
     async function addAddress(formData) {
@@ -275,6 +290,7 @@ export const Cart = () => {
                                                             <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
                                                             <ErrorMessage errors={errors} name="mobile_no" as="p" />
                                                         </div>
+                                                        <input type="hidden" {...register("from_address_type")} value={fromAdd} />
                                                         <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
                                                         <div className="mb-3 col-lg-6">
                                                             <input className="form-control" type="email" {...register("email", {

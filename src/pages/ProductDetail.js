@@ -174,7 +174,7 @@ export const ProductDetail = () => {
                                                 productInfo.stock_status != 'out_of_stock' ?
                                                     <Fragment>
                                                         <div>
-                                                            <div className={`cart-qty-pane ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                            <div className={`cart-qty-pane `}>
                                                                 <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
                                                                 <span >{productSelectedQuantity}</span>
                                                                 <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
@@ -182,7 +182,7 @@ export const ProductDetail = () => {
                                                         </div>
                                                         <div className={`flow-btns `}>
                                                             <ul>
-                                                                <li className={`oly-btn ${productInfo.has_video_shopping == 'yes' ? 'hide' : ''}`}>
+                                                                <li className={`oly-btn`}>
                                                                     <CartButton product={productInfo} add={handleAddToCart} />
                                                                 </li>
                                                                 <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>

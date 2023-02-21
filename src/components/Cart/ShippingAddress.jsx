@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import './cart.css';
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
-
+    
     return (
         <Fragment>
             <div className="ship-list">
@@ -28,6 +28,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
 
                         <div className='address-data-pane'>
                             {
+                                
                                 billingAddress ?
                                     <div>
                                         <div>{billingAddress.name}</div>
