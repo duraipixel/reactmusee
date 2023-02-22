@@ -13,11 +13,7 @@ export const ImagePane = ({ productInfo }) => {
     }
   };
   const sampleImgSrc = [
-    "/assets/images/product-view-1.jpg",
-    "/assets/images/product-view-2.jpg",
-    "/assets/images/product-view-3.jpg",
-    "/assets/images/product-view-4.jpg",
-    "/assets/images/product-view-5.jpg",
+    "/assets/images/no_img_category_sm.jpg",
   ];
   const imgSrc = productInfo.gallery || sampleImgSrc;
   const [img, setImg] = useState(imgSrc[0]);

@@ -7269,6 +7269,8 @@ input + p {
 }
 .prce-btm{margin:35px 10px 35px 20px;}
 
+.mobile-cartlst{display: none;}
+
 
 
 
@@ -7784,6 +7786,8 @@ input + p {
 }
 
 @media (max-width: 760px) {
+  .mobile-cartlst{display: block;}
+  .desky-verson{display: none;}
   .load-btn a{padding:6px 15px;}
   .load-btn button{padding:6px 15px}
   .ship-list {

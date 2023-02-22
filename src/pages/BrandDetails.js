@@ -15,7 +15,6 @@ export const BrandDetails = () => {
     const location = useLocation();
 
     const searchParams = new URLSearchParams(location.search);
-
     
     async function getBrandCategory() {
         const response = await fetch(window.API_URL + '/get/brands/all/' + brand_slug)
@@ -83,6 +82,10 @@ export const BrandDetails = () => {
 
     console.log(brandData, 'brandData');
 
+    if( brandData.category.length > 0 ) {
+        // let item = items[Math.floor(Math.random()*items.length)];
+    }
+
     return (
         
             (Object.keys(brandData).length > 0) &&
@@ -115,7 +118,7 @@ export const BrandDetails = () => {
                                     brandData.category.slice(0, 6).map((item, i) => (
                                         <div className={`col-lg-${[0, 1].includes(i) ? '6' : '3'} col-md-${[0, 1].includes(i) ? '6' : '3'} col-sm-${[0, 1].includes(i) ? '6' : '3'} col-xs-12`} key={i}>
                                             <div className="brand-box">
-                                                <img src={item.image} className="img-fluid" />
+                                                <img src={[0, 1].includes(i) ? item.image_md : item.image_sm } className="img-fluid" />
                                                 <div className="brand-set">
                                                     <h3>{item.name}</h3>
                                                     <button className='' onClick={() => getBrandProducts(item.slug)} >
@@ -130,6 +133,12 @@ export const BrandDetails = () => {
                         </div>
                     </section>
                 )
+            }
+            {
+                brandData.category.length > 0 && 
+
+                let item = items[Math.floor(Math.random()*items.length)];
+            
             }
 
             <section className="musical-brands secnd-layr text-center">

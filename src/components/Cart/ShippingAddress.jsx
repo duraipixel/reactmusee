@@ -2,28 +2,9 @@ import React, { Fragment } from 'react'
 import './cart.css';
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
-    
+
     return (
         <Fragment>
-
-             <div className='mobile-cartlst'>
-
-             <div className='cat-fntion'> 
-             <button className='del-btm'><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-             <h4>YAMAHA PORTABLE KEYBOARD - PSSF30</h4>
-             <h5><span>Price : </span>₹4490.00</h5>
-             <div className='m-flex'>
-             <img src="assets/images/sum-1.png" /> 
-            <div class="prce-btm">  
-            <button><img src="/assets/images/sub.png" /></button>
-             1 
-            <button><img src="/assets/images/add.png" /></button>
-            </div>
-            </div>
-            <h5 className='m-0 mt-3'><span>Sub Total : </span>₹4490.00</h5>
-            </div>  
-
-            </div>
 
             <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
@@ -40,16 +21,16 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                         <div className='m-flex'>
                             <div className="load-btn">
                                 <a onClick={() => handleShow('billing')} >
-                                    Add New 
+                                    Add New
                                 </a>
-                            
-                            <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Other </button>
+
+                                <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Other </button>
                             </div>
                         </div>
 
                         <div className='address-data-pane'>
                             {
-                                
+
                                 billingAddress ?
                                     <div>
                                         <div>{billingAddress.name}</div>
@@ -77,8 +58,8 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                                 <a onClick={() => handleShow('shipping')} >
                                     Add New
                                 </a>
-                            
-                            <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Other </button>
+
+                                <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Other </button>
                             </div>
                         </div>
                         <div className='address-data-pane'>
