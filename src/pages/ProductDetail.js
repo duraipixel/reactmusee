@@ -98,7 +98,7 @@ export const ProductDetail = () => {
             method: 'POST',
             data: res_data,
         }).then((res) => {
-            toast.success('Product added to carts.', {
+            toast.success('Product added successfully ', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
             localStorage.setItem('cart', JSON.stringify(res.data));

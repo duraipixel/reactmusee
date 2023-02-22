@@ -5191,6 +5191,8 @@ span.shw-all a {
   border: 2px solid #000;
 }
 
+
+
 .load-btn button {
   background-color: transparent;
   font-weight: 600;
@@ -5760,12 +5762,14 @@ li.oly-btn button {
   border: 2px solid #1a1a1a;
   border-radius: 4px;
   background-color: transparent !important;
+  transition: all 0.5s ease;
 }
 
 li.oly-btn button:hover {
   background-color: #000 !important;
   color: #fff !important;
   border: 2px solid #000 !important;
+  transition: all 0.5s ease;
 }
 
 .cart-qty-pane {
@@ -7242,8 +7246,26 @@ input + p {
 .contents-sector ul li{color:#757676;position: relative;display: inline-block;width:100%;padding-left: 20px;margin:4px 0px;}
 .contents-sector ul li:before{position: absolute;content:"";background: url("../images/music-icn.png") no-repeat scroll 0 0;width:13px;height:20px;left:0;top:0;}
 
-
-
+.cat-fntion{background-color: #fff;
+  box-shadow: 11px 11px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 20px;position: relative;}
+  .cat-fntion button.del-btm{position: absolute;content: "";right: 15px;
+    bottom: 15px;}
+  .cat-fntion button.del-btm i {
+    font-size: 24px;
+    color: red;
+  }
+.cat-fntion h4{font-size: 16px;line-height: 23px;font-family: "Quicksand", sans-serif;color: #000000;margin-bottom: 0px;}
+.cat-fntion h5{font-size: 14px;line-height: 23px;font-family: "Quicksand", sans-serif;display: block;}
+.cat-fntion h5 span{font-size: 14px;line-height: 23px;font-family: "Quicksand", sans-serif;display:inline-block;font-weight: 600;margin-right: 5px;color:#000;}
+.cat-fntion img{margin-bottom: 15px;}
+.cat-fntion button {
+  background: transparent;
+  border: none;
+  outline: none !important;
+}
+.prce-btm{margin:35px 10px 35px 20px;}
 
 
 
@@ -7760,17 +7782,20 @@ input + p {
 }
 
 @media (max-width: 760px) {
+  .load-btn a{padding:6px 15px;}
+  .load-btn button{padding:6px 15px}
   .ship-list {
     margin-bottom: 50px;
   }
-  .sdmnu-repnsve {
-    top: 132px;
-  }
+  .address-data-pane{height: 150px !important;font-size: 15px !important;font-weight: 700 !important;}
+  .sdmnu-repnsve {top: 132px;}
 
-  .main-det-prdt .row > * {
-    width: 50%;
+  .main-det-prdt .row > * {width: 50%;}
+  .cstmzed .modal-dialog {
+    width: 95% !important;
   }
-
+  .cstmzed .modal-title{font-size: 24px;}
+  .cstmzed .modal-body h4{font-size: 20px;margin-bottom: 15px;}
   .secondary-menu ul {
     overflow-x: scroll;
     width: 100%;
@@ -7845,6 +7870,8 @@ input + p {
 }
 
 @media (max-width: 580px) {
+  .address-list-panel{display: block !important;}
+  .address-list-panel > div{width:100% !important;}
   .ranked-slider, .arrivals-slider {
     margin: 0px 0px;
   }

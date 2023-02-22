@@ -5,6 +5,26 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
     
     return (
         <Fragment>
+
+             <div className='mobile-cartlst'>
+
+             <div className='cat-fntion'> 
+             <button className='del-btm'><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+             <h4>YAMAHA PORTABLE KEYBOARD - PSSF30</h4>
+             <h5><span>Price : </span>₹4490.00</h5>
+             <div className='m-flex'>
+             <img src="assets/images/sum-1.png" /> 
+            <div class="prce-btm">  
+            <button><img src="/assets/images/sub.png" /></button>
+             1 
+            <button><img src="/assets/images/add.png" /></button>
+            </div>
+            </div>
+            <h5 className='m-0 mt-3'><span>Sub Total : </span>₹4490.00</h5>
+            </div>  
+
+            </div>
+
             <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
 
@@ -12,18 +32,19 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                 <div className='address-list-panel'>
                     <div style={{ padding: '19px', width: '50%' }} >
                         <div className='address-title-pane'>
-                            <div style={{ width: '40%' }}>
-                                <p className='m-font '>Billing :</p>
+                            <div style={{ width: '100%' }}>
+                                <p className='m-font'>Billing Address:</p>
                             </div>
 
                         </div>
                         <div className='m-flex'>
                             <div className="load-btn">
                                 <a onClick={() => handleShow('billing')} >
-                                    Add New Address
+                                    Add New 
                                 </a>
+                            
+                            <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Other </button>
                             </div>
-                            <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Select Billing Address </button>
                         </div>
 
                         <div className='address-data-pane'>
@@ -46,18 +67,19 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                     </div>
                     <div style={{ padding: '19px', width: '50%' }} >
                         <div className='address-title-pane'>
-                            <div style={{ width: '40%' }}>
-                                <p className='m-font '>Shipping :</p>
+                            <div style={{ width: '100%' }}>
+                                <p className='m-font '>Shipping Address:</p>
                             </div>
 
                         </div>
                         <div className='m-flex'>
                             <div className="load-btn">
                                 <a onClick={() => handleShow('shipping')} >
-                                    Add New Address
+                                    Add New
                                 </a>
+                            
+                            <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Other </button>
                             </div>
-                            <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Select Shipping Address </button>
                         </div>
                         <div className='address-data-pane'>
                             {

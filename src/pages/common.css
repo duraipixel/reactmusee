@@ -28,12 +28,17 @@ img.payment-success-image {
 
 .calendly-badge-widget {
   position: relative !important;
-  margin-top: 0.8rem;
-  margin-left: 1.3rem;
+  margin:0px;
   z-index: 1 !important;
+  right: 0;
+  top:-2px;
 }
 
 .calendly-badge-widget .calendly-badge-content {
+  box-shadow: none;
+  height: auto;
+padding: 12px 30px;
+display: inline-block;
   font-weight: 600 !important;
   font-size: 16px !important;
   line-height: 20px !important;
@@ -42,7 +47,13 @@ img.payment-success-image {
   border: 2px solid #1a1a1a !important;
   border-radius: 4px !important;
   background-color: transparent !important;
+  transition:all 0.3s ease;
 }
+
+.calendly-badge-widget .calendly-badge-content:hover{  background-color: #000 !important;
+  color: #fff !important;
+  border: 2px solid #000 !important;
+  transition: all 0.5s ease;}
 
 /* .abt-prduct h4{
     margin-top: 0px !important;
