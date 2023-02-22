@@ -98,16 +98,13 @@ export const ShopByBrand = () => {
             <section className="browse-categories">
                 <div className="container">
                     <div className="row">
-
                         <div className="col-lg-12">
                             <div className="common-heads light">
                                 <h2>Can’t decide a brand?<br /> Shop by
                                     category instead</h2>
                             </div>
                         </div>
-
                         <OtherCategory />
-
                     </div>
                 </div>
             </section>

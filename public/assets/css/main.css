@@ -3337,7 +3337,7 @@ span.fil-optn {
   margin-bottom: 15px;
 }
 
-.brand-set a {
+.brand-set button {
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
@@ -3347,9 +3347,10 @@ span.fil-optn {
   border: 2px solid #fff;
   border-radius: 4px;
   transition: all 0.3s ease;
+  background: none;
 }
 
-.brand-set a:hover {
+.brand-set button:hover {
   color: #fff;
   border: 2px solid #000;
   background-color: #000;
@@ -5449,7 +5450,7 @@ span.fil-optn {
   margin-bottom: 15px;
 }
 
-.brand-set a {
+.brand-set button {
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
@@ -5459,9 +5460,10 @@ span.fil-optn {
   border: 2px solid #fff;
   border-radius: 4px;
   transition: all 0.3s ease;
+  background: none;
 }
 
-.brand-set a:hover {
+.brand-set button:hover {
   color: #fff;
   border: 2px solid #000;
   background-color: #000;

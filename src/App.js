@@ -22,6 +22,7 @@ import { PrivacyPolicy } from './pages/PrivacyPolicy.js';
 import { TermsofUse } from './pages/TermsofUse.js';
 import { ReturnPolicy } from './pages/ReturnPolicy.js';
 import { ShippingPolicy } from './pages/ShippingPolicy.js';
+import { BrandDetails } from './pages/BrandDetails';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
           <Route path='category/:category_slug' element={<Category />} />
           <Route path='products/:collection_slug' element={<Collection />} />
           <Route path='brand' element={<ShopByBrand />} />
+          <Route path='brands/:brand_slug' element={<BrandDetails />} />
           <Route path='cart' element={<Cart />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />

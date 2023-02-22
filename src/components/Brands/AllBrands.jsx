@@ -42,7 +42,7 @@ export const AllBrands = ({ isOpenBrand, brands, brandsalphs }) => {
                                             {
                                                 brnItems[1] && brnItems[1].length > 0 ? brnItems[1].map((item) => (
                                                     <li key={item.id}>
-                                                        <Link to={`/products/pfilter?brand=${item.slug}`}>                                               
+                                                        <Link to={`/brands/${item.slug}`}>                                               
                                                             <img src={item.image} />
                                                             <span>{item.title}</span>
                                                         </Link>

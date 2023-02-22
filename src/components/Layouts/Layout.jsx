@@ -101,7 +101,7 @@ export const Layout = () => {
             searchParams.set("category", category);
             searchParams.delete("scategory");
             searchParams.delete("page");
-            searchParams.delete("brand");
+            // searchParams.delete("brand");
             searchParams.delete("availability");
             searchParams.delete("booking");
       
