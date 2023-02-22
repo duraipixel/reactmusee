@@ -134,12 +134,7 @@ export const BrandDetails = () => {
                     </section>
                 )
             }
-            {
-                brandData.category.length > 0 && 
-
-                let item = items[Math.floor(Math.random()*items.length)];
             
-            }
 
             <section className="musical-brands secnd-layr text-center">
                 <div className="container">
