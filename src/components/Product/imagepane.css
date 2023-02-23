@@ -3,6 +3,7 @@
   object-fit: fill;
   max-height: 500px;
   margin: 0 auto;
+  width: auto !important;
 }
 
 .details-images-container {
