@@ -13,6 +13,7 @@ import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
 import { Helmet } from 'react-helmet';
 import { WaveSpinner } from 'react-spinners-kit';
+import './product.css';
 
 export const ProductDetail = () => {
 
@@ -113,6 +114,7 @@ export const ProductDetail = () => {
         getProductsInfo();
     }, [product_url])
 
+    
 
     return (
         <Fragment>
@@ -272,7 +274,7 @@ export const ProductDetail = () => {
                                                                                     {/* <a id="play-video" className="video-play-button" href="#" tabIndex={-1}>
                                                                                         <span></span>
                                                                                     </a> */}
-                                                                                    <iframe src={items.video_url} width="100%" height="269px">
+                                                                                    <iframe className='product_details_video' src={items.url} width="100%" height="269px">
                                                                                     </iframe>
                                                                                 </div>
                                                                             </div>
