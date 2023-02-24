@@ -24,7 +24,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                                     Add New
                                 </a>
 
-                                <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Other </button>
+                                <button className='btn-address btn-address-billing' onClick={() => handleListShow('billing')}> Select </button>
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                                     Add New
                                 </a>
 
-                                <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Other </button>
+                                <button className='btn-address btn-address-shipping' onClick={() => handleListShow('shipping')}> Select </button>
                             </div>
                         </div>
                         <div className='address-data-pane'>

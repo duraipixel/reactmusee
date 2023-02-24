@@ -5,7 +5,7 @@ import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import { toast } from 'react-toastify';
 import { setCoupon } from '../../app/reducer/couponSlice';
 
-export const ProductDetails = ({ cart, cart_total }) => {
+export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
 
     const coupon = useSelector((state) => state.coupon);
     const dispatch = useDispatch();
@@ -49,7 +49,10 @@ export const ProductDetails = ({ cart, cart_total }) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(clearCart());
-
+            localStorage.removeItem('shipping_address');
+            localStorage.removeItem('shiprocket_charges');
+            getShippingRocketCharges('', '');
+            
             toast.success('Cart Cleared Successfully', {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
@@ -70,6 +73,8 @@ export const ProductDetails = ({ cart, cart_total }) => {
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
+            getShippingRocketCharges('', '');
+
         }).catch((err) => {
 
         })
@@ -86,6 +91,7 @@ export const ProductDetails = ({ cart, cart_total }) => {
             localStorage.setItem('cart', JSON.stringify(res.data));
             sessionStorage.removeItem('cart_coupon');
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            getShippingRocketCharges('', '');
 
         }).catch((err) => {
 

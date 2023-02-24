@@ -8,6 +8,7 @@ import { setPaymentResponse } from '../../app/reducer/paymentResponseSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../../app/reducer/cartSlice';
 import './cart.css';
+import { RocketShippingFee } from './RocketShippingFee';
 
 
 export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
@@ -24,6 +25,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
+        const shiprocket_charges = JSON.parse(localStorage.getItem('shiprocket_charges') ?? []);
         if (!shippingAddress) {
             toast.error('Shipping address is required', {
                 position: toast.POSITION.BOTTOM_RIGHT
@@ -44,7 +46,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
-                data: { customer_id: customer.id, shipping_address: shipping_address, billing_address:billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
+                data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges:shiprocket_charges, billing_address:billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
             }).then((response) => {
                 if( response.error == 1 ) {
                     toast.error(response.message, {
@@ -108,6 +110,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             if (response.data.success) {
                 localStorage.removeItem('shipping_address');
                 localStorage.removeItem('cart');
+                localStorage.removeItem('shiprocket_charges');
                 dispatch(clearCart());
                 toast.success(response.data.message, {
                     position: toast.POSITION.BOTTOM_RIGHT
@@ -124,8 +127,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         });
 
     }
-    
-    console.log( couponInfo, 'couponInfo')
+        
 
     return (
         <Fragment >
@@ -190,6 +192,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 </table>
                 
                 <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo}/>
+                <div className="line-spacer"></div>
                 <div className="line-spacer"></div>
                 <table className="table table-borderless end-point">
                     <tbody>

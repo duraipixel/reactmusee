@@ -38,6 +38,7 @@ export const Cart = () => {
 
     const [formLoader, setFormLoader] = useState(false);
     const [addressType, setAddressType] = useState([]);
+    const [rocketCharges, setRocketCharges] = useState([]);
     const [states, setStates] = useState('');
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
@@ -167,7 +168,8 @@ export const Cart = () => {
             method: 'POST',
             data: {customer_id:customer.id, address:address, from_type:from_type},
         }).then((res) => {
-            console.log(res)
+            setRocketCharges(res.data.shiprocket_charges);
+            localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
         }).catch((err) => {
         })
         
@@ -196,7 +198,6 @@ export const Cart = () => {
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
 
-
                 if (fromAdd == 'billing') {
                     setBillingAddress(res.data.address_info);
                     localStorage.setItem('billing_address', JSON.stringify(res.data.address_info));
@@ -224,22 +225,24 @@ export const Cart = () => {
 
     }
 
-    async function updateCartAmount(shipping_id) {
+    async function updateCartAmount(shipping_id, type = '') {
 
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         await axios({
             url: window.API_URL + '/update/cartAmount',
             method: 'POST',
-            data: { shipping_id: shipping_id, customer_id: customer.id },
+            data: { shipping_id: shipping_id, customer_id: customer.id, type:type },
         }).then((res) => {
-
+            
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
         }).catch((err) => {
 
         })
     }
+
+
+    console.log(rocketCharges, 'rocketCharges');
 
     return (
         <Fragment>
@@ -263,7 +266,7 @@ export const Cart = () => {
                                     <div className="col-lg-8">
                                         <div className="finalcart-list">
 
-                                            <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} />
+                                            <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
 
                                             <div className="shipping-addresss">
                                                 <ShippingAddress sameAsBilling={sameAsBilling} billingAddress={billingAddress} handleListShow={handleListShow} handleShow={handleShow} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} />
