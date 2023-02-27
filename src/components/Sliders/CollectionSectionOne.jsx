@@ -8,11 +8,11 @@ export const CollectionSectionOne = ({homeData}) => {
     
     const [collectionOne, setCollectionOne] = useState('');
 
-    useMemo( () => {
+    useEffect( () => {
         if( collectionOne === '' && homeData.collection ) {
             setCollectionOne( homeData.collection.find( (car) => car.order_by === 1 ) )
         }
-    }, [] );
+    }, [homeData] );
 
     const settings = {
         autoplay: true,
@@ -46,7 +46,6 @@ export const CollectionSectionOne = ({homeData}) => {
     const FILTER_ROUTE = '/collection/:collection_slug/';
     const toProductPath = compile(PRODUCT_ROUTE);
     const toCollectionPath = compile(FILTER_ROUTE);
-    // console.log( toCollectionPath );
 
     return (
         <Fragment>

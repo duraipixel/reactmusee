@@ -11,7 +11,7 @@ export const CollectionKeyboards = ({homeData}) => {
         if( collectionFive === '' && homeData.collection ) {
             setCollectionFive( homeData.collection.find( (car) => car.order_by === 5 ) )
         }
-    }, [] );
+    }, [homeData] );
 
     const settings = {
         autoplay: true,

@@ -11,7 +11,7 @@ export const CollectionBestSeller = ({homeData}) => {
         if( collectionSix === '' && homeData.collection ) {
             setCollectionSix( homeData.collection.find( (car) => car.order_by === 6 ) )
         }
-    }, [] );
+    }, [homeData] );
 
     const settings = {
         autoplay: true,

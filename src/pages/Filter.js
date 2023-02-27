@@ -7,12 +7,15 @@ import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';
 import { AttributeCollection } from '../components/Filter/AttributeCollection';
 import axios from 'axios';
+import { ProductCollection } from './../components/Filter/ProductCollection';
 
 export const Filter = ({filterStaticMenu}) => {
 
+    
     const product_availability = filterStaticMenu.product_availability;
     const video_shopping = filterStaticMenu.video_shopping;
     const discounts = filterStaticMenu.discounts;
+    const collection = filterStaticMenu.collection;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location  = useLocation();
@@ -145,7 +148,12 @@ export const Filter = ({filterStaticMenu}) => {
                         </li>
                     </ul>
                 </div>
-                <DiscountCollection discounts={discounts} />
+                {discounts &&  discounts.length > 0 &&
+                    <DiscountCollection discounts={discounts} />
+                }
+                {collection &&  collection.length > 0 &&
+                    <ProductCollection collection={collection} />
+                }
             </div>
         </Fragment>
     )

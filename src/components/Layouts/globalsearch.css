@@ -24,3 +24,12 @@
     background: none;
     border:none;
 }
+
+.footer_links {
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Mulish', sans-serif;
+    line-height: 18px;
+    color: #000000;
+    cursor: pointer;
+}

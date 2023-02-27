@@ -11,7 +11,7 @@ export const CollectionBlockBuster = ({homeData}) => {
         if( collectionFour === '' && homeData.collection ) {
             setCollectionFour( homeData.collection.find( (car) => car.order_by === 4 ) )
         }
-    }, [] );
+    }, [homeData] );
 
    
     const settings = {

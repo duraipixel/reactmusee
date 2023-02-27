@@ -4,7 +4,7 @@ import { useTopMenuQuery } from '../../app/services/topMenuApi';
 
 
 
-export default function Footer() {
+export default function Footer({getSubMenu}) {
     const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
     return (
         <Fragment>
@@ -42,9 +42,9 @@ export default function Footer() {
                                 {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
-                                                <Link to={`/products/pfilter?category=${item.slug}`}>
+                                                <label className='footer_links' onClick={() => getSubMenu(item.slug)}> 
                                                     {item.name}
-                                                </Link>
+                                                </label>
                                             </li>
                                         ))
                                     }

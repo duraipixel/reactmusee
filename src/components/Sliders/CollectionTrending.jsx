@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 export const CollectionTrending = ({homeData}) => {
 
     const [collectionThree, setCollectionThree] = useState('');
-    useMemo( () => {
+    useEffect( () => {
         if( collectionThree === '' && homeData.collection ) {
             setCollectionThree( homeData.collection.find( (car) => car.order_by === 3 ) )
         }
-    }, [] );
+    }, [homeData] );
     
     const settings = {
         autoplay: true,

@@ -84,7 +84,7 @@ export const Brand = () => {
                                 <input type="search" placeholder="Search..." onChange={handleChange} />
                             </li>
                             {
-                                filteredBrands ? filteredBrands.map((item, i) => (
+                                filteredBrands ? filteredBrands.slice(0, 7).map((item, i) => (
                                     <li key={i} oncl>
                                         <label className="cstm-chkbx"> {item.title}
                                             <input type="checkbox" checked={ (brandSelected.includes(item.slug) ? 'checked' : '')} name='brand[]' className='filter_brand' value={item.slug} onChange={()=>getProduct()} />

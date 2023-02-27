@@ -11,7 +11,7 @@ export const CollectionControlTunes = ({homeData}) => {
         if( collectionSeven === '' && homeData.collection ) {
             setCollectionSeven( homeData.collection.find( (car) => car.order_by === 7 ) )
         }
-    }, [] );
+    }, [homeData] );
 
     const settings = {
         autoplay: true,

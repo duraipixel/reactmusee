@@ -17,7 +17,7 @@ export default function DiscountCollection() {
             });
     }
 
-    useMemo(() => {
+    useEffect(() => {
 
         if (discountCollectionData.length == 0) {
             getDiscountData();

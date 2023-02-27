@@ -84,7 +84,8 @@ export const Layout = () => {
             searchParams.set("category", category);
             searchParams.delete("scategory");
             searchParams.delete("page");
-            // searchParams.delete("brand");
+            searchParams.delete("collection");
+            searchParams.delete("discount");
             searchParams.delete("availability");
             searchParams.delete("booking");
       
@@ -105,7 +106,7 @@ export const Layout = () => {
                 <Topmenu isTopPage={isTopPage} topmenu={topMenuAll} getSubMenu={getSubMenu} />
                 <Submenu topSubmenu={topSubmenu} setIsPageLoaded={setIsPageLoaded} />
                 <Outlet context={[isPageLoaded, setIsPageLoaded]} />
-                <Footer />
+                <Footer getSubMenu={getSubMenu} />
                 <Copyrights />
                 <MobileFooter />
                 {

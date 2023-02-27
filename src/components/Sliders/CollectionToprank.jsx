@@ -8,11 +8,11 @@ export const CollectionToprank = ({homeData}) => {
 
     const [collectionTwo, setCollectionTwo] = useState('');
    
-    useMemo( () => {
+    useEffect( () => {
         if( collectionTwo === '' && homeData.collection ) {
             setCollectionTwo( homeData.collection.find( (car) => car.order_by === 2 ) )
         }
-    }, [] );
+    }, [homeData] );
    
     const setttings = {
         autoplay: true,

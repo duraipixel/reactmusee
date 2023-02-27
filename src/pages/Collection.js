@@ -35,6 +35,7 @@ export const Collection = () => {
         await fetch(window.API_URL + '/get/filter/static/sidemenus')
             .then((response) => response.json())
             .then((data) => {
+                setFilterStaticMenu(data);
                 localStorage.setItem('filterStaticMenu', JSON.stringify(data));
             }
             )
@@ -65,7 +66,7 @@ export const Collection = () => {
     }
 
     useMemo(() => {
-        if (filterStaticSideMenu.length === 0) {
+        if (filterStaticMenu.length === 0) {
             getFilterStaticMenuData();
         }
     }, []);
@@ -92,7 +93,7 @@ export const Collection = () => {
             <section className="all-pianos-list">
                 <div className="container">
                     <div className="row">
-                        <Filter filterStaticMenu={filterStaticSideMenu} />
+                        <Filter filterStaticMenu={filterStaticMenu} />
                         <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                             <div className="pianos-lists">
                                 <div className="col-lg-12 col-md-12 col-sm-12 d-flex

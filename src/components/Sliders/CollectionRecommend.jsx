@@ -11,7 +11,7 @@ export const CollectionRecommend = ({homeData}) => {
         if( collectionEight === '' && homeData.collection ) {
             setCollectionEight( homeData.collection.find( (car) => car.order_by === 8 ) )
         }
-    }, [] );
+    }, [homeData] );
 
     const settings = {
         autoplay: true,

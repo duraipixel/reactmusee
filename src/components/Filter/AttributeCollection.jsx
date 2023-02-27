@@ -29,7 +29,7 @@ export const AttributeCollection = ({ dynamicFilter }) => {
         dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
-    console.log(dynamicFilter, 'dynamicFilter');
+    
     return (
         <Fragment>
             <div className="filter-lists">
