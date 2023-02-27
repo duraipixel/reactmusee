@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import DiscountCollection from '../components/Home/DiscountCollection';
 import SideCustomScrollbar from '../components/SideCustomScrollbar';
 import HistoryVideo from '../components/Home/HistoryVideo';
@@ -24,15 +24,13 @@ import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
 
-
 export default function Home() {
     
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const [recentData, setRecentData] = useState([]);
+    const [homeData, setHomeData] = useState([]);
     const [recentDataLoading, setRecentDataLoading] = useState(true);
-
-    const homeData = sessionStorage.getItem('homeData') ? JSON.parse(sessionStorage.getItem('homeData')) : []
 
     async function getRecentViewData() {
         
@@ -56,7 +54,7 @@ export default function Home() {
             method: 'GET',            
         }).then((res) => {
             if( res.data ) {
-                sessionStorage.setItem('homeData', JSON.stringify(res.data));
+                setHomeData(res.data)
             }
         }).catch((err) => {
         })

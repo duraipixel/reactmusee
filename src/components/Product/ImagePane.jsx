@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef } from "react";
 import ReactImageMagnify from "react-image-magnify";
 import "./imagepane.css";
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { ShippingFee } from './ShippingFee'
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -18,14 +18,17 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
     const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
-    console.log(billingAddress, 'billingAddress');
+    
     const handlePayment = async () => {
         setCheckoutFormLoading(true);
         setPaymentLoader(true);
 
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-        const shiprocket_charges = JSON.parse(localStorage.getItem('shiprocket_charges') ?? []);
+        const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
+        // console.log( shipping_address, 'shipping_address')
+        // console.log( shiprocket_charges, 'shiprocket_charges')
+        // return false;
         if (!shippingAddress) {
             toast.error('Shipping address is required', {
                 position: toast.POSITION.BOTTOM_RIGHT
@@ -42,12 +45,14 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setPaymentLoader(false);
 
         } else {
-
+            console.log('going to checkout');
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
                 data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges:shiprocket_charges, billing_address:billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
             }).then((response) => {
+            console.log('response received checkout', response);
+
                 if( response.error == 1 ) {
                     toast.error(response.message, {
                         position: toast.POSITION.BOTTOM_RIGHT

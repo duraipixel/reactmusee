@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import Slider from 'react-slick';
 
 export const FrequentlyPurchased = () => {

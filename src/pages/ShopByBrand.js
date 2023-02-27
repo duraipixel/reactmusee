@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { AllBrands } from '../components/Brands/AllBrands'
 import { BrandList } from '../components/Brands/BrandList'
 import { OtherCategory } from './../components/Sliders/OtherCategory';

@@ -1,13 +1,14 @@
-import React, { Fragment, useState, useMemo } from 'react'
+import { Fragment, useState, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
+import { useTopMenuQuery } from '../../app/services/topMenuApi';
 import './globalsearch.css'
 
 import { SearchMobile } from './SearchMobile';
 
 export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
-
+    const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
     const dispatch = useDispatch();
     const location = useLocation();
     const [searchShow, setSearchShow] = useState(false);
@@ -47,7 +48,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                         </a>
                                     </li>
                                     {
-                                        topmenu.length !== 0 ? topmenu.map((item, i) => (
+                                        isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
                                                 <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => getSubMenu(item.slug)}>
                                                     {item.name}
@@ -55,7 +56,6 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
                                             </li>
                                         ))
-                                            : ''
                                     }
                                     <li>
                                         <Link to='/brand'>Shop by Brand</Link>

@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { Brand } from '../components/Filter/Brand'
 import { DiscountCollection } from '../components/Filter/DiscountCollection'
 import { ProductAvailability } from '../components/Filter/ProductAvailability'

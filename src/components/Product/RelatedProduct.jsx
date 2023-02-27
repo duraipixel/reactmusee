@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import { compile } from 'path-to-regexp';

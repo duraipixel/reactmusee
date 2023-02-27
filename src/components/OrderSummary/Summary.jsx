@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import './order.css';
 import { CancelOrderRequested } from './CancelOrderRequested';

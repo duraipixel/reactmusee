@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { AddressForm } from '../components/Cart/AddressForm'
 import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
@@ -240,9 +240,6 @@ export const Cart = () => {
 
         })
     }
-
-
-    console.log(rocketCharges, 'rocketCharges');
 
     return (
         <Fragment>

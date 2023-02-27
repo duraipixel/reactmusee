@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -25,26 +25,36 @@ export const AttributeCollection = ({ dynamicFilter }) => {
         } else {
             searchParams.delete("attributes_category");
         }
-        navigate(SUrl + '?' + searchParams.toString() );
+        navigate(SUrl + '?' + searchParams.toString());
         dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
+    console.log(dynamicFilter, 'dynamicFilter');
     return (
         <Fragment>
             <div className="filter-lists">
                 {
                     dynamicFilter.map((item, k) => (
                         <ul key={k}>
-                            <h4> {item.filter_title} </h4>
+                            <h4> {item.title} </h4>
                             {
                                 item.child && item.child.map((items, i) => (
                                     <li key={i}>
-                                        <label className="cstm-chkbx">
-                                            {items.title } : {items.attribute_values}
-
-                                            <input type="checkbox" name='filter_dynamic_attributes[]' value={items.id} className='filter_dynamic_attributes' onChange={() => getProduct()} />
-                                            <span className="checkmark"></span>
+                                        <label >
+                                            {items.title}
                                         </label>
+                                        {
+                                            items.child && items.child.map((filValues, j) => (
+                                                <div key={j}>
+                                                    <label className="cstm-chkbx">
+                                                        {filValues.attribute_values}
+                                                        <input type="checkbox" name='filter_dynamic_attributes[]' value={items.id} className='filter_dynamic_attributes' onChange={() => getProduct()} />
+                                                        <span className="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            ))
+                                        }
+                                       
                                     </li>
                                 ))
                             }

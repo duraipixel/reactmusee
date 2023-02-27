@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ export const CollectionControlTunes = ({homeData}) => {
 
     return (
         <Fragment>
-            {collectionSeven ? (
+            {collectionSeven && collectionSeven.products.length > 0 ? (
                 <section className="control-tunes" key={collectionSeven.id}>
                     <div className="container">
                         <div className="row">

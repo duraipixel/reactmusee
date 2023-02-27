@@ -1,4 +1,4 @@
-import { useState, React, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './modal.css';

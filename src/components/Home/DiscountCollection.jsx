@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { DiscountSkeletonItem } from '../Skeleton/DiscountSkeletonItem'
@@ -8,42 +8,47 @@ export default function DiscountCollection() {
     const [discountCollectionData, setDiscountCollectionData] = useState([]);
 
     async function getDiscountData() {
-        const response =  await fetch(window.API_URL+'/get/discount/collections')
-                            .then((response) => response.json())
-                            .then((data) => { 
-                                setDiscountCollectionData(data) })
-                            .catch((err) => {
-                            });
+        const response = await fetch(window.API_URL + '/get/discount/collections')
+            .then((response) => response.json())
+            .then((data) => {
+                setDiscountCollectionData(data)
+            })
+            .catch((err) => {
+            });
     }
 
-    useMemo( () => {
+    useMemo(() => {
 
-        if( discountCollectionData.length == 0 ){
+        if (discountCollectionData.length == 0) {
             getDiscountData();
         }
-       
-    }, [] );
+
+    }, []);
 
 
     return (
         <Fragment>
-            <section className="list-of-deals" id="home-content">
-                <div className="container">
-                    <div className="">
+            {
+                discountCollectionData && discountCollectionData.length > 0 &&
 
-                        <div className="col-lg-12 col-md-12 col-sm-12">
-                            <div className="common-heads">
-                                <h2>Deals You don’t Want to Miss</h2>
+                <section className="list-of-deals" id="home-content">
+                    <div className="container">
+                        <div className="">
+
+                            <div className="col-lg-12 col-md-12 col-sm-12">
+                                <div className="common-heads">
+                                    <h2>Deals You don’t Want to Miss</h2>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="row">
-                            <DiscountSkeletonItem discountCollectionData = {discountCollectionData} />
-                        </div>
+                            <div className="row">
+                                <DiscountSkeletonItem discountCollectionData={discountCollectionData} />
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            }
         </Fragment>
     )
 }

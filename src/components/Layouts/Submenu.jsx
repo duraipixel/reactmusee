@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMenus } from './../../app/reducer/menuSlice';

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState, useMemo } from 'react'
+import { Fragment, useEffect, useState, useMemo } from 'react'
 import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -46,7 +46,7 @@ export const CollectionBlockBuster = ({homeData}) => {
 
     return (
         <Fragment>
-            {collectionFour ? (
+            {collectionFour && collectionFour.products.length > 4 ? (
                 <section className="new-arrivals" key={collectionFour.id}>
                     <div className="container">
                         <div className="row">

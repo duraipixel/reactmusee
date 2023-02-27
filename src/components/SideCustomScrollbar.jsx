@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 import { Accordion } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux'
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
@@ -49,7 +49,7 @@ export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoade
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">
                         {
-                            menuAll && menuAll.map((item, i) => (
+                            menuAll && menuAll.length > 0  && menuAll.map((item, i) => (
                                 <Accordion.Item eventKey={i} key={i}>
                                     <Accordion.Header>
                                         {item.name}

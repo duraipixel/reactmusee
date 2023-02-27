@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Link } from 'react-router-dom';
+import { useTopMenuQuery } from '../../app/services/topMenuApi';
 
 
 
 export default function Footer() {
+    const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
     return (
         <Fragment>
             <footer>
@@ -37,12 +39,18 @@ export default function Footer() {
                             <div className="quick-links">
                                 <h4>Quick links</h4>
                                 <ul>
-                                    <li><a href="">Musical Instruments</a></li>
-                                    <li><a href="">Accessories</a></li>
-                                    <li><a href="">Music Books</a></li>
-                                    <li><a href="">Professional Audio</a></li>
-                                    <li><a href="">Shop by Brand</a></li>
-                                    <li><a href="">Yamaha Music Hub</a></li>
+                                {
+                                        isSuccess && data.data.length > 0 && data.data.map((item, i) => (
+                                            <li key={i}>
+                                                <Link to={`/products/pfilter?category=${item.slug}`}>
+                                                    {item.name}
+                                                </Link>
+                                            </li>
+                                        ))
+                                    }
+                                    <li>
+                                        <Link to='/brand'>Shop by Brand</Link>
+                                    </li>
                                 </ul>
                             </div>
 

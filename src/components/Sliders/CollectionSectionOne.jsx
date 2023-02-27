@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import {compile} from 'path-to-regexp';
 import Slider from 'react-slick'
@@ -50,7 +50,7 @@ export const CollectionSectionOne = ({homeData}) => {
 
     return (
         <Fragment>
-            { collectionOne ? (
+            { collectionOne && collectionOne.products.length > 4 ? (
                 <section className="new-arrivals pt-0" key={collectionOne.id}>
                     <div className="container">
                         <div className="row">

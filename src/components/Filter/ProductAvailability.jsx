@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { useDispatch } from 'react-redux';

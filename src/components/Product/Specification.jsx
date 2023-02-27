@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 
 export const Specification = ({ attributes }) => {
@@ -13,15 +13,24 @@ export const Specification = ({ attributes }) => {
                 <div className="specs-lsts">
                     <table className="table table-bordered">
                         <tbody>
-                            {/* <tr className="active">
-                                <th className="active" colSpan={3} scope="row" style={{ textAlign: 'center', fontWeight: 'bold', borderBottom: '1px solid #cccccc' }}>Yamaha C7X Grand Piano</th>
-                            </tr> */}
                             {
                                 attributes && attributes.map((items, i) => (
-                                    <tr key={i}>
-                                        <th className="active" scope="row">{items.title}</th>
-                                        <td className="spectable-colnumber-0"> {items.attribute_values}</td>
-                                    </tr>
+                                    <Fragment>
+                                        <tr className="active">
+                                            <th className="active" colSpan={3} scope="row" style={{ textAlign: 'center', fontWeight: 'bold', borderBottom: '1px solid #cccccc' }}>
+                                                {items.title}
+                                            </th>
+                                        </tr>
+                                        {
+                                            items.child && items.child.map( (chik, key) => (
+                                                
+                                                <tr key={key}>
+                                                    <th className="active" scope="row">{chik.title}</th>
+                                                    <td className="spectable-colnumber-0"> {chik.value}</td>
+                                                </tr>
+                                            ) )
+                                        }
+                                    </Fragment>
                                 ))
                             }
                         </tbody>

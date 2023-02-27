@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
 import {compile} from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -47,7 +47,7 @@ export const CollectionToprank = ({homeData}) => {
 
     return (
         <Fragment>
-            { collectionTwo ? (
+            { collectionTwo && collectionTwo.products.length > 4 ? (
             <section className="new-arrivals" key={collectionTwo.id}>
                 <div className="container">
                     <div className="row">

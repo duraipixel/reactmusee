@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import Slider from 'react-slick';
 import './css/othercategory.css';
 import { Link } from 'react-router-dom';
@@ -35,25 +35,28 @@ export const OtherCategory = ({ otherCategory, categoryUrl }) => {
 
     return (
         <Fragment>
+            {
+                otherCategory && otherCategory.length > 3 &&
 
-            <Slider className="keyboards-slider" {...settings}>
-                {
-                    otherCategory && otherCategory.map((item) => (
-                        
-                            item.slug !== categoryUrl && 
-                        <div className="arrival-product" key={item.id}>
-                            <Link to={`/products/pfilter?category=${item.slug}`}>
-                                <div className="prdt-img">
-                                    <img src={item.image} />
-                                    <span>{item.name}</span>
-                                </div>
-                            </Link>
-                        </div>
-                        
-                    ))
-                }
-            </Slider>
+                < Slider className="keyboards-slider" {...settings}>
+                    {
+                        otherCategory.map((item) => (
 
-        </Fragment>
+                            item.slug !== categoryUrl &&
+                            <div className="arrival-product" key={item.id}>
+                                <Link to={`/products/pfilter?category=${item.slug}`}>
+                                    <div className="prdt-img">
+                                        <img src={item.image} />
+                                        <span>{item.name}</span>
+                                    </div>
+                                </Link>
+                            </div>
+
+                        ))
+                    }
+                </Slider>
+            }
+
+        </Fragment >
     )
 }

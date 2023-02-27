@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Topbar from './Topbar'
 import Topmenu from './Topmenu'
@@ -13,11 +13,13 @@ import { Submenu } from './Submenu';
 import { computeHeadingLevel } from '@testing-library/react';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { WaveSpinner } from 'react-spinners-kit';
+import { useTopMenuQuery } from '../../app/services/topMenuApi';
 
 export const Layout = () => {
 
+    const topMenu = useTopMenuQuery();
+
     const [isTopPage, setIsTopPage] = useState(false);
-    const [topmenu, setTopmenu] = useState([]);
     const [topSubmenu, setTopSubmenu] = useState([]);
     const [isPageLoaded, setIsPageLoaded] = useState(false);
     const dispatch = useDispatch();
@@ -39,34 +41,15 @@ export const Layout = () => {
             });
     }
 
-    async function getTopMenu() {
-        const response = await fetch(window.API_URL + '/get/topMenu')
-            .then((response) => response.json())
-            .then((data) => {
-                sessionStorage.setItem('topMenu', JSON.stringify(data.data));
-                setTopmenu(data.data);
-            }
-            )
-            .catch((err) => {
-                // console.log(err.message)
-            });
-    }
-
     const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : []
     const menuAll = sessionStorage.getItem('allMenu') ? JSON.parse(sessionStorage.getItem('allMenu')) : []
 
-
-    useMemo(() => {
-
-        if (menuAll.length === 0) {
+    useEffect(() => {
+        if(menuAll.length == 0 ) {
             getAllMenu();
         }
-        if (topMenuAll.length === 0) {
-            getTopMenu();
-        }
-
     }, [])
-
+    // console.log(menuAll, 'menuAll');
     const stickNavbar = () => {
         if (window !== undefined) {
             let windowHeight = window.scrollY;
@@ -85,7 +68,7 @@ export const Layout = () => {
         setIsPageLoaded(true);
         sessionStorage.setItem('isPageLoaded', true);
 
-        const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : [];
+        const topMenuAll = topMenu.isSuccess && topMenu.data.data.length > 0 ? topMenu.data.data : [];
 
         var subMenus = topMenuAll.filter(
             menu => {

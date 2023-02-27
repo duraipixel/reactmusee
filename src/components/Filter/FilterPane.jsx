@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import { Fragment, useState } from 'react'
 import { FilterItems } from './FilterItems';
 import { ProductSkeletonItem } from './../Skeleton/ProductSkeletonItem';
 import { useSelector, useDispatch } from 'react-redux';

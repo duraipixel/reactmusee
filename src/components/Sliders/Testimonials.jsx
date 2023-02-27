@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Slider from 'react-slick';
@@ -7,7 +7,7 @@ import { TestimonialImage } from './../Images/TestimonialImage';
 import { useMemo } from 'react';
 
 
-export const Testimonials = ({homeData}) => {
+export const Testimonials = ({ homeData }) => {
 
     const settings = {
         autoplay: true,
@@ -40,56 +40,59 @@ export const Testimonials = ({homeData}) => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        }, ],
+        },],
     }
 
     return (
         <Fragment>
-            <section className="patrons-saying">
-                <div className="container">
-                    <div className="row">
+            {
+                homeData.testimonials && homeData.testimonials.length > 2 &&
+                <section className="patrons-saying">
+                    <div className="container">
+                        <div className="row">
 
-                        <div className="col-lg-12 col-md-12 col-sm-12">
-                            <div className="common-heads light text-center">
-                                <h2>What our patrons are saying about Musee Musicals?</h2>
+                            <div className="col-lg-12 col-md-12 col-sm-12">
+                                <div className="common-heads light text-center">
+                                    <h2>What our patrons are saying about Musee Musicals?</h2>
+                                </div>
                             </div>
-                        </div>
 
-                        <Slider className="testimonials-slider " {...settings}>   
-                            {
-                                homeData.testimonials && homeData.testimonials.length > 0 ? homeData.testimonials.map( (item) => (
+                            <Slider className="testimonials-slider " {...settings}>
+                                {
+                                    homeData.testimonials && homeData.testimonials.length > 0 ? homeData.testimonials.map((item) => (
 
-                                    <div className="patron text-left" key={item.id}>
-                                        <div className="patron-detil">
-                                            {item.short_description || <Skeleton count={10} />}
-                                        </div>
-                                        <div className="patron-img">
-                                            <span>
-                                                <TestimonialImage itemImage={item.image} />
-                                                {item.title || <Skeleton />}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    )
-                                ) 
-                                : 
-                                    Array.from(
-                                        { length: 3 },
-                                        (_, i) => (
-                                            <div className="patron text-left" key={i}>
-                                                <div className="patron-detil">
-                                                    <Skeleton count={1} height={100} />
-                                                </div>
+                                        <div className="patron text-left" key={item.id}>
+                                            <div className="patron-detil">
+                                                {item.short_description || <Skeleton count={10} />}
                                             </div>
-                                        )
+                                            <div className="patron-img">
+                                                <span>
+                                                    <TestimonialImage itemImage={item.image} />
+                                                    {item.title || <Skeleton />}
+                                                </span>
+                                            </div>
+                                        </div>
                                     )
-                                
-                            }
-                        </Slider>
+                                    )
+                                        :
+                                        Array.from(
+                                            { length: 3 },
+                                            (_, i) => (
+                                                <div className="patron text-left" key={i}>
+                                                    <div className="patron-detil">
+                                                        <Skeleton count={1} height={100} />
+                                                    </div>
+                                                </div>
+                                            )
+                                        )
 
+                                }
+                            </Slider>
+
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            }
         </Fragment>
     )
 }

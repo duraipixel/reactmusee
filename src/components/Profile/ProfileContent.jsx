@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AddressListPane } from "./AddressListPane";
 import axios from 'axios';
 import './modal.css';

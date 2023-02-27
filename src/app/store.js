@@ -1,63 +1,45 @@
-import { configureStore } from '@reduxjs/toolkit'
-import menuSlice from './reducer/menuSlice'
-import sideMenuBarReducer from './reducer/sideMenuBarSlice'
-import topMenuSlice from './reducer/topMenuSlice'
-import brandSlice from './reducer/brandSlice';
-import productFilterSlice from './reducer/productFilterSlice';
-import bannerSlice from './reducer/bannerSlice';
-import customerSlice from './reducer/customerSlice';
-import cartReducer from './reducer/cartSlice';
-
-import storage from 'redux-persist/lib/storage';
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist'
-
-import { attemptedCartReducer } from './reducer/attemptedCartSlice';
-import couponSlice from './reducer/couponSlice';
-import { customerAddressSlice } from './reducer/customerAddressSlice';
-import { shippingAddressSlice } from './reducer/shippingAddressSlice';
-import { paymentResponseSlice } from './reducer/paymentResponseSlice';
-import browseSlice from './reducer/otherCategorySlice';
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import otherCategorySlice from "./reducer/otherCategorySlice";
+import productFilterSlice from "./reducer/productFilterSlice";
+import { topMenuApi } from "./services/topMenuApi";
+import { homePageApi } from './services/homePageApi';
+import { persistReducer } from "redux-persist";
+import { combineReducers } from "@reduxjs/toolkit";
+import { attemptedCartReducer } from "./reducer/attemptedCartSlice";
+import brandSlice from "./reducer/brandSlice";
+import menuSlice from "./reducer/menuSlice";
+import bannerSlice from "./reducer/bannerSlice";
+import cartSlice from "./reducer/cartSlice";
+import customerSlice from "./reducer/customerSlice";
+import couponSlice from "./reducer/couponSlice";
+import customerAddressSlice from "./reducer/customerAddressSlice";
+import sideMenuBarSlice from "./reducer/sideMenuBarSlice";
 
 const persistConfig = {
-  key: 'root',
-  storage,  
+  key: "root",
+  version: 1,
+  storage
 }
-// const persistedReducer = persistReducer(persistConfig, cartReducer)
-const persistedAttemptedReducer = persistReducer(persistConfig, attemptedCartReducer)
 
-export const store = configureStore({
-  reducer: {
-    'sideMenuBar': sideMenuBarReducer,
-    'topmenu': topMenuSlice,
-    'brands': brandSlice,
-    'browse': browseSlice,
-    'menus': menuSlice,
-    'products': productFilterSlice,    
-    'banners': bannerSlice,
-    'cart':cartReducer,    
-    'attempt_cart': persistedAttemptedReducer,
-    'customer': customerSlice,
-    'coupon': couponSlice,
-    'address': customerAddressSlice,
-    'shipping_address': shippingAddressSlice,
-    'payment_response': paymentResponseSlice,
-   
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+const reducer = combineReducers({
+  [topMenuApi.reducerPath]: topMenuApi.reducer,
+  products: productFilterSlice,
+  browse: otherCategorySlice,
+  attempt_cart: attemptedCartReducer,
+  sideMenuBar: sideMenuBarSlice,
+  brands: brandSlice,
+  menus: menuSlice,
+  banners: bannerSlice,
+  cart: cartSlice,
+  customer: customerSlice,
+  coupon: couponSlice,
+  address: customerAddressSlice,
 })
 
-export const persistor = persistStore(store)
+const persistedReducer = persistReducer(persistConfig, reducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(topMenuApi.middleware)
+})

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
@@ -47,7 +47,7 @@ export const CollectionKeyboards = ({homeData}) => {
 
     return (
         <Fragment>
-            {collectionFive ? (
+            {collectionFive && collectionFive.products.length > 4 ? (
 
                 <section className="best-keyboards" key={collectionFive.id}>
                     <div className="container">

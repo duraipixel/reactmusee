@@ -18,7 +18,7 @@ export const fetchBrowseCategory = createAsyncThunk('browse/fetchBrowseCategory'
 
 })
 
-export const browseSlice = createSlice({
+export const otherCategorySlice = createSlice({
     name: 'browse',
     initialState,
     extraReducers:(builder) => {
@@ -38,4 +38,4 @@ export const browseSlice = createSlice({
     }
 })
 
-export default browseSlice.reducer
+export default otherCategorySlice.reducer
