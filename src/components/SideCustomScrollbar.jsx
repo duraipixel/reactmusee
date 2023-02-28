@@ -41,7 +41,7 @@ export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoade
 
     return (
         <Fragment>
-            <div className={`togle-menu mCustomScrollbar ${isSideBarOpen ? 'show' : ''}`} data-mcs-theme="dark">
+            <div className={`togle-menu wanted-scrlx mCustomScrollbar ${isSideBarOpen ? 'show' : ''}`} data-mcs-theme="dark">
                 <div className="togmenu-header">
                     <a className="clse-menu" onClick={openSideBar}><img src="/assets/images/close.png" /></a>
                     <h4>What are you looking<br /> for today?</h4>
