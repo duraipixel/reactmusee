@@ -5835,8 +5835,8 @@ li.oly-btn a:hover {
   font-family: "Quicksand", sans-serif;
   color: #000000;
   display: block;
-  margin-bottom: 5px;
-  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-top: 35px;
 }
 
 .cart-qty-pane button {
@@ -7271,6 +7271,11 @@ input + p {
 .mobile-cartlst{display: none;}
 
 .togle-menu.wanted-scrlx{overflow-y:scroll;}
+
+.carousel-item a{width:100%;}
+
+.calendly-badge-widget {top: 18px !important;right: 8px !important;}
+.calendly-badge-widget .calendly-badge-content{height: auto !important;padding: 12px 30px !important;}
 
 
 
