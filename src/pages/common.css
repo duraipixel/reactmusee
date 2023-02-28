@@ -28,10 +28,10 @@ img.payment-success-image {
 
 .calendly-badge-widget {
   position: relative !important;
-  margin:0px;
+  margin: 0px;
   z-index: 1 !important;
   right: 0;
-  top:-2px;
+  top: -2px;
 }
 
 .calendly-badge-widget .calendly-badge-content {
@@ -47,13 +47,15 @@ img.payment-success-image {
   border: 2px solid #1a1a1a !important;
   border-radius: 4px !important;
   background-color: transparent !important;
-  transition:all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-.calendly-badge-widget .calendly-badge-content:hover{  background-color: #000 !important;
+.calendly-badge-widget .calendly-badge-content:hover {
+  background-color: #000 !important;
   color: #fff !important;
   border: 2px solid #000 !important;
-  transition: all 0.5s ease;}
+  transition: all 0.5s ease;
+}
 
 /* .abt-prduct h4{
     margin-top: 0px !important;
@@ -85,7 +87,6 @@ img.payment-success-image {
   color: black;
   background: white;
   border: 1px solid black;
-
 }
 
 .success-pop-left {
@@ -99,4 +100,15 @@ img.payment-success-image {
   right: 0;
   top: 27%;
   transform: scaleX(-1);
+}
+
+.link-label {
+  font-weight: 700;
+  padding-right: 30px;
+  font-size: 18px;
+  position: relative;
+  text-transform: uppercase;
+  line-height: 22px;
+  font-family: "Quicksand", sans-serif;
+  color: #1a1a1a;
 }

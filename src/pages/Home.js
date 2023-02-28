@@ -18,11 +18,13 @@ import { PackageSupport } from '../components/Home/PackageSupport';
 import HomeCarousel from './../components/Carousel/HomeCarousel';
 import { useDispatch, useSelector } from 'react-redux';
 import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { clearCart } from '../app/reducer/cartSlice';
 import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
+import { fetchProducts } from '../app/reducer/productFilterSlice';
+import './common.css';
 
 export default function Home() {
     
@@ -31,6 +33,22 @@ export default function Home() {
     const [recentData, setRecentData] = useState([]);
     const [homeData, setHomeData] = useState([]);
     const [recentDataLoading, setRecentDataLoading] = useState(true);
+
+    const navigate = useNavigate();
+    const location  = useLocation();
+
+    const searchParams = new URLSearchParams(location.search);
+
+    const goToProductListPageCollection = (collection_slug ) => {
+
+        const url = new URL(window.location.href);
+        const SUrl = "/products/pfilter";
+        
+        searchParams.set("collection", collection_slug);
+
+        navigate(SUrl + '?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
+    }
 
     async function getRecentViewData() {
         
@@ -64,8 +82,6 @@ export default function Home() {
         if( homeData.length === 0 ) {
             getHomeData()
         }
-        
-        
     }, [homeData])
 
     useEffect(() => {
@@ -75,7 +91,6 @@ export default function Home() {
             // dispatch(clearAttemptItem())
         } else {
             if( recentData.length == 0 && recentDataLoading ){
-                
                 getRecentViewData();
             }
         }
@@ -94,16 +109,16 @@ export default function Home() {
             <HomeCarousel homeData={homeData} />
             <DiscountCollection />
             <HistoryVideo homeData={homeData} />
-            <CollectionSectionOne homeData={homeData} />
+            <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <LiveVideo />
-            <CollectionToprank homeData={homeData} />
-            <CollectionTrending homeData={homeData} />
-            <CollectionBlockBuster homeData={homeData} />
+            <CollectionToprank homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            <CollectionTrending homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            <CollectionBlockBuster homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <Brand />
-            <CollectionKeyboards homeData={homeData} />
-            <CollectionBestSeller homeData={homeData} />
-            <CollectionControlTunes homeData={homeData} />
-            <CollectionRecommend homeData={homeData} />
+            <CollectionKeyboards homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            <CollectionBestSeller homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            <CollectionControlTunes homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            <CollectionRecommend homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             {
             recentData.length > 5 &&
             <RecentView recentData={recentData}/>

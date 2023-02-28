@@ -3,7 +3,7 @@ import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionTrending = ({homeData}) => {
+export const CollectionTrending = ({homeData, goToProductListPageCollection}) => {
 
     const [collectionThree, setCollectionThree] = useState('');
     useEffect( () => {
@@ -65,6 +65,7 @@ export const CollectionTrending = ({homeData}) => {
                                     <Slider {...settings} className="trending-slider" >
                                         {
                                             collectionThree.products && collectionThree.products.map((item, i) => (
+                                                
                                                 <Link className="arrival-product" key={item.id} to={toProductPath({ product_url: item.product_url })}>
                                                     <div className="prdt-img">
                                                         <img src={item.image} />

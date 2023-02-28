@@ -3,17 +3,17 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionBlockBuster = ({homeData}) => {
+export const CollectionBlockBuster = ({ homeData, goToProductListPageCollection }) => {
 
     const [collectionFour, setCollectionFour] = useState('');
 
-    useMemo( () => {
-        if( collectionFour === '' && homeData.collection ) {
-            setCollectionFour( homeData.collection.find( (car) => car.order_by === 4 ) )
+    useMemo(() => {
+        if (collectionFour === '' && homeData.collection) {
+            setCollectionFour(homeData.collection.find((car) => car.order_by === 4))
         }
-    }, [homeData] );
+    }, [homeData]);
 
-   
+
     const settings = {
         autoplay: true,
         autoplaySpeed: 3000,
@@ -56,7 +56,9 @@ export const CollectionBlockBuster = ({homeData}) => {
                                     <h2>{collectionFour.collection_name} </h2>
                                 </div>
                                 <div className="next-jump">
-                                    <Link to={`/products/pfilter?collection=${collectionFour.collection_slug}`} >  Browse All <img src="/assets/images/nxt.png" /></Link>
+                                    <label role={`button`} className='link-label' onClick={() => { goToProductListPageCollection(collectionFour.collection_slug) }}>
+                                        Browse All <img src="/assets/images/nxt.png" />
+                                    </label>
                                 </div>
                             </div>
                             <Slider className="arrivals-slider" {...settings}>

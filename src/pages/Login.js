@@ -51,10 +51,10 @@ export const Login = () => {
     }
 
     const setCustomerAddress = () => {
-        let address = JSON.parse(window.localStorage.getItem('addres'));
-                    
+
+        let address = JSON.parse(window.localStorage.getItem('addres'));                    
         dispatch(fetchAddress(address ));
-        console.log('address assigned')   
+          
     }
 
     async function addCartProduct(item) {
@@ -105,7 +105,7 @@ export const Login = () => {
 
             } else {
 
-                toast.success('Login Successfull', {
+                toast.success( window.LOGIN_SUCCESS_MSG, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 });
 
@@ -114,28 +114,26 @@ export const Login = () => {
                     localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
 
                     dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
-
-                    
-                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
-
-                    
-                    
+                 
+                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))               
+                   
                     fetchCartProducts();
                     setCustomerAddress()
-
+                    console.log('attempt_cart');
                     if (attempt_cart.attempt_cart.length > 0) {
+                        console.log('attempt_cart inner loop');
                         addCartProduct(attempt_cart.attempt_cart);
                         dispatch(removeAttemptItem(attempt_cart.attempt_cart))
                     }
+                    console.log('attempt_cart ouerside loop');
 
                     getSiteInformation();
                 }
-                setTimeout(() => {
-                    navigate('/');
-                }, 300);
+                console.log('pofile');
+                navigate('/profile');
 
             }
-            return false;
+            
         }).catch((err) => {
 
         })

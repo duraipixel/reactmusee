@@ -18,7 +18,7 @@ export const Filter = ({filterStaticMenu}) => {
     const collection = filterStaticMenu.collection;
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const location  = useLocation();
+    const location = useLocation();
 
     const [dynamicFilter, setDynamicFilter] = useState([]);
 

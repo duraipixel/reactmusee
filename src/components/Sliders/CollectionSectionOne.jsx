@@ -1,18 +1,21 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
-import {compile} from 'path-to-regexp';
+import { compile } from 'path-to-regexp';
 import Slider from 'react-slick'
 import { CollectionSectionOneSkeleton } from '../Skeleton/CollectionSectionOneSkeleton';
 
-export const CollectionSectionOne = ({homeData}) => {
-    
+export const CollectionSectionOne = ({ homeData, goToProductListPageCollection }) => {
+
     const [collectionOne, setCollectionOne] = useState('');
 
-    useEffect( () => {
-        if( collectionOne === '' && homeData.collection ) {
-            setCollectionOne( homeData.collection.find( (car) => car.order_by === 1 ) )
+
+
+
+    useEffect(() => {
+        if (collectionOne === '' && homeData.collection) {
+            setCollectionOne(homeData.collection.find((car) => car.order_by === 1))
         }
-    }, [homeData] );
+    }, [homeData]);
 
     const settings = {
         autoplay: true,
@@ -39,9 +42,9 @@ export const CollectionSectionOne = ({homeData}) => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        }, ],
+        },],
     }
-    
+
     const PRODUCT_ROUTE = '/product/:product_url/';
     const FILTER_ROUTE = '/collection/:collection_slug/';
     const toProductPath = compile(PRODUCT_ROUTE);
@@ -49,7 +52,7 @@ export const CollectionSectionOne = ({homeData}) => {
 
     return (
         <Fragment>
-            { collectionOne && collectionOne.products.length > 4 ? (
+            {collectionOne && collectionOne.products.length > 4 ? (
                 <section className="new-arrivals pt-0" key={collectionOne.id}>
                     <div className="container">
                         <div className="row">
@@ -58,9 +61,9 @@ export const CollectionSectionOne = ({homeData}) => {
                                     <h2>{collectionOne.collection_name} </h2>
                                 </div>
                                 <div className="next-jump">
-                                    <Link to={`/products/pfilter?collection=${collectionOne.collection_slug}`} >
+                                    <label role={`button`} className='link-label' onClick={() => { goToProductListPageCollection(collectionOne.collection_slug) }}>
                                         Browse All <img src="/assets/images/nxt.png" />
-                                    </Link>
+                                    </label>
                                 </div>
                             </div>
                             <Slider className="arrivals-slider" {...settings}>
@@ -81,7 +84,7 @@ export const CollectionSectionOne = ({homeData}) => {
                                             <div className="prdt-nameprc">
                                                 <h4>{item.product_name}</h4>
                                                 <h5>
-                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span> }
+                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
                                                     ₹{item.sale_prices.price}
                                                 </h5>
                                             </div>
@@ -92,10 +95,10 @@ export const CollectionSectionOne = ({homeData}) => {
                         </div>
                     </div>
                 </section>
-            ) : 
+            ) :
                 // <CollectionSectionOneSkeleton />    
-                null                
-            }           
+                null
+            }
         </Fragment>
     )
 }

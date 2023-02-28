@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionRecommend = ({homeData}) => {
+export const CollectionRecommend = ({homeData, goToProductListPageCollection}) => {
 
     const [collectionEight, setCollectionEight] = useState('');
 
@@ -56,9 +56,9 @@ export const CollectionRecommend = ({homeData}) => {
                                     <h2> {collectionEight.collection_name} </h2>
                                 </div>
                                 <div className="next-jump">
-                                    <Link to={`/products/pfilter?collection=${collectionEight.collection_slug}`} >
+                                    <label role={`button`} className='link-label' onClick={() => { goToProductListPageCollection(collectionEight.collection_slug) }}>
                                         Browse All <img src="/assets/images/nxt.png" />
-                                    </Link>
+                                    </label>  
                                 </div>
                             </div>
 

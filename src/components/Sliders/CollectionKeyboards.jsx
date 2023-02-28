@@ -3,15 +3,15 @@ import Slider from 'react-slick'
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionKeyboards = ({homeData}) => {
+export const CollectionKeyboards = ({ homeData, goToProductListPageCollection }) => {
 
     const [collectionFive, setCollectionFive] = useState('');
 
-    useMemo( () => {
-        if( collectionFive === '' && homeData.collection ) {
-            setCollectionFive( homeData.collection.find( (car) => car.order_by === 5 ) )
+    useMemo(() => {
+        if (collectionFive === '' && homeData.collection) {
+            setCollectionFive(homeData.collection.find((car) => car.order_by === 5))
         }
-    }, [homeData] );
+    }, [homeData]);
 
     const settings = {
         autoplay: true,
@@ -62,8 +62,9 @@ export const CollectionKeyboards = ({homeData}) => {
                                 </div>
 
                                 <div className="shopping-book">
-                                    <Link to={`/products/pfilter?collection=${collectionFive.collection_slug}`} >
-                                        Visit {collectionFive.collection_name}</Link>
+                                    <label role={`button`} className='link-label' onClick={() => { goToProductListPageCollection(collectionFive.collection_slug) }}>
+                                        Visit {collectionFive.collection_name}
+                                    </label>
                                 </div>
 
                             </div>

@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import { compile } from 'path-to-regexp';
 import { Link } from 'react-router-dom';
 
-export const CollectionControlTunes = ({homeData}) => {
+export const CollectionControlTunes = ({homeData, goToProductListPageCollection}) => {
 
     const [collectionSeven, setCollectionSeven] = useState('');
 
@@ -56,9 +56,9 @@ export const CollectionControlTunes = ({homeData}) => {
                                     <h2>{collectionSeven.collection_name}</h2>
                                 </div>
                                 <div className="next-jump light">
-                                    <Link to={`/products/pfilter?collection=${collectionSeven.collection_slug}`} >
-                                        Browse All <img src="/assets/images/nxt-w.png" />
-                                    </Link>
+                                    <label role={`button`} className='link-label' onClick={() => { goToProductListPageCollection(collectionSeven.collection_slug) }}>
+                                        Browse All <img src="/assets/images/nxt.png" />
+                                    </label>           
                                 </div>
                             </div>
 

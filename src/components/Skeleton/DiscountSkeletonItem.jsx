@@ -1,12 +1,31 @@
 import { Fragment } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
 export const DiscountSkeletonItem = ({discountCollectionData}) => {
 
-    // console.log(discountCollectionData, 'discountCollectionData')
-    
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const location  = useLocation();
+
+    const searchParams = new URLSearchParams(location.search);
+
+    const goToProductListPage = (discount_slug, category_slug = '' ) => {
+        const url = new URL(window.location.href);
+        const SUrl = "/products/pfilter";
+        
+        searchParams.set("discount", discount_slug);
+        if( category_slug ) {
+            searchParams.set("category", category_slug);
+        }
+
+        navigate(SUrl + '?'+ searchParams.toString());
+        dispatch(fetchProducts('?'+ searchParams.toString()));
+    }
+
     return (
         <Fragment>
             {
@@ -19,9 +38,10 @@ export const DiscountSkeletonItem = ({discountCollectionData}) => {
                             <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={item.id}>
                                 <div className="deals-box">
                                     <h4>
-                                        <Link to={`/products/pfilter?discount=${item.slug}`}>
-                                       {item.collection_name} <span>20% OFF</span>
-                                        </Link>
+                                        
+                                        <label role={`button`} onClick={() => goToProductListPage(item.slug)}>
+                                            {item.collection_name} <span>20% OFF</span>
+                                        </label>
                                         
                                     </h4>
                                     <ul>
@@ -30,10 +50,10 @@ export const DiscountSkeletonItem = ({discountCollectionData}) => {
 
                                                 item.products.map((productItems, i) => (
                                                     <li key={i} >
-                                                        <Link to={`/products/pfilter?discount=${item.slug}&category=${productItems.category_slug}`}>
+                                                        <label role={`button`} onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
                                                             <img src={productItems.image} />
                                                             <span>{productItems.category} </span>
-                                                        </Link>
+                                                        </label>
 
                                                     </li>
                                                     

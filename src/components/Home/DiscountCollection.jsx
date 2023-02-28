@@ -17,6 +17,7 @@ export default function DiscountCollection() {
             });
     }
 
+    
     useEffect(() => {
 
         if (discountCollectionData.length == 0) {
