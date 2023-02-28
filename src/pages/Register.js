@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
 import { loginCustomer } from '../app/reducer/customerSlice';
+import { useEffect } from 'react';
 
 export const Register = () => {
 
@@ -68,6 +69,12 @@ export const Register = () => {
         if (e.target.value === '' || reg.test(e.target.value)) return true
         else e.target.value = preval.substring(0, (preval.length - 1))
     }
+
+    useEffect(() => {
+        if ( window.localStorage.getItem('customer') ) {
+          navigate('/');
+        }
+      }, [])
 
     return (
         <Fragment>

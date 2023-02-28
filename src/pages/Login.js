@@ -10,6 +10,7 @@ import { removeAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { loginCustomer } from '../app/reducer/customerSlice';
 import { fetchAddress } from '../app/reducer/customerAddressSlice';
 import { Helmet } from 'react-helmet';
+import { useEffect } from 'react';
 
 export const Login = () => {
 
@@ -119,13 +120,13 @@ export const Login = () => {
                    
                     fetchCartProducts();
                     setCustomerAddress()
-                    console.log('attempt_cart');
-                    if (attempt_cart.attempt_cart.length > 0) {
-                        console.log('attempt_cart inner loop');
-                        addCartProduct(attempt_cart.attempt_cart);
-                        dispatch(removeAttemptItem(attempt_cart.attempt_cart))
-                    }
-                    console.log('attempt_cart ouerside loop');
+                    // console.log('attempt_cart');
+                    // if (attempt_cart.attempt_cart.length > 0) {
+                    //     console.log('attempt_cart inner loop');
+                    //     addCartProduct(attempt_cart.attempt_cart);
+                    //     dispatch(removeAttemptItem(attempt_cart.attempt_cart))
+                    // }
+                    // console.log('attempt_cart ouerside loop');
 
                     getSiteInformation();
                 }
@@ -138,6 +139,13 @@ export const Login = () => {
 
         })
     }
+
+    useEffect(() => {
+      if ( window.localStorage.getItem('customer') ) {
+        navigate('/');
+      }
+    }, [])
+    
 
     return (
         <Fragment>

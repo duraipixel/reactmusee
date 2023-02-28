@@ -29,6 +29,8 @@ export const DiscountCollection = ({ discounts }) => {
     if (array.length > 0) {
         let checkedAvailabilityString = array.join("_");
         searchParams.set("discount", checkedAvailabilityString);
+        searchParams.delete("collection");
+
     } else {
         searchParams.delete("discount");
     }
