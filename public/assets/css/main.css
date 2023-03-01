@@ -7279,7 +7279,10 @@ input + p {
 
 .mag-nfyre > div{display: flex;align-items: center;justify-content: center;}
 
-
+.table-bordered > :not(caption) > * {
+  border-width: 1px 0 1px 1px;
+}
+tbody > tr.active >th.active{background-color: #212363;color:#fff;}
 
 
 
