@@ -105,6 +105,8 @@ export default function Home() {
                 <meta charSet="utf-8" />
                 <title>Home | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
+                <meta name='title' content="Shop Music Instruments, Accessories and Music Books - Musée Musical"></meta>
+                <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.'/>
             </Helmet>
             <HomeCarousel homeData={homeData} />
             <DiscountCollection />
