@@ -156,13 +156,16 @@ export const ProductDetail = () => {
 
                                     <ImagePane productInfo={productInfo} />
                                     {
-
+                                        console.log(productInfo)
                                     }
                                     <div className="col-lg-6">
                                         <div className="product-details-explained">
                                             <div className="prdt-headng">
                                                 <h1>{productInfo.product_name}</h1>
                                                 <span>SKU: {productInfo.sku}</span>
+                                            </div>
+                                            <div className='product-short-description'>
+                                                {productInfo.description}
                                             </div>
                                             <div className="prsce-lst">
                                                 <h4>

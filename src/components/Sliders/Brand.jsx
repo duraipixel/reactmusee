@@ -18,10 +18,10 @@ export const Brand = () => {
     }
 
     useMemo(() => {
-        if (getBrandList.length === 0) {
+        if (homeBrands.length === 0) {
             getBrands()
         }
-    }, [getBrandList]);
+    }, [homeBrands]);
 
     const settings = {
         autoplay: true,
