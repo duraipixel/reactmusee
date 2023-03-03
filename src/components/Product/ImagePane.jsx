@@ -1,10 +1,14 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, React } from "react";
 import ReactImageMagnify from "react-image-magnify";
+import Slider from "react-slick";
 import "./imagepane.css";
+import valueicon1 from "../../assets/images/det-1.jpg";
+import valueicon2 from "../../assets/images/det-2.jpg";
+import valueicon3 from "../../assets/images/det-3.jpg";
 
 export const ImagePane = ({ productInfo }) => {
-  // const [nav1, setNav1] = useState();
-  // const [nav2, setNav2] = useState();
+  const [nav1, setNav1] = useState();
+  const [nav2, setNav2] = useState();
   const imgRef = useRef([]);
   imgRef.current = [];
   const addRefs = (el) => {
@@ -40,9 +44,61 @@ export const ImagePane = ({ productInfo }) => {
         imgRef.current[j].classList.remove("details-images-container-active");
       }
     }
-  };
+  }; 
   return (
     <Fragment>
+      <div className="col-lg-6 pb-5">
+      <h4>dsflknldfsmnlkndfskln</h4> 
+      <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)}> 
+        <div className="main-boxer">
+        <img src={valueicon1} alt="call" className="img-fluid" />
+        </div>
+        <div className="main-boxer">
+        <img src={valueicon2} alt="call" className="img-fluid" />
+        </div>
+        <div className="main-boxer">
+        <img src={valueicon3} alt="call" className="img-fluid" />
+        </div>
+        <div className="main-boxer">
+        <img src={valueicon1} alt="call" className="img-fluid" />
+        </div>
+        <div className="main-boxer">
+        <img src={valueicon2} alt="call" className="img-fluid" />
+        </div>
+        <div className="main-boxer">
+        <img src={valueicon3} alt="call" className="img-fluid" />
+        </div> 
+      </Slider> 
+      <Slider
+        asNavFor={nav1}
+        ref={(slider2) => setNav2(slider2)}
+        slidesToShow={3}
+        swipeToSlide={true}
+        focusOnSelect={true} 
+      >
+        <div className="thumb-boxer">
+        <img src={valueicon1} alt="call" className="img-fluid" />
+        </div>
+        <div className="thumb-boxer">
+        <img src={valueicon2} alt="call" className="img-fluid" />
+        </div>
+        <div className="thumb-boxer">
+        <img src={valueicon3} alt="call" className="img-fluid" />
+        </div>
+        <div className="thumb-boxer">
+        <img src={valueicon1} alt="call" className="img-fluid" />
+        </div>
+        <div className="thumb-boxer">
+        <img src={valueicon2} alt="call" className="img-fluid" />
+        </div>
+        <div className="thumb-boxer">
+        <img src={valueicon3} alt="call" className="img-fluid" />
+        </div>
+      </Slider>
+      </div>
+      <div className="col-lg-6">
+
+      </div>  
       <div className="col-lg-6">
         <div className="details-img-section">
           <div className="mag-nfyre" style={{ width: "100%", height: "100%", minHeight: "500px", backgroundColor: "#fff", display:"flex", textAlign: "center", alignItems: "center" }}>

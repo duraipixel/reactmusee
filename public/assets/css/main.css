@@ -7284,6 +7284,9 @@ input + p {
 }
 tbody > tr.active >th.active{background-color: #212363;color:#fff;}
 
+.main-boxer{margin-bottom: 15px;}
+.main-boxer img{width:100%;}
+.thumb-boxer img{cursor: pointer;width:100%;padding: 0px 15px;} 
 
 
 
