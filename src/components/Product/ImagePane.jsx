@@ -49,10 +49,9 @@ export const ImagePane = ({ productInfo }) => {
   }; 
   return (
     <Fragment>
-      <div className="col-lg-6 pb-5">
-      <h4>dsflknldfsmnlkndfskln</h4> 
+      <div className="col-lg-6 pb-5"> 
       <div className="product-vewslder">
-      <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)}> 
+      <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)} arrows={false}> 
         <div className="main-boxer">
         <img src={guitar1} alt="call" className="img-fluid" />
         </div>
@@ -76,7 +75,9 @@ export const ImagePane = ({ productInfo }) => {
         asNavFor={nav1}
         ref={(slider2) => setNav2(slider2)}
         slidesToShow={3}
+        autoplay={true}
         swipeToSlide={true}
+        arrows={false}
         focusOnSelect={true} 
       >
         <div className="thumb-boxer">
@@ -99,54 +100,7 @@ export const ImagePane = ({ productInfo }) => {
         </div>
       </Slider>
       </div>
-      </div>
-      <div className="col-lg-6">
-
-      </div>  
-      <div className="col-lg-6">
-        <div className="details-img-section">
-          <div className="mag-nfyre" style={{ width: "100%", height: "100%", minHeight: "500px", backgroundColor: "#fff", display:"flex", textAlign: "center", alignItems: "center" }}>
-            <ReactImageMagnify
-              imageClassName="imgStyles"
-              {...{
-                smallImage: {
-                  alt: "Wristwatch by Ted Baker London",
-                  isFluidWidth: true,
-                  src: img,
-                },
-                largeImage: {
-                  src: img,
-                  width: 1200,
-                  height: 1800,
-                },
-              }}
-            />
-          </div>
-          <div className="details-images-container">
-            {imgSrc.map((image, i) => (
-              <img key={i}
-                onClick={() => imgClickHandler(image, i)}
-                src={image}
-                alt="details-pic"
-                className={i === 0 ? "details-images-container-active" : ""}
-                ref={addRefs}
-              />
-            ))}
-          </div>
-        </div>
-        <div
-          className={`offer-value ${
-            productInfo.sale_prices.overall_discount_percentage > 0
-              ? ""
-              : "hide"
-          }`}
-        >
-          <h4>
-            {productInfo.sale_prices.overall_discount_percentage}%
-            <span>Off</span>
-          </h4>
-        </div>
-      </div>
+      </div>   
     </Fragment>
   );
 };
