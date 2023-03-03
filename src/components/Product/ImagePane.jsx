@@ -5,6 +5,8 @@ import "./imagepane.css";
 import valueicon1 from "../../assets/images/det-1.jpg";
 import valueicon2 from "../../assets/images/det-2.jpg";
 import valueicon3 from "../../assets/images/det-3.jpg";
+import guitar1 from "../../assets/images/guitar-1.jpg";
+import guitar2 from "../../assets/images/guitar-2.jpg";
 
 export const ImagePane = ({ productInfo }) => {
   const [nav1, setNav1] = useState();
@@ -49,12 +51,13 @@ export const ImagePane = ({ productInfo }) => {
     <Fragment>
       <div className="col-lg-6 pb-5">
       <h4>dsflknldfsmnlkndfskln</h4> 
+      <div className="product-vewslder">
       <Slider asNavFor={nav2} ref={(slider1) => setNav1(slider1)}> 
         <div className="main-boxer">
-        <img src={valueicon1} alt="call" className="img-fluid" />
+        <img src={guitar1} alt="call" className="img-fluid" />
         </div>
         <div className="main-boxer">
-        <img src={valueicon2} alt="call" className="img-fluid" />
+        <img src={guitar2} alt="call" className="img-fluid" />
         </div>
         <div className="main-boxer">
         <img src={valueicon3} alt="call" className="img-fluid" />
@@ -77,10 +80,10 @@ export const ImagePane = ({ productInfo }) => {
         focusOnSelect={true} 
       >
         <div className="thumb-boxer">
-        <img src={valueicon1} alt="call" className="img-fluid" />
+        <img src={guitar1} alt="call" className="img-fluid" />
         </div>
         <div className="thumb-boxer">
-        <img src={valueicon2} alt="call" className="img-fluid" />
+        <img src={guitar2} alt="call" className="img-fluid" />
         </div>
         <div className="thumb-boxer">
         <img src={valueicon3} alt="call" className="img-fluid" />
@@ -95,6 +98,7 @@ export const ImagePane = ({ productInfo }) => {
         <img src={valueicon3} alt="call" className="img-fluid" />
         </div>
       </Slider>
+      </div>
       </div>
       <div className="col-lg-6">
 

@@ -7284,9 +7284,14 @@ input + p {
 }
 tbody > tr.active >th.active{background-color: #212363;color:#fff;}
 
-.main-boxer{margin-bottom: 15px;}
-.main-boxer img{width:100%;}
-.thumb-boxer img{cursor: pointer;width:100%;padding: 0px 15px;} 
+.main-boxer{margin-bottom: 15px;width: 100%;display: flex !important;height: 500px;text-align: center;align-items: center;justify-content: center;background-color: #fff;}
+.main-boxer img{max-width: 100%;max-height: 100%;}
+
+.thumb-boxer {cursor: pointer;width: 100%;display: flex !important;height: 145px;text-align: center;align-items: center;justify-content: center;background-color: #fff;} 
+.thumb-boxer img{cursor: pointer;max-width: 100%;max-height: 100%;}
+
+.product-vewslder .slick-slide>div {padding: 0 15px;}
+.product-vewslder .slick-prev::before, .slick-next::before {color:#000;}
 
 
 
