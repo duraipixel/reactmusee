@@ -114,7 +114,9 @@ export const ProductDetail = () => {
         getProductsInfo();
     }, [product_url])
 
-    
+    function hideMagnify() {
+        document.getElementById('myresult').style.visibility = "hidden";
+    }
 
     return (
         <Fragment>
@@ -138,7 +140,7 @@ export const ProductDetail = () => {
                         <section className="section product-details">
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-lg-12">
+                                    <div className="col-lg-12" onMouseEnter={() => hideMagnify()}>
                                         <div className="accordion-table text-left">
                                             <ul>
                                                 <li>{productInfo.parent_category_name}</li>
@@ -154,11 +156,15 @@ export const ProductDetail = () => {
                                         </div>
                                     </div>
 
-                                    <ImagePane productInfo={productInfo} />
+                                    <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
                                     {
                                         console.log(productInfo)
                                     }
-                                    <div className="col-lg-6">
+                                    <div className="col-lg-6" onMouseEnter={() => hideMagnify()}>
+                                        <div>
+                                            <div id="myresult" className="img-zoom-result" onMouseEnter={() => hideMagnify()} style={{ visibility: 'hidden' }}>
+                                            </div>
+                                        </div>
                                         <div className="product-details-explained">
                                             <div className="prdt-headng">
                                                 <h1>{productInfo.product_name}</h1>
@@ -225,7 +231,7 @@ export const ProductDetail = () => {
                             </div>
                         </section>
 
-                        <section className="tab-of-sectors" >
+                        <section className="tab-of-sectors" onMouseEnter={() => hideMagnify()}>
                             <div className="container">
                                 <div className="row">
 

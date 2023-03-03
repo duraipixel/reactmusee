@@ -35,4 +35,34 @@
     .details-images-container{
       justify-content:center;
     }
+    #myresult {
+      visibility: hidden;
+    }
   }
+
+  
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 333px;
+    height: 333px;
+    position: absolute;
+    top: 0;
+    right: -36%;
+    visibility: hidden;
+}
+
+#myresult {
+  z-index: 2;
+  width: 700px;
+  height: 500px;
+  left: 0px;
+}
