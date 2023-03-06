@@ -92,6 +92,7 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
       e = e || window.event;
       /*get the x and y positions of the image:*/
       a = img.getBoundingClientRect();
+      
       /*calculate the cursor's x and y coordinates, relative to the image:*/
       x = e.pageX - a.left;
       y = e.pageY - a.top;
