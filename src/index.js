@@ -11,20 +11,21 @@ import { hydrate, render } from "react-dom";
 
 let persistor = persistStore(store);
 
+const RootApp = (
+  <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </PersistGate>
+    </Provider>
+  </React.StrictMode>
+);
+
 const rootElement = document.getElementById("root");
 if (rootElement.hasChildNodes()) {
-  hydrate(<App />, rootElement);
+  hydrate(RootApp, rootElement);
 } else {
-  render(
-    <React.StrictMode>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <HashRouter>
-            <App />
-          </HashRouter>
-        </PersistGate>
-      </Provider>
-    </React.StrictMode>,
-    rootElement
-  );
+  render(RootApp, rootElement);
 }
