@@ -1,15 +1,14 @@
 import { useState, React } from "react";
-import './modal.css';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { ErrorMessage } from '@hookform/error-message';
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { Card } from "react-bootstrap";
 
-const ChangePassword = ({passwordShow, handlePasswordClose, handlePasswordShow, customer}) => {
+const ChangePassword = ({ customer }) => {
   const [formLoader, setFormLoader] = useState(false);
-
+  const [errorMssage, seterrorMssage] = useState(null);
   const {
     register,
     handleSubmit,
@@ -23,7 +22,6 @@ const ChangePassword = ({passwordShow, handlePasswordClose, handlePasswordShow, 
   };
 
   async function updatePassword(formData) {
-
     setFormLoader(true);
     await axios({
       url: window.API_URL + '/change/password',
@@ -32,65 +30,64 @@ const ChangePassword = ({passwordShow, handlePasswordClose, handlePasswordShow, 
     }).then((res) => {
       setFormLoader(false);
       if (res.data.error == 1) {
-        toast.error(res.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        });
+        seterrorMssage(res.data.message)
+        setTimeout(() => {
+          seterrorMssage(null)
+        }, 2500);
         reset();
       } else {
         toast.success(res.data.message, {
           position: toast.POSITION.BOTTOM_RIGHT
         });
-
-        handlePasswordClose();
       }
     }).catch((err) => {
     })
 
   }
   return (
-    <Modal className='passwordModal cstmzed' show={passwordShow} onHide={handlePasswordClose}>
-      <Modal.Header closeButton>
-        <Modal.Title> Change Password </Modal.Title>
-      </Modal.Header>
-      <form id="passwordForm" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Modal.Body>
-          <div className="row">
-            <div className="mb-3 col-lg-12">
-              <input className="form-control" type="password" {...register("currentPassword", { required: "Current Password is required", maxLength: 20 })} placeholder="Current Password" />
-              <ErrorMessage errors={errors} name="currentPassword" as="p" />
-              <input type="hidden" {...register("customer_id", { required: "Customer id is required"})} id="customer_id" value={customer && customer.id} />
+    <form id="passwordForm" className="card col-lg-8" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      <Card.Body>
+        <div>
+          {errorMssage && <p className="text-end text-danger small mb-2" onClick={() => seterrorMssage(null)}>{errorMssage}</p>}
+          <div className="mb-3 row m-0">
+            <label class="form-label col-md-4 p-0 text-dark">Current Password</label>
+            <div className="col-md p-0">
+              <input className="form-control" type="password" {...register("currentPassword", { required: "Current Password is required", maxLength: 20 })} placeholder="********" />
+              <ErrorMessage errors={errors} name="currentPassword" as="p" className="text-danger" />
             </div>
-            <div className="mb-3 col-lg-12">
-              <input className="form-control" type="password" {...register("password", { required: "New Password is required", maxLength: 20 })} placeholder="New Password" />
-              <ErrorMessage errors={errors} name="password" as="p" />
+            <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
+          </div>
+          <div className="mb-3 row m-0">
+            <label class="form-label col-md-4 p-0 text-dark">New Password</label>
+            <div className="col-md p-0">
+              <input className="form-control" type="password" {...register("password", { required: "New Password is required", maxLength: 20 })} placeholder="********" />
+              <ErrorMessage errors={errors} name="password" as="p" className="text-danger" />
             </div>
-            <div className="mb-3 col-lg-12" >
+          </div>
+          <div className="row m-0" >
+            <label class="form-label col-md-4 p-0 text-dark">Re-Enter New Password</label>
+            <div className="col-md p-0">
               <input className="form-control" type="password" {...register("confirmPassword", {
                 required: "Confirm Password is required", validate: (val) => {
                   if (watch('password') != val) {
                     return "Your password does not match";
                   }
                 },
-              })} placeholder="Re-Enter New Password" />
-              <ErrorMessage errors={errors} name="confirmPassword" as="p" />
+              })} placeholder="********" />
+              <ErrorMessage errors={errors} name="confirmPassword" as="p" className="text-danger" />
             </div>
           </div>
-
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handlePasswordClose}>
-            Cancel
-          </Button>
-          <Button type="submit" variant="primary" disabled={formLoader} >
-            {formLoader && (
-              <span className="spinner-grow spinner-grow-sm"></span>
-            )}
-            Save
-          </Button>
-        </Modal.Footer>
-      </form>
-    </Modal >
-
+        </div>
+      </Card.Body>
+      <Card.Footer>
+        <Button type="submit" variant="primary" className="float-end" disabled={formLoader} >
+          {formLoader && (
+            <span className="spinner-grow spinner-grow-sm"></span>
+          )}
+          Change password
+        </Button>
+      </Card.Footer>
+    </form>
   );
 };
 

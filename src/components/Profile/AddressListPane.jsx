@@ -14,7 +14,6 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
     }
 
     async function getAddressInfo(id) {
-
         await axios({
             url: window.API_URL + '/get/customer/address',
             method: 'POST',
@@ -23,11 +22,9 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
             setAddressInfo(res.data);
         }).catch((err) => {
         })
-
     }
 
     async function handleDeleteAddress(id) {
-
         await axios({
             url: window.API_URL + '/delete/customer/address',
             method: 'POST',
@@ -53,7 +50,6 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
     }
 
     const deleteAddress = (id) => {
-
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this address!",
