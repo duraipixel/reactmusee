@@ -8,9 +8,7 @@ import axios from "axios";
 const EditAddress = ({ addressType, states, addressInfo, editAddressFormShow, handleEditAddressModalClose, customer, setCustomerAddress }) => {
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
-    
     const [formLoader, setFormLoader] = useState(false);   
-
     const defaultValues = {
         name: '',
         email: '',
@@ -225,7 +223,7 @@ return (
                             </div>
                             <div className="mb-3 col-lg-6">
 
-                                <select className="form-control" value={addressInfo.address_type_id} name="address_type_id" onChange={(e) => handleChange(e)}
+                                <select className="form-control" value={addressInfo?.address_type_id} name="address_type_id" onChange={(e) => handleChange(e)}
                                 >
                                     <option value="">Address Type</option>
                                     {
