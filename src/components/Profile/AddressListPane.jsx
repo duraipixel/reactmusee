@@ -1,13 +1,9 @@
-import React from 'react'
 import { Fragment } from 'react';
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
-import { computeHeadingLevel } from '@testing-library/react';
 
 export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, customerAddress, handleAddressModalShow, handleAddressModalClose, setCustomerAddress, customer, setUpdateAddressId }) => {
-
     const updateAddress = (id) => {
         console.log( id, 'id');
         setUpdateAddressId(id);
@@ -24,9 +20,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
             method: 'POST',
             data: { address_id: id, customer_id: customer.id },
         }).then((res) => {
-            
             setAddressInfo(res.data);
-
         }).catch((err) => {
         })
 
@@ -73,50 +67,33 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
                 handleDeleteAddress(id)
             }
         })
-
-
-    }
+    } 
     return (
         <Fragment>
-
             {
                 customerAddress && customerAddress.length > 0 && customerAddress.map((item) => (
-                    <div className="col-lg-4" key={item.id}>
-                        <div className="adres-det">
-                            <div className="d-flex justify-content-between">
-                                <h4>{item.name}</h4>
-                                {item.is_default ?
-                                <span>
-                                    <img src="../assets/images/locate.png" /> Default
-                                    Address
-                                </span>
-                                :null
-                                }
-                            </div>
-                            <ul>
-                               
-                                <li>
-                                    {item.address_line1}
-                                </li>
-                                <li>{item.city} - {item.post_code}</li>
-                                <li>{item.state}, {item.country.toUpperCase()}</li>
-                                <li>Phone: +91 {item.mobile_no}</li>
-                            </ul>
-                            <ul className="lst-edit">
-                                <li>
-                                    <button onClick={() => updateAddress(item.id)}>
-                                        Edit
-                                    </button>
-                                </li>
-                                <li>
-                                    <button onClick={() => deleteAddress(item.id)}> Remove </button>
-                                </li>
-                            </ul>
+                    <div className="col-md-4 mb-4" key={item.id}>
+                      <div className="card">
+                        <div className="card-body p-6">
+                          <div className="form-check mb-2">
+                            <input className="form-check-input" type="radio" name="is_default" id={`defalutAdd_${item.id}`}  />
+                            <label className="form-check-label text-dark fw-semi-bold" for={`defalutAdd_${item.id}`}>
+                              {item?.sub_category?.name}
+                            </label>
+                          </div>
+                          <h6 >{item.name}</h6>
+                          <p className="mb-6">
+                            {item.address_line1} <br /> {item.address_line2} {item.city}, {item.state},<br /> {item.country} {item.post_code}
+                          </p>
+                          <div className="mt-4">
+                            <button onClick={() => updateAddress(item.id)} className="text-inherit btn btn-link">Edit </button>
+                            <button onClick={() => deleteAddress(item.id)} className="text-danger ms-3 btn btn-link">Remove </button>
+                          </div>
                         </div>
-                    </div>
+                      </div>
+                    </div> 
                 ))
             }
         </Fragment>
-
     )
 }
