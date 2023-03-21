@@ -3,12 +3,14 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { ErrorMessage } from '@hookform/error-message';
-import Button from 'react-bootstrap/Button';
 import { Card } from "react-bootstrap";
+import { Alert, Button, TextField } from "@mui/material";
 
 const ChangePassword = ({ customer }) => {
   const [formLoader, setFormLoader] = useState(false);
   const [errorMssage, seterrorMssage] = useState(null);
+  const [successMessage, setsuccessMessage] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -33,61 +35,67 @@ const ChangePassword = ({ customer }) => {
         seterrorMssage(res.data.message)
         setTimeout(() => {
           seterrorMssage(null)
-        }, 2500);
+        }, 4000);
         reset();
       } else {
-        toast.success(res.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        });
+        setsuccessMessage(res.data.message)
+        setTimeout(() => {
+          setsuccessMessage(null)
+        }, 2000);
       }
     }).catch((err) => {
     })
 
   }
   return (
-    <form id="passwordForm" className="card col-lg-8" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+    <form id="passwordForm" className="card col-lg-5" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+      {errorMssage && <Alert severity="error" className="border border-danger">{errorMssage}</Alert>}
+      {successMessage && <Alert severity="success" className="border border-success" >{successMessage}</Alert>}
       <Card.Body>
-        <div>
-          {errorMssage && <p className="text-end text-danger small mb-2" onClick={() => seterrorMssage(null)}>{errorMssage}</p>}
-          <div className="mb-3 row m-0">
-            <label class="form-label col-md-4 p-0 text-dark">Current Password</label>
-            <div className="col-md p-0">
-              <input className="form-control" type="password" {...register("currentPassword", { required: "Current Password is required", maxLength: 20 })} placeholder="********" />
-              <ErrorMessage errors={errors} name="currentPassword" as="p" className="text-danger" />
-            </div>
-            <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
-          </div>
-          <div className="mb-3 row m-0">
-            <label class="form-label col-md-4 p-0 text-dark">New Password</label>
-            <div className="col-md p-0">
-              <input className="form-control" type="password" {...register("password", { required: "New Password is required", maxLength: 20 })} placeholder="********" />
-              <ErrorMessage errors={errors} name="password" as="p" className="text-danger" />
-            </div>
-          </div>
-          <div className="row m-0" >
-            <label class="form-label col-md-4 p-0 text-dark">Re-Enter New Password</label>
-            <div className="col-md p-0">
-              <input className="form-control" type="password" {...register("confirmPassword", {
-                required: "Confirm Password is required", validate: (val) => {
-                  if (watch('password') != val) {
-                    return "Your password does not match";
-                  }
-                },
-              })} placeholder="********" />
-              <ErrorMessage errors={errors} name="confirmPassword" as="p" className="text-danger" />
-            </div>
-          </div>
-        </div>
+        <div className="mb-3 fw-bold">Reset your account password</div>
+        <TextField
+          error={errors.currentPassword ? true : false}
+          size="small"
+          label="Current Password"
+          type="password"
+          className="w-100 mb-4"
+          {...register("currentPassword", { required: "Current Password is required", maxLength: 20 })}
+        />
+        <TextField
+          error={errors.password ? true : false}
+          size="small"
+          label="New Password"
+          type="password"
+          className="w-100 mb-4"
+          {...register("password", { required: "New Password is required", maxLength: 20 })}
+        />
+        <TextField
+          error={errors.confirmPassword ? true : false}
+          size="small"
+          label="Re-Enter the new password"
+          type="password"
+          className="w-100"
+          {...register("confirmPassword", {
+            required: "Confirm Password is required", validate: (val) => {
+              if (watch('password') != val) {
+                return "Your password does not match";
+              }
+            },
+          })}
+        />
+        <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
       </Card.Body>
       <Card.Footer>
-        <Button type="submit" variant="primary" className="float-end" disabled={formLoader} >
-          {formLoader && (
-            <span className="spinner-grow spinner-grow-sm"></span>
-          )}
+        <Button type="submit" variant="contained" className="float-end rounded bg-primary" disabled={formLoader} >
+          {formLoader ? 
+            <span className="spinner-grow spinner-grow-sm me-1"></span>
+            :
+            <span className="bi bi-repeat me-1"></span>
+          }
           Change password
         </Button>
       </Card.Footer>
-    </form>
+    </form >
   );
 };
 

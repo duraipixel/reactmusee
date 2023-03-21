@@ -4,6 +4,10 @@ import { Container } from "react-bootstrap"
 import { Link } from "react-router-dom";
 import { AddressListPane } from "./AddressListPane";
 import ChangePassword from "./ChangePassword";
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Button, LinearProgress } from "@mui/material";
 
 function ProfileContent({
   getAddressInfo,
@@ -30,6 +34,10 @@ function ProfileContent({
   const [loadingOrderItems, setLoadingOrderItems] = useState(false);
   const [menu, setMenu] = useState("MY_ORDERS");
 
+  const handleChange = (event, newValue) => {
+    setMenu(newValue);
+  };
+
   function getOrderInfo(id) {
     setLoadingOrderItems(true);
     axios({
@@ -47,58 +55,61 @@ function ProfileContent({
 
   return (
     <Container className="py-3" style={{ minHeight: '100vh' }}>
-      <div className="card mb-3">
-        <div className="h-200px rounded-top" style={{
-          backgroundImage: "url('https://cdn.pixabay.com/photo/2018/07/28/11/08/guitar-3567767_960_720.jpg')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat"
-        }}></div>
-        <div className="card-body py-0">
-          <div className="d-sm-flex align-items-start text-center text-sm-start">
-            <div>
-              <div className="avatar avatar-xxl mt-n5 mb-3">
-                <img className="avatar-img rounded-circle border border-white border-3" src={customer.profile_image} alt={customer.first_name} />
+      <TabContext value={menu}>
+        <div className="card mb-3">
+          <div className="h-200px rounded-top" style={{
+            backgroundImage: "url('https://cdn.pixabay.com/photo/2018/07/28/11/08/guitar-3567767_960_720.jpg')",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat"
+          }}></div>
+          <div className="card-body py-0">
+            <div className="d-sm-flex align-items-start text-center text-sm-start">
+              <div>
+                <div className="avatar avatar-xxl mt-n5 mb-3">
+                  <img className="avatar-img rounded-circle border border-white border-3" src={customer.profile_image} alt={customer.first_name} />
+                </div>
+              </div>
+              <div className="ms-sm-4 mt-sm-3">
+                <h1 className="mb-0 h5">{customer.first_name} {customer.last_name} <i className="bi bi-patch-check-fill text-success small"></i></h1>
+                <p>{customer.email}</p>
+              </div>
+              <div className="d-flex mt-3 justify-content-center ms-sm-auto">
+                <Button variant="contained" className="btn btn-danger-soft bg-danger-soft text-danger shadow-none me-2" type="button" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </Button>
+                <div className="dropdown">
+                  <button className="icon-md btn btn-light" type="button" id="profileAction2" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i className="bi bi-three-dots"></i>
+                  </button>
+                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
+                    <li><a className="dropdown-item" href="#"> <i className="bi bi-headset fa-fw pe-2"></i>Support</a></li>
+                    <li><a className="dropdown-item" href="#"> <i className="bi bi-info-circle fa-fw pe-2"></i>Help</a></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li><a className="dropdown-item" href="#"> <i className="bi bi-power fa-fw pe-2"></i>Logout</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div className="ms-sm-4 mt-sm-3">
-              <h1 className="mb-0 h5">{customer.first_name} {customer.last_name} <i className="bi bi-patch-check-fill text-success small"></i></h1>
-              <p>{customer.email}</p>
-            </div>
-            <div className="d-flex mt-3 justify-content-center ms-sm-auto">
-              <button className="btn btn-danger-soft me-2" type="button" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </button>
-              <div className="dropdown">
-                <button className="icon-md btn btn-light" type="button" id="profileAction2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i className="bi bi-three-dots"></i>
-                </button>
-                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
-                  <li><a className="dropdown-item" href="#"> <i className="bi bi-headset fa-fw pe-2"></i>Support</a></li>
-                  <li><a className="dropdown-item" href="#"> <i className="bi bi-info-circle fa-fw pe-2"></i>Help</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="#"> <i className="bi bi-power fa-fw pe-2"></i>Logout</a></li>
-                </ul>
-              </div>
-            </div>
+            <ul className="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0 bg-secondary">
+              <li className="list-inline-item"><i className="bi bi-telephone me-1"></i> {customer.mobile_no}</li>
+              <li className="list-inline-item ms-2"><i className="bi bi-calendar2-plus me-1"></i> Joined on {join_date.getDay()}/{join_date.getMonth()}/{join_date.getFullYear()}</li>
+            </ul>
           </div>
-          <ul className="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0">
-            <li className="list-inline-item"><i className="bi bi-telephone me-1"></i> {customer.mobile_no}</li>
-            <li className="list-inline-item ms-2"><i className="bi bi-calendar2-plus me-1"></i> Joined on {join_date.getDay()}/{join_date.getMonth()}/{join_date.getFullYear()}</li>
-          </ul>
+          <div className="card-footer mt-3 p-0">
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleChange}>
+                <Tab label="My Orders" value="MY_ORDERS"/>
+                <Tab label="Address book" value="ADDRESS_BOOK" />
+                <Tab label="Change password" value="CHNAGE_PASSWORD" />
+              </TabList>
+            </Box> 
+          </div>
         </div>
-        <div className="card-footer mt-3 pt-2 pb-0">
-          <ul className="nav nav-bottom-line align-items-center justify-content-center justify-content-md-start mb-0 border-0">
-            <li className="nav-item" onClick={() => setMenu('MY_ORDERS')}> <button className={`nav-link ${menu == 'MY_ORDERS' ? 'text-primary' : ''}`}> My Orders </button> </li>
-            <li className="nav-item" onClick={() => setMenu('ADDRESS_BOOK')}> <button className={`nav-link ${menu == 'ADDRESS_BOOK' ? 'text-primary' : ''}`}> Address book </button> </li>
-            <li className="nav-item" onClick={() => setMenu('CHNAGE_PASSWORD')}> <button className={`nav-link ${menu == 'CHNAGE_PASSWORD' ? 'text-primary' : ''}`}> Change password </button> </li>
-          </ul>
-        </div>
-      </div>
-      {
-        menu == 'MY_ORDERS' ?
+        <TabPanel value="MY_ORDERS" className="p-0">
           <>
             {
-              loadingOrderItems ?
-                <div className="spinner-border text-dark" role="status"></div>
+              loadingOrderItems  ?
+                // <div className="spinner-border text-dark" role="status"></div>
+                <LinearProgress />
                 :
                 customerOrders !== null ?
                   customerOrders.length > 0 ?
@@ -141,10 +152,8 @@ function ProfileContent({
                   : null
             }
           </>
-          : null
-      }
-      {
-        menu == 'ADDRESS_BOOK' ?
+        </TabPanel>
+        <TabPanel value="ADDRESS_BOOK" className="p-0">
           <>
             <div className="card card-body">
               <div className="d-flex justify-content-between mb-3 align-items-center">
@@ -156,13 +165,11 @@ function ProfileContent({
               </div>
             </div>
           </>
-          : null
-      }
-      {
-        menu == 'CHNAGE_PASSWORD' ?
+        </TabPanel>
+        <TabPanel value="CHNAGE_PASSWORD" className="p-0">
           <ChangePassword customer={customer} />
-        : null
-      }
+        </TabPanel>
+      </TabContext>
     </Container>
   )
 }
