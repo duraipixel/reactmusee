@@ -1,11 +1,10 @@
-import { useState } from "react";
+import axios from "axios";
+import { useMemo, useState } from "react";
+import { Container } from "react-bootstrap"
+import { Link } from "react-router-dom";
 import { AddressListPane } from "./AddressListPane";
-import axios from 'axios';
-import './modal.css';
-import OrderListItems from "../OrderSummary/OrderListItems";
-import { computeHeadingLevel } from '@testing-library/react';
 
-const ProfileContent = ({
+function ProfileContent({
   getAddressInfo,
   setAddressInfo,
   customer,
@@ -19,187 +18,147 @@ const ProfileContent = ({
   handleEditAddressModalShow,
   customerOrders,
   setCustomerOrders,
-}) => {
+}) {
   const handleOpenAddressAddForm = () => {
     setUpdateAddressId(0);
     handleAddressModalShow();
     getAddressInfo(0);
   };
 
+  const join_date = new Date(customer.created_at);
   const [loadingOrderItems, setLoadingOrderItems] = useState(false);
+  const [menu, setMenu] = useState("MY_ORDERS");
 
-  
-  async function getOrderInfo(id) {
+  function getOrderInfo(id) {
     setLoadingOrderItems(true);
-    await axios({
+    axios({
       url: window.API_URL + "/get/orders",
       method: "POST",
       data: { customer_id: customer.id },
-    })
-      .then((res) => {
-        setCustomerOrders(res.data);
-        setLoadingOrderItems(false);
-      })
-      .catch((err) => {});
+    }).then((res) => {
+      setCustomerOrders(res.data);
+      setLoadingOrderItems(false);
+    }).catch((err) => { });
   }
+  useMemo(() => {
+    getOrderInfo()
+  }, [])
+
   return (
-    <section className="tab-of-sectors">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12 col-md-12 col-sm-12">
-            <div className="common-heads text-center">
-              <h2>My Account</h2>
-            </div>
-          </div>
-          <div className="col-lg-12 col-md-12 col-sm-12">
-            <ul
-              className="nav nav-tabs text-center justify-content-between"
-              id="myTab"
-              role="tablist"
-            >
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link active"
-                  id="profile-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#profile"
-                  type="button"
-                  role="tab"
-                  aria-controls="profile"
-                  aria-selected="true"
-                >
-                  My Profile
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  className="nav-link"
-                  id="addressbook-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#addressbook"
-                  type="button"
-                  role="tab"
-                  aria-controls="addressbook"
-                  aria-selected="false"
-                >
-                  Address Book
-                </button>
-              </li>
-              <li className="nav-item" role="presentation">
-                <button
-                  onClick={() => getOrderInfo()}
-                  className="nav-link"
-                  id="orders-tab"
-                  data-bs-toggle="tab"
-                  data-bs-target="#orders"
-                  type="button"
-                  role="tab"
-                  aria-controls="orders"
-                  aria-selected="false"
-                >
-                  My Orders
-                </button>
-              </li>
-            </ul>
-            <div className="tab-content" id="myTabContent">
-              <div
-                className="tab-pane fade show active"
-                id="profile"
-                role="tabpanel"
-                aria-labelledby="profile-tab"
-              >
-                <div className="row justify-content-center">
-                  <div className="col-lg-10">
-                    <div className="presonal-detils">
-                      <div className="deatils-fill d-flex justify-content-between">
-                        <h4 className="accnt-deti">Personal Details</h4>
-                        <button
-                          className="edit_btn"
-                          onClick={() => handlePersonalShow()}
-                        >
-                          <img src="../assets/images/edit.png" /> Edit{" "}
-                        </button>
-                      </div>
-                      <div className="frame-detils">
-                        <h5>First Name</h5>
-                        <span>{customer.first_name}</span>
-                      </div>
-                      <div className="frame-detils">
-                        <h5>Last Name</h5>
-                        <span>{customer.last_name || "N/A"}</span>
-                      </div>
-                      <div className="frame-detils">
-                        <h5>E-mail</h5>
-                        <span>{customer.email}</span>
-                      </div>
-                      <div className="frame-detils">
-                        <h5>Contact Number</h5>
-                        <span>{customer.mobile_no}</span>
-                      </div>
-
-                      <div className="deatils-fill">
-                        <h4 className="accnt-deti">Security Settings</h4>
-
-                        <div className="frame-detils mb-0 d-flex justify-content-between align-items-center">
-                          <div className="paswrd-set">
-                            <h5>Password</h5>
-                            <ul>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                            </ul>
-                            {/* <span>Last Profile Changed: {customer.updated_at}</span> */}
-                          </div>
-                          <div className="load-btn">
-                            <button onClick={() => handlePasswordShow()}>
-                              Change Password
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <Container className="py-3" style={{ minHeight: '100vh' }}>
+      <div className="card mb-3">
+        <div className="h-200px rounded-top" style={{
+          backgroundImage: "url('https://cdn.pixabay.com/photo/2018/07/28/11/08/guitar-3567767_960_720.jpg')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat"
+        }}></div>
+        <div className="card-body py-0">
+          <div className="d-sm-flex align-items-start text-center text-sm-start">
+            <div>
+              <div className="avatar avatar-xxl mt-n5 mb-3">
+                <img className="avatar-img rounded-circle border border-white border-3" src={customer.profile_image} alt={customer.first_name} />
               </div>
-
-              <div
-                className="tab-pane fade"
-                id="addressbook"
-                role="tabpanel"
-                aria-labelledby="addressbook-tab"
-              >
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="adres-det ad-ing d-flex align-items-center">
-                      <div className="text-center w-100">
-                        <button
-                          className="addressAddBtn"
-                          onClick={() => handleOpenAddressAddForm()}
-                        >
-                          <img src="../assets/images/plus.png" />
-                          <span>Add Address</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <AddressListPane  handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
-
-                </div>
-              </div>              
-              <OrderListItems customerOrders={customerOrders} loadingOrderItems={loadingOrderItems} />
+            </div>
+            <div className="ms-sm-4 mt-sm-3">
+              <h1 className="mb-0 h5">{customer.first_name} {customer.last_name} <i className="bi bi-patch-check-fill text-success small"></i></h1>
+              <p>{customer.email}</p>
+            </div>
+            <div className="d-flex mt-3 justify-content-center ms-sm-auto">
+              <button className="btn btn-danger-soft me-2" type="button" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </button>
+              <div className="dropdown">
+                <button className="icon-md btn btn-light" type="button" id="profileAction2" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="bi bi-three-dots"></i>
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
+                  <li><a className="dropdown-item" href="#"> <i className="bi bi-headset fa-fw pe-2"></i>Support</a></li>
+                  <li><a className="dropdown-item" href="#"> <i className="bi bi-info-circle fa-fw pe-2"></i>Help</a></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><a className="dropdown-item" href="#"> <i className="bi bi-power fa-fw pe-2"></i>Logout</a></li>
+                </ul>
+              </div>
             </div>
           </div>
+          <ul className="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0">
+            <li className="list-inline-item"><i className="bi bi-telephone me-1"></i> {customer.mobile_no}</li>
+            <li className="list-inline-item ms-2"><i className="bi bi-calendar2-plus me-1"></i> Joined on {join_date.getDay()}/{join_date.getMonth()}/{join_date.getFullYear()}</li>
+          </ul>
+        </div>
+        <div className="card-footer mt-3 pt-2 pb-0">
+          <ul className="nav nav-bottom-line align-items-center justify-content-center justify-content-md-start mb-0 border-0">
+            <li className="nav-item" onClick={() => setMenu('MY_ORDERS')}> <button className={`nav-link ${menu == 'MY_ORDERS' ? 'text-primary' : ''}`}> My Orders </button> </li>
+            <li className="nav-item" onClick={() => setMenu('ADDRESS_BOOK')}> <button className={`nav-link ${menu == 'ADDRESS_BOOK' ? 'text-primary' : ''}`}> Address book </button> </li>
+            <li className="nav-item" onClick={() => setMenu('CHNAGE_PASSWORD')}> <button className={`nav-link ${menu == 'CHNAGE_PASSWORD' ? 'text-primary' : ''}`}> Change password </button> </li>
+          </ul>
         </div>
       </div>
-    </section>
-  );
-};
+      {
+        menu == 'MY_ORDERS' ?
+          <>
+            {
+              loadingOrderItems ?
+                <div className="spinner-border text-dark" role="status"></div>
+                :
+                customerOrders !== null ?
+                  customerOrders.length > 0 ?
+                    customerOrders.map((item, i) => (
+                      <div className="card card-body mb-3" key={i}>
+                        <div className="d-sm-flex align-items-center justify-content-between">
+                          <div>
+                            <h5 className="mb-1 text-primary fw-light">#{item.order_no}</h5>
+                            <p className="small mb-0 text-dark fw-bold"><i className="bi bi-currency-rupee "></i>{item.amount}</p>
+                          </div>
+                          <div>
+                            <Link className="btn btn-dark" to={`/ordersummary/${item.order_no}`}>Track Order</Link>
+                          </div>
+                        </div>
+                        <ul className="list-group mt-2">
+                          {
+                            item.items.map(product => (
+                              <div key={product.id} className="d-sm-flex align-items-center py-2 list-group-item list-group-item-action">
+                                <div className="avatar">
+                                  <a href="#!"><img className="avatar-img rounded border border-white border-3" src={product.image} alt="" /></a>
+                                </div>
+                                <div className="ms-sm-3 mt-2 mt-sm-0">
+                                  <a className="nav-link fw-semibold"> {product.product_name} </a>
+                                  <ul className="nav nav-stack small">
+                                    <li className="nav-item text-primary">
+                                      <i className="bi bi-currency-rupee pe-1"></i> {product.price}
+                                    </li>
+                                    <li className="nav-item">
+                                      /  Quantity : <b>{product.quantity}</b>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            ))
+                          }
+                        </ul>
+                      </div>
+                    ))
+                    : <b>No Orders Yet</b>
+                  : null
+            }
+          </>
+          : null
+      }
+      {
+        menu == 'ADDRESS_BOOK' ?
+          <> 
+            <div className="card card-body">
+              <div className="d-flex justify-content-between mb-3 align-items-center">
+                <b>Address</b>
+                <button className="btn btn-outline-primary" onClick={() => handleOpenAddressAddForm()}>Add a new address </button>
+              </div>
+              <div className="row">
+                <AddressListPane  handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
+              </div>
+            </div>
+          </>
+          : null
+      }
+    </Container>
+  )
+}
 
-export default ProfileContent;
+export default ProfileContent
