@@ -10,6 +10,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Button, LinearProgress } from "@mui/material";
 
 function ProfileContent({
+  states,
   getAddressInfo,
   setAddressInfo,
   customer,
@@ -96,7 +97,7 @@ function ProfileContent({
           </div>
           <div className="card-footer mt-3 p-0">
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleChange}>
+              <TabList onChange={handleChange}  variant="scrollable"  scrollButtons="auto" >
                 <Tab label="My Orders" value="MY_ORDERS"/>
                 <Tab label="Address book" value="ADDRESS_BOOK" />
                 <Tab label="Change password" value="CHNAGE_PASSWORD" />
@@ -161,7 +162,7 @@ function ProfileContent({
                 <button className="btn btn-outline-primary" onClick={() => handleOpenAddressAddForm()}>Add a new address </button>
               </div>
               <div className="row">
-                <AddressListPane handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
+                <AddressListPane states={states} handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />
               </div>
             </div>
           </>

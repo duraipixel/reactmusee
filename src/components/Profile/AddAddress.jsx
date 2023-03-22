@@ -25,11 +25,11 @@ const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleA
         }));
       } else {
         localStorage.setItem('address', JSON.stringify(res.data.customer_address));
-        setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
         toast.success(res.data.message)
         setTimeout(() => {
           handleAddressModalClose();
           reset()
+          setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
         }, 1000);
       }
     }).catch((err) => {
@@ -106,8 +106,8 @@ const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleA
                 label="State"
                 size="small"
                 className="mb-4"
-                error={errors.address_type ? true : false}
-                {...register("address_type", { required: true })}
+                error={errors.stateid ? true : false}
+                {...register("stateid", { required: true })}
               >
                 {states && states.length > 0 && states.map((item) => (
                   <MenuItem value={item.id} key={item.id}>{item.state_name}</MenuItem>
