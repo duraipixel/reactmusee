@@ -99,16 +99,12 @@ export const Login = () => {
             if (res.data.error == 1) {
 
                 let error_message = res.data.message;
-                toast.error(error_message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.error(error_message);
                 reset();
 
             } else {
 
-                toast.success( window.LOGIN_SUCCESS_MSG, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.success( window.LOGIN_SUCCESS_MSG);
 
                 if (res.data.customer_data) {
 

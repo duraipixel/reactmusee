@@ -39,16 +39,12 @@ export const ResetPassword = () => {
             if (res.data.error == 1) {
 
                 let error_message = res.data.message;
-                toast.error(error_message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.error(error_message);
                 reset();
 
             } else {
 
-                toast.success('Password reset successfully, Please try login', {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.success('Password reset successfully, Please try login');
 
                 setTimeout(() => {
                     navigate('/login');

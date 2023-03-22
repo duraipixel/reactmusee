@@ -91,7 +91,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
                                     {item.address_line1} <br /> {item.address_line2} {item.city}, {item.state},<br /> {item.country} {item.post_code}
                                 </p>
                                 <div className="mt-4">
-                                    <Button onClick={() => updateAddress(item.id)} size="small">Edit</Button>
+                                    <Button onClick={() => updateAddress(item.id)} size="small" className='text-primary'>Edit</Button>
                                     <Button onClick={() => confirmDelete(item.id)} className='ms-2 text-danger'>Remove</Button>
                                 </div>
                             </div>

@@ -70,14 +70,10 @@ const EditAddress = ({ addressType, states, addressInfo, editAddressFormShow, ha
             setFormLoader(false);
             if (res.data.error == 1) {
                 let error_message = res.data.message;
-                error_message.forEach(x => toast.error(x, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                }));
+                error_message.forEach(x => toast.error(x));
 
             } else {
-                toast.success(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.success(res.data.message);
 
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));

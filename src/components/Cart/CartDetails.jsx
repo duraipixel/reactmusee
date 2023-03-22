@@ -117,14 +117,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 localStorage.removeItem('cart');
                 localStorage.removeItem('shiprocket_charges');
                 dispatch(clearCart());
-                toast.success(response.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.success(response.data.message);
                 navigate('/thankyou/success');
             } else {
-                toast.error(response.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.error(response.data.message);
 
                 // navigate('/thankyou/fail');
             }

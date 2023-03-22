@@ -120,13 +120,9 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         }).then((res) => {
 
             if (res.data.status == 'error') {
-                toast.error(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.error(res.data.message);
             } else if (res.data.status == 'success') {
-                toast.success(res.data.message, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                });
+                toast.success(res.data.message);
             }
             dispatch(setCoupon(res.data));
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
