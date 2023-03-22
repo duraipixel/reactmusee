@@ -23,9 +23,9 @@ import { TermsofUse } from './pages/TermsofUse.js';
 import { ReturnPolicy } from './pages/ReturnPolicy.js';
 import { ShippingPolicy } from './pages/ShippingPolicy.js';
 import { BrandDetails } from './pages/BrandDetails';
+import "rsuite/dist/rsuite.min.css";
 
 const App = () => {
-
   return (
     <Fragment>
       <Routes>

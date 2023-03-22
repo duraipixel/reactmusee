@@ -1,11 +1,17 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Button from '@mui/material/Button';
-
+// import Button from '@mui/material/Button';
+import { Modal, ButtonToolbar, Button, Placeholder } from 'rsuite';
+import { fabClasses } from '@mui/material';
 
 export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, customerAddress, handleAddressModalShow, handleAddressModalClose, setCustomerAddress, customer, setUpdateAddressId }) => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [currentAddresId, setCurrentAddresId] = useState(null);
+    
+
     const updateAddress = (id) => {
         console.log(id, 'id');
         setUpdateAddressId(id);
@@ -27,6 +33,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
     }
 
     async function handleDeleteAddress(id) {
+        setLoading(true)
         await axios({
             url: window.API_URL + '/delete/customer/address',
             method: 'POST',
@@ -34,42 +41,43 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
         }).then((res) => {
             if (res.data.error == 1) {
                 let error_message = res.data.message;
-                error_message.forEach(x => toast.error(x, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                }));
+                error_message.forEach(x => toast.error(x));
             } else {
+                toast.success(res.data.message)
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
-                Swal.fire(
-                    'Deleted!',
-                    'Your address has been deleted.',
-                    'success'
-                )
+                setOpen(false)
             }
+            setLoading(false)
         }).catch((err) => {
         })
     }
+    const confirmDelete = (id) => {
+        setOpen(true)
+        setCurrentAddresId(id)
+    } 
 
-    const deleteAddress = (id) => {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this address!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                handleDeleteAddress(id)
-            }
-        })
-    }
     return (
         <Fragment>
+            <Modal size="xs" open={open} onClose={() => setOpen(false)}>
+                <Modal.Header>
+                    <Modal.Title className='text-danger'>Are you sure?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>You won't be able to revert this address!</p>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={() => setOpen(false)} appearance="subtle">
+                        Cancel
+                    </Button>
+                    <Button loading={loading} onClick={() => handleDeleteAddress(currentAddresId)} color="red" appearance="primary">
+                        Remove
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             {
                 customerAddress && customerAddress.length > 0 && customerAddress.map((item) => (
-                    <div className="col-md-4 mb-4" key={item.id}> 
+                    <div className="col-md-4 mb-4" key={item.id}>
                         <div className="card">
                             <div className="card-body p-6">
                                 <div className="form-check mb-2">
@@ -84,7 +92,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
                                 </p>
                                 <div className="mt-4">
                                     <Button onClick={() => updateAddress(item.id)} size="small">Edit</Button>
-                                    <Button onClick={() => deleteAddress(item.id)} size="small" className='text-danger'>Remove</Button>
+                                    <Button onClick={() => confirmDelete(item.id)} className='ms-2 text-danger'>Remove</Button>
                                 </div>
                             </div>
                         </div>

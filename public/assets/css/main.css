@@ -25862,3 +25862,8 @@ a.badge:hover {
 .css-1aquho2-MuiTabs-indicator {
   background-color: var(--bs-primary) !important;
 }
+.rs-modal-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+}
