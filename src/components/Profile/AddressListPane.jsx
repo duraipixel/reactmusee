@@ -37,7 +37,6 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
                 error_message.forEach(x => toast.error(x, {
                     position: toast.POSITION.BOTTOM_RIGHT
                 }));
-
             } else {
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
@@ -70,7 +69,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, setAddressInfo, cu
         <Fragment>
             {
                 customerAddress && customerAddress.length > 0 && customerAddress.map((item) => (
-                    <div className="col-md-4 mb-4" key={item.id}>
+                    <div className="col-md-4 mb-4" key={item.id}> 
                         <div className="card">
                             <div className="card-body p-6">
                                 <div className="form-check mb-2">

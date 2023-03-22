@@ -1,5 +1,5 @@
-import { Fragment} from 'react'
-import { Route, Routes} from 'react-router-dom';
+import { Fragment } from 'react'
+import { Route, Routes } from 'react-router-dom';
 import './app/constant.js';
 import { Layout } from './components/Layouts/Layout.jsx';
 import { NoMatch } from './components/Layouts/NoMatch.jsx';
@@ -51,10 +51,19 @@ const App = () => {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
-      <ToastContainer />
+      <ToastContainer position="top-right"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored" />
     </Fragment>
   )
-  
+
 }
 
 export default App;

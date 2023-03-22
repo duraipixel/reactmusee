@@ -63,7 +63,8 @@ const EditPersonalDetailsModal = ({ setPersonalShow, setCustomer, handlePersonal
       >
         <Card variant="outlined" className="col-md-5 m-2  position-relative">
           {
-            successMessage && <Alert severity="success" variant="filled"  className="position-absolute left-0 top-0 w-100" style={{ zIndex:1 }}>
+            successMessage && 
+            <Alert severity="success" variant="filled"  className="position-absolute left-0 top-0 w-100" style={{ zIndex:1 }}>
               {successMessage}
             </Alert>
           }
