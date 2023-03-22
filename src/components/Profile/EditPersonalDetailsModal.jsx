@@ -1,15 +1,15 @@
 import { useState, React } from "react";
 import { Fragment } from "react";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import './modal.css';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import axios from "axios";
-import { ErrorMessage } from '@hookform/error-message';
+import { Alert, Button, Card, CardContent, TextField } from "@mui/material";
+import Backdrop from '@mui/material/Backdrop';
 
-const EditPersonalDetailsModal = ({ setCustomer, handlePersonalShow, handlePersonalClose, personalShow, customer }) => {
+const EditPersonalDetailsModal = ({ setPersonalShow, setCustomer, handlePersonalShow, handlePersonalClose, personalShow, customer }) => {
   const [formLoader, setFormLoader] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+
   const {
     register,
     handleSubmit,
@@ -27,12 +27,7 @@ const EditPersonalDetailsModal = ({ setCustomer, handlePersonalShow, handlePerso
     }
   });
 
-  const onSubmit = (data) => {
-    updateProfile(data);
-  };
-
   async function updateProfile(formData) {
-
     setFormLoader(true);
     await axios({
       url: window.API_URL + '/update/profile',
@@ -40,21 +35,14 @@ const EditPersonalDetailsModal = ({ setCustomer, handlePersonalShow, handlePerso
       data: formData,
     }).then((res) => {
       setFormLoader(false);
-      if (res.data.error == 1) {
-        let error_message = res.data.message;
-        error_message.forEach(x => toast.error(x, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }));
-        reset();
-      } else {
-        toast.success(res.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        });
-
-        localStorage.setItem('customer', JSON.stringify(res.data.customer_data));
-        setCustomer(JSON.parse(window.localStorage.getItem('customer')));
-        handlePersonalClose();
-      }
+      setSuccessMessage(res.data.message)
+      setTimeout(() => {
+        setSuccessMessage(null)
+        setPersonalShow(false)
+      }, 1000);
+      localStorage.setItem('customer', JSON.stringify(res.data.customer_data));
+      setCustomer(JSON.parse(window.localStorage.getItem('customer')));
+      handlePersonalClose();
     }).catch((err) => {
     })
 
@@ -69,52 +57,75 @@ const EditPersonalDetailsModal = ({ setCustomer, handlePersonalShow, handlePerso
 
   return (
     <Fragment>
-
-      <Modal className='cstmzed' show={personalShow} onHide={handlePersonalClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit your Personal details</Modal.Title>
-        </Modal.Header>
-        <form id="profileForm" onSubmit={handleSubmit(onSubmit)} >
-          <Modal.Body>
-            <div className="row">
-              <div className="mb-3 col-lg-6">
-                <input type="text" className="form-control" {...register("firstName", { required: "First Name is required", maxLength: 50 })} id="firstName" placeholder="First Name" />
-                <ErrorMessage errors={errors} name="firstName" as="p" />
-                <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
-              </div>
-              <div className="mb-3 col-lg-6">
-                <input type="text" className="form-control" {...register("lastName", { required: "Last Name is required", maxLength: 50 })} id="lastName" placeholder="Last Name" />
-                <ErrorMessage errors={errors} name="lastName" as="p" />
-              </div>
-              <div className="mb-3 col-lg-6">
-                <input className="form-control" type="email" {...register("email", {
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={personalShow}
+      >
+        <Card variant="outlined" className="col-md-5 m-2  position-relative">
+          {
+            successMessage && <Alert severity="success" variant="filled"  className="position-absolute left-0 top-0 w-100" style={{ zIndex:1 }}>
+              {successMessage}
+            </Alert>
+          }
+          <form onSubmit={handleSubmit(updateProfile)} >
+            <CardContent>
+              <h5 className="text-center mb-3 text-primary"> Update Profile</h5>
+              <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
+              <TextField
+                error={errors.firstName ? true : false}
+                size="small"
+                label="First name"
+                type="text"
+                className="w-100 mb-4"
+                {...register("firstName", { required: "First Name is required", maxLength: 50 })}
+              />
+              <TextField
+                error={errors.lastName ? true : false}
+                size="small"
+                label="Last name"
+                type="text"
+                className="w-100 mb-4"
+                {...register("lastName", { required: "Last Name is required", maxLength: 50 })}
+              />
+              <TextField
+                error={errors.email ? true : false}
+                size="small"
+                label="Email"
+                type="email"
+                className="w-100 mb-4"
+                {...register("email", {
                   required: "Email is required", pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: "Invalid email address"
                   }
-                })} placeholder="E-mail" />
-                <ErrorMessage errors={errors} name="email" as="p" />
-              </div>
-              <div className="mb-3 col-lg-6">
-                <input type="text" {...register("mobileNo", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobileNo" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
-                <ErrorMessage errors={errors} name="mobileNo" as="p" />
-              </div>
+                })}
+              />
+              <TextField
+                error={errors.mobileNo ? true : false}
+                size="small"
+                label="Mobile"
+                type="text"
+                maxLength={10} onChange={NumericOnly}
+                className="w-100"
+                {...register("mobileNo", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })}
+              />
+            </CardContent>
+            <div className="p-3 bg-light text-end">
+              <Button variant="outlined" onClick={() => setPersonalShow(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" className="float-end rounded bg-primary ms-2" disabled={formLoader} >
+                {formLoader ?
+                  <span className="spinner-grow spinner-grow-sm me-1"></span>
+                  :
+                  <span className="bi bi-repeat me-1"></span>
+                }
+                Save Changes
+              </Button>
             </div>
-
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handlePersonalClose}>
-              Cancel
-            </Button>
-            <Button type="submit" variant="primary" disabled={formLoader} >
-              {formLoader && (
-                <span className="spinner-grow spinner-grow-sm"></span>
-              )}
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </form>
-      </Modal >
+          </form>
+        </Card>
+      </Backdrop>
     </Fragment >
   );
 };
