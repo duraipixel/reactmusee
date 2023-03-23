@@ -42,7 +42,7 @@ export const AddressListPane = ({ handleEditAddressModalShow, states, setAddress
         }).then((res) => {
             setCurrentAddress(res.data);
         })
-    }
+    } 
     return (
         <Fragment>
             <Modal size="xs" open={open} onClose={() => setOpen(false)}>
@@ -86,26 +86,25 @@ export const AddressListPane = ({ handleEditAddressModalShow, states, setAddress
                 ))
             }
             {customerAddress.length == 0 ? <div className="col-md-4">No Address Yet</div> : ''}
-            {currentAddress !== null ? <EditAddress states={states} currentAddress={currentAddress} /> : ''}
+            {currentAddress !== null ? <EditAddress customer={customer} states={states} currentAddress={currentAddress} setCustomerAddress={setCustomerAddress} /> : ''}
         </Fragment>
     )
 }
-const EditAddress = ({ currentAddress, states }) => {
+const EditAddress = ({ currentAddress, states, customer, setCustomerAddress }) => {
     const [formLoader, setFormLoader] = useState(false);
     const [Modal, setModal] = useState(false);
     const { register, control, handleSubmit, setValue, formState: { errors }, reset } = useForm({
-        defaultValues: {
-            name: currentAddress?.name,
-            mobile_no: currentAddress?.mobile_no,
+        defaultValues: { 
+            name           : currentAddress?.name,
+            mobile_no      : currentAddress?.mobile_no,
             address_type_id: currentAddress?.address_type_id,
-            address_line: currentAddress?.address_line,
-            city: currentAddress?.city,
-            post_code: currentAddress?.post_code,
-            state: currentAddress?.state,
-            state_id: currentAddress.stateid
+            address_line   : currentAddress?.address_line,
+            city           : currentAddress?.city,
+            post_code      : currentAddress?.post_code,
+            state          : currentAddress?.state,
+            state_id       : currentAddress.stateid
         }
     });
-
     const cancel = () => {
         setModal(!Modal)
         reset()
@@ -123,27 +122,22 @@ const EditAddress = ({ currentAddress, states }) => {
         setValue("state_id", String(currentAddress.stateid), { shouldValidate: true });
     }, [currentAddress])
 
-    async function updateAddress(formData) {
-        setFormLoader(true);
-        await axios({
-            url: window.API_URL + '/update/customer/address',
-            method: 'POST',
-            data: formData,
-        }).then((res) => {
+    const updateAddress = (formData) => {
+        setFormLoader(true); 
+        formData.address_id  = currentAddress.address_id
+        formData.customer_id = customer.id
+        axios.post(window.API_URL + '/update/customer/address', formData).then((res) => {
             setFormLoader(false);
             if (res.data.error == 1) {
                 let error_message = res.data.message;
-                error_message.forEach(x => toast.error(x, {
-                    position: toast.POSITION.BOTTOM_RIGHT
-                }));
+                error_message.forEach(x => toast.error(x));
             } else {
                 toast.success(res.data.message)
-
+                setCustomerAddress(res.data.customer_address)
+                setModal(!Modal)
             }
-        }).catch((err) => {
-        })
+        });
     }
-
     if (currentAddress !== null) return (
         <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={Modal}>
             <Card variant="outlined" className="col-md-5 m-2  position-relative">

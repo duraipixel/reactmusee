@@ -127,8 +127,8 @@ function ProfileContent({
                         </div>
                         <ul className="list-group mt-2">
                           {
-                            item.items.map(product => (
-                              <div key={product.id} className="d-sm-flex align-items-center py-2 list-group-item list-group-item-action">
+                            item.items.map((product,i) => (
+                              <div key={i} className="d-sm-flex align-items-center py-2 list-group-item list-group-item-action">
                                 <div className="avatar">
                                   <a href="#!"><img className="avatar-img rounded border border-white border-3" src={product.image} alt="" /></a>
                                 </div>
