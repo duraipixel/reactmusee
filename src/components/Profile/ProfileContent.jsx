@@ -133,14 +133,12 @@ function ProfileContent({
                                   <a href="#!"><img className="avatar-img rounded border border-white border-3" src={product.image} alt="" /></a>
                                 </div>
                                 <div className="ms-sm-3 mt-2 mt-sm-0">
-                                  <a className="nav-link fw-semibold"> {product.product_name} </a>
+                                  <a className="text-secondary fw-semibold"> {product.product_name} </a>
                                   <ul className="nav nav-stack small">
                                     <li className="nav-item text-primary">
-                                      <i className="bi bi-currency-rupee pe-1"></i> {product.price}
+                                      <i className="bi bi-currency-rupee"></i> {product.price}
                                     </li>
-                                    <li className="nav-item">
-                                      /  Quantity : <b>{product.quantity}</b>
-                                    </li>
+                                    <li className="nav-item">/  Quantity : <b>{product.quantity}</b></li>
                                   </ul>
                                 </div>
                               </div>
