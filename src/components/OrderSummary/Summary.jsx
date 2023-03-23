@@ -1,11 +1,12 @@
 import axios from "axios";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import './order.css';
 import { CancelOrderRequested } from './CancelOrderRequested';
+import TimeLineContent from './TimeLineContent'
+import { Button } from "@mui/material";
 
 const Summary = () => {
-
   const [orderInfo, setOrderInfo] = useState([]);
   const [orderId, setOrderId] = useState('');
   const { order_no } = useParams();
@@ -41,149 +42,66 @@ const Summary = () => {
     getOrderInfo(order_no)
   }, [])
 
-  return (
+  useMemo(() => {
+    window.scroll(0, 0)
+  }, [orderInfo])
 
+  return (
     <section className="shop-carts ordes-lsts">
       <div className="container">
-        <div className="row">
-          <div className="col-lg-12 col-md-12 col-sm-12">
+        <div className="row justify-content-center">
+          {/* <div className="col-lg-12 col-md-12 col-sm-12">
             <div className="order-fist text-left">
               <Link to="/profile">
                 <img src="../assets/../assets/images/bckp.png" alt="" /> Back to
                 All Orders
               </Link>
             </div>
+          </div> */}
+          <div className="col-lg-4 ">
+            <Link to="/profile" className="ms-3 text-secondary">
+              <i class="bi bi-chevron-left"></i> My Orders
+            </Link>
+            <h4 className="text-primary ms-3 my-3">Your order History</h4>
+            {orderInfo.items && orderInfo.items.length > 0 && <TimeLineContent orders={orderInfo} />}
           </div>
-          <div className="col-lg-5">
-            <div className="common-heads text-left">
-              {/* {
-                orderInfo && orderInfo.tracking.length > 0 && end(orderInfo.tracking).map((orderdata) => (
-                  console.log(orderdata)
-                ))
-              } */}
-              <h2>Your order History</h2>
-            </div>
-            <div className="ordercart-list">
-              <ul className="track-order">
-                {
-                  orderInfo && orderInfo.tracking && orderInfo.tracking.length > 0 && orderInfo.tracking.map((item, i) => (
-                    <li className="active" key={i}>
-                      <span>
-                        <img src="../assets/images/tick.png" alt="" />
-                      </span>
-                      <h5>{item.created_at}</h5>
-                      <p>{item.description}</p>
-                    </li>
-                  ))
-                }
-                {
-                  orderInfo.status !== 'delivered' ?
-                    <li>
-                      <span>
-                        <img src="../assets/images/tick.png" alt="" />
-                      </span>
-                      <h4>Your order will reach you shortly</h4>
-                    </li> :
-                    null
-                }
-
-              </ul>
-            </div>
-            {/* <div className="status-delvry">
-              <h4>Delivery By</h4>
-              <h5>
-                Blue Dart <span>AWB No: 123-12345678</span>
-              </h5>
-            </div> */}
-          </div>
-
-          <div className="col-lg-7">
-            <div className="cart-boduy">
-              <h4>Order Summary</h4>
-              <div className="order-frequent">
-                <table className="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <th>Product</th>
-                      <th>&nbsp;</th>
-                      <th width="120">Quantitty</th>
-                      <th width="120">Price</th>
-                    </tr>
-                    {
-                      orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro, i) => (
-                        <tr key={i}>
-                          <td>
-                            <img src={pro.image} alt="" />
-                          </td>
-                          <td>{pro.product_name}</td>
-                          <td>{pro.quantity}</td>
-                          <td>₹{pro.sub_total}</td>
-                        </tr>
-                      ))
-                    }
-
-                  </tbody>
-                </table>
+          <div className="col-lg-6">
+            <div className="card my-3">
+              <div className="card-body">
+                <h2 class="h5 mb-3">Summary</h2>
+                <ul class="list-group">
+                  {
+                    orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro, i) => (
+                      <li class="list-group-item d-sm-flex  justify-content-between">
+                        <div className="d-sm-flex m-0">
+                          <div className="py-2">
+                            <img src={pro.image} width="50px" className="me-2" />
+                          </div>
+                          <div className="p-2">
+                            <p className="fs-6">{pro.product_name}</p>
+                            <b>Qty : </b> {pro.quantity}
+                          </div>
+                        </div>
+                        <div className="text-dark fw-bold p-2">₹ {pro.sub_total}</div>
+                      </li>
+                    ))
+                  }
+                </ul>
               </div>
-              <div className="dwd-order">
-                <table className="table table-borderless">
-                  <tbody>
-                    <tr>
-                      <td width="350">
-                        
-                        <button className="mussee-btn-border-black" onClick={() => handleCancelRequestShow(orderInfo.id)}> Request Cancel Order </button>
-                        <a className="dwd-qry" target="_blank" href={orderInfo.invoice_file}>
-                          Download Order Summary
-                        </a>
-                      </td>
-                      <td>
-                        <table className="table table-borderless">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <h3>Sub Total</h3>
-                              </td>
-                              <td width="180">
-                                <span>₹{orderInfo.sub_total}</span>
-                              </td>
-                            </tr>
-                            {
-                              orderInfo.tax_amount > 0 &&
-                              <tr>
-                                <td>
-                                  <h3>Taxes</h3>
-                                </td>
-                                <td width="180">
-                                  <span>₹{orderInfo.tax_amount}</span>
-                                </td>
-                              </tr>
-                            }
-                            {
-                              orderInfo.shipping_amount > 0 &&
-                              <tr>
-                                <td>
-                                  <h3>Shipping</h3>
-                                </td>
-                                <td width="180">
-                                  <span>₹{orderInfo.shipping_amount}</span>
-                                </td>
-                              </tr>
-                            }
-                            <tr>
-                              <td>
-                                <h4>Grand Total</h4>
-                              </td>
-                              <td width="180">
-                                <h5>₹{orderInfo.amount}</h5>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+            </div>
+            <div className="card my-3">
+              <div className="card-body">
+                <ul class="list-unstyled fs-sm m-0">
+                  <li class="d-flex justify-content-between align-items-center mb-1"><span class="me-2">Subtotal:</span><span class="text-end">₹{orderInfo?.sub_total}</span></li>
+                  {orderInfo.tax_amount > 0 && <li class="d-flex justify-content-between align-items-center"><span class="me-2">Taxes:</span><span class="text-end">₹{orderInfo?.tax_amount}</span></li>}
+                  {orderInfo.shipping_amount > 0 && <li class="d-flex justify-content-between align-items-center fs-base"><span class="me-2">Total:</span><span class="text-end">₹{orderInfo?.shipping_amount}</span></li>}
+                  <li class="text-dark d-flex justify-content-between align-items-center fs-6 mt-2"><span class="me-2 fw-bold">Total:</span><span class="text-end fw-bold fs-5">₹{orderInfo?.amount}</span></li>
+                </ul>
               </div>
+            </div>
+            <div className="text-sm-end text-center">
+              <Button variant="contained" className="btn btn-light bg-light text-dark shadow-none border mb-3 ms-2" onClick={() => handleCancelRequestShow(orderInfo.id)}>   Cancel Order </Button>
+              <Button onClick={() => window.open(orderInfo.invoice_file, '_blank')} variant="contained" className="rounded mb-3 bg-dark ms-2">  order invoice </Button>
             </div>
           </div>
         </div>
