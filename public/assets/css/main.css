@@ -2826,7 +2826,7 @@ body.pad-top .secondary-menu {
 
 .secondary-menu ul li {
   display: inline-block;
-  margin: 15px 38px 20px;
+  margin: 9px 43px 12px;
   transition: all 0.3s ease;
 }
 
@@ -4938,7 +4938,7 @@ body.pad-top .secondary-menu {
 
 .secondary-menu ul li {
   display: inline-block;
-  margin: 15px 38px 20px;
+  margin: 9px 43px 12px;
   transition: all 0.3s ease;
 }
 
@@ -12391,7 +12391,10 @@ fieldset:disabled .btn {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #14191e;
   --bs-btn-disabled-border-color: #14191e;
-  background-image: linear-gradient(to right bottom, #212363, #301643, #2a0e28, #1d0814, #000000);
+  /* background-image: linear-gradient(to right bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  /* background-image: linear-gradient(to bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  /* background-image: linear-gradient(to left bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  background-image: linear-gradient(to right bottom, #9d2398, #8a2793, #78298e, #662987, #55297f, #4f236e, #491d5d, #41184e, #391135, #2b0e22, #1c0812, #000000);
 }
 
 .btn-outline-primary {

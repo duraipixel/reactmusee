@@ -58,7 +58,6 @@ header {
     position: relative;
     width: 100%;
     background: #1A1A1A;
-    padding: 7px 0px;
     z-index: 90 !important;
 }
 
@@ -138,7 +137,9 @@ nav {
     box-sizing: border-box;
     justify-content: center;
 }
-
+#cssmenu>ul {
+    margin-bottom: 0 !important;
+}
 #cssmenu:after,
 #cssmenu>ul:after {
     content: ".";

@@ -52,8 +52,8 @@ export const CancelOrderRequested = ({ orderId, handleCancelRequestShow, cancelS
       show={cancelShow}
       onHide={handleCancelRequestClose}
     >
-      <Modal.Header closeButton closeVariant='white' className='bg-primary'>
-        <Modal.Title> <h5 className='text-white'>Request Cancel Order</h5> </Modal.Title>
+      <Modal.Header closeButton className='bg-light'>
+        <Modal.Title> <h5 className='text-primary fw-bold'>Request Cancel Order</h5> </Modal.Title>
       </Modal.Header>
       <form id="cancelOrderForm" onSubmit={handleSubmit(onSubmit)} >
         <Modal.Body>
@@ -80,7 +80,7 @@ export const CancelOrderRequested = ({ orderId, handleCancelRequestShow, cancelS
           <Button variant="secondary" className='bg-light border me-2' onClick={handleCancelRequestClose}>
             Cancel
           </Button>
-          <Button type="submit" variant="primary" className='bg-primary text-white' disabled={formLoader} >
+          <Button type="submit" variant="primary" className='btn-dark text-white' disabled={formLoader} >
             {formLoader ? (
               <span className="spinner-grow spinner-grow-sm me-1"></span>
             ) : <i className='bi bi-send-fill me-1'></i>}
