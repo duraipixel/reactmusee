@@ -4,79 +4,90 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ErrorMessage } from '@hookform/error-message';
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import { Button, TextField } from '@mui/material';
 
-export const CancelOrderRequested = ({ orderId, handleCancelRequestShow, cancelShow, handleCancelRequestClose, customer}) => {
+export const CancelOrderRequested = ({ orderId, handleCancelRequestShow, cancelShow, handleCancelRequestClose, customer }) => {
 
-    const [formLoader, setFormLoader] = useState(false);
+  const [formLoader, setFormLoader] = useState(false);
 
-    const {
-        register,
-        handleSubmit,
-        watch,
-        formState: { errors },
-        reset
-      } = useForm();
-    
-      const onSubmit = (data) => {
-        updateCancelOrder(data);
-      };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset
+  } = useForm();
 
-      async function updateCancelOrder(formData) {
+  const onSubmit = (data) => {
+    updateCancelOrder(data);
+  };
 
-        setFormLoader(true);
-        await axios({
-          url: window.API_URL + '/cancel/request/orders',
-          method: 'POST',
-          data: formData,
-        }).then((res) => {
-          setFormLoader(false);
-          if (res.data.error == 1) {
-            toast.error(res.data.message, {
-              position: toast.POSITION.BOTTOM_RIGHT
-            });
-            reset();
-          } else {
-            toast.success(res.data.message, {
-              position: toast.POSITION.BOTTOM_RIGHT
-            });
-    
-            handleCancelRequestClose();
-          }
-        }).catch((err) => {
-        })
-    
+  async function updateCancelOrder(formData) {
+
+    setFormLoader(true);
+    await axios({
+      url: window.API_URL + '/cancel/request/orders',
+      method: 'POST',
+      data: formData,
+    }).then((res) => {
+      setFormLoader(false);
+      if (res.data.error == 1) {
+        toast.error(res.data.message);
+        reset();
+      } else {
+        toast.success(res.data.message);
+        handleCancelRequestClose();
       }
+    }).catch((err) => {
+    })
 
-    return (
-        <Modal className='passwordModal cstmzed' show={cancelShow} onHide={handleCancelRequestClose}>
-            <Modal.Header closeButton>
-                <Modal.Title> Request Cancel Order </Modal.Title>
-            </Modal.Header>
-            <form id="cancelOrderForm" onSubmit={handleSubmit(onSubmit)} >
-                <Modal.Body>
-                    <div className="row">
-                        <div className="mb-3 col-lg-12">
-                            <textarea className='form-control' {...register("cancelReason", { required: "Cancel Reason is required"})}></textarea>
-                            <ErrorMessage errors={errors} name="cancelReason" as="p" />
-                            <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
-                            <input type="hidden" {...register("order_id", { required: "Order id is required" })} id="order_id" value={orderId && orderId} />
-                        </div>
-                    </div>
+  }
 
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCancelRequestClose}>
-                        Cancel
-                    </Button>
-                    <Button type="submit" variant="primary" disabled={formLoader} >
-                        {formLoader && (
-                            <span className="spinner-grow spinner-grow-sm"></span>
-                        )}
-                        Save
-                    </Button>
-                </Modal.Footer>
-            </form>
-        </Modal >
-    )
+  return (
+    <Modal
+      className='passwordModal cstmzed'
+      size="md"
+      backdrop="static"
+      keyboard={false}
+      show={cancelShow}
+      onHide={handleCancelRequestClose}
+    >
+      <Modal.Header closeButton closeVariant='white' className='bg-primary'>
+        <Modal.Title> <h5 className='text-white'>Request Cancel Order</h5> </Modal.Title>
+      </Modal.Header>
+      <form id="cancelOrderForm" onSubmit={handleSubmit(onSubmit)} >
+        <Modal.Body>
+          <div className="row">
+            <div className="col-lg-12">
+              <TextField
+                id="outlined-textarea"
+                label="Your comments"
+                placeholder="Type here...."
+                multiline
+                rows={8}
+                autoFocus={true}
+                errors={errors.cancelReason ? true : false}
+                fullWidth
+                inputProps={{ maxLength: 500 }}
+                {...register("cancelReason", { required: true })}
+              />
+              <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
+              <input type="hidden" {...register("order_id", { required: "Order id is required" })} id="order_id" value={orderId && orderId} />
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer className='justify-content-end'>
+          <Button variant="secondary" className='bg-light border me-2' onClick={handleCancelRequestClose}>
+            Cancel
+          </Button>
+          <Button type="submit" variant="primary" className='bg-primary text-white' disabled={formLoader} >
+            {formLoader ? (
+              <span className="spinner-grow spinner-grow-sm me-1"></span>
+            ) : <i className='bi bi-send-fill me-1'></i>}
+            Send request
+          </Button>
+        </Modal.Footer>
+      </form>
+    </Modal >
+  )
 }

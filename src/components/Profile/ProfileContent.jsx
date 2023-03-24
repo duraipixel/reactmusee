@@ -157,7 +157,7 @@ function ProfileContent({
             <div className="card card-body">
               <div className="d-flex justify-content-between mb-3 align-items-center">
                 <b>Address</b>
-                <button className="btn btn-outline-primary" onClick={() => handleOpenAddressAddForm()}>Add a new address </button>
+                <Button variant="outlined" onClick={() => handleOpenAddressAddForm()}>Add a new address </Button>
               </div>
               <div className="row">
                 <AddressListPane states={states} handleEditAddressModalShow={handleEditAddressModalShow} setAddressInfo={setAddressInfo} customerAddress={customerAddress} handleAddressModalClose={handleAddressModalClose} handleAddressModalShow={handleAddressModalShow} setCustomerAddress={setCustomerAddress} customer={customer} setUpdateAddressId={setUpdateAddressId} />

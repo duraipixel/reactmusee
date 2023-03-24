@@ -20,9 +20,7 @@ const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleA
       setFormLoader(false);
       if (res.data.error == 1) {
         let error_message = res.data.message;
-        error_message.forEach(x => toast.error(x, {
-          position: toast.POSITION.BOTTOM_RIGHT
-        }));
+        error_message.forEach(x => toast.error(x));
       } else {
         localStorage.setItem('address', JSON.stringify(res.data.customer_address));
         toast.success(res.data.message)
@@ -119,13 +117,9 @@ const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleA
             <Button variant="outlined" onClick={handleAddressModalClose}>
               Cancel
             </Button>
-            <Button type="submit" variant="contained" className="float-end rounded bg-primary ms-2" disabled={formLoader} >
-              {formLoader ?
-                <span className="spinner-grow spinner-grow-sm me-1"></span>
-                :
-                <span className="bi bi-repeat me-1"></span>
-              }
-              Create
+            <Button type="submit" variant="contained" className="float-end ms-2" disabled={formLoader} >
+              {formLoader ? <span className="spinner-grow spinner-grow-sm me-1"></span>
+                :<span className="bi bi-repeat me-1"></span>} Create
             </Button>
           </div>
         </form>
