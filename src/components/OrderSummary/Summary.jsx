@@ -101,7 +101,7 @@ const Summary = () => {
             </div>
             <div className="text-sm-end text-center">
               <Button variant="contained" className="btn btn-light bg-light text-dark shadow-none border mb-3 ms-2" onClick={() => handleCancelRequestShow(orderInfo.id)}>   Cancel Order </Button>
-              <Button onClick={() => window.open(orderInfo.invoice_file, '_blank')} variant="contained" className="rounded mb-3 bg-dark ms-2">  order invoice </Button>
+              <Button onClick={() => window.open(orderInfo.invoice_file, '_blank')} variant="contained" className="rounded mb-3 btn-dark ms-2">  order invoice </Button>
             </div>
           </div>
         </div>
