@@ -1,9 +1,8 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { CartButton } from '../components/Button/CartButton';
-import { FrequentlyPurchased } from '../components/Product/FrequentlyPurchased';
 import { ImagePane } from '../components/Product/ImagePane';
 import { Specification } from '../components/Product/Specification';
 import { RelatedProduct } from './../components/Product/RelatedProduct';
@@ -14,9 +13,10 @@ import { fetchCarts } from '../app/reducer/cartSlice';
 import { Helmet } from 'react-helmet';
 import { WaveSpinner } from 'react-spinners-kit';
 import './product.css';
+import { Button, Chip, Tooltip } from '@mui/material';
+import { InputGroup, InputNumber } from 'rsuite'; 
 
 export const ProductDetail = () => {
-
     const [productInfo, SetProductInfo] = useState(null);
     const [productSelectedQuantity, setProductSelectedQuantity] = useState(1);
     const customer = useSelector((state) => state.customer);
@@ -110,11 +110,10 @@ export const ProductDetail = () => {
 
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
-    }
-
+    } 
     return (
-        <Fragment>
-
+        <Fragment> 
+            
             {
                 productInfo !== null && (
                     <>
@@ -134,7 +133,7 @@ export const ProductDetail = () => {
                         <section className="section product-details">
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-lg-12" onMouseEnter={() => hideMagnify()}>
+                                    <div className="col-lg-12">
                                         <div className="accordion-table text-left">
                                             <ul>
                                                 <li>{productInfo.parent_category_name}</li>
@@ -151,81 +150,38 @@ export const ProductDetail = () => {
                                     </div>
 
                                     <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
-                                    {
-                                        console.log(productInfo)
-                                    }
-                                    <div className="col-lg-6" onMouseEnter={() => hideMagnify()}>
-                                        <div>
-                                            <div id="myresult" className="img-zoom-result" onMouseEnter={() => hideMagnify()} style={{ visibility: 'hidden' }}>
-                                            </div>
+                                    <div class="col-md-6">
+                                        <div class="small mb-1">SKU: {productInfo.sku}</div>
+                                        <h1 class="display-5 fw-bolder">{productInfo.product_name}</h1>
+                                        <div class="fs-5 mb-3 text-dark">
+                                            {productInfo.sale_prices.strike_rate > 0 && <span class="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                            <span>₹{productInfo.mrp_price}</span>
                                         </div>
-                                        <div className="product-details-explained">
-                                            <div className="prdt-headng">
-                                                <h1>{productInfo.product_name}</h1>
-                                                <span>SKU: {productInfo.sku}</span>
-                                            </div>
-                                            <div className='product-short-description'>
-                                                {productInfo.description}
-                                            </div>
-                                            <div className="prsce-lst">
-                                                <h4>
-                                                    <span className={`strke-trouh ${productInfo.sale_prices.strike_rate > 0 ? '' : 'hide'}`}>
-                                                        ₹{productInfo.sale_prices.strike_rate}
-                                                    </span>
-                                                    ₹{productInfo.sale_prices.price}
-                                                </h4>
-                                            </div>
-                                            {
-                                                productInfo.stock_status != 'out_of_stock' ?
-                                                    <Fragment>
-                                                        <div>
-                                                            <div className={`cart-qty-pane `}>
-                                                                <button onClick={() => reduceCart()}><img src="/assets/images/sub.png" /></button>
-                                                                <span >{productSelectedQuantity}</span>
-                                                                <button onClick={() => increaseCart()}><img src="/assets/images/add.png" /></button>
-                                                            </div>
-                                                        </div>
-                                                        <div className={`flow-btns `}>
-                                                            <ul>
-                                                                <li className={`oly-btn`}>
-                                                                    <CartButton product={productInfo} add={handleAddToCart} />
-                                                                </li>
-                                                                <li className={`oly-btn ${productInfo.has_video_shopping != 'yes' ? 'hide' : ''}`}>
-                                                                    <PopupWidget
-                                                                        url="https://calendly.com/museemusical/30min"
-                                                                        rootElement={document.getElementById("root")}
-                                                                        text="Book Video Shopping"
-                                                                        textColor="#ffffff"
-                                                                        color="#00a2ff"
-                                                                    />
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </Fragment>
-                                                    :
-                                                    <div className={`flow-btns `}>
-                                                        <ul>
-                                                            <li className={`oly-btn`}>
-                                                                <a >Out Of Stock</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                            }
-
-
-                                            <div className="abt-prduct">
-                                                <h4>About This Product</h4>
-                                                <div dangerouslySetInnerHTML={{ __html: productInfo.feature_information }}></div>
-                                            </div>
-
-                                        </div>
+                                        <p class="lead" dangerouslySetInnerHTML={{ __html: productInfo.description }}></p>
+                                        {productInfo.stock_status != 'out_of_stock'
+                                            ?
+                                            <>
+                                                <div className='d-inline-flex'>
+                                                    <InputGroup className='border me-2' style={{ width: '120px' }}>
+                                                        <InputGroup.Button onClick={reduceCart}>-</InputGroup.Button>
+                                                        <InputNumber className={'custom-input-number'} value={productSelectedQuantity} />
+                                                        <InputGroup.Button onClick={increaseCart}>+</InputGroup.Button>
+                                                    </InputGroup>
+                                                    <CartButton product={productInfo} add={handleAddToCart} className="me-2" />
+                                                    <Tooltip title="Book a video shopping" arrow placement="top">
+                                                        <Button className='p-0 px-0'>
+                                                            <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" rootElement={document.getElementById("root")} />
+                                                        </Button>
+                                                    </Tooltip>
+                                                </div>
+                                            </>
+                                            : <Chip label="Out Of Stock" className='rounded' color='error' />}
                                     </div>
-
                                 </div>
                             </div>
                         </section>
 
-                        <section className="tab-of-sectors" onMouseEnter={() => hideMagnify()}>
+                        <section className="tab-of-sectors" >
                             <div className="container">
                                 <div className="row">
 

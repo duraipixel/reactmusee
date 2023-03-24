@@ -14,3 +14,11 @@
   margin-top: 20px;
   font-size: 16px;
 }
+.calendly-badge-widget {
+  position: unset !important;
+}
+.calendly-badge-widget .calendly-badge-content {
+  /* content: '\F21B'; */
+  font-family: bootstrap-icons !important;
+  /* margin-right: 15px; */
+} 
