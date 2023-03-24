@@ -33,7 +33,7 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
             className="thumb-sliders my-2"
           >
             {imgSrc.map((image, i) => (
-              <img src={image} alt="call" key={i} className="rounded product-slider-thumb-image" />
+              <img src={image} alt="call" key={i} className="rounded product-slider-thumb-image shadow-sm p-2 border" />
             ))}
           </Slider>
         </div>

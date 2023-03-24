@@ -161,7 +161,7 @@ export const ProductDetail = () => {
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <>
-                                                <div className='d-inline-flex'>
+                                                <div className='d-inline-flex mt-2'>
                                                     <InputGroup className='border me-2' style={{ width: '120px' }}>
                                                         <InputGroup.Button onClick={reduceCart}>-</InputGroup.Button>
                                                         <InputNumber className={'custom-input-number'} value={productSelectedQuantity} />

@@ -51313,7 +51313,7 @@ html[dir=rtl] .document-nav {
   cursor: pointer;
 }
 .thumb-sliders .slick-slide.slick-active.slick-current img {
-  box-shadow: 0 5px 10px #8c8c8c;
+  box-shadow: 0 5px 10px #8c8c8c !important;
   transition: all 1s;
   transform: translateY(-10px);
 }
