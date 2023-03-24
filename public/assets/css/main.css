@@ -7362,11 +7362,6 @@ input+p {
   right: 8px !important;
 }
 
-.calendly-badge-widget .calendly-badge-content {
-  height: auto !important;
-  padding: 12px 30px !important;
-}
-
 .mag-nfyre>div {
   width: 100% !important;
 }
@@ -7412,10 +7407,7 @@ tbody>tr.active>th.active {
   max-width: 100%;
   max-height: 100%;
 }
-
-.product-vewslder .slick-slide>div {
-  padding: 0 15px;
-}
+ 
 
 .product-vewslder .slick-prev::before,
 .slick-next::before {
@@ -51293,4 +51285,35 @@ html[dir=rtl] .document-nav {
 
 .nav-wrapper {
   padding: 20px
+}
+.product-slider-image {
+  width: 100% !important;
+  height: 400px !important;
+  object-fit: cover;
+  cursor: zoom-in;
+}
+.product-slider-thumb-image {
+  width: 100% !important;
+  height: 80px !important;
+  object-fit: cover;
+}
+
+.thumb-sliders  .slick-slide>div {
+  padding: 0 10px !important;
+}
+
+/* .product-vewslder .slick-slide>div:nth-last-child(1) {
+  padding: 0 !important;
+} */
+.thumb-sliders  .slick-slide {
+  padding: 20px 0 !important;
+}
+.thumb-sliders .slick-slide img {
+  transition: all 1s;
+  cursor: pointer;
+}
+.thumb-sliders .slick-slide.slick-active.slick-current img {
+  box-shadow: 0 5px 10px #8c8c8c;
+  transition: all 1s;
+  transform: translateY(-10px);
 }

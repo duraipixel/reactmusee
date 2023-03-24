@@ -30,6 +30,9 @@ const theme = createTheme({
     primary: {
       main: '#004A90',
     },
+    error: {
+      main: '#C6004E',
+    },
   },
 });
 

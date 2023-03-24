@@ -35,32 +35,22 @@ img.payment-success-image {
 }
 
 .calendly-badge-widget .calendly-badge-content {
-  box-shadow: none;
-  height: auto;
-  padding: 12px 30px;
-  display: inline-block;
-  font-weight: 600 !important;
-  font-size: 16px !important;
-  line-height: 20px !important;
+  box-shadow: none !important;
+  padding: 0px !important;
   font-family: "Quicksand", sans-serif !important;
   color: #1a1a1a !important;
-  border: 2px solid #1a1a1a !important;
-  border-radius: 4px !important;
-  background-color: transparent !important;
   transition: all 0.3s ease;
-}
-
-.calendly-badge-widget .calendly-badge-content:hover {
-  background-color: #000 !important;
-  color: #fff !important;
-  border: 2px solid #000 !important;
-  transition: all 0.5s ease;
-}
-
-/* .abt-prduct h4{
-    margin-top: 0px !important;
-} */
-
+  border: none !important;
+  border-radius: 50%;
+  background: white !important;
+  position: relative;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: 40px !important;
+  width: 40px !important;
+  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12) !important;
+}  
 .token-expired {
   font-size: 18px;
   font-weight: bold;
