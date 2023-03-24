@@ -13,9 +13,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     const increaseCartProduct = (product) => {
         let max_quantity = product.max_quantity;
         if (max_quantity == product.quantity) {
-            toast.error('Product quantity reached max limit', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Product quantity reached max limit');
         } else {
             let quantity = product.quantity + 1;
             updateProduct(product, quantity);
@@ -25,9 +23,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     const decreaseCartProduct = (product) => {
         let max_quantity = product.max_quantity;
         if (product.quantity == 1) {
-            toast.error('Minimum quantity should be 1', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Minimum quantity should be 1');
         } else {
             let quantity = product.quantity - 1;
             updateProduct(product, quantity);
@@ -53,9 +49,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             localStorage.removeItem('shiprocket_charges');
             getShippingRocketCharges('', '');
             
-            toast.success('Cart Cleared Successfully', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.success('Cart Cleared Successfully');
 
         }).catch((err) => {
 
@@ -104,9 +98,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         var coupon_code = document.getElementById('coupon').value;
 
         if (coupon_code == '') {
-            toast.error('Coupon code is required', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Coupon code is required');
             document.getElementById('coupon').focus();
             return false;
         }

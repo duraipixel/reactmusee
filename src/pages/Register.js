@@ -47,9 +47,7 @@ export const Register = () => {
                     dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
                     
                     localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
-                    toast.success('Register Successfull', {
-                        position: toast.POSITION.BOTTOM_RIGHT
-                    });
+                    toast.success('Register Successfull');
                     setTimeout(() => {
                         navigate('/');
                     }, 300);

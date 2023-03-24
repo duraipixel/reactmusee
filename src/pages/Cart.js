@@ -126,9 +126,7 @@ export const Cart = () => {
         if (e.target.checked) {
             setShippingAddress(billingAddress);
             localStorage.setItem('shipping_address', JSON.stringify(billingAddress));
-            toast.success('Shipping address has been set successfully', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
+            toast.success('Shipping address has been set successfully')
         } else {
             setShippingAddress('');
             localStorage.setItem('shipping_address', JSON.stringify(''));
@@ -141,18 +139,14 @@ export const Cart = () => {
 
             setBillingAddress(address);
             localStorage.setItem('billing_address', JSON.stringify(address));
-            toast.success('Billing address has been set successfully', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
+            toast.success('Billing address has been set successfully')
 
         } else {
 
             setShippingAddress(address);
             dispatch(setDefaultShippingAddress(address));
             localStorage.setItem('shipping_address', JSON.stringify(address));
-            toast.success('Shipping address has been set successfully', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
+            toast.success('Shipping address has been set successfully')
             document.getElementById('same_as_billing').checked = false;
         }
         getShippingRocketCharges(address, from_type);
@@ -213,9 +207,7 @@ export const Cart = () => {
     const proceedCheckout = () => {
 
         if (!shippingAddress) {
-            toast.error('Please select address to proceed', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
+            toast.error('Please select address to proceed')
             return false;
         }
 

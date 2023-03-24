@@ -7817,7 +7817,7 @@ tbody > tr.active >th.active{background-color: #212363;color:#fff;}
   .cstmzed .modal-title{font-size: 24px;}
   .cstmzed .modal-body h4{font-size: 20px;margin-bottom: 15px;}
   .secondary-menu ul {
-    overflow-x: scroll;
+    overflow-x: auto;
     width: 100%;
     display: flex;
     white-space: nowrap;
@@ -17659,7 +17659,7 @@ textarea.form-control-lg {
 /* rtl:end:remove */
 .text-primary {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+  color: #232362 !important;
 }
 
 .text-secondary {
@@ -17797,7 +17797,7 @@ textarea.form-control-lg {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+  background-color: #232362 !important;
 }
 
 .bg-secondary {
@@ -23046,9 +23046,12 @@ textarea.form-control-lg {
             transform: none;
   }
 }
-header {
-  height: 56px;
+.modal-content {
+  border-radius: 10px;
 }
+/* header {
+  height: 56px;
+} */
 
 .navbar-nav .nav-link {
   font-size: 0.9375rem;

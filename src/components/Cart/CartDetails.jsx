@@ -18,7 +18,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
     const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
-    
+
     const handlePayment = async () => {
         setCheckoutFormLoading(true);
         setPaymentLoader(true);
@@ -30,17 +30,13 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         // console.log( shiprocket_charges, 'shiprocket_charges')
         // return false;
         if (!shippingAddress) {
-            toast.error('Shipping address is required', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Shipping address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
 
 
-        } else if(!billingAddress) {
-            toast.error('Billing address is required', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+        } else if (!billingAddress) {
+            toast.error('Billing address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
 
@@ -49,18 +45,16 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
-                data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges:shiprocket_charges, billing_address:billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id:cartInfo.shipping_id },
+                data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id: cartInfo.shipping_id },
             }).then((response) => {
-            console.log('response received checkout', response);
+                console.log('response received checkout', response);
 
-                if( response.error == 1 ) {
-                    toast.error(response.message, {
-                        position: toast.POSITION.BOTTOM_RIGHT
-                    });
+                if (response.error == 1) {
+                    toast.error(response.message);
                 } else {
                     verifyPayment(response.data);
                 }
-                
+
             });
         }
     }
@@ -109,7 +103,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             method: 'POST',
             data: { razor_response: data, customer_id: customer.id, status: type },
         }).then((response) => {
-            
+
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
             if (response.data.success) {
@@ -128,7 +122,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         });
 
     }
-        
+
 
     return (
         <Fragment >
@@ -152,12 +146,12 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                                         Coupon {cart_total.coupon_code} (-)
                                         <div className='coupon-pane'>
                                             {
-                                                couponInfo && couponInfo.length > 0 && 
+                                                couponInfo && couponInfo.length > 0 &&
                                                 couponInfo.map((items) => (
                                                     <div>
                                                         <div>Coupon Applied for {items.category_name}</div>
                                                         <div>Coupon Applied amount for {items.coupon_applied_amount}</div>
-                                                        <div>Coupon Amount : {items.discount_amount} {items.coupon_type.discount_type == 'percentage' ? '('+parseInt(items.coupon_type.discount_value)+'%)' : ''} </div>
+                                                        <div>Coupon Amount : {items.discount_amount} {items.coupon_type.discount_type == 'percentage' ? '(' + parseInt(items.coupon_type.discount_value) + '%)' : ''} </div>
                                                     </div>
                                                 ))
                                             }
@@ -191,8 +185,8 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                         </tr>
                     </tbody>
                 </table>
-                
-                <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo}/>
+
+                <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} />
                 <div className="line-spacer"></div>
                 <div className="line-spacer"></div>
                 <table className="table table-borderless end-point">
@@ -204,16 +198,16 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                         <tr>
                             <td colSpan="2">
                                 <button onClick={() => handlePayment()} disabled={`${checkoutFormloading ? 'disabled' : ''}`}>
-                                {checkoutFormloading && (
-                                    <span className="spinner-grow spinner-grow-sm"></span>
-                                )} 
+                                    {checkoutFormloading && (
+                                        <span className="spinner-grow spinner-grow-sm"></span>
+                                    )}
                                     Proceed to Checkout
                                 </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                
+
             </div>
         </Fragment>
     )

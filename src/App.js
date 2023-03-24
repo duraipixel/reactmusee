@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import './app/constant.js';
 import { Layout } from './components/Layouts/Layout.jsx';
@@ -24,10 +23,19 @@ import { ReturnPolicy } from './pages/ReturnPolicy.js';
 import { ShippingPolicy } from './pages/ShippingPolicy.js';
 import { BrandDetails } from './pages/BrandDetails';
 import "rsuite/dist/rsuite.min.css";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#004A90',
+    },
+  },
+});
 
 const App = () => {
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -61,7 +69,7 @@ const App = () => {
         draggable
         pauseOnHover
         theme="colored" />
-    </Fragment>
+    </ThemeProvider>
   )
 
 }

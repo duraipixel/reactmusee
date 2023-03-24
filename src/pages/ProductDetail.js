@@ -64,9 +64,7 @@ export const ProductDetail = () => {
     const increaseCart = () => {
 
         if (productInfo.max_quantity == productSelectedQuantity) {
-            toast.error('Product quantity reached max limit', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Product quantity reached max limit');
         } else {
             setProductSelectedQuantity(productSelectedQuantity + 1);
         }
@@ -78,9 +76,7 @@ export const ProductDetail = () => {
             addCartProduct(product);
         } else {
 
-            toast.error('Login to add Carts', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.error('Login to add Carts');
 
             dispatch(attemptToCart(product));
             setTimeout(() => {
@@ -99,9 +95,7 @@ export const ProductDetail = () => {
             method: 'POST',
             data: res_data,
         }).then((res) => {
-            toast.success('Product added successfully ', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
+            toast.success('Product added successfully ');
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
