@@ -93,6 +93,7 @@ const EditPersonalDetailsModal = ({ setPersonalShow, setCustomer, handlePersonal
                 size="small"
                 label="Email"
                 type="email"
+                disabled
                 className="w-100 mb-4"
                 {...register("email", {
                   required: "Email is required", pattern: {

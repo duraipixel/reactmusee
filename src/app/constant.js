@@ -1,6 +1,6 @@
 
-const WEBURL = 'http://192.168.0.35:5000/api';
-// const WEBURL = 'https://admin.museemusical.shop/public/api';
+// const WEBURL = 'http://192.168.0.35:5000/api';
+const WEBURL = 'https://admin.museemusical.shop/public/api';
 
 window.API_URL = WEBURL;
 

@@ -28,10 +28,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#004A90',
+      main: '#14191e',
     },
     error: {
-      main: '#C6004E',
+      main: '#d6293e',
     },
   },
 });

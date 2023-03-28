@@ -14,7 +14,8 @@ import { Helmet } from 'react-helmet';
 import { WaveSpinner } from 'react-spinners-kit';
 import './product.css';
 import { Button, Chip, Tooltip } from '@mui/material';
-import { InputGroup, InputNumber } from 'rsuite'; 
+import { InputGroup, InputNumber } from 'rsuite';
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 export const ProductDetail = () => {
     const [productInfo, SetProductInfo] = useState(null);
@@ -110,11 +111,11 @@ export const ProductDetail = () => {
 
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
-    } 
+    }
     // console.log( productInfo.sale_prices, 'productInfo');
     return (
-        <Fragment> 
-            
+        <Fragment>
+
             {
                 productInfo !== null && (
                     <>
@@ -154,26 +155,30 @@ export const ProductDetail = () => {
                                     <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
                                     <div class="col-md-6">
                                         <div class="small mb-1">SKU: {productInfo.sku}</div>
-                                        <h1 class="display-5 fw-bolder">{productInfo.product_name}</h1>
+                                        <h1 class="fw-bolder h3">{productInfo.product_name}</h1>
                                         <div class="fs-5 mb-3 text-dark">
                                             {productInfo.sale_prices.strike_rate_original > 0 && <span class="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
                                             <span>₹{productInfo.sale_prices.price}</span>
                                         </div>
-                                        <p class="lead" dangerouslySetInnerHTML={{ __html: productInfo.description }}></p>
+                                        <div class="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <>
                                                 <div className='d-inline-flex mt-2'>
                                                     <InputGroup className='border me-2' style={{ width: '120px' }}>
-                                                        <InputGroup.Button onClick={reduceCart}>-</InputGroup.Button>
-                                                        <InputNumber className={'custom-input-number'} value={productSelectedQuantity} />
-                                                        <InputGroup.Button onClick={increaseCart}>+</InputGroup.Button>
+                                                        <InputGroup.Button onClick={reduceCart}>
+                                                            <AiOutlineMinus />
+                                                        </InputGroup.Button>
+                                                        <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
+                                                        <InputGroup.Button onClick={increaseCart}>
+                                                            <AiOutlinePlus />
+                                                        </InputGroup.Button>
                                                     </InputGroup>
                                                     <CartButton product={productInfo} add={handleAddToCart} className="me-2" />
                                                     <Tooltip title="Book a video shopping" arrow placement="top">
-                                                        <Button className='p-0 px-0'>
+                                                        <span>
                                                             <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" rootElement={document.getElementById("root")} />
-                                                        </Button>
+                                                        </span>
                                                     </Tooltip>
                                                 </div>
                                             </>
