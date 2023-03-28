@@ -217,12 +217,12 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                 {
                     cart && Object.entries(cart).map((key, item) => (
                         <div className='cat-fntion' key={key}>
-                            <button className='del-btm' onClick={() => removeCartProduct(cart[item])}><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <button className='del-btm' onClick={() => removeCartProduct(cart[item])}><i claclassName="fa fa-trash-o" aria-hidden="true"></i></button>
                             <h4> {cart[item].product_name}</h4>
                             <h5><span>Price : </span>₹{cart[item].price}</h5>
                             <div className='m-flex'>
                                 <img src={cart[item].image} />
-                                <div class="prce-btm">
+                                <div claclassName="prce-btm">
                                     <button><img src="/assets/images/sub.png" onClick={() => decreaseCartProduct(cart[item])} /></button>
                                     {cart[item].quantity}
                                     <button><img src="/assets/images/add.png" onClick={() => increaseCartProduct(cart[item])} /></button>

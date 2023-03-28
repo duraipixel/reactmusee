@@ -24,6 +24,7 @@ import "rsuite/dist/rsuite.min.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const theme = createTheme({
   palette: {
