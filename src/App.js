@@ -6,9 +6,7 @@ import Home from './pages/Home';
 import { ProductDetail } from './pages/ProductDetail.js';
 import { Collection } from './pages/Collection';
 import { Category } from './pages/Category.js';
-import { ShopByBrand } from './pages/ShopByBrand';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ShopByBrand } from './pages/ShopByBrand'; 
 import { Cart } from './pages/Cart';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
@@ -24,6 +22,8 @@ import { ShippingPolicy } from './pages/ShippingPolicy.js';
 import { BrandDetails } from './pages/BrandDetails';
 import "rsuite/dist/rsuite.min.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const theme = createTheme({
   palette: {
@@ -62,7 +62,7 @@ const App = () => {
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>
-      <ToastContainer position="top-right"
+      <ToastContainer position="top-center"
         autoClose={1000}
         hideProgressBar
         newestOnTop={false}

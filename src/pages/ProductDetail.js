@@ -24,6 +24,8 @@ export const ProductDetail = () => {
     const { product_url } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [loader, setloader] = useState(false);
+
 
     const setRecentProduct = (product_url) => {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -72,20 +74,18 @@ export const ProductDetail = () => {
     }
 
     const handleAddToCart = (product) => {
-
+        setloader(true)
         if (customer.value) {
-            addCartProduct(product);
+            addCartProduct(product); 
         } else {
-
             toast.error('Login to add Carts');
-
-            dispatch(attemptToCart(product));
+            dispatch(attemptToCart(product)); 
             setTimeout(() => {
                 navigate('/login');
+                setloader(false)
             }, 200);
         }
-    }
-
+    } 
     async function addCartProduct(item) {
 
         let customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -99,10 +99,8 @@ export const ProductDetail = () => {
             toast.success('Product added successfully ');
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
-        }).catch((err) => {
-
-        })
+            setTimeout(() => setloader(false) , 500)
+        });
     }
 
     useMemo(() => {
@@ -173,8 +171,8 @@ export const ProductDetail = () => {
                                                         <InputGroup.Button onClick={increaseCart}>
                                                             <AiOutlinePlus />
                                                         </InputGroup.Button>
-                                                    </InputGroup>
-                                                    <CartButton product={productInfo} add={handleAddToCart} className="me-2" />
+                                                    </InputGroup> 
+                                                    <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
                                                     <Tooltip title="Book a video shopping" arrow placement="top">
                                                         <span>
                                                             <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" rootElement={document.getElementById("root")} />
