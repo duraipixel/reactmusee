@@ -1,24 +1,24 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import Slider from 'react-slick'
-import { compile } from 'path-to-regexp';
-import { Link } from 'react-router-dom';
+import CardComponent from '../CardComponent';
 
-export const CollectionTrending = ({homeData, goToProductListPageCollection}) => {
+export const CollectionTrending = ({ homeData, goToProductListPageCollection }) => {
 
     const [collectionThree, setCollectionThree] = useState('');
-    useEffect( () => {
-        if( collectionThree === '' && homeData.collection ) {
-            setCollectionThree( homeData.collection.find( (car) => car.order_by === 3 ) )
+    useEffect(() => {
+        if (collectionThree === '' && homeData.collection) {
+            setCollectionThree(homeData.collection.find((car) => car.order_by === 3))
         }
-    }, [homeData] );
-    
+    }, [homeData]);
+
     const settings = {
         autoplay: true,
         autoplaySpeed: 3000,
         arrows: true,
-        slidesToShow: 5,
+        slidesToShow: 4,
         dots: true,
         slidesToScroll: 1,
+        infinite: true,
         responsive: [{
             breakpoint: 1400,
             settings: {
@@ -40,8 +40,6 @@ export const CollectionTrending = ({homeData, goToProductListPageCollection}) =>
         },],
     }
 
-    const PRODUCT_ROUTE = '/product/:product_url/';
-    const toProductPath = compile(PRODUCT_ROUTE);
 
     return (
         <Fragment>
@@ -65,32 +63,10 @@ export const CollectionTrending = ({homeData, goToProductListPageCollection}) =>
                                     <Slider {...settings} className="trending-slider" >
                                         {
                                             collectionThree.products && collectionThree.products.map((item, i) => (
-                                                
-                                                <Link className="arrival-product" key={item.id} to={toProductPath({ product_url: item.product_url })}>
-                                                    <div className="prdt-img">
-                                                        <img src={item.image} />
-                                                        <div className="ofr-prc">
-                                                            <h5>#{i+1}</h5>
-                                                        </div>
-                                                    </div>
-                                                    <div className="trend-access">
-                                                        <div className="ratings d-flex justify-content-between">
-                                                            <div className="prdt-type">
-                                                                {item.category_name}
-                                                            </div>
-                                                            {/* <div className="prdt-ratngs">
-                                                            <img src="assets/images/star.png" />4.9
-                                                        </div> */}
-                                                        </div>
-                                                        <div className="prdt-nameprc">
-                                                            <h4>{item.product_name}</h4>
-                                                            <h5>
-                                                                {item.sale_prices.strike_rate && item.sale_prices.strike_rate_original > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
-                                                                ₹{item.sale_prices.price}
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                </Link>
+                                                <CardComponent settings={{
+                                                    data: item,
+                                                    index: i
+                                                }} />
                                             ))
                                         }
                                     </Slider>

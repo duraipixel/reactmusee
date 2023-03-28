@@ -1161,6 +1161,7 @@ section {
 .the-trending {
   background: url("../images/bg-2.jpg") no-repeat rgba(0, 0, 0, 0);
   background-size: cover;
+  background-attachment: fixed !important;
 }
 
 .trending-slider {
@@ -51331,3 +51332,6 @@ html[dir=rtl] .document-nav {
   width: 80px !important;
   object-fit: cover;
 }
+/* .custom-card {
+  width: 320px;
+} */

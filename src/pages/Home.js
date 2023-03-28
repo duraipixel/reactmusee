@@ -25,9 +25,10 @@ import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { fetchProducts } from '../app/reducer/productFilterSlice';
 import './common.css';
+import ProductSlider from '../components/ProductSlider';
 
 export default function Home() {
-    
+
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const [recentData, setRecentData] = useState([]);
@@ -35,32 +36,32 @@ export default function Home() {
     const [recentDataLoading, setRecentDataLoading] = useState(true);
 
     const navigate = useNavigate();
-    const location  = useLocation();
+    const location = useLocation();
 
     const searchParams = new URLSearchParams(location.search);
 
-    const goToProductListPageCollection = (collection_slug ) => {
+    const goToProductListPageCollection = (collection_slug) => {
 
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
-        
+
         searchParams.set("collection", collection_slug);
 
-        navigate(SUrl + '?'+ searchParams.toString());
-        dispatch(fetchProducts('?'+ searchParams.toString()));
+        navigate(SUrl + '?' + searchParams.toString());
+        dispatch(fetchProducts('?' + searchParams.toString()));
     }
 
     async function getRecentViewData() {
-        
+
         let customer = JSON.parse(window.localStorage.getItem('customer'));
         setRecentDataLoading(false);
         await axios({
             url: window.API_URL + '/get/recent/view',
             method: 'POST',
-            data: {customer_id:customer.id},
+            data: { customer_id: customer.id },
         }).then((res) => {
-           
-           setRecentData(res.data);
+
+            setRecentData(res.data);
         }).catch((err) => {
             setRecentDataLoading(true);
         })
@@ -69,9 +70,9 @@ export default function Home() {
     async function getHomeData() {
         await axios({
             url: window.API_URL + '/get/home/details',
-            method: 'GET',            
+            method: 'GET',
         }).then((res) => {
-            if( res.data ) {
+            if (res.data) {
                 setHomeData(res.data)
             }
         }).catch((err) => {
@@ -79,18 +80,18 @@ export default function Home() {
     }
 
     useMemo(() => {
-        if( homeData.length === 0 ) {
+        if (homeData.length === 0) {
             getHomeData()
         }
     }, [homeData])
 
     useEffect(() => {
-        
-        if( !customer ) {
+
+        if (!customer) {
             dispatch(clearCart());
             // dispatch(clearAttemptItem())
         } else {
-            if( recentData.length == 0 && recentDataLoading ){
+            if (recentData.length == 0 && recentDataLoading) {
                 getRecentViewData();
             }
         }
@@ -98,7 +99,7 @@ export default function Home() {
             dispatch(isOpenSideBar());
         }
     }, [])
-    
+
     return (
         <Fragment>
             <Helmet>
@@ -106,13 +107,14 @@ export default function Home() {
                 <title>Home | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 <meta name='title' content="Shop Music Instruments, Accessories and Music Books - Musée Musical"></meta>
-                <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.'/>
+                <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.' />
             </Helmet>
             <HomeCarousel homeData={homeData} />
             <DiscountCollection />
             <HistoryVideo homeData={homeData} />
             <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <LiveVideo />
+            <ProductSlider data={homeData.collection} />
             <CollectionToprank homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <CollectionTrending homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <CollectionBlockBuster homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
@@ -122,12 +124,12 @@ export default function Home() {
             <CollectionControlTunes homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <CollectionRecommend homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             {
-            recentData.length > 5 &&
-            <RecentView recentData={recentData}/>
+                recentData.length > 5 &&
+                <RecentView recentData={recentData} />
             }
             <Testimonials homeData={homeData} />
             <PackageSupport />
-            
+
         </Fragment>
     )
 }
