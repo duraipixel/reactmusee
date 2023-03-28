@@ -115,21 +115,10 @@ export default function Home() {
             <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <LiveVideo />
             <ProductSlider data={homeData.collection} />
-            <CollectionToprank homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            <CollectionTrending homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            <CollectionBlockBuster homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
             <Brand />
-            <CollectionKeyboards homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            <CollectionBestSeller homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            <CollectionControlTunes homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            <CollectionRecommend homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
-            {
-                recentData.length > 5 &&
-                <RecentView recentData={recentData} />
-            }
+            { recentData.length > 5 && <RecentView recentData={recentData} /> }
             <Testimonials homeData={homeData} />
             <PackageSupport />
-
         </Fragment>
     )
 }
