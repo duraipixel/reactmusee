@@ -704,7 +704,7 @@ section {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 60px;
+  /* min-height: 60px; */
 }
 
 .arrivals-slider .slick-slide div:first-child {
@@ -1976,7 +1976,7 @@ section {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 60px;
+  /* min-height: 60px; */
 }
 
 .arrivals-slider .slick-slide div:first-child {
@@ -7502,7 +7502,7 @@ tbody>tr.active>th.active {
   }
 
   .common-heads h2 {
-    font-size: 30px;
+    font-size: 25px;
   }
 
   .carousel .carousel-caption {
@@ -51324,4 +51324,10 @@ html[dir=rtl] .document-nav {
 
 .text-dark p {
   color: black !important;
+}
+
+.deal-image {
+  height: 80px !important;
+  width: 80px !important;
+  object-fit: cover;
 }
