@@ -47,7 +47,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                                                 item.products.length > 0 ? (
 
                                                     item.products.map((productItems, i) => (
-                                                        <div className="col-6 p-1">
+                                                        <div className="col-6 p-1" key={i}>
                                                             <CardActionArea key={i} className="text-center p-1" onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
                                                                 <img src={productItems.image} className="deal-image" />
                                                                 <small className='d-block text-start mt-1'>{productItems.category} </small>

@@ -2,16 +2,17 @@ import { Fragment } from 'react'
 import Slider from 'react-slick';
 import { Link } from 'react-router-dom';
 import { compile } from 'path-to-regexp';
+import CardComponent from '../CardComponent';
 
 export const RelatedProduct = ({ related_products }) => {
-
     const settings = {
         autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        slidesToShow: 5,
-        dots: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        slidesToShow: 4,
+        dots: false,
         slidesToScroll: 1,
+        infinite: true,
         responsive: [{
             breakpoint: 1400,
             settings: {
@@ -30,41 +31,32 @@ export const RelatedProduct = ({ related_products }) => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        },],
+        },]
     }
-
-    const PRODUCT_ROUTE = '/product/:product_url/';
-    const toProductPath = compile(PRODUCT_ROUTE);
-
     return (
-
-
         <Fragment>
+            {
+                related_products && related_products.length > 4 &&
+                <section className="the-trending text-center bg-white">
+                    <div className="container">
+                        <div className="common-heads ">
+                            <h2 className='text-center'>Other similar products</h2>
+                        </div>
+                        <Slider className="trending-slider" {...settings}>
+                            {
+                                related_products && related_products.map((item, i) => (
+                                    <CardComponent key={i} settings={{
+                                        data: item,
+                                        index: i,
+                                        badge: false
+                                    }} />
+                                ))
+                            }
 
-            <Slider className="arrivals-slider" {...settings}>
-                {
-                    related_products.map((item, i) => (
-                        <Link className="arrival-product" key={item.id} to={toProductPath({ product_url: item.product_url })}>
-                            <div className="prdt-img">
-                                <img src={item.image} />
-                            </div>
-                            <div className="ratings d-flex justify-content-between">
-                                <div className="prdt-type">
-                                    {item.category_name}
-                                </div>
-                            </div>
-                            <div className="prdt-nameprc">
-                                <h4>{item.product_name}</h4>
-                                <h5>
-                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
-                                    ₹{item.sale_prices.price}
-                                </h5>
-                            </div>
-                        </Link>
-                    ))
-                }
-
-            </Slider>
+                        </Slider>
+                    </div>
+                </section>
+            }
         </Fragment>
     )
 }
