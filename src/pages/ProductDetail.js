@@ -111,13 +111,15 @@ export const ProductDetail = () => {
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
     } 
+    // console.log( productInfo.sale_prices, 'productInfo');
     return (
         <Fragment> 
             
             {
                 productInfo !== null && (
                     <>
-                        {/* <Helmet>
+                        {
+                        /* <Helmet>
 
                             <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
@@ -154,8 +156,8 @@ export const ProductDetail = () => {
                                         <div class="small mb-1">SKU: {productInfo.sku}</div>
                                         <h1 class="display-5 fw-bolder">{productInfo.product_name}</h1>
                                         <div class="fs-5 mb-3 text-dark">
-                                            {productInfo.sale_prices.strike_rate > 0 && <span class="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
-                                            <span>₹{productInfo.mrp_price}</span>
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <span class="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                            <span>₹{productInfo.sale_prices.price}</span>
                                         </div>
                                         <p class="lead" dangerouslySetInnerHTML={{ __html: productInfo.description }}></p>
                                         {productInfo.stock_status != 'out_of_stock'

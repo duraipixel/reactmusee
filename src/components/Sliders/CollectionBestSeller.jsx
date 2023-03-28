@@ -43,7 +43,7 @@ export const CollectionBestSeller = ({homeData, goToProductListPageCollection}) 
 
     const PRODUCT_ROUTE = '/product/:product_url/';
     const toProductPath = compile(PRODUCT_ROUTE);
-
+    
     return (
         <Fragment>
             {collectionSix && collectionSix.products.length > 4 ? (
@@ -74,12 +74,11 @@ export const CollectionBestSeller = ({homeData, goToProductListPageCollection}) 
                                                 <div className="prdt-type">
                                                     {item.category_name}
                                                 </div>
-
                                             </div>
                                             <div className="prdt-nameprc">
                                                 <h4>{item.product_name}</h4>
                                                 <h5>
-                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
+                                                    {item.sale_prices.strike_rate_original && item.sale_prices.strike_rate_original > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
                                                     ₹{item.sale_prices.price}
                                                 </h5>
                                             </div>

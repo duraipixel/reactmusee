@@ -8,9 +8,6 @@ export const CollectionSectionOne = ({ homeData, goToProductListPageCollection }
 
     const [collectionOne, setCollectionOne] = useState('');
 
-
-
-
     useEffect(() => {
         if (collectionOne === '' && homeData.collection) {
             setCollectionOne(homeData.collection.find((car) => car.order_by === 1))
@@ -49,7 +46,7 @@ export const CollectionSectionOne = ({ homeData, goToProductListPageCollection }
     const FILTER_ROUTE = '/collection/:collection_slug/';
     const toProductPath = compile(PRODUCT_ROUTE);
     const toCollectionPath = compile(FILTER_ROUTE);
-
+    // console.log(collectionOne, 'duei');
     return (
         <Fragment>
             {collectionOne && collectionOne.products.length > 4 ? (
@@ -84,7 +81,7 @@ export const CollectionSectionOne = ({ homeData, goToProductListPageCollection }
                                             <div className="prdt-nameprc">
                                                 <h4>{item.product_name}</h4>
                                                 <h5>
-                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
+                                                    {item.sale_prices.strike_rate && item.sale_prices.strike_rate_original > 0 && <span>₹{item.sale_prices.strike_rate}</span>}
                                                     ₹{item.sale_prices.price}
                                                 </h5>
                                             </div>
