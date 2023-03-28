@@ -35,6 +35,7 @@
     "react-icons": "^4.8.0",
     "react-image-lightbox": "^5.1.4",
     "react-image-magnify": "^2.7.4",
+    "react-lazy-load-image-component": "^1.5.6",
     "react-loading-skeleton": "^3.1.0",
     "react-phone-number-input": "^3.2.16",
     "react-razorpay": "^1.2.0",

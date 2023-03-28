@@ -16,6 +16,7 @@ import './product.css';
 import { Button, Chip, Tooltip } from '@mui/material';
 import { InputGroup, InputNumber } from 'rsuite';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import ProductFeatures from '../components/ProductFeatures';
 
 export const ProductDetail = () => {
     const [productInfo, SetProductInfo] = useState(null);
@@ -76,16 +77,16 @@ export const ProductDetail = () => {
     const handleAddToCart = (product) => {
         setloader(true)
         if (customer.value) {
-            addCartProduct(product); 
+            addCartProduct(product);
         } else {
             toast.error('Login to add Carts');
-            dispatch(attemptToCart(product)); 
+            dispatch(attemptToCart(product));
             setTimeout(() => {
                 navigate('/login');
                 setloader(false)
             }, 200);
         }
-    } 
+    }
     async function addCartProduct(item) {
 
         let customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -99,7 +100,7 @@ export const ProductDetail = () => {
             toast.success('Product added successfully ');
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-            setTimeout(() => setloader(false) , 500)
+            setTimeout(() => setloader(false), 500)
         });
     }
 
@@ -131,11 +132,12 @@ export const ProductDetail = () => {
                                 <meta name="description" content={productInfo.meta.meta_description} />
                             }
                         </Helmet> */}
-                        <section className="section product-details">
+
+                        <section className="section product-details bg-white">
                             <div className="container">
-                                <div className="row">
+                                <div className='row' >
                                     <div className="col-lg-12">
-                                        <div className="accordion-table text-left">
+                                        <div className="accordion-table text-left pb-4">
                                             <ul>
                                                 <li>{productInfo.parent_category_name}</li>
                                                 <li>
@@ -149,29 +151,30 @@ export const ProductDetail = () => {
                                             </ul>
                                         </div>
                                     </div>
-
-                                    <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
-                                    <div class="col-md-6">
-                                        <div class="small mb-1">SKU: {productInfo.sku}</div>
-                                        <h1 class="fw-bolder h3">{productInfo.product_name}</h1>
-                                        <div class="fs-5 mb-3 text-dark">
-                                            {productInfo.sale_prices.strike_rate_original > 0 && <span class="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
-                                            <span>₹{productInfo.sale_prices.price}</span>
+                                    <div className='col-lg-6'>
+                                        <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
+                                    </div>
+                                    <div className='col-lg-6'>
+                                        <div claclassName="small mb-1">SKU: {productInfo.sku}</div>
+                                        <h1 claclassName="fw-bolder h3">{productInfo.product_name}</h1>
+                                        <div claclassName="fs-5 mb-3 text-dark">
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <span claclassName="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                            <span>₹{productInfo.mrp_price}</span>
                                         </div>
-                                        <div class="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
+                                        <div claclassName="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <>
                                                 <div className='d-inline-flex mt-2'>
                                                     <InputGroup className='border me-2' style={{ width: '120px' }}>
-                                                        <InputGroup.Button onClick={reduceCart}>
+                                                        <InputGroup.Button onClick={reduceCart} className="border-end">
                                                             <AiOutlineMinus />
                                                         </InputGroup.Button>
                                                         <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
-                                                        <InputGroup.Button onClick={increaseCart}>
+                                                        <InputGroup.Button onClick={increaseCart} className="border-start">
                                                             <AiOutlinePlus />
                                                         </InputGroup.Button>
-                                                    </InputGroup> 
+                                                    </InputGroup>
                                                     <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
                                                     <Tooltip title="Book a video shopping" arrow placement="top">
                                                         <span>
@@ -185,76 +188,11 @@ export const ProductDetail = () => {
                                 </div>
                             </div>
                         </section>
-
                         <section className="tab-of-sectors" >
                             <div className="container">
                                 <div className="row">
-
-                                    <div className="col-lg-12 col-md-12 col-sm-12">
-                                        <ul className="nav nav-tabs text-center justify-content-between" id="myTab" role="tablist">
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="true">Description</button>
-                                            </li>
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link" id="specification-tab" data-bs-toggle="tab" data-bs-target="#specification" type="button" role="tab" aria-controls="specification" aria-selected="false">Specification</button>
-                                            </li>
-                                            <li className="nav-item" role="presentation">
-                                                <button className="nav-link" id="audio-tab" data-bs-toggle="tab" data-bs-target="#audio" type="button" role="tab" aria-controls="audio" aria-selected="false">Audio & Video</button>
-                                            </li>
-                                        </ul>
-                                        <div className="tab-content" id="myTabContent">
-                                            <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                                <div className="col-lg-12">
-                                                    <div className="description-details text-center" dangerouslySetInnerHTML={{ __html: productInfo.specification }}>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="tab-pane fade" id="specification" role="tabpanel" aria-labelledby="specification-tab">
-                                                {
-                                                    productInfo.attributes.length > 0 ? (
-                                                        <Specification attributes={productInfo.attributes} />
-                                                    ) : (
-                                                        <div>
-                                                            No Specification available
-                                                        </div>
-                                                    )
-                                                }
-
-                                            </div>
-                                            <div className="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="audio-tab">
-                                                <div className="col-lg-12">
-                                                    <div className="description-details no-bfr-afr text-center">
-                                                        <div className="inner-headngs">
-                                                            <h2>Audio & Video</h2>
-                                                        </div>
-                                                        <div className="aadeo-vedeo">
-                                                            <div className="row">
-                                                                {
-                                                                    productInfo.videolinks.length > 0 ? (
-                                                                        productInfo.videolinks.map((items, i) => (
-                                                                            <div className="col-lg-4" key={i}>
-                                                                                <div className="fav-img">
-                                                                                    <img src="/assets/images/favorite/fav-1.jpg" />
-                                                                                    {/* <a id="play-video" className="video-play-button" href="#" tabIndex={-1}>
-                                                                                        <span></span>
-                                                                                    </a> */}
-                                                                                    <iframe className='product_details_video' src={items.url} width="100%" height="269px">
-                                                                                    </iframe>
-                                                                                </div>
-                                                                            </div>
-                                                                        ))
-
-                                                                    ) : (
-                                                                        <div>No Links available</div>
-                                                                    )
-                                                                }
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div className="col-lg-12 col-md-12 col-sm-12 description-details">
+                                        <ProductFeatures data={productInfo?.product_extra_information} />
                                     </div>
                                 </div>
                             </div>
@@ -262,27 +200,7 @@ export const ProductDetail = () => {
                     </>
                 )
             }
-
-            {
-                productInfo !== null && productInfo.related_products && productInfo.related_products.length > 0 && (
-                    <section className="similar-products new-arrivals pt-0">
-                        <div className="container">
-                            <div className="row">
-
-                                <div className="col-lg-12">
-                                    <div className="inner-headngs">
-                                        <h2>Other similar products</h2>
-                                    </div>
-
-                                    <RelatedProduct related_products={productInfo.related_products} />
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
-                )
-            }
-
+            <RelatedProduct related_products={productInfo?.related_products} />
             {
                 productInfo === null &&
                 <div id="cart-loader" >
@@ -291,16 +209,11 @@ export const ProductDetail = () => {
                             size={100}
                             color="#0a1d4a"
                             loading={true}
-
                             style={{ top: '50%', left: '45%' }}
-
                         />
                     </div>
                 </div>
             }
-
-            {/* <FrequentlyPurchased /> */}
-
         </Fragment>
     )
 }

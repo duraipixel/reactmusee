@@ -20,7 +20,7 @@ function ProductSlider({ data }) {
                                 <MySlider delay={Number(index + 2000)}>
                                     {
                                         item.products && item.products.map((item, i) => (
-                                            <CardComponent settings={{
+                                            <CardComponent key={i} settings={{
                                                 data: item,
                                                 index: i,
                                                 badge: false

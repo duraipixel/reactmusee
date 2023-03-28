@@ -1,16 +1,16 @@
 import { Fragment } from 'react'
 import Slider from 'react-slick';
-import { Link } from 'react-router-dom';
+import CardComponent from '../CardComponent';
 
 export const RecentView = ({ recentData }) => {
-
     const settings = {
         autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false,
-        slidesToShow: 5,
-        dots: true,
+        autoplaySpeed: 2000,
+        arrows: true,
+        slidesToShow: 4,
+        dots: false,
         slidesToScroll: 1,
+        infinite: true,
         responsive: [{
             breakpoint: 1400,
             settings: {
@@ -29,40 +29,30 @@ export const RecentView = ({ recentData }) => {
                 slidesToShow: 1,
                 slidesToScroll: 1,
             },
-        },],
+        },]
     }
 
     return (
         <Fragment>
             {
                 recentData && recentData.length > 4 &&
-                <section className="recently-viewed text-center pt-0">
+                <section className="the-trending text-center bg-white">
                     <div className="container">
-                        <div className="row">
-
-                            <div className="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-between">
-                                <div className="common-heads">
-                                    <h2>Recently Viewed Items</h2>
-                                </div>
-                            </div>
-
-                            <Slider className="arrivals-slider" {...settings}>
-                                {
-                                    recentData && recentData.map((item) => (
-                                        <Link className="arrival-product" key={item.id} to={`/product/${item.product_url}`} >
-                                            <div className="prdt-img">
-                                                <img src={item.image} />
-                                            </div>
-                                            <div className="prdt-nameprc">
-                                                <h4>{item.product_name}</h4>
-                                            </div>
-                                        </Link>
-                                    ))
-                                }
-
-                            </Slider>
-
+                        <div className="common-heads ">
+                            <h2 className='text-center'>Recently Viewed Items</h2>
                         </div>
+                        <Slider className="trending-slider" {...settings}>
+                            {
+                                recentData && recentData.map((item, i) => (
+                                    <CardComponent key={i} settings={{
+                                        data: item,
+                                        index: i,
+                                        badge: false
+                                    }} />
+                                ))
+                            }
+
+                        </Slider>
                     </div>
                 </section>
             }

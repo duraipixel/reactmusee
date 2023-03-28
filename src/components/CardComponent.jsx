@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { compile } from 'path-to-regexp';
 import { CardActionArea } from "@mui/material";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CardComponent({ settings }) {
     const { data, index } = settings
@@ -15,7 +16,7 @@ function CardComponent({ settings }) {
         <div className="arrival-product custom-card" key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
                 <div className="prdt-img">
-                    <img src={data.image} />
+                    <LazyLoadImage src={data.image} className="product-card-image"/>
                     {
                         data.badge == true ?
                             <div className="ofr-prc">
