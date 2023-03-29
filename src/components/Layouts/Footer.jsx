@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom';
 import { useTopMenuQuery } from '../../app/services/topMenuApi';
-
+import './footer.css';
 
 
 export default function Footer({getSubMenu}) {
@@ -73,11 +73,8 @@ export default function Footer({getSubMenu}) {
                             </div>
 
                             <div className="contact-links">
-                                <h4>Information</h4>
+                                <h4>Contact Us</h4>
                                 <ul>
-                                    <li>
-                                        <img src="/assets/images/loc.png" /> 73, Anna Salai, near Devi Theatre,<br />Mount Road, Border Thottam, Padupakkam, <br />Triplicane, Chennai, Tamil Nadu 600002
-                                    </li>
                                     <li>
                                         <img src="/assets/images/mail.png" /> support@museemusical.in
                                     </li>

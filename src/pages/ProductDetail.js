@@ -77,7 +77,6 @@ export const ProductDetail = () => {
     const handleAddToCart = (product) => {
         setloader(true)
         if (customer.value) {
-            addCartProduct(product);
         } else {
             toast.error('Login to add Carts');
             dispatch(attemptToCart(product));
@@ -90,13 +89,14 @@ export const ProductDetail = () => {
     async function addCartProduct(item) {
 
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-        const res_data = { ...item, customer_id: customer.id, quantity: productSelectedQuantity };
+        const res_data = { ...item, customer_id: customer?.id || '', quantity: productSelectedQuantity };
 
         await axios({
             url: window.API_URL + '/add/cart',
             method: 'POST',
             data: res_data,
         }).then((res) => {
+
             toast.success('Product added successfully ');
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))

@@ -146,9 +146,11 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     const cancelCoupon = () => {
+
         fetchCartProducts();
         dispatch(setCoupon(''));
-        document.getElementById('coupon').value = '';
+        let cancelApplyBtn = document.getElementById('coupon');
+        cancelApplyBtn.value = '';
     }
 
     return (
@@ -195,7 +197,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                     <tr>
                         <td colSpan="4" style={{ border: '0px' }}>
                             Have a Coupon?
-                            <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={cart_total.coupon_code} disabled={cart_total.coupon_code ? 'disabled' : ''} maxLength="6" />
+                            <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={coupon.value.coupon_code} disabled={coupon.value.coupon_code ? 'disabled' : ''} maxLength="6" />
                             {
                                 cart_total.coupon_code ?
                                     <button type='button' onClick={() => cancelCoupon()} >Cancel</button>
