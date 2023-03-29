@@ -123,7 +123,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     }
 
-
+    
     return (
         <Fragment >
             <div className="cart-boduy">
@@ -146,14 +146,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                                         Coupon {cart_total.coupon_code} (-)
                                         <div className='coupon-pane'>
                                             {
-                                                couponInfo && couponInfo.length > 0 &&
-                                                couponInfo.map((items) => (
-                                                    <div>
-                                                        <div>Coupon Applied for {items.category_name}</div>
-                                                        <div>Coupon Applied amount for {items.coupon_applied_amount}</div>
-                                                        <div>Coupon Amount : {items.discount_amount} {items.coupon_type.discount_type == 'percentage' ? '(' + parseInt(items.coupon_type.discount_value) + '%)' : ''} </div>
-                                                    </div>
-                                                ))
+                                                couponInfo && couponInfo.coupon_code &&
+                                                <div>
+                                                    <div>Code : {couponInfo.coupon_code} {couponInfo.coupon_type.discount_type == 'percentage' ? '(' + parseInt(couponInfo.coupon_type.discount_value) + '%)' : ''}</div>
+                                                </div>
                                             }
                                         </div>
                                     </td>
