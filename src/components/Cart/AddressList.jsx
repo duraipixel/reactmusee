@@ -1,13 +1,11 @@
 import { Fragment } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
 
 export const AddressList = ({ fromList, handleListClose, showList, customerAddress, handleSetAddress, shipping_address }) => {
     return (
         <Fragment>
             <Modal className='cstmzed' show={showList} onHide={handleListClose}>
-
                 <Modal.Header closeButton>
                     <Modal.Title> SELECT {fromList.toUpperCase()} ADDRESS </Modal.Title>
                 </Modal.Header>

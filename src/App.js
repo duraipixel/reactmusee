@@ -20,11 +20,12 @@ import { TermsofUse } from './pages/TermsofUse.js';
 import { ReturnPolicy } from './pages/ReturnPolicy.js';
 import { ShippingPolicy } from './pages/ShippingPolicy.js';
 import { BrandDetails } from './pages/BrandDetails';
-import "rsuite/dist/rsuite.min.css";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import "rsuite/dist/rsuite.min.css";
+import 'rsuite/styles/index.less';
 
 const theme = createTheme({
   palette: {

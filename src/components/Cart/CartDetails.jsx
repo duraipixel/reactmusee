@@ -128,7 +128,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     return (
         <Fragment >
-            <h5 className='text-primary mb-2 text-center fw-bold text-uppercase'>Cart Details</h5>
+            <h5 className='text-primary mb-3 fw-bold text-uppercase'>Cart Details</h5>
             <div className="card mb-3">
                 <div className="card-body">
                     <ul className="list-group mb-3">
@@ -171,7 +171,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control border" placeholder='Enter here..' />
-                        <Button  className="btn text-white bg-dark" >Apply</Button>
+                        <Button className="btn text-white bg-dark">Apply</Button>
                     </div>
                     <Button className='bg-primary text-white w-100 text-uppercase' size='lg' onClick={() => handlePayment()} loading={checkoutFormloading}>
                         {checkoutFormloading && (

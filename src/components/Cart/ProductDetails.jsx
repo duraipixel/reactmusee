@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import { toast } from 'react-toastify';
 import { setCoupon } from '../../app/reducer/couponSlice';
+import { InputGroup, InputNumber } from 'rsuite';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
 
@@ -48,7 +50,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             localStorage.removeItem('shipping_address');
             localStorage.removeItem('shiprocket_charges');
             getShippingRocketCharges('', '');
-            
+
             toast.success('Cart Cleared Successfully');
 
         }).catch((err) => {
@@ -127,6 +129,13 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
     }
 
+    const cancelCoupon = () => {
+        fetchCartProducts();
+        dispatch(setCoupon(''));
+        let cancelApplyBtn = document.getElementById('coupon');
+        cancelApplyBtn.value = '';
+    }
+
     async function fetchCartProducts() {
 
         let customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -145,17 +154,51 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         })
     }
 
-    const cancelCoupon = () => {
-
-        fetchCartProducts();
-        dispatch(setCoupon(''));
-        let cancelApplyBtn = document.getElementById('coupon');
-        cancelApplyBtn.value = '';
-    }
-
     return (
         <Fragment>
-            <table className="table table-bordered desky-verson">
+            <h5 className="text-primary mb-3 fw-bold text-uppercase">Cart Items</h5>
+            <div className="card border-0">
+                <div>
+                    <ul className='list-group '>
+                        {
+                            cart && Object.entries(cart).map((key, item) => (
+                                <li class="list-group-item list-group-item-action">
+                                    <div class="row align-items-center">
+                                        <div class="col-3 col-md-2">
+                                            <img src={cart[item].image} alt="Ecommerce" class="avatar-img rounded border border-white border-3" />
+                                        </div>
+                                        <div class="col-4 col-md-6 col-lg-5">
+                                            <h6 class="mb-0 fs-6">{cart[item].product_name}</h6>
+                                            <span><small class="text-secondary">₹{cart[item].price}</small></span>
+                                            <div class="mt-2 small lh-1">
+                                                <button className='btn-link bg-white p-1 rounded text-danger' onClick={() => removeCartProduct(cart[item])}>
+                                                    <i className="fa fa-trash-o me-1" aria-hidden="true"></i>
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-3 col-md-3 col-lg-3">
+                                            <InputGroup className='border me-2' style={{ width: '120px' }}>
+                                                <InputGroup.Button size='sm' onClick={() => decreaseCartProduct(cart[item])} className="border-end">
+                                                    <AiOutlineMinus />
+                                                </InputGroup.Button>
+                                                <InputNumber size='sm' className={'custom-input-number fw-bold'} value={cart[item].quantity} />
+                                                <InputGroup.Button size='sm' onClick={() => increaseCartProduct(cart[item])} className="border-start">
+                                                    <AiOutlinePlus />
+                                                </InputGroup.Button>
+                                            </InputGroup>
+                                        </div>
+                                        <div class="col-2 text-lg-end text-start text-md-end col-md-2">
+                                            <span class="fw-bold text-primary">₹{cart[item].sub_total}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+            {/* <table className="table table-bordered desky-verson">
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
@@ -213,7 +256,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> */}
 
             <div className='mobile-cartlst'>
                 {

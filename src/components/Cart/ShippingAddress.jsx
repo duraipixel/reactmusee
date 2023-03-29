@@ -2,13 +2,10 @@ import { Fragment } from 'react'
 import './cart.css';
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
-
     return (
         <Fragment>
-
             <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
-
                 <div className="line-spacer"></div>
                 <div className='address-list-panel'>
                     <div style={{ padding: '19px', width: '50%' }} >

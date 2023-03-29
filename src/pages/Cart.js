@@ -156,13 +156,13 @@ export const Cart = () => {
         axios({
             url: window.API_URL + '/get/shipping/rocket/charges',
             method: 'POST',
-            data: {customer_id:customer.id, address:address, from_type:from_type},
+            data: { customer_id: customer.id, address: address, from_type: from_type },
         }).then((res) => {
             setRocketCharges(res.data.shiprocket_charges);
             localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
         }).catch((err) => {
         })
-        
+
     }
 
     async function addAddress(formData) {
@@ -180,7 +180,7 @@ export const Cart = () => {
                 reset();
             } else {
                 toast.success(res.data.message);
-                
+
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
 
@@ -215,9 +215,9 @@ export const Cart = () => {
         await axios({
             url: window.API_URL + '/update/cartAmount',
             method: 'POST',
-            data: { shipping_id: shipping_id, customer_id: customer.id, type:type },
+            data: { shipping_id: shipping_id, customer_id: customer.id, type: type },
         }).then((res) => {
-            
+
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
         }).catch((err) => {
@@ -234,36 +234,28 @@ export const Cart = () => {
             </Helmet>
             <section className="shop-carts">
                 <div className="container">
-                    <div className="row">
-
-                        <div className="col-lg-12 col-md-12 col-sm-12">
-                            <div className="common-heads text-center">
-                                <h2>Shopping Cart</h2>
-                            </div>
-                        </div>
+                    <div className="row"> 
                         {
                             cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
                                 <>
-                                    <div className="col-lg-8">
+                                    <div className="col-lg-8"> 
                                         <div className="finalcart-list">
-
                                             <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
-
                                             <div className="shipping-addresss">
                                                 <ShippingAddress sameAsBilling={sameAsBilling} billingAddress={billingAddress} handleListShow={handleListShow} handleShow={handleShow} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} />
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div className="col-lg-4">
+                                        <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
+                                    </div>
                                     <Modal className='cstmzed' show={show} onHide={handleClose}>
-                                        {/* <AddressForm customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} handleClose={handleClose} /> */}
                                         <Modal.Header closeButton>
                                             <Modal.Title> ADD NEW {fromAdd.toUpperCase()} ADDRESS </Modal.Title>
                                         </Modal.Header>
                                         <form onSubmit={handleSubmit(onSubmit)} id="address_form">
                                             <Modal.Body>
                                                 <div className="modal-body">
-
                                                     <h4>Contact Details</h4>
                                                     <div className="row">
                                                         <div className="mb-3 col-lg-6">
@@ -340,11 +332,7 @@ export const Cart = () => {
                                             </Modal.Footer>
                                         </form>
                                     </Modal>
-
                                     <AddressList fromList={fromList} handleListClose={handleListClose} showList={showList} customerAddress={customerAddress} handleSetAddress={handleSetAddress} shipping_address={shipping_address} />
-                                    <div className="col-lg-4">
-                                        <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
-                                    </div>
                                 </>
                                 :
                                 <div className="col-lg-12">
@@ -373,7 +361,7 @@ export const Cart = () => {
                                 style={{ top: '50%', left: '45%' }}
 
                             />
-                        <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                            <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
                         </div>
                     </div>
                 }
