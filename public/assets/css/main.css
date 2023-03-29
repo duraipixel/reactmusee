@@ -2705,18 +2705,19 @@ section {
   font-family: "Mulish", sans-serif;
   color: #000000;
   min-height: 185px;
+  border-radius:20px
 }
 
 .patron-detil:before {
   position: absolute;
   content: "";
   left: 0;
-  bottom: -36px;
+  bottom: -18px;
   width: 0;
   height: 0;
   border-left: 0px solid transparent;
   border-right: 33px solid transparent;
-  border-top: 36px solid #e2e2e2;
+  border-top: 36px solid #ffffff;
 }
 
 .patron-img {
@@ -2736,6 +2737,7 @@ section {
 .patron-img span img {
   position: absolute;
   top: -23px;
+  border-radius: 50%;
 }
 
 .patron {
@@ -2792,7 +2794,7 @@ section {
 }
 
 body.pad-top .secondary-menu {
-  position: fixed;
+  /* position: fixed; */
   top: 112px;
   width: 100%;
   animation-name: fadeInDown;
@@ -4797,30 +4799,7 @@ ul.track-order li.active h5 {
 .patrons-saying {
   background: #212363;
 }
-
-.patron-detil {
-  background-color: #fff;
-  padding: 40px 28px;
-  font-weight: 400;
-  font-size: 16px;
-  position: relative;
-  line-height: 20px;
-  margin-bottom: 40px;
-  font-family: "Mulish", sans-serif;
-  color: #000000;
-}
-
-.patron-detil:before {
-  position: absolute;
-  content: "";
-  left: 0;
-  bottom: -36px;
-  width: 0;
-  height: 0;
-  border-left: 0px solid transparent;
-  border-right: 33px solid transparent;
-  border-top: 36px solid #e2e2e2;
-}
+ 
 
 .patron-img {
   margin-left: 20px;
@@ -4834,13 +4813,7 @@ ul.track-order li.active h5 {
   font-family: "Quicksand", sans-serif;
   color: #ffffff;
   padding-left: 65px;
-}
-
-.patron-img span img {
-  position: absolute;
-  top: -23px;
-}
-
+} 
 .patron {
   margin: 0px 8px;
 }
@@ -4895,7 +4868,7 @@ ul.track-order li.active h5 {
 }
 
 body.pad-top .secondary-menu {
-  position: fixed;
+  /* position: fixed; */
   top: 112px;
   width: 100%;
   animation-name: fadeInDown;
