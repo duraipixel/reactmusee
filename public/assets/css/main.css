@@ -1151,8 +1151,9 @@ section {
 } */
 
 .the-trending {
-  background: url("../images/bg-2.jpg") no-repeat rgba(0, 0, 0, 0);
-  background-size: cover;
+  /* background: url("../images/bg-2.jpg") no-repeat rgba(0, 0, 0, 0); */
+  background-size: cover !important;
+  background-attachment: fixed !important;
 }
 
 .trending-slider {

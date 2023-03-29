@@ -1,10 +1,10 @@
 import Slider from "react-slick"
 import CardComponent from "./CardComponent"
 
-function ProductSlider({ data }) { 
+function ProductSlider({ data }) {
     return (
         data && data.map((item, index) => (
-            <section className="the-trending text-center" key={index}>
+            <section className="the-trending text-center" style={{ background: `url('${String(item.banner_image)}')` }} key={index}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -18,15 +18,13 @@ function ProductSlider({ data }) {
                                     </div>
                                 </div>
                                 <MySlider delay={Number(index + 2000)}>
-                                    {
-                                        item.products && item.products.map((item, i) => (
-                                            <CardComponent key={i} settings={{
-                                                data: item,
-                                                index: i,
-                                                badge: false
-                                            }} />
-                                        ))
-                                    }
+                                    {item.products && item.products.map((item, i) => (
+                                        <CardComponent key={i} settings={{
+                                            data: item,
+                                            index: i,
+                                            badge: false
+                                        }} />
+                                    ))}
                                 </MySlider>
                             </div>
                         </div>
@@ -37,7 +35,7 @@ function ProductSlider({ data }) {
     )
 }
 
-function MySlider({children,delay}) {
+function MySlider({ children, delay }) {
     const settings = {
         autoplay: true,
         autoplaySpeed: delay,
@@ -66,7 +64,7 @@ function MySlider({children,delay}) {
             },
         },]
     }
-    return  <Slider {...settings} className="trending-slider" >{children}</Slider>
+    return <Slider {...settings} className="trending-slider" >{children}</Slider>
 }
 
 export default ProductSlider

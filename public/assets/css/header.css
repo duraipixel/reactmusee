@@ -156,6 +156,7 @@ nav {
 #cssmenu>ul {
     float: right;
     overflow: hidden;
+    padding: 0 !important;
 }
 
 #cssmenu>ul:hover {
@@ -399,7 +400,7 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
 .top-bar.top-fix {
     position: fixed;
     width: 100%;
-    top: 0;
+    top: -13px;
 }
 
 .fixed-top{z-index: 10;}
