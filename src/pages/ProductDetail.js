@@ -155,13 +155,13 @@ export const ProductDetail = () => {
                                         <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
                                     </div>
                                     <div className='col-lg-6'>
-                                        <div claclassName="small mb-1">SKU: {productInfo.sku}</div>
-                                        <h1 claclassName="fw-bolder h3">{productInfo.product_name}</h1>
-                                        <div claclassName="fs-5 mb-3 text-dark">
-                                            {productInfo.sale_prices.strike_rate_original > 0 && <span claclassName="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                        <div className="small mb-1">SKU: {productInfo.sku}</div>
+                                        <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
+                                        <div className="fs-5 mb-3 text-dark">
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
                                             <span>₹{productInfo.mrp_price}</span>
                                         </div>
-                                        <div claclassName="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
+                                        <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <>

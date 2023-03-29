@@ -57,7 +57,7 @@ const Summary = () => {
           </div> */}
           <div className="col-lg-4 ">
             <Link to="/profile" className="ms-3 text-secondary">
-              <i claclassName="bi bi-chevron-left"></i> My Orders
+              <i className="bi bi-chevron-left"></i> My Orders
             </Link>
             <h4 className="text-primary ms-3 my-3">Your order History</h4>
             {orderInfo.items && orderInfo.items.length > 0 && <TimeLineContent orders={orderInfo} />}
@@ -65,11 +65,11 @@ const Summary = () => {
           <div className="col-lg-6">
             <div className="card my-3">
               <div className="card-body">
-                <h2 claclassName="h5 mb-3">Summary</h2>
-                <ul claclassName="list-group">
+                <h2 className="h5 mb-3">Summary</h2>
+                <ul className="list-group">
                   {
                     orderInfo.items && orderInfo.items.length > 0 && orderInfo.items.map((pro, i) => (
-                      <li claclassName="list-group-item d-sm-flex  justify-content-between">
+                      <li className="list-group-item d-sm-flex  justify-content-between">
                         <div className="d-sm-flex m-0">
                           <div className="py-2">
                             <img src={pro.image} width="50px" className="me-2" />
@@ -88,11 +88,11 @@ const Summary = () => {
             </div>
             <div className="card my-3">
               <div className="card-body">
-                <ul claclassName="list-unstyled fs-sm m-0">
-                  <li claclassName="d-flex justify-content-between align-items-center mb-1"><span claclassName="me-2">Subtotal:</span><span claclassName="text-end">₹{orderInfo?.sub_total}</span></li>
-                  {orderInfo.tax_amount > 0 && <li claclassName="d-flex justify-content-between align-items-center"><span claclassName="me-2">Taxes:</span><span claclassName="text-end">₹{orderInfo?.tax_amount}</span></li>}
-                  {orderInfo.shipping_amount > 0 && <li claclassName="d-flex justify-content-between align-items-center fs-base"><span claclassName="me-2">Total:</span><span claclassName="text-end">₹{orderInfo?.shipping_amount}</span></li>}
-                  <li claclassName="text-dark d-flex justify-content-between align-items-center fs-6 mt-2"><span claclassName="me-2 fw-bold">Total:</span><span claclassName="text-end fw-bold fs-5">₹{orderInfo?.amount}</span></li>
+                <ul className="list-unstyled fs-sm m-0">
+                  <li className="d-flex justify-content-between align-items-center mb-1"><span className="me-2">Subtotal:</span><span className="text-end">₹{orderInfo?.sub_total}</span></li>
+                  {orderInfo.tax_amount > 0 && <li className="d-flex justify-content-between align-items-center"><span className="me-2">Taxes:</span><span className="text-end">₹{orderInfo?.tax_amount}</span></li>}
+                  {orderInfo.shipping_amount > 0 && <li className="d-flex justify-content-between align-items-center fs-base"><span className="me-2">Total:</span><span className="text-end">₹{orderInfo?.shipping_amount}</span></li>}
+                  <li className="text-dark d-flex justify-content-between align-items-center fs-6 mt-2"><span className="me-2 fw-bold">Total:</span><span className="text-end fw-bold fs-5">₹{orderInfo?.amount}</span></li>
                 </ul>
               </div>
             </div>

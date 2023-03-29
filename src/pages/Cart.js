@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from 'react'
-import { AddressForm } from '../components/Cart/AddressForm'
 import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
 import { ShippingAddress } from '../components/Cart/ShippingAddress'
@@ -12,7 +11,6 @@ import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
 import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
-import { setShippingCharges } from '../app/reducer/shippingChargesSlice'
 import { fetchCarts } from '../app/reducer/cartSlice'
 import { Helmet } from 'react-helmet';
 import { AddressList } from '../components/Cart/AddressList'
