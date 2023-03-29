@@ -13,7 +13,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
     const location = useLocation();
     const [searchShow, setSearchShow] = useState(false);
     const searchParams = new URLSearchParams(location.search);
-    
+
     const openSideBar = () => {
         dispatch(isOpenSideBar());
     }
@@ -24,11 +24,11 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
     const handleSearchModalClose = () => {
         setSearchShow(false)
-    }
+    } 
 
     return (
         <Fragment>
-            <header className={`${isTopPage ? 'fixed-top' : ''}`}>
+            <header className={`${isTopPage ? 'fixed-top' : ''}`} id="headerNavbar">
                 <div className="container">
                     <div className="row">
                         <div className="col">

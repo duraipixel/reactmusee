@@ -19,7 +19,7 @@ function ProductFeatures({ data }) {
                         ))}
                     </TabList>
                 </Box>
-                {data.map((item, i) => (
+                {data && data.map((item, i) => (
                     <TabPanel key={i} value={item.name}>
                         {typeof (item.data) === 'string' && <div dangerouslySetInnerHTML={{ __html: item.data }}></div>}
                         {

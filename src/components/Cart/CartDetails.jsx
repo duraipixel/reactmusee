@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { clearCart } from '../../app/reducer/cartSlice';
 import './cart.css';
 import { RocketShippingFee } from './RocketShippingFee';
+import { Button } from 'rsuite';
+import { Tooltip } from '@mui/material';
 
 
 export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
@@ -17,7 +19,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const navigate = useNavigate();
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
-    const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
+    // const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
 
     const handlePayment = async () => {
         setCheckoutFormLoading(true);
@@ -123,10 +125,63 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     }
 
-    
+
     return (
         <Fragment >
-            <div className="cart-boduy">
+            <h5 className='text-primary mb-2 text-center fw-bold text-uppercase'>Cart Details</h5>
+            <div className="card mb-3">
+                <div className="card-body">
+                    <ul className="list-group mb-3">
+                        <li className="list-group-item d-flex justify-content-between">
+                            <b>Sub Total</b>
+                            <span className='text-dark fw-bold'>₹{cart_total.product_tax_exclusive_total}</span>
+                        </li>
+                        <li className="list-group-item d-flex justify-content-between">
+                            <b>Taxes</b>
+                            <span className='text-dark fw-bold'>₹{cart_total.tax_total}</span>
+                        </li>
+                    </ul>
+                    <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} />
+                    <ul className="list-group my-3">
+                        <li className="list-group-item d-flex justify-content-between align-items-end">
+                            <b className='lead'>Grand Total</b>
+                            <span className='text-dark fw-bold lead'>₹{cart_total.total}</span>
+                        </li>
+                    </ul>
+                    {shippingAddress &&
+                        <ul className="list-group my-3">
+                            <li className="list-group-item">
+                                <b className='text-capitalize text-primary'>
+                                    <i className="fa fa-map-marker"></i>  {shippingAddress.name}
+                                </b>
+                                <div className='text-secondary fw-bold'>
+                                    {shippingAddress.address_line1},
+                                    {shippingAddress.city}
+                                    {shippingAddress.state}
+                                    {shippingAddress.post_code}
+                                </div>
+                            </li>
+                        </ul>
+                    }
+                    <div className='mb-1 fw-bold text-primary'>
+                        Have a Coupon?
+                        <Tooltip title="Get More, Spend Less!" placement="top-start" arrow>
+                            <i className="fa fa-info-circle ms-1 text-secondary"></i>
+                        </Tooltip>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control border" placeholder='Enter here..' />
+                        <Button  className="btn text-white bg-dark" >Apply</Button>
+                    </div>
+                    <Button className='bg-primary text-white w-100 text-uppercase' size='lg' onClick={() => handlePayment()} loading={checkoutFormloading}>
+                        {checkoutFormloading && (
+                            <span className="spinner-grow spinner-grow-sm"></span>
+                        )}
+                        Proceed to Checkout
+                    </Button>
+                </div>
+            </div>
+            {/* <div className="cart-boduy">
                 <h4>Cart Details</h4>
                 <h5>Cart Subtotal</h5>
                 <table className="table table-borderless">
@@ -165,7 +220,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     <tbody>
                         <tr>
                             <td>Ship To:</td>
-                            {/* <td><a href="">Changes Address</a></td> */}
+                            <td><a href="">Changes Address</a></td>
                         </tr>
                         <tr>
                             {shippingAddress &&
@@ -183,6 +238,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 </table>
 
                 <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} />
+
                 <div className="line-spacer"></div>
                 <div className="line-spacer"></div>
                 <table className="table table-borderless end-point">
@@ -204,7 +260,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     </tbody>
                 </table>
 
-            </div>
+            </div> */}
         </Fragment>
     )
 }

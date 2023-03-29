@@ -3,45 +3,44 @@ import { Fragment } from 'react'
 export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
 
     const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : [];
-    
+
     return (
         <Fragment>
             {
                 cartInfo.shipping_charges ? (
                     <Fragment>
-                        <h5>Select Shipping Speed</h5>
-                        <table className="table table-borderless customRadio">
-                            <tbody>
-                                {
-                                    cartInfo.shipping_charges.map((item) => (
-                                        <tr key={item.id}>
-                                            <td>
-                                                <input type="radio" checked={`${cartInfo.shipping_id == item.id ? 'checked' : ''}`} onClick={() => updateCartAmount(item.id)} name="shippingChargeId" id={`ship${item.id}`} value={item.id} />
-                                                <label htmlFor={`ship${item.id}`}>{item.shipping_title} <br /> <div className='shippingnotes'>{item.description}</div></label>
-
-                                            </td>
-                                            <td>
-                                                ₹{item.charges != 0 ? item.charges : 'Free'}
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
-                                {
-                                    shiprocket_charges && shiprocket_charges.length > 0 && shiprocket_charges.map((items, i) => (
-                                        <tr key={i}>
-                                            <td>
-                                                <input type="radio" checked={`${cartInfo.shipping_id == items.id ? 'checked' : ''}`} onClick={() => updateCartAmount(items.id, 'rocket')} name="shippingChargeId" id={`ship${items.id}`} value={items.id} />
-                                                <label htmlFor={`ship${items.id}`}>{items.courier_name} <br />
-                                                </label>
-                                            </td>
-                                            <td>
+                        <div className='lead fs-6 my-2 text-primary'>Select Shipping Speed</div>
+                        <ul className="list-group customRadio">
+                            {
+                                cartInfo.shipping_charges.map((item) => (
+                                    <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-end" key={item.id}>
+                                        <div>
+                                            <input type="radio" checked={`${cartInfo.shipping_id == item.id ? 'checked' : ''}`} onClick={() => updateCartAmount(item.id)} name="shippingChargeId" id={`ship${item.id}`} value={item.id} />
+                                            <label htmlFor={`ship${item.id}`}>{item.shipping_title} <br /> <div className='shippingnotes'>{item.description}</div></label>
+                                        </div>
+                                        <div>
+                                            <span className='text-dark fw-bold'>₹{item.charges != 0 ? item.charges : 'Free'}</span>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                            {
+                                shiprocket_charges && shiprocket_charges.length > 0 && shiprocket_charges.map((items, i) => (
+                                    <li className="list-group-item d-flex justify-content-between align-items-end" key={i}>
+                                        <div>
+                                            <input type="radio" checked={`${cartInfo.shipping_id == items.id ? 'checked' : ''}`} onClick={() => updateCartAmount(items.id, 'rocket')} name="shippingChargeId" id={`ship${items.id}`} value={items.id} />
+                                            <label htmlFor={`ship${items.id}`}>{items.courier_name} <br />
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <span className='text-dark fw-bold'>
                                                 ₹{items.amount.length > 0 ? items.amount[1] : 'Free'}
-                                            </td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                                            </span>
+                                        </div>
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </Fragment>
                 ) : null
             }

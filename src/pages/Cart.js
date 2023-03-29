@@ -17,9 +17,7 @@ import { AddressList } from '../components/Cart/AddressList'
 import { WaveSpinner } from "react-spinners-kit";
 
 export const Cart = () => {
-
     const cart = useSelector((state) => state.cart);
-
     const defaultShipping = useSelector((state) => state.shipping_address);
     const charges = useSelector((state) => state.charges);
     const [cartLength, setCartlength] = useState(0);

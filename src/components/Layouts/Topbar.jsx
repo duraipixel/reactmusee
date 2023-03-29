@@ -7,7 +7,6 @@ import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
 import { MagicSpinner } from "react-spinners-kit";
 import './globalsearch.css';
-import { faCommentMedical } from '@fortawesome/free-solid-svg-icons';
 
 export default function Topbar({ isTopPage }) {
 
