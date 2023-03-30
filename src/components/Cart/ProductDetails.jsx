@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import { toast } from 'react-toastify';
-import { setCoupon } from '../../app/reducer/couponSlice';
+
 import { Button, InputGroup, InputNumber } from 'rsuite';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [loader, serLoader] = useState(false)
+    const [loader, setLoader] = useState(false)
     const increaseCartProduct = (product) => {
         let max_quantity = product.max_quantity;
         if (max_quantity == product.quantity) {
@@ -64,18 +64,25 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
     async function updateProduct(product, quantity) {
         // console.log( product );
-        serLoader(true)
+        setLoader(true)
         await axios({
             url: window.API_URL + '/update/cart',
             method: 'POST',
             data: { cart_id: product.cart_id, customer_id: product.customer_id, quantity: quantity, guest_token:product.guest_token },
         }).then((res) => {
+            
+            setLoader(false);
 
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            if( res.data.error == 1 ) {
+                toast.error(res.data.message);
+                setTimeout(() => navigate('/login'), 500)
+            } else {
 
-            getShippingRocketCharges('', '');
-            serLoader(false)
+                localStorage.setItem('cart', JSON.stringify(res.data));
+                dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+                getShippingRocketCharges('', '');
+            }
         }).catch((err) => {
 
         })
@@ -100,72 +107,9 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
     }
 
-    const applyCoupon = () => {
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-        if( !customer?.id) {
-            
-            toast.error('Login to add Coupon');
-            navigate('/login')
-        }
-       
+    
 
-
-        var coupon_code = document.getElementById('coupon').value;
-
-        if (coupon_code == '') {
-            toast.error('Coupon code is required');
-            document.getElementById('coupon').focus();
-            return false;
-        }
-        
-
-        axios({
-            url: window.API_URL + '/apply/coupon',
-            method: 'POST',
-            data: { coupon_code: coupon_code, customer_id: customer.id },
-
-        }).then((res) => {
-
-            if (res.data.status == 'error') {
-                toast.error(res.data.message);
-            } else if (res.data.status == 'success') {
-                toast.success(res.data.message);
-            }
-            dispatch(setCoupon(res.data));
-            localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
-            sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
-        }).catch((err) => {
-
-        })
-
-    }
-
-    const cancelCoupon = () => {
-        fetchCartProducts();
-        dispatch(setCoupon(''));
-        let cancelApplyBtn = document.getElementById('coupon');
-        cancelApplyBtn.value = '';
-    }
-
-    async function fetchCartProducts() {
-
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-
-        await axios({
-            url: window.API_URL + '/get/cart',
-            method: 'POST',
-            data: { customer_id: customer?.id, guest_token: localStorage.getItem('guest_token') || '' },
-        }).then((res) => {
-
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-
-        }).catch((err) => {
-
-        })
-    }
+    
 
     return (
         <Fragment>
@@ -274,7 +218,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                         </div>
                     ))
                 }
-                <div className='copon-code'>
+                {/* <div className='copon-code'>
                     <table>
                         <tr>
                             <td colSpan="4" style={{ border: '0px' }}>
@@ -295,7 +239,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                             </td>
                         </tr>
                     </table>
-                </div>
+                </div> */}
 
             </div>
         </Fragment>

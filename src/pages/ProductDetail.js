@@ -118,11 +118,18 @@ export const ProductDetail = () => {
             method: 'POST',
             data: res_data,
         }).then((res) => {
+            
+            if( res.data.error == 1 ) {
+                toast.error(res.data.message);
+                setTimeout(() => navigate('/login'), 500)
+            } else {
 
-            toast.success('Product added successfully ');
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
-            setTimeout(() => setloader(false), 500)
+                toast.success('Product added successfully ');
+                localStorage.setItem('cart', JSON.stringify(res.data));
+                dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+                setTimeout(() => setloader(false), 500)
+            }
+
         });
     }
 

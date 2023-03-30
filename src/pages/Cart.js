@@ -3,7 +3,7 @@ import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
 import { ShippingAddress } from '../components/Cart/ShippingAddress'
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
@@ -36,6 +36,7 @@ export const Cart = () => {
     const [addressType, setAddressType] = useState([]);
     const [rocketCharges, setRocketCharges] = useState([]);
     const [states, setStates] = useState('');
+    const navigate = useNavigate();
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -99,7 +100,6 @@ export const Cart = () => {
         }
 
         if (!states) {
-
             getAllStates();
         }
 
@@ -210,8 +210,12 @@ export const Cart = () => {
     }
 
     async function updateCartAmount(shipping_id, type = '') {
-
         const customer = JSON.parse(window.localStorage.getItem('customer'));
+        if( !customer?.id) {
+            
+            toast.error('Login to Apply Shipping Charges');
+            navigate('/login')
+        }  
         await axios({
             url: window.API_URL + '/update/cartAmount',
             method: 'POST',

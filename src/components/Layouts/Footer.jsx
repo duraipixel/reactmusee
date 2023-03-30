@@ -1,11 +1,13 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom';
-import { useTopMenuQuery } from '../../app/services/topMenuApi';
+import { useQuickLinkQuery } from '../../app/services/quickLinkApi';
 import './footer.css';
 
 
 export default function Footer({getSubMenu}) {
-    const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
+    
+    const { data, error, isLoading, isFetching, isSuccess } = useQuickLinkQuery();
+    
     return (
         <Fragment>
             <footer>
@@ -41,15 +43,15 @@ export default function Footer({getSubMenu}) {
                                 {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
-                                                <label className='footer_links' onClick={() => getSubMenu(item.slug)}> 
+                                                {/* <label className='footer_links' onClick={() => getSubMenu(item.slug)}> 
                                                     {item.name}
-                                                </label>
+                                                </label> */}
+                                                <a href={item.url}> {item.name}</a>
+                                                {/* <Link to={item.url} target="_blank">{item.name}</Link> */}
                                             </li>
                                         ))
                                     }
-                                    <li>
-                                        <Link to='/brand'>Shop by Brand</Link>
-                                    </li>
+                                   
                                 </ul>
                             </div>
 

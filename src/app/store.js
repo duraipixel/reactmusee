@@ -15,6 +15,7 @@ import customerSlice from "./reducer/customerSlice";
 import couponSlice from "./reducer/couponSlice";
 import customerAddressSlice from "./reducer/customerAddressSlice";
 import sideMenuBarSlice from "./reducer/sideMenuBarSlice";
+import { quickLinkApi } from './services/quickLinkApi';
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   [topMenuApi.reducerPath]: topMenuApi.reducer,
+  [quickLinkApi.reducerPath]:quickLinkApi.reducer,
   products: productFilterSlice,
   browse: otherCategorySlice,
   attempt_cart: attemptedCartReducer,
@@ -41,5 +43,5 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(topMenuApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(topMenuApi.middleware).concat(quickLinkApi.middleware)
 })

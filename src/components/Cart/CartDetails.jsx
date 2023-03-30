@@ -6,19 +6,23 @@ import useRazorpay from 'react-razorpay';
 import { toast } from 'react-toastify';
 import { setPaymentResponse } from '../../app/reducer/paymentResponseSlice';
 import { useNavigate } from 'react-router-dom';
-import { clearCart } from '../../app/reducer/cartSlice';
+import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import './cart.css';
 import { RocketShippingFee } from './RocketShippingFee';
 import { Button } from 'rsuite';
 import { Tooltip } from '@mui/material';
+import { setCoupon } from '../../app/reducer/couponSlice';
 
 
 export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
-    // const coupon = useSelector((state) => state.coupon);
+    
+    const coupon = useSelector((state) => state.coupon);
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
+    const [isLoadingCoupon, setIsLoadingCoupon] = useState(false);
     // const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
 
     const handlePayment = async () => {
@@ -119,6 +123,71 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     }
 
+    const applyCoupon = () => {
+        setIsLoadingCoupon(true);
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        if( !customer?.id) {
+            
+            toast.error('Login to Apply Coupon');
+            navigate('/login')
+        }    
+        var coupon_code = document.getElementById('coupon').value;
+
+        if (coupon_code == '') {
+            toast.error('Coupon code is required');
+            document.getElementById('coupon').focus();
+            setIsLoadingCoupon(false);
+            return false;
+        }
+
+        axios({
+            url: window.API_URL + '/apply/coupon',
+            method: 'POST',
+            data: { coupon_code: coupon_code, customer_id: customer.id },
+
+        }).then((res) => {
+            setIsLoadingCoupon(false);
+            if (res.data.status == 'error') {
+                toast.error(res.data.message);
+            } else if (res.data.status == 'success') {
+                toast.success(res.data.message);
+            }
+            dispatch(setCoupon(res.data));
+            localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
+            sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
+
+    }
+
+    const cancelCoupon = () => {
+        fetchCartProducts();
+        dispatch(setCoupon(''));
+        let cancelApplyBtn = document.getElementById('coupon');
+        cancelApplyBtn.value = '';
+    }
+
+    async function fetchCartProducts() {
+
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+
+        await axios({
+            url: window.API_URL + '/get/cart',
+            method: 'POST',
+            data: { customer_id: customer?.id, guest_token: localStorage.getItem('guest_token') || '' },
+        }).then((res) => {
+
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
+        }).catch((err) => {
+
+        })
+    }
+
 
     return (
         <Fragment >
@@ -165,7 +234,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     </div>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control border" placeholder='Enter here..' />
-                        <Button className="btn text-white bg-dark">Apply</Button>
+                        <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()}>Apply</Button>
                         {/* loading={true} */}
                     </div>
                     <Button className='btn-dark text-white w-100' size='lg'
