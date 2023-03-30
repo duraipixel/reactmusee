@@ -1,32 +1,34 @@
 import { Button, Checkbox, Radio, RadioGroup, Typography } from '@mui/material';
 import { Fragment } from 'react'
-import './cart.css';
 import { MdAddLocation } from "react-icons/md";
+import { Panel, PanelGroup } from 'rsuite';
+import './cart.css';
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
     return (
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
-                SET Address
+                Choose Address
                 <Button variant="outlined">
-                    <MdAddLocation size={20} className="me-1"/>
-                    create
+                    <MdAddLocation size={20} className="me-1" />
+                    Add Address
                 </Button>
             </h5>
-            <div className="card">
-                <div className="card-header py-2 d-flex align-items-center">
+            <div className="card mb-3">
+                <div className="card-body py-2 d-flex align-items-center">
                     <Checkbox id='same_as_billing' color='secondary' />
                     <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
                         Set Shipping address same as Billing Address
                     </Typography>
                 </div>
-                <div className="card-body">
-                    <div class="lead fs-6 my-2 text-primary">Shipping Address</div>
+            </div>
+            <PanelGroup accordion defaultActiveKey={1} bordered className='bg-white'>
+                <Panel header="Shipping Address" eventKey={1} id="panel1">
                     <RadioGroup className='list-group'>
                         <label for="address_one" class="list-group-item list-group-item-action d-flex">
                             <Radio value="radioA" name='shipping_address' id='address_one' />
                             <div className='ps-3'>
-                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  aec customer</b>
+                                <b class="text-capitalize text-primary"> aec customer</b>
                                 <div>
                                     customer@aecprefab.net, 1234567890
                                     Holt and Harrington LLCÅlesund Tamil nadu 6020
@@ -36,7 +38,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                         <label for="address_two" class="list-group-item list-group-item-action d-flex">
                             <Radio value="radioB" name='shipping_address' id='address_two' />
                             <div className='ps-3'>
-                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  Surya</b>
+                                <b class="text-capitalize text-primary"> Surya</b>
                                 <div>
                                     Surya@Surya.net, 1234567890
                                     Holt and Harrington LLCÅlesund Tamil nadu 6020
@@ -44,13 +46,13 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                             </div>
                         </label>
                     </RadioGroup>
-                    <hr />
-                    <div class="lead fs-6 my-2 text-primary">Billing Address</div>
+                </Panel>
+                <Panel header="Billing Address" eventKey={2} id="panel2">
                     <RadioGroup className='list-group'>
                         <label for="billing_address_one" class="list-group-item list-group-item-action d-flex">
                             <Radio value="radioA" name='billing_address' id='billing_address_one' />
                             <div className='ps-3'>
-                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  aec customer</b>
+                                <b class="text-capitalize text-primary"> aec customer</b>
                                 <div>
                                     customer@aecprefab.net, 1234567890
                                     Holt and Harrington LLCÅlesund Tamil nadu 6020
@@ -60,7 +62,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                         <label for="billing_address_two" class="list-group-item list-group-item-action d-flex">
                             <Radio value="radioB" name='billing_address' id='billing_address_two' />
                             <div className='ps-3'>
-                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  Surya</b>
+                                <b class="text-capitalize text-primary"> Surya</b>
                                 <div>
                                     Surya@Surya.net, 1234567890
                                     Holt and Harrington LLCÅlesund Tamil nadu 6020
@@ -68,8 +70,8 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                             </div>
                         </label>
                     </RadioGroup>
-                </div>
-            </div>
+                </Panel>
+            </PanelGroup>
             {/* <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
                 <div className="line-spacer"></div>
