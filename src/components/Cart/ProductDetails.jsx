@@ -6,11 +6,13 @@ import { toast } from 'react-toastify';
 import { setCoupon } from '../../app/reducer/couponSlice';
 import { InputGroup, InputNumber } from 'rsuite';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
 
     const coupon = useSelector((state) => state.coupon);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const increaseCartProduct = (product) => {
         let max_quantity = product.max_quantity;
@@ -39,10 +41,11 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     async function clearCustomerCart() {
 
         let customer = JSON.parse(window.localStorage.getItem('customer'));
+
         await axios({
             url: window.API_URL + '/clear/cart',
             method: 'POST',
-            data: { customer_id: customer.id },
+            data: { customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '' },
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
@@ -59,11 +62,11 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     async function updateProduct(product, quantity) {
-
+        // console.log( product );
         await axios({
             url: window.API_URL + '/update/cart',
             method: 'POST',
-            data: { cart_id: product.cart_id, customer_id: product.customer_id, quantity: quantity },
+            data: { cart_id: product.cart_id, customer_id: product.customer_id, quantity: quantity, guest_token:product.guest_token },
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
@@ -81,7 +84,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         await axios({
             url: window.API_URL + '/delete/cart',
             method: 'POST',
-            data: { cart_id: product.cart_id, customer_id: product.customer_id },
+            data: { cart_id: product.cart_id, customer_id: product.customer_id, guest_token:product.guest_token },
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
@@ -96,6 +99,14 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     const applyCoupon = () => {
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        if( !customer?.id) {
+            
+            toast.error('Login to add Coupon');
+            navigate('/login')
+        }
+       
+
 
         var coupon_code = document.getElementById('coupon').value;
 
@@ -104,7 +115,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             document.getElementById('coupon').focus();
             return false;
         }
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        
 
         axios({
             url: window.API_URL + '/apply/coupon',
@@ -143,7 +154,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         await axios({
             url: window.API_URL + '/get/cart',
             method: 'POST',
-            data: { customer_id: customer.id },
+            data: { customer_id: customer?.id, guest_token: localStorage.getItem('guest_token') || '' },
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));
@@ -201,46 +212,30 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             {/* <table className="table table-bordered desky-verson">
                 <thead>
                     <tr>
-                        <th>&nbsp;</th>
+                        <th></th>
                         <th>Product</th>
-                        <th>&nbsp;</th>
-                        <th width="130"> Price </th>
-                        <th width="130"> Quantity </th>
-                        <th width="130"> SubTotal </th>
+                        <th></th>
+                        <th width="130">Price</th>
+                        <th width="130">Quantity</th>
+                        <th width="130">SubTotal</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         cart && Object.entries(cart).map((key, item) => (
                             <tr key={key}>
-                                <td>
-                                    <button onClick={() => removeCartProduct(cart[item])}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                                <td>
-                                    <img className="prdt-clsimg" src={cart[item].image} />
-                                </td>
-                                <td>
-                                    {cart[item].product_name}
-                                </td>
-                                <td>
-                                    <span className="price"> ₹{cart[item].price} </span>
-                                </td>
-                                <td>
-                                    <button onClick={() => decreaseCartProduct(cart[item])}><img src="/assets/images/sub.png" /></button>
-                                    <span>{cart[item].quantity}</span>
-                                    <button onClick={() => increaseCartProduct(cart[item])}><img src="/assets/images/add.png" /></button>
-                                </td>
-                                <td>
-                                    <span className="price"> ₹{cart[item].sub_total} </span>
-                                </td>
+                                <td><button onClick={() => removeCartProduct(cart[item])}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
+                                <td><img className="prdt-clsimg" src={cart[item].image} /></td>
+                                <td>{cart[item].product_name}</td>
+                                <td><span className="price">₹{cart[item].price}</span></td>
+                                <td><button onClick={() => decreaseCartProduct(cart[item])}><img src="/assets/images/sub.png" /></button><span>{cart[item].quantity}</span><button onClick={() => increaseCartProduct(cart[item])}><img src="/assets/images/add.png" /></button></td>
+                                <td><span className="price">₹{cart[item].sub_total}</span></td>
                             </tr>
                         ))
                     }
 
                     <tr>
-                        <td colSpan="4" style={{ border: '0px' }}>
-                            Have a Coupon?
-                            <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={coupon.value.coupon_code} disabled={coupon.value.coupon_code ? 'disabled' : ''} maxLength="6" />
+                        <td colSpan="4" style={{ border: '0px' }}>Have a Coupon?<input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={coupon.value.coupon_code} disabled={coupon.value.coupon_code ? 'disabled' : ''} maxLength="6" />
                             {
                                 cart_total.coupon_code ?
                                     <button type='button' onClick={() => cancelCoupon()} >Cancel</button>

@@ -89,11 +89,12 @@ export const Login = () => {
     }
 
     async function doLoginCustomer(formData) {
+        const form_data = {...formData, guest_token: localStorage.getItem('guest_token') || ''}
         setLoginFormLoader(true);
         axios({
             url: window.API_URL + '/login',
             method: 'POST',
-            data: formData,
+            data: form_data,
         }).then((res) => {
             setLoginFormLoader(false);
             if (res.data.error == 1) {
@@ -107,7 +108,7 @@ export const Login = () => {
                 toast.success( window.LOGIN_SUCCESS_MSG);
 
                 if (res.data.customer_data) {
-
+                    localStorage.removeItem('guest_token');
                     localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
 
                     dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
@@ -127,7 +128,8 @@ export const Login = () => {
                     getSiteInformation();
                 }
                 console.log('pofile');
-                navigate('/profile');
+                // navigate('/profile');
+                navigate(-1);
 
             }
             

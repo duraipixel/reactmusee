@@ -197,7 +197,7 @@ export const Cart = () => {
             }
         }).catch((err) => {
         })
-
+        
     }
 
     const proceedCheckout = () => {

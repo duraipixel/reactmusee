@@ -17,8 +17,12 @@ import { Button, Chip, Tooltip } from '@mui/material';
 import { InputGroup, InputNumber } from 'rsuite';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import ProductFeatures from '../components/ProductFeatures';
+import { v4 as uuid } from 'uuid';
+
 
 export const ProductDetail = () => {
+    const unique_id = uuid();
+
     const [productInfo, SetProductInfo] = useState(null);
     const [productSelectedQuantity, setProductSelectedQuantity] = useState(1);
     const customer = useSelector((state) => state.customer);
@@ -59,7 +63,7 @@ export const ProductDetail = () => {
 
     const reduceCart = () => {
         if (productSelectedQuantity == 1) {
-
+            //can do this alert
         } else {
             setProductSelectedQuantity(productSelectedQuantity - 1);
         }
@@ -68,29 +72,34 @@ export const ProductDetail = () => {
     const increaseCart = () => {
 
         if (productInfo.max_quantity == productSelectedQuantity) {
-            toast.error('Product quantity reached max limit');
+            // toast.error('Product quantity reached max limit');
         } else {
             setProductSelectedQuantity(productSelectedQuantity + 1);
         }
     }
 
     const handleAddToCart = (product) => {
+        
         setloader(true)
-        if (customer.value) {
-        } else {
-            toast.error('Login to add Carts');
-            dispatch(attemptToCart(product));
-            setTimeout(() => {
-                navigate('/login');
-                setloader(false)
-            }, 200);
-        }
+        addCartProduct(product);
+        // if (customer.value) {
+        // } else {
+        //     toast.error('Login to add Carts');
+        //     dispatch(attemptToCart(product));
+        //     setTimeout(() => {
+        //         navigate('/login');
+        //         setloader(false)
+        //     }, 200);
+        // }
     }
     async function addCartProduct(item) {
-
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-        const res_data = { ...item, customer_id: customer?.id || '', quantity: productSelectedQuantity };
-
+        if(!window.localStorage.getItem('guest_token') &&  !customer?.id ) {
+            localStorage.setItem('guest_token', unique_id);
+        }
+        
+        const res_data = { ...item, customer_id: customer?.id ||'', guest_token: localStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
+        console.log( res_data );
         await axios({
             url: window.API_URL + '/add/cart',
             method: 'POST',
@@ -171,9 +180,15 @@ export const ProductDetail = () => {
                                                             <AiOutlineMinus />
                                                         </InputGroup.Button>
                                                         <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
-                                                        <InputGroup.Button onClick={increaseCart} className="border-start">
-                                                            <AiOutlinePlus />
-                                                        </InputGroup.Button>
+                                                        {productInfo.max_quantity == productSelectedQuantity ?
+                                                            <InputGroup.Button className="border-start">
+                                                                <AiOutlinePlus />
+                                                            </InputGroup.Button>
+                                                            :
+                                                            <InputGroup.Button onClick={increaseCart} className="border-start">
+                                                                <AiOutlinePlus />
+                                                            </InputGroup.Button>
+                                                        }
                                                     </InputGroup>
                                                     <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
                                                     <Tooltip title="Book a video shopping" arrow placement="top">
