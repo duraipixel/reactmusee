@@ -15,6 +15,7 @@ import { InputGroup, InputNumber } from 'rsuite';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import ProductFeatures from '../components/ProductFeatures';
 import { v4 as uuid } from 'uuid';
+import { PopupWidget } from 'react-calendly';
 
 
 export const ProductDetail = () => {
@@ -212,12 +213,9 @@ export const ProductDetail = () => {
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <div>
-                                                <div className='my-3'>
+                                                <div className='my-3 d-inline-flex'>
                                                     <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
-                                                    <Button variant="outlined">
-                                                        <BsChat className="me-1"/>
-                                                        Talk to our experts
-                                                    </Button>
+                                                    <PopupWidget url="https://calendly.com/museemusical/30min" text="Talk to our experts" prefill={prefillCalend} rootElement={document.getElementById("root")} />
                                                 </div>
 
                                                 {/* <div className='d-flexs my-3 align-items-center'>

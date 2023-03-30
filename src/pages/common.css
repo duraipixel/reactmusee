@@ -33,23 +33,25 @@ img.payment-success-image {
   right: 0;
   top: -2px;
 }
-
+.calendly-badge-widget .calendly-badge-content:hover {
+  background : #505960 !important;
+  color: white !important;
+}
 .calendly-badge-widget .calendly-badge-content {
+  display: inline-block !important;
   box-shadow: none !important;
   padding: 0px !important;
   font-family: "Quicksand", sans-serif !important;
-  color: #1a1a1a !important;
+  color: #505960 !important;
   transition: all 0.3s ease;
-  border: none !important;
-  border-radius: 50%;
+  border: 1px solid #e6e6e6 !important;
+  border-radius: 5px !important;
   background: white !important;
   position: relative;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  height: 40px !important;
-  width: 40px !important;
-  box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12) !important;
+  /* width: 40px !important; */
+  padding: 10px 15px !important;
+  text-transform: uppercase;
+  box-shadow: none !important;
 }  
 .token-expired {
   font-size: 18px;
@@ -62,7 +64,7 @@ img.payment-success-image {
   padding: 12px 20px;
   background: #1a1a1a;
   border: 2px solid #ffffff;
-  border-radius: 4px;
+  border-radius: 4px !important;
   width: 100%;
   color: #fff;
   font-weight: 600;

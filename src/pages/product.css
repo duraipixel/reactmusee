@@ -19,13 +19,8 @@
   position: unset !important;
 }
 
-.calendly-badge-widget .calendly-badge-content {
-  /* content: '\F21B'; */
-  font-family: bootstrap-icons !important;
-  /* margin-right: 15px; */
-  border: var(--bs-border-width) var(--bs-border-style) gray !important;
-}
-
-.calendly-badge-widget .calendly-badge-content:hover {
-  background-color: #e8e8e8 !important;
-}
+.calendly-badge-widget .calendly-badge-content::before {
+  content: '\F21A';
+  font-family: bootstrap-icons !important; 
+  margin-right: 10px;
+} 
