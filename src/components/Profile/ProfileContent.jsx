@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Button, LinearProgress, Tooltip } from "@mui/material";
+import { BsFillPinFill } from "react-icons/bs";
 
 function ProfileContent({
   states,
@@ -57,7 +58,7 @@ function ProfileContent({
   return (
     <Container className="py-3" style={{ minHeight: '100vh' }}>
       <TabContext value={menu}>
-        <div className="card mb-3">
+        <div className="card m-0">
           <div className="h-200px rounded-top" style={{
             backgroundImage: "url('https://cdn.pixabay.com/photo/2018/07/28/11/08/guitar-3567767_960_720.jpg')",
             backgroundPosition: "center",
@@ -76,10 +77,13 @@ function ProfileContent({
                 <p>{customer.email}</p>
               </div>
               <div className="d-flex mt-3 justify-content-center ms-sm-auto">
-                <Button variant="contained" color="warning" type="button" className="me-2" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </Button>
-                <Tooltip title="Logout my account" arrow placement="top">
+                <Button variant="contained" color="secondary" type="button" className="me-2 text-white shadow-none border" onClick={() => handlePersonalShow()}>
+                  <i className="bi bi-pencil-fill me-1"></i>
+                  Edit profile
+                </Button>
+                <Tooltip title="click to logout your account" arrow placement="top">
                   <Button variant="contained" color="error" type="button" size="sm">
-                    <i className="bi bi-power fa-fw"></i>
+                    <i className="bi bi-power fa-fw me-1"></i> Logout
                   </Button>
                 </Tooltip>
               </div>
@@ -89,7 +93,7 @@ function ProfileContent({
               <li className="list-inline-item ms-2"><i className="bi bi-calendar2-plus me-1"></i> Joined on {join_date.getDay()}/{join_date.getMonth()}/{join_date.getFullYear()}</li>
             </ul>
           </div>
-          <div className="card-footer mt-3 p-0">
+          <div className="card-footer mt-3 p-0" style={{ overflow: 'hidden' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <TabList onChange={handleChange} variant="scrollable" scrollButtons="auto" >
                 <Tab label="My Orders" value="MY_ORDERS" />
@@ -116,7 +120,10 @@ function ProfileContent({
                             <p className="small mb-0 text-dark fw-bold"><i className="bi bi-currency-rupee "></i>{item.amount}</p>
                           </div>
                           <div>
-                            <Link className="btn btn-dark" to={`/ordersummary/${item.order_no}`}>Track Order</Link>
+                            <Link className="btn btn-light border btn-sm" to={`/ordersummary/${item.order_no}`}>
+                              <BsFillPinFill className="me-1" />
+                              Track Order
+                            </Link>
                           </div>
                         </div>
                         <ul className="list-group mt-2">
