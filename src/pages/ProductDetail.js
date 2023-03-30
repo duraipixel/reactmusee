@@ -31,6 +31,18 @@ export const ProductDetail = () => {
     const navigate = useNavigate();
     const [loader, setloader] = useState(false);
 
+    var calendlyPrefill = {
+        name: "", 
+        email: "",
+        customAnswers: {
+            a1: '',
+            a2: '',
+            a3: window.location.href,
+            a4: "I want to see the video demo for the product"
+        }
+    };
+
+    const [prefillCalend, setPrefillCalend] = useState(calendlyPrefill);
 
     const setRecentProduct = (product_url) => {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
@@ -54,6 +66,17 @@ export const ProductDetail = () => {
         fetch(window.API_URL + '/get/products/by/slug/' + product_url)
             .then((response) => response.json())
             .then((data) => {
+                
+                setPrefillCalend({
+                    name: "", 
+                    email: "",
+                    customAnswers: {
+                        a1: data.product_name,
+                        a2: data.sku,
+                        a3: window.location.href,
+                        a4: "I want to see the video demo for the product"
+                    }
+                });
                 SetProductInfo(data);
                 setRecentProduct(product_url);
             })
@@ -79,27 +102,20 @@ export const ProductDetail = () => {
     }
 
     const handleAddToCart = (product) => {
-        
+
         setloader(true)
         addCartProduct(product);
-        // if (customer.value) {
-        // } else {
-        //     toast.error('Login to add Carts');
-        //     dispatch(attemptToCart(product));
-        //     setTimeout(() => {
-        //         navigate('/login');
-        //         setloader(false)
-        //     }, 200);
-        // }
+
     }
+
     async function addCartProduct(item) {
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-        if(!window.localStorage.getItem('guest_token') &&  !customer?.id ) {
+        if (!window.localStorage.getItem('guest_token') && !customer?.id) {
             localStorage.setItem('guest_token', unique_id);
         }
+
+        const res_data = { ...item, customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
         
-        const res_data = { ...item, customer_id: customer?.id ||'', guest_token: localStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
-        console.log( res_data );
         await axios({
             url: window.API_URL + '/add/cart',
             method: 'POST',
@@ -120,14 +136,14 @@ export const ProductDetail = () => {
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
     }
-    // console.log( productInfo.sale_prices, 'productInfo');
-    return (
-        <Fragment>
 
-            {
-                productInfo !== null && (
-                    <>
-                        {
+return (
+    <Fragment>
+
+        {
+            productInfo !== null && (
+                <>
+                    {
                         /* <Helmet>
 
                             <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
@@ -142,93 +158,93 @@ export const ProductDetail = () => {
                             }
                         </Helmet> */}
 
-                        <section className="section product-details bg-white">
-                            <div className="container">
-                                <div className='row' >
-                                    <div className="col-lg-12">
-                                        <div className="accordion-table text-left pb-4">
-                                            <ul>
-                                                <li>{productInfo.parent_category_name}</li>
-                                                <li>
-                                                    <Link to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`} >
-                                                        {productInfo.category_name}
-                                                    </Link>
-                                                </li>
-                                                <li>
-                                                    {productInfo.product_name}
-                                                </li>
-                                            </ul>
-                                        </div>
+                    <section className="section product-details bg-white">
+                        <div className="container">
+                            <div className='row' >
+                                <div className="col-lg-12">
+                                    <div className="accordion-table text-left pb-4">
+                                        <ul>
+                                            <li>{productInfo.parent_category_name}</li>
+                                            <li>
+                                                <Link to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`} >
+                                                    {productInfo.category_name}
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                {productInfo.product_name}
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <div className='col-lg-6'>
-                                        <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
+                                </div>
+                                <div className='col-lg-6'>
+                                    <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
+                                </div>
+                                <div className='col-lg-6'>
+                                    <div className="small mb-1">SKU: {productInfo.sku}</div>
+                                    <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
+                                    <div className="fs-5 mb-3 text-dark">
+                                        {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                        <span>₹{productInfo.mrp_price}</span>
                                     </div>
-                                    <div className='col-lg-6'>
-                                        <div className="small mb-1">SKU: {productInfo.sku}</div>
-                                        <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
-                                        <div className="fs-5 mb-3 text-dark">
-                                            {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
-                                            <span>₹{productInfo.mrp_price}</span>
-                                        </div>
-                                        <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
-                                        {productInfo.stock_status != 'out_of_stock'
-                                            ?
-                                            <>
-                                                <div className='d-inline-flex mt-2'>
-                                                    <InputGroup className='border me-2' style={{ width: '120px' }}>
-                                                        <InputGroup.Button onClick={reduceCart} className="border-end">
-                                                            <AiOutlineMinus />
+                                    <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
+                                    {productInfo.stock_status != 'out_of_stock'
+                                        ?
+                                        <>
+                                            <div className='d-inline-flex mt-2'>
+                                                <InputGroup className='border me-2' style={{ width: '120px' }}>
+                                                    <InputGroup.Button onClick={reduceCart} className="border-end">
+                                                        <AiOutlineMinus />
+                                                    </InputGroup.Button>
+                                                    <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
+                                                    {productInfo.max_quantity == productSelectedQuantity ?
+                                                        <InputGroup.Button className="border-start">
+                                                            <AiOutlinePlus />
                                                         </InputGroup.Button>
-                                                        <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
-                                                        {productInfo.max_quantity == productSelectedQuantity ?
-                                                            <InputGroup.Button className="border-start">
-                                                                <AiOutlinePlus />
-                                                            </InputGroup.Button>
-                                                            :
-                                                            <InputGroup.Button onClick={increaseCart} className="border-start">
-                                                                <AiOutlinePlus />
-                                                            </InputGroup.Button>
-                                                        }
-                                                    </InputGroup>
-                                                    <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
-                                                    <Tooltip title="Book a video shopping" arrow placement="top">
-                                                        <span>
-                                                            <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" rootElement={document.getElementById("root")} />
-                                                        </span>
-                                                    </Tooltip>
-                                                </div>
-                                            </>
-                                            : <Chip label="Out Of Stock" className='rounded' color='error' />}
-                                    </div>
+                                                        :
+                                                        <InputGroup.Button onClick={increaseCart} className="border-start">
+                                                            <AiOutlinePlus />
+                                                        </InputGroup.Button>
+                                                    }
+                                                </InputGroup>
+                                                <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
+                                                <Tooltip title="Book a video shopping" arrow placement="top">
+                                                    <span>
+                                                        <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" prefill={prefillCalend} rootElement={document.getElementById("root")} />
+                                                    </span>
+                                                </Tooltip>
+                                            </div>
+                                        </>
+                                        : <Chip label="Out Of Stock" className='rounded' color='error' />}
                                 </div>
                             </div>
-                        </section>
-                        <section className="tab-of-sectors" >
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-lg-12 col-md-12 col-sm-12 description-details">
-                                        <ProductFeatures data={productInfo?.product_extra_information} />
-                                    </div>
+                        </div>
+                    </section>
+                    <section className="tab-of-sectors" >
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-lg-12 col-md-12 col-sm-12 description-details">
+                                    <ProductFeatures data={productInfo?.product_extra_information} />
                                 </div>
                             </div>
-                        </section>
-                    </>
-                )
-            }
-            <RelatedProduct related_products={productInfo?.related_products} />
-            {
-                productInfo === null &&
-                <div id="cart-loader" >
-                    <div className='loader-wrapper'>
-                        <WaveSpinner
-                            size={100}
-                            color="#0a1d4a"
-                            loading={true}
-                            style={{ top: '50%', left: '45%' }}
-                        />
-                    </div>
+                        </div>
+                    </section>
+                </>
+            )
+        }
+        <RelatedProduct related_products={productInfo?.related_products} />
+        {
+            productInfo === null &&
+            <div id="cart-loader" >
+                <div className='loader-wrapper'>
+                    <WaveSpinner
+                        size={100}
+                        color="#0a1d4a"
+                        loading={true}
+                        style={{ top: '50%', left: '45%' }}
+                    />
                 </div>
-            }
-        </Fragment>
-    )
+            </div>
+        }
+    </Fragment>
+)
 }
