@@ -51320,3 +51320,7 @@ html[dir=rtl] .document-nav {
 .top-icons span {
   cursor: pointer;
 }
+
+.css-13xfq8m-MuiTabPanel-root {
+  padding: 24px 0 !important;
+}
