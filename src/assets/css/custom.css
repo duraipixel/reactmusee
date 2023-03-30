@@ -1,0 +1,39 @@
+.product-slider .slick-prev,
+.product-slider .slick-next {
+    z-index: 1;
+    padding-top: 2px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0);
+    height: 35px;
+    width: 35px;
+}
+
+.product-slider .slick-prev:hover,
+.product-slider .slick-next:hover {
+    border-color: black;
+    background-color: black;
+}
+
+.product-slider .slick-prev {
+    left: 20px;
+}
+
+.product-slider .slick-next {
+    right: 20px;
+}
+
+.product-slider .slick-prev::before,
+.product-slider .slick-next::before {
+    color: white !important;
+    text-shadow: 0 0 10px black;
+}
+
+.product-slider-thumb-image {
+    width: 100px !important;
+    height: 90px !important;
+    object-fit: cover;
+}
+
+.thumb-sliders .slick-slide>div {
+    padding: 0 10px !important;
+}

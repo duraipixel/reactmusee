@@ -37,7 +37,7 @@ function FeatureTab({ data }) {
     }
     if (data.name == 'specification') {
         return data.data.length !== 0 ? data.data.map((list, i) => (
-            <div className="card mb-3 shadow border">
+            <div className="card mb-3 shadow border" key={i}>
                 <div className="card-header bg-light p-2">
                     <b>{list.title}</b>
                 </div>

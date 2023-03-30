@@ -26,6 +26,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import "rsuite/dist/rsuite.min.css";
 import 'rsuite/styles/index.less';
+import './assets/css/custom.css';
 
 const theme = createTheme({
   palette: {

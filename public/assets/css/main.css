@@ -51253,16 +51253,10 @@ html[dir=rtl] .document-nav {
   object-fit: cover;
   cursor: zoom-in;
 }
-
-.product-slider-thumb-image {
+/* 
+.thumb-sliders .slick-track {
   width: 100% !important;
-  height: 80px !important;
-  object-fit: cover;
-}
-
-.thumb-sliders .slick-slide>div {
-  padding: 0 10px !important;
-}
+} */
 
 /* .product-vewslder .slick-slide>div:nth-last-child(1) {
   padding: 0 !important;
@@ -51277,9 +51271,8 @@ html[dir=rtl] .document-nav {
 }
 
 .thumb-sliders .slick-slide.slick-active.slick-current img {
-  box-shadow: 0 5px 10px #8c8c8c !important;
   transition: all 1s;
-  transform: translateY(-10px);
+  transform: scale(.9);
 }
 
 .deal-image {
