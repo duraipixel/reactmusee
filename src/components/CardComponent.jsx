@@ -13,16 +13,17 @@ function CardComponent({ settings }) {
         )
     }
     return (
-        <div className="arrival-product custom-card" key={index} onClick={() => showProduct(data.product_url)}>
+        <div className="arrival-product custom-card border rounded-2" key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
                 <div className="prdt-img">
-                    <LazyLoadImage src={data.image} className="product-card-image"/>
+                    <div className="text-center">
+                        <LazyLoadImage src={data.image} className="product-card-image" />
+                    </div>
                     {
-                        data.badge == true ?
-                            <div className="ofr-prc">
-                                <h5>#{index + 1}</h5>
-                            </div>
-                            : null
+                        data.badge == true &&
+                        <div className="ofr-prc">
+                            <h5>#{index + 1}</h5>
+                        </div>
                     }
                 </div>
                 <div className="trend-access">
@@ -33,9 +34,9 @@ function CardComponent({ settings }) {
                     </div>
                     <div className="prdt-nameprc">
                         <h4>{data.product_name}</h4>
-                        <h5>
-                            {data.sale_prices.strike_rate && data.sale_prices.strike_rate_original > 0 && <span>₹{data.sale_prices.strike_rate}</span>}
-                            ₹{data.sale_prices.price}
+                        <h5 className="d-flex justify-content-between align-items-center">
+                            <del className="strike-rate">{data.sale_prices.strike_rate && data.sale_prices.strike_rate_original > 0 &&  `₹${data.sale_prices.strike_rate}`}</del>
+                            <div className="text-primary fw-bold">₹{data.sale_prices.price}</div>
                         </h5>
                     </div>
                 </div>

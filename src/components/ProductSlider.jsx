@@ -44,6 +44,7 @@ function MySlider({ children, delay }) {
         dots: true,
         slidesToScroll: 1,
         infinite: true,
+        // centerMode:true,
         responsive: [{
             breakpoint: 1400,
             settings: {

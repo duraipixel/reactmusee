@@ -38,14 +38,13 @@ export default function DiscountCollection() {
 
                             <div className="col-lg-12 col-md-12 col-sm-12">
                                 <div className="common-heads">
-                                    <h2>Deals You don’t Want to Miss</h2>
+                                    <div className='fs-4 mb-4 fw-bold text-primary'>Deals You don’t Want to Miss</div>
                                 </div>
                             </div>
 
                             <div className="row">
                                 <DiscountSkeletonItem discountCollectionData={discountCollectionData} />
                             </div>
-
                         </div>
                     </div>
                 </section>

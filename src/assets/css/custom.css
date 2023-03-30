@@ -70,3 +70,31 @@
 .thumb-sliders .slick-slide>div {
     padding: 0 10px !important;
 }
+
+.card-box {
+    min-height: 330px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.product-card-image {
+    height: 200px !important;
+    object-fit: cover;
+}
+
+.deal-image {
+    height: 80px;
+}
+.custom-card,
+.custom-card:hover {
+    transition: all .7s;
+}
+.custom-card:hover {
+    transform: scale(.9);
+}
+.strike-rate {
+    font-size: 14px;
+    color: #b60000;
+}
