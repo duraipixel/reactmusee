@@ -10,8 +10,7 @@
 
 .product-slider .slick-prev:hover,
 .product-slider .slick-next:hover {
-    border-color: black;
-    background-color: black;
+    background-color: #00000009;
 }
 
 .product-slider .slick-prev {
@@ -37,9 +36,9 @@
     transition: all 1s;
 }
 
-.thumb-sliders .slick-slide.slick-active.slick-current {
+.thumb-sliders .slick-slide.slick-active.slick-current .thumb-image-wrapper {
     transition: all 1s;
-    transform: scale(.8);
+    border: 1px solid black !important;
 }
 
 .thumb-image-wrapper {
@@ -87,14 +86,33 @@
 .deal-image {
     height: 80px;
 }
+
 .custom-card,
 .custom-card:hover {
     transition: all .7s;
 }
+
 .custom-card:hover {
     transform: scale(.9);
 }
+
 .strike-rate {
     font-size: 14px;
     color: #b60000;
+}
+
+.btn-dark, 
+.product-features .Mui-selected {
+    transition: all .8s;
+    background-image: linear-gradient(to left, #121242, #16164c, #1a1a57, #1f1f62, #23236d, #272777, #2b2b82, #2f2f8c, #343499, #3939a6, #3e3eb3, #4343c0);
+}
+.btn-dark:hover, 
+.product-features .Mui-selected:hover {
+    transition: all .8s;
+    background-image: linear-gradient(to right bottom, #121242, #16164c, #1a1a57, #1f1f62, #23236d, #272777, #2b2b82, #2f2f8c, #343499, #3939a6, #3e3eb3, #4343c0);
+}
+
+.product-features .Mui-selected {
+    color: white !important;
+    font-weight: 500;
 }

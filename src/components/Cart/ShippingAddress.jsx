@@ -1,11 +1,18 @@
-import { Checkbox, Radio, RadioGroup, Typography } from '@mui/material';
+import { Button, Checkbox, Radio, RadioGroup, Typography } from '@mui/material';
 import { Fragment } from 'react'
 import './cart.css';
+import { MdAddLocation } from "react-icons/md";
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
     return (
         <Fragment>
-            <h5 className="text-primary mb-3 mt-4 fw-bold text-uppercase">SET Address</h5>
+            <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
+                SET Address
+                <Button variant="outlined">
+                    <MdAddLocation size={20} className="me-1"/>
+                    create
+                </Button>
+            </h5>
             <div className="card">
                 <div className="card-header py-2 d-flex align-items-center">
                     <Checkbox id='same_as_billing' color='secondary' />

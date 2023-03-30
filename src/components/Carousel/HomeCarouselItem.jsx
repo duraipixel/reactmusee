@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const HomeCarouselItem = ({ banners }) => {
 
@@ -12,8 +13,8 @@ export const HomeCarouselItem = ({ banners }) => {
 
                         <Carousel.Item className={`carousel-item ${item.id == 2 ? 'active' : ''}`} key={item.id} >
                             <Link to={item.links } target="_blank">
-                                <img src={item.image}   className="w-100" />
-                                <img src={item.mobile_banner} alt="" className="w-100 moby-banner" />
+                                <LazyLoadImage src={item.image}   className="w-100" />
+                                <LazyLoadImage src={item.mobile_banner} alt="" className="w-100 moby-banner" />
                                 <Carousel.Caption className="carousel-caption animated animatedFadeInUp fadeInUp">
                                     {/* <img src="assets/images/banner-logo.png" alt="" className="img-fluid" /> */}
                                     {/* <h1 className="text-blue">

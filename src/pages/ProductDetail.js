@@ -4,16 +4,13 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { CartButton } from '../components/Button/CartButton';
 import { ImagePane } from '../components/Product/ImagePane';
-import { Specification } from '../components/Product/Specification';
+import { BsChat } from "react-icons/bs";
 import { RelatedProduct } from './../components/Product/RelatedProduct';
 import { useDispatch, useSelector } from 'react-redux';
-import { PopupWidget } from "react-calendly";
-import { attemptToCart } from '../app/reducer/attemptedCartSlice';
 import { fetchCarts } from '../app/reducer/cartSlice';
-import { Helmet } from 'react-helmet';
 import { WaveSpinner } from 'react-spinners-kit';
 import './product.css';
-import { Button, Chip, Tooltip } from '@mui/material';
+import { Button, Chip } from '@mui/material';
 import { InputGroup, InputNumber } from 'rsuite';
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import ProductFeatures from '../components/ProductFeatures';
@@ -32,7 +29,7 @@ export const ProductDetail = () => {
     const [loader, setloader] = useState(false);
 
     var calendlyPrefill = {
-        name: "", 
+        name: "",
         email: "",
         customAnswers: {
             a1: '',
@@ -66,9 +63,9 @@ export const ProductDetail = () => {
         fetch(window.API_URL + '/get/products/by/slug/' + product_url)
             .then((response) => response.json())
             .then((data) => {
-                
+
                 setPrefillCalend({
-                    name: "", 
+                    name: "",
                     email: "",
                     customAnswers: {
                         a1: data.product_name,
@@ -115,7 +112,7 @@ export const ProductDetail = () => {
         }
 
         const res_data = { ...item, customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
-        
+
         await axios({
             url: window.API_URL + '/add/cart',
             method: 'POST',
@@ -137,13 +134,13 @@ export const ProductDetail = () => {
         document.getElementById('myresult').style.visibility = "hidden";
     }
 
-return (
-    <Fragment>
+    return (
+        <Fragment>
 
-        {
-            productInfo !== null && (
-                <>
-                    {
+            {
+                productInfo !== null && (
+                    <>
+                        {
                         /* <Helmet>
 
                             <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
@@ -158,93 +155,106 @@ return (
                             }
                         </Helmet> */}
 
-                    <section className="section product-details bg-white">
-                        <div className="container">
-                            <div className='row' >
-                                <div className="col-lg-12">
-                                    <div className="accordion-table text-left pb-4">
-                                        <ul>
-                                            <li>{productInfo.parent_category_name}</li>
-                                            <li>
-                                                <Link to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`} >
-                                                    {productInfo.category_name}
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                {productInfo.product_name}
-                                            </li>
-                                        </ul>
+                        <section className="section product-details bg-white">
+                            <div className="container">
+                                <div className='row' >
+                                    <div className="col-lg-12">
+                                        <div className="accordion-table text-left pb-4">
+                                            <ul>
+                                                <li>{productInfo.parent_category_name}</li>
+                                                <li>
+                                                    <Link to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`} >
+                                                        {productInfo.category_name}
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    {productInfo.product_name}
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className='col-lg-6'>
-                                    <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
-                                </div>
-                                <div className='col-lg-6'>
-                                    <div className="small mb-1">SKU: {productInfo.sku}</div>
-                                    <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
-                                    <div className="fs-5 mb-3 text-dark">
-                                        {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
-                                        <span>₹{productInfo.mrp_price}</span>
+                                    <div className='col-lg-6'>
+                                        <ImagePane productInfo={productInfo} hideMagnify={hideMagnify} />
                                     </div>
-                                    <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
-                                    {productInfo.stock_status != 'out_of_stock'
-                                        ?
-                                        <>
-                                            <div className='d-inline-flex mt-2'>
-                                                <InputGroup className='border me-2' style={{ width: '120px' }}>
-                                                    <InputGroup.Button onClick={reduceCart} className="border-end">
-                                                        <AiOutlineMinus />
+                                    <div className='col-lg-6'>
+                                        <div className="small mb-1">SKU: {productInfo.sku}</div>
+                                        <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
+                                        <div className="fs-5 mb-3 text-dark">
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                            <span className='lead fw-bold text-primary'>₹{productInfo.mrp_price}</span>
+                                        </div>
+                                        <div className="d-flex align-items-center mb-3">
+                                            <span>Qty : </span>
+                                            <InputGroup className='border ms-2' style={{ width: '120px' }}>
+                                                <InputGroup.Button onClick={reduceCart} className="border-end">
+                                                    <AiOutlineMinus />
+                                                </InputGroup.Button>
+                                                <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
+                                                {productInfo.max_quantity == productSelectedQuantity ?
+                                                    <InputGroup.Button className="border-start">
+                                                        <AiOutlinePlus />
                                                     </InputGroup.Button>
-                                                    <InputNumber className={'custom-input-number fw-bold'} value={productSelectedQuantity} />
-                                                    {productInfo.max_quantity == productSelectedQuantity ?
-                                                        <InputGroup.Button className="border-start">
-                                                            <AiOutlinePlus />
-                                                        </InputGroup.Button>
-                                                        :
-                                                        <InputGroup.Button onClick={increaseCart} className="border-start">
-                                                            <AiOutlinePlus />
-                                                        </InputGroup.Button>
-                                                    }
-                                                </InputGroup>
-                                                <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
-                                                <Tooltip title="Book a video shopping" arrow placement="top">
-                                                    <span>
-                                                        <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" prefill={prefillCalend} rootElement={document.getElementById("root")} />
-                                                    </span>
-                                                </Tooltip>
+                                                    :
+                                                    <InputGroup.Button onClick={increaseCart} className="border-start">
+                                                        <AiOutlinePlus />
+                                                    </InputGroup.Button>
+                                                }
+                                            </InputGroup>
+                                        </div>
+                                        <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
+                                        {productInfo.stock_status != 'out_of_stock'
+                                            ?
+                                            <div>
+                                                <div className='my-3'>
+                                                    <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
+                                                    <Button variant="outlined">
+                                                        <BsChat className="me-1"/>
+                                                        Talk to our experts
+                                                    </Button>
+                                                </div>
+
+                                                {/* <div className='d-flexs my-3 align-items-center'>
+                                                    <div className='mb-3'> <b>Talk to our experts :</b> </div>
+                                                    <Button variant="outlined">contact now</Button>
+                                                    <Tooltip title="Book a video shopping" arrow placement="top">
+                                                        <span>
+                                                            <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" prefill={prefillCalend} rootElement={document.getElementById("root")} />
+                                                            contact
+                                                        </span>
+                                                    </Tooltip>
+                                                </div> */}
                                             </div>
-                                        </>
-                                        : <Chip label="Out Of Stock" className='rounded' color='error' />}
+                                            : <Chip label="Out Of Stock" className='rounded' color='error' />}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <section className="tab-of-sectors" >
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-lg-12 col-md-12 col-sm-12 description-details">
-                                    <ProductFeatures data={productInfo?.product_extra_information} />
+                        </section>
+                        <section className="tab-of-sectors" >
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-lg-12 col-md-12 col-sm-12 description-details">
+                                        <ProductFeatures data={productInfo?.product_extra_information} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                </>
-            )
-        }
-        <RelatedProduct related_products={productInfo?.related_products} />
-        {
-            productInfo === null &&
-            <div id="cart-loader" >
-                <div className='loader-wrapper'>
-                    <WaveSpinner
-                        size={100}
-                        color="#0a1d4a"
-                        loading={true}
-                        style={{ top: '50%', left: '45%' }}
-                    />
+                        </section>
+                    </>
+                )
+            }
+            <RelatedProduct related_products={productInfo?.related_products} />
+            {
+                productInfo === null &&
+                <div id="cart-loader" >
+                    <div className='loader-wrapper'>
+                        <WaveSpinner
+                            size={100}
+                            color="#0a1d4a"
+                            loading={true}
+                            style={{ top: '50%', left: '45%' }}
+                        />
+                    </div>
                 </div>
-            </div>
-        }
-    </Fragment>
-)
+            }
+        </Fragment>
+    )
 }

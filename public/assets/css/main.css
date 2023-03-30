@@ -1148,10 +1148,11 @@ section {
   transition: all 0.3s ease !important;
 } */
 
+
 .the-trending {
   /* background: url("../images/bg-2.jpg") no-repeat rgba(0, 0, 0, 0); */
   background-size: cover !important;
-  background-attachment: fixed !important;
+  /* background-attachment: fixed !important; */
 }
 
 .trending-slider {
@@ -2548,11 +2549,17 @@ section {
   background: #313190;
   padding: 0px;
 }
-
+.brand  a {
+  text-align: center;
+  padding: 10px;
+  display: inline-block;
+  padding: 10px 0;
+  background-color: white;
+}
 .brand img {
-  filter: brightness(0) invert(1);
-  max-height: 30px;
+  height: 30px;
   padding: 0px 20px;
+  background-color: white;
 }
 
 .our-brands .slick-track {
@@ -12357,7 +12364,7 @@ fieldset:disabled .btn {
   /* background-image: linear-gradient(to bottom, #313190, #3e2774, #5c2a83, #7c288f, #9d2398); */
   /* background-image: linear-gradient(to left bottom, #313190, #3e2774, #5c2a83, #7c288f, #9d2398); */
   /* background-image: linear-gradient(188deg, #9d2398, #8a2793, #78298e, #662987, #55297f, #4f236e, #491d5d, #41184e, #391135, #2b0e22, #1c0812, #000000); */
-  background-image: linear-gradient(153deg, #9b25ae, #792b9f, #592c8d, #3c2978, #313190);
+  /* background-image: linear-gradient(153deg, #9b25ae, #792b9f, #592c8d, #3c2978, #313190); */
 }
 
 .btn-outline-primary {
@@ -51277,11 +51284,7 @@ html[dir=rtl] .document-nav {
   filter: invert(1);
 }
 
-.product-features .Mui-selected {
-  background-image: linear-gradient(to right bottom, #9d2398, #8a2793, #78298e, #662987, #55297f, #4f236e, #491d5d, #41184e, #391135, #2b0e22, #1c0812, #000000);
-  color: white !important;
-  font-weight: 500;
-}
+
 
 .product-features .MuiTabs-indicator {
   background-color: purple;

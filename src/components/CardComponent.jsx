@@ -26,7 +26,7 @@ function CardComponent({ settings }) {
                         </div>
                     }
                 </div>
-                <div className="trend-access">
+                <div className="trend-access bg-white border-top">
                     <div className="ratings d-flex justify-content-between">
                         <div className="prdt-type">
                             {data.category_name}
