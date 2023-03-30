@@ -57,19 +57,23 @@ export const Testimonials = ({ homeData }) => {
                                 </div>
                             </div>
 
-                            <Slider className="testimonials-slider " {...settings}>
+                            <Slider className="testimonials-slider mt-5 " {...settings}>
                                 {
                                     homeData.testimonials && homeData.testimonials.length > 0 ? homeData.testimonials.map((item) => (
 
                                         <div className="patron text-left" key={item.id}>
+                                            
                                             <div className="patron-detil">
                                                 {item.short_description || <Skeleton count={10} />}
                                             </div>
-                                            <div className="patron-img">
-                                                <span>
-                                                    <TestimonialImage itemImage={item.image} />
+                                            <div className="d-flex justify-content-start align-items-center">
+                                                <div className='me-3'>
+                                                    <img src={item.image} className='rounded-circle' width="50px" />   
+                                                </div>
+                                                <div className='text-white fs-5'>
                                                     {item.title || <Skeleton />}
-                                                </span>
+                                                </div>
+                                                    {/* <TestimonialImage itemImage={item.image} /> */}
                                             </div>
                                         </div>
                                     )

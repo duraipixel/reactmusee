@@ -12,15 +12,15 @@ const attemptedCartSlice = createSlice({
       if (itemInCart) {
         itemInCart.quantity++;
       } else {
-        state.attempt_cart.push({ ...action.payload, quantity: 1 });
+        return  state.attempt_cart.push({ ...action.payload, quantity: 1 });
       }
     },
     removeAttemptItem: (state, action) => {
       const removeItem = state.attempt_cart.filter((item) => item.id !== action.payload);
-      state.attempt_cart = removeItem;
+      return state.attempt_cart = removeItem;
     },
     clearAttemptItem: (state, action) => {
-      state.attempt_cart = [];
+      return state.attempt_cart = [];
     },
   },
 });

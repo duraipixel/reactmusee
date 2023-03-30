@@ -12,13 +12,7 @@ export const TestimonialImage = ({itemImage}) => {
 
     return (
       <>
-        { !imageLoad &&
-            <div className='testSkeleton'>
-                <Skeleton circle={true} height={50} width={50}/>
-            </div>
-
-        }
-        <img src={itemImage} width="50px" style={imageLoad ? {display:'block'}:{display:'none'}} onLoad={onLoad}/>   
+        <img src={itemImage} width="50px" />   
       </>
           
     )

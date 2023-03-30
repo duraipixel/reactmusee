@@ -16,7 +16,7 @@ export const Login = () => {
 
     const attempt_cart = useSelector((state) => state.attempt_cart);
     const dispatch = useDispatch();
-
+   
     // const [localCustomerSession, setLocalCustomerSession] = useState(JSON.parse(window.localStorage.getItem('customer') || null));
     const {
         register,

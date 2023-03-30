@@ -27,6 +27,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import "rsuite/dist/rsuite.min.css";
 import 'rsuite/styles/index.less';
 import './assets/css/custom.css';
+import { VerifyAccount } from './components/Profile/VerifyAccount';
 
 const theme = createTheme({
   palette: {
@@ -65,6 +66,7 @@ const App = () => {
           <Route path='termsofuse' element={<TermsofUse />} />
           <Route path='returnpolicy' element={<ReturnPolicy />} />
           <Route path='shippingpolicy' element={<ShippingPolicy />} />
+          <Route path='verify-account/:token' element={<VerifyAccount />} />
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

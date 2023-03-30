@@ -10,7 +10,10 @@ export const FilterItems = () => {
 
     useEffect(() => {
         if(filterData.isSuccess ) {
-            setIsPageLoaded(false);
+            setTimeout(() => {
+
+                setIsPageLoaded(false);
+            }, 500)
         }
     }, [products])
 

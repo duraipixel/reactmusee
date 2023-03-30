@@ -39,12 +39,13 @@ export default function Topbar({ isTopPage }) {
 
 
     const logout = () => {
-
+        // console.log( 'logusoguste');
+        // console.log(location);
         localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
-        dispatch(clearAttemptItem())
-
+        // dispatch(clearAttemptItem())
+       
         if (location.pathname == '/cart') {
             navigate('/');
         } else {

@@ -4,7 +4,7 @@ import AddAddress from '../components/Profile/AddAddress'
 import ChangePassword from '../components/Profile/ChangePassword'
 import EditPersonalDetailsModal from '../components/Profile/EditPersonalDetailsModal'
 import ProfileContent from '../components/Profile/ProfileContent'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useMemo } from 'react';
 import { Fragment } from 'react'
 import EditAddress from './../components/Profile/EditAddress';
@@ -18,6 +18,7 @@ export const Profile = () => {
     const [customerAddress, setCustomerAddress] = useState([]);
     const [customerOrders, setCustomerOrders] = useState(JSON.parse(window.localStorage.getItem('orders')));
     const navigate = useNavigate();
+    const location = useLocation();
     
     const cAddress = (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined' ) ? JSON.parse(window.localStorage.getItem('address')) : [];
     const [personalShow, setPersonalShow] = useState(false);

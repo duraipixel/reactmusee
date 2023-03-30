@@ -38,20 +38,14 @@ export const Register = () => {
             setFormLoader(false);
             if (res.data.error == 1) {
                 let error_message = res.data.message;
+                console.log( error_message );
                 error_message.forEach(x => toast.error(x));
                 reset();
             } else {
-                if (res.data.customer_data) {
-
-                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
-                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
-                    
-                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
-                    toast.success('Register Successfull');
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 300);
-                }
+                toast.success(res.data.message );
+                setTimeout(() => {
+                    reset();
+                }, 300);               
 
             }
         }).catch((err) => {
