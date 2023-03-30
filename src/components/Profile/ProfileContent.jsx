@@ -7,7 +7,7 @@ import ChangePassword from "./ChangePassword";
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Button, LinearProgress } from "@mui/material";
+import { Button, LinearProgress, Tooltip } from "@mui/material";
 
 function ProfileContent({
   states,
@@ -76,18 +76,12 @@ function ProfileContent({
                 <p>{customer.email}</p>
               </div>
               <div className="d-flex mt-3 justify-content-center ms-sm-auto">
-                <Button variant="contained" className="btn btn-danger-soft bg-danger-soft text-danger shadow-none me-2" type="button" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </Button>
-                <div className="dropdown">
-                  <button className="icon-md btn btn-light" type="button" id="profileAction2" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i className="bi bi-three-dots"></i>
-                  </button>
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="profileAction2">
-                    <li><a className="dropdown-item" href="#"> <i className="bi bi-headset fa-fw pe-2"></i>Support</a></li>
-                    <li><a className="dropdown-item" href="#"> <i className="bi bi-info-circle fa-fw pe-2"></i>Help</a></li>
-                    <li><hr className="dropdown-divider" /></li>
-                    <li><a className="dropdown-item" href="#"> <i className="bi bi-power fa-fw pe-2"></i>Logout</a></li>
-                  </ul>
-                </div>
+                <Button variant="contained" color="warning" type="button" className="me-2" onClick={() => handlePersonalShow()}> <i className="bi bi-pencil-fill pe-1"></i> Edit profile </Button>
+                <Tooltip title="Logout my account" arrow placement="top">
+                  <Button variant="contained" color="error" type="button" size="sm">
+                    <i className="bi bi-power fa-fw"></i>
+                  </Button>
+                </Tooltip>
               </div>
             </div>
             <ul className="list-inline mb-0 text-center text-sm-start mt-3 mt-sm-0 bg-secondary">
@@ -97,18 +91,18 @@ function ProfileContent({
           </div>
           <div className="card-footer mt-3 p-0">
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleChange}  variant="scrollable"  scrollButtons="auto" >
-                <Tab label="My Orders" value="MY_ORDERS"/>
+              <TabList onChange={handleChange} variant="scrollable" scrollButtons="auto" >
+                <Tab label="My Orders" value="MY_ORDERS" />
                 <Tab label="Address book" value="ADDRESS_BOOK" />
                 <Tab label="Change password" value="CHNAGE_PASSWORD" />
               </TabList>
-            </Box> 
+            </Box>
           </div>
         </div>
         <TabPanel value="MY_ORDERS" className="p-0">
           <>
             {
-              loadingOrderItems  ?
+              loadingOrderItems ?
                 // <div className="spinner-border text-dark" role="status"></div>
                 <LinearProgress />
                 :
@@ -127,7 +121,7 @@ function ProfileContent({
                         </div>
                         <ul className="list-group mt-2">
                           {
-                            item.items.map((product,i) => (
+                            item.items.map((product, i) => (
                               <div key={i} className="d-sm-flex align-items-center py-2 list-group-item list-group-item-action">
                                 <div className="avatar">
                                   <a href="#!"><img className="avatar-img rounded border border-white border-3" src={product.image} alt="" /></a>

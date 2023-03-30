@@ -39,14 +39,13 @@ export const MobileFooter = () => {
                 </a>
                 {
                     customer.value ? 
-                    <button title="Logout" onClick={() => logout()}>
-                        <img src="assets/images/mob-ic-6.png" alt="" className="img-fluid" /> Logout
-                    </button>
-                    
-                    :
-                    <Link to="/login" data-toggle="tooltip" title="Login">
-                        <img src="assets/images/mob-ic-2.png" alt="" className="img-fluid" /> Login
-                    </Link> 
+                        <Link to="/profile" data-toggle="tooltip" title="profile">
+                            <img src="assets/images/mob-ic-2.png" alt="" className="img-fluid" /> My Profile
+                        </Link>
+                        :
+                        <Link to="/login" data-toggle="tooltip" title="Login">
+                            <img src="assets/images/mob-ic-2.png" alt="" className="img-fluid" /> Login
+                        </Link>
 
                 }
                 <a href="/cart" data-toggle="tooltip" title="Cart Details">

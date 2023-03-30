@@ -116,7 +116,7 @@ export default function Topbar({ isTopPage }) {
                                         </select>
                                     </div> */}
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
-                                        <input className="src-blnk" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
+                                        <input className="src-blnk pe-5" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
                                         <ul className="src-fndings" id='searchPane'>
 
                                             {searchData.length > 0 ? searchData.map((item, i) => (
