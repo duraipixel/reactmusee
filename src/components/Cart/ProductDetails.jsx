@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import { toast } from 'react-toastify';
 import { setCoupon } from '../../app/reducer/couponSlice';
-import { InputGroup, InputNumber } from 'rsuite';
+import { Button, InputGroup, InputNumber } from 'rsuite';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const [loader, serLoader] = useState(false)
     const increaseCartProduct = (product) => {
         let max_quantity = product.max_quantity;
         if (max_quantity == product.quantity) {
@@ -63,6 +64,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
     async function updateProduct(product, quantity) {
         // console.log( product );
+        serLoader(true)
         await axios({
             url: window.API_URL + '/update/cart',
             method: 'POST',
@@ -73,7 +75,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
             getShippingRocketCharges('', '');
-
+            serLoader(false)
         }).catch((err) => {
 
         })
@@ -193,7 +195,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                                 <InputGroup.Button size='sm' onClick={() => decreaseCartProduct(cart[item])} className="border-end">
                                                     <AiOutlineMinus />
                                                 </InputGroup.Button>
-                                                <InputNumber size='sm' className={'custom-input-number fw-bold'} value={cart[item].quantity} />
+                                                <Button loading={loader} ripple={false} className={'custom-input-number fw-bold bg-white w-100 rounded-0'}>{cart[item].quantity}</Button>
                                                 <InputGroup.Button size='sm' onClick={() => increaseCartProduct(cart[item])} className="border-start">
                                                     <AiOutlinePlus />
                                                 </InputGroup.Button>

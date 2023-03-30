@@ -1,4 +1,4 @@
-import { Radio, RadioGroup } from '@mui/material';
+import { Checkbox, Radio, RadioGroup, Typography } from '@mui/material';
 import { Fragment } from 'react'
 import './cart.css';
 
@@ -7,6 +7,12 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
         <Fragment>
             <h5 className="text-primary mb-3 mt-4 fw-bold text-uppercase">SET Address</h5>
             <div className="card">
+                <div className="card-header py-2 d-flex align-items-center">
+                    <Checkbox id='same_as_billing' color='secondary' />
+                    <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
+                        Set Shipping address same as Billing Address
+                    </Typography>
+                </div>
                 <div className="card-body">
                     <div class="lead fs-6 my-2 text-primary">Shipping Address</div>
                     <RadioGroup className='list-group'>
