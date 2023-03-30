@@ -51245,14 +51245,7 @@ html[dir=rtl] .document-nav {
 
 .nav-wrapper {
   padding: 20px
-}
-
-.product-slider-image {
-  width: 100% !important;
-  height: 400px !important;
-  object-fit: cover;
-  cursor: zoom-in;
-}
+} 
 /* 
 .thumb-sliders .slick-track {
   width: 100% !important;
@@ -51269,11 +51262,7 @@ html[dir=rtl] .document-nav {
   transition: all 1s;
   cursor: pointer;
 }
-
-.thumb-sliders .slick-slide.slick-active.slick-current img {
-  transition: all 1s;
-  transform: scale(.9);
-}
+ 
 
 .deal-image {
   width: 80px;

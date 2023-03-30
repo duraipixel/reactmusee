@@ -17,8 +17,8 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
       <div className="product-vewslder">
         <Slider arrows={true} asNavFor={navslider} ref={(slider1) => setProductSlider(slider1)} className="product-slider">
           {images.map((image, i) => (
-            <div key={i} className='border'>
-              <img src={image} alt="product" className="rounded  product-slider-image" onClick={e => setPhotoIndex(i)} />
+            <div key={i} className='border rounded product-image-wrapper'>
+              <img src={image} alt="product" className="product-slider-image" onClick={e => setPhotoIndex(i)} />
             </div>
           ))}
         </Slider>
@@ -38,8 +38,8 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
           className="thumb-sliders my-2"
         >
           {images.map((image, i) => (
-            <div className="p-1 rounded border" key={i}>
-              <img src={image} alt="call" onClick={e => setPhotoIndex(i)} className="rounded product-slider-thumb-image" />
+            <div className="rounded border thumb-image-wrapper" key={i}>
+              <img src={image} alt="call" onClick={e => setPhotoIndex(i)} className="product-thumb-image" />
             </div>
           ))}
         </Slider>
