@@ -1,10 +1,63 @@
+import { Radio, RadioGroup } from '@mui/material';
 import { Fragment } from 'react'
 import './cart.css';
 
 export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
     return (
         <Fragment>
-            <div className="ship-list">
+            <h5 className="text-primary mb-3 mt-4 fw-bold text-uppercase">SET Address</h5>
+            <div className="card">
+                <div className="card-body">
+                    <div class="lead fs-6 my-2 text-primary">Shipping Address</div>
+                    <RadioGroup className='list-group'>
+                        <label for="address_one" class="list-group-item list-group-item-action d-flex">
+                            <Radio value="radioA" name='shipping_address' id='address_one' />
+                            <div className='ps-3'>
+                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  aec customer</b>
+                                <div>
+                                    customer@aecprefab.net, 1234567890
+                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
+                                </div>
+                            </div>
+                        </label>
+                        <label for="address_two" class="list-group-item list-group-item-action d-flex">
+                            <Radio value="radioB" name='shipping_address' id='address_two' />
+                            <div className='ps-3'>
+                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  Surya</b>
+                                <div>
+                                    Surya@Surya.net, 1234567890
+                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
+                                </div>
+                            </div>
+                        </label>
+                    </RadioGroup>
+                    <hr />
+                    <div class="lead fs-6 my-2 text-primary">Billing Address</div>
+                    <RadioGroup className='list-group'>
+                        <label for="billing_address_one" class="list-group-item list-group-item-action d-flex">
+                            <Radio value="radioA" name='billing_address' id='billing_address_one' />
+                            <div className='ps-3'>
+                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  aec customer</b>
+                                <div>
+                                    customer@aecprefab.net, 1234567890
+                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
+                                </div>
+                            </div>
+                        </label>
+                        <label for="billing_address_two" class="list-group-item list-group-item-action d-flex">
+                            <Radio value="radioB" name='billing_address' id='billing_address_two' />
+                            <div className='ps-3'>
+                                <b class="text-capitalize text-primary"><i class="fa fa-map-marker"></i>  Surya</b>
+                                <div>
+                                    Surya@Surya.net, 1234567890
+                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
+                                </div>
+                            </div>
+                        </label>
+                    </RadioGroup>
+                </div>
+            </div>
+            {/* <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
                 <div className="line-spacer"></div>
                 <div className='address-list-panel'>
@@ -84,7 +137,7 @@ export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow,
                     </div>
                 }
 
-            </div>
+            </div> */}
         </Fragment>
     )
 }

@@ -35,13 +35,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             toast.error('Shipping address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
-
-
         } else if (!billingAddress) {
             toast.error('Billing address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
-
         } else {
             console.log('going to checkout');
             axios({
@@ -49,14 +46,11 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 method: 'POST',
                 data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id: cartInfo.shipping_id },
             }).then((response) => {
-                console.log('response received checkout', response);
-
                 if (response.error == 1) {
                     toast.error(response.message);
                 } else {
                     verifyPayment(response.data);
                 }
-
             });
         }
     }
@@ -172,11 +166,12 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     <div class="input-group mb-3">
                         <input type="text" class="form-control border" placeholder='Enter here..' />
                         <Button className="btn text-white bg-dark">Apply</Button>
+                        {/* loading={true} */}
                     </div>
-                    <Button className='bg-primary text-white w-100 text-uppercase' size='lg' onClick={() => handlePayment()} loading={checkoutFormloading}>
-                        {checkoutFormloading && (
-                            <span className="spinner-grow spinner-grow-sm"></span>
-                        )}
+                    <Button className='btn-dark text-white w-100' size='lg'
+                        onClick={() => handlePayment()}
+                        loading={checkoutFormloading}
+                    >
                         Proceed to Checkout
                     </Button>
                 </div>
