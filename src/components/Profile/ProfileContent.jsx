@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Button, LinearProgress, Tooltip } from "@mui/material";
 import { BsFillPinFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom"
 
 function ProfileContent({
   states,
@@ -35,6 +36,7 @@ function ProfileContent({
   const join_date = new Date(customer.created_at);
   const [loadingOrderItems, setLoadingOrderItems] = useState(false);
   const [menu, setMenu] = useState("MY_ORDERS");
+  const navigate = useNavigate()
 
   const handleChange = (event, newValue) => {
     setMenu(newValue);
@@ -120,10 +122,10 @@ function ProfileContent({
                             <p className="small mb-0 text-dark fw-bold"><i className="bi bi-currency-rupee "></i>{item.amount}</p>
                           </div>
                           <div>
-                            <Link className="btn btn-light border btn-sm" to={`/ordersummary/${item.order_no}`}>
+                            <Button onClick={() => navigate(`/ordersummary/${item.order_no}`)} variant="contained" color="dark" className="text-white" type="button" size="sm">
                               <BsFillPinFill className="me-1" />
                               Track Order
-                            </Link>
+                            </Button>
                           </div>
                         </div>
                         <ul className="list-group mt-2">

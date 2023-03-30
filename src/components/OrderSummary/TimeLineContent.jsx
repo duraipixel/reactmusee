@@ -21,7 +21,7 @@ function TimeLineContent({ orders }) {
                 ))
             }
             {
-                orders.status !== 'delivered' && <Timeline.Item dot={<BiTime className='rs-icon' style={{ background: '#232362', color: '#fff' }} />} >
+                orders.status !== 'delivered' && <Timeline.Item dot={<BiTime className='rs-icon' style={{ background: '#313190', color: '#fff' }} />} >
                     <p className='text-dark fw-bold pt-2'>Your order will reach you shortly</p>
                 </Timeline.Item>
             }

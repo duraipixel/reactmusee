@@ -32,16 +32,19 @@ import { VerifyAccount } from './components/Profile/VerifyAccount';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#14191e',
+      main: '#313190',
     },
     light: {
       main: '#eeeeee',
     },
     secondary: {
-      main:'#232362'
+      main:'#313190'
     },
     error: {
-      main: '#d6293e',
+      main: '#b60000',
+    },
+    dark: {
+      main: '#1a1a1a',
     },
     warning: {
       main: '#F9B208',

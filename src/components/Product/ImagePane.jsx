@@ -36,7 +36,25 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
           variableWidth={true}
           variableHeight={true}
           className="thumb-sliders my-2"
-        >
+          responsive={[{
+            breakpoint: 1400,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1,
+            },
+          }, {
+            breakpoint: 990,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
+          }, {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          }]}>
           {images.map((image, i) => (
             <div className="rounded border thumb-image-wrapper" key={i}>
               <img src={image} alt="call" onClick={e => setPhotoIndex(i)} className="product-thumb-image" />

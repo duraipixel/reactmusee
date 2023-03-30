@@ -314,12 +314,12 @@ a:hover {
 }
 
 .carousel .carousel-caption a:hover {
-  background: #212363;
+  background: #313190;
   color: #fff;
 }
 
 .carousel .carousel-caption a:before {
-  background: #212363;
+  background: #313190;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -345,7 +345,7 @@ a:hover {
   width: 10px;
   border: none;
   transition: all 0.3s ease;
-  background: #212363;
+  background: #313190;
   opacity: 1;
 }
 
@@ -404,7 +404,7 @@ section {
   font-weight: 700;
   font-size: 38px;
   line-height: 48px;
-  color: #212363;
+  color: #313190;
 }
 
 .common-heads.light h2 {
@@ -683,7 +683,7 @@ section {
   font-size: 12px;
   line-height: 15px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -694,7 +694,7 @@ section {
 .deals-box h4 {
   font-weight: 500;
   font-size: 22px;
-  color: #212363;
+  color: #313190;
   line-height: 28px;
   font-family: "Quicksand", sans-serif;
   margin-bottom: 15px;
@@ -764,7 +764,7 @@ section {
 .deals-box h4 a {
   font-weight: 500;
   font-size: 22px;
-  color: #212363;
+  color: #313190;
   line-height: 28px;
   font-family: "Quicksand", sans-serif;
   margin-bottom: 25px;
@@ -837,7 +837,7 @@ section {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -1072,7 +1072,7 @@ section {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -1143,7 +1143,7 @@ section {
 }
 
 .shopping-book .calendly-badge-widget .calendly-badge-content:hover {
-  background: #212363 !important;
+  background: #313190 !important;
   color: #fff !important;
   transition: all 0.3s ease !important;
 } */
@@ -1274,7 +1274,7 @@ section {
 }
 
 .our-brands {
-  background: #212363;
+  background: #313190;
   padding: 0px;
 }
 
@@ -1585,12 +1585,12 @@ a:hover {
 }
 
 .carousel .carousel-caption a:hover {
-  background: #212363;
+  background: #313190;
   color: #fff;
 }
 
 .carousel .carousel-caption a:before {
-  background: #212363;
+  background: #313190;
   position: absolute;
   right: 0px;
   top: 0px;
@@ -1616,7 +1616,7 @@ a:hover {
   width: 10px;
   border: none;
   transition: all 0.3s ease;
-  background: #212363;
+  background: #313190;
   opacity: 1;
 }
 
@@ -1675,7 +1675,7 @@ section {
   font-weight: 700;
   font-size: 38px;
   line-height: 48px;
-  color: #212363;
+  color: #313190;
 }
 
 .common-heads.light h2 {
@@ -1948,7 +1948,7 @@ section {
   font-size: 12px;
   line-height: 15px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -1959,7 +1959,7 @@ section {
 .deals-box h4 {
   font-weight: 500;
   font-size: 22px;
-  color: #212363;
+  color: #313190;
   line-height: 28px;
   font-family: "Quicksand", sans-serif;
   margin-bottom: 15px;
@@ -2028,7 +2028,7 @@ section {
 .deals-box h4 a {
   font-weight: 500;
   font-size: 22px;
-  color: #212363;
+  color: #313190;
   line-height: 28px;
   font-family: "Quicksand", sans-serif;
   margin-bottom: 25px;
@@ -2105,7 +2105,7 @@ section {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -2344,7 +2344,7 @@ section {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -2415,7 +2415,7 @@ section {
 }
 
 .shopping-book a:hover {
-  background: #212363;
+  background: #313190;
   color: #fff;
   transition: all 0.3s ease;
 }
@@ -2545,7 +2545,7 @@ section {
 }
 
 .our-brands {
-  background: #212363;
+  background: #313190;
   padding: 0px;
 }
 
@@ -2649,7 +2649,7 @@ section {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -2687,7 +2687,7 @@ section {
 }
 
 .patrons-saying {
-  background: #212363;
+  background: #313190;
 }
 
 .active {
@@ -2904,7 +2904,7 @@ body.pad-top .secondary-menu ul li {
   height: 20px;
   width: 20px;
   background-color: transparent;
-  border: 1px solid #212363;
+  border: 1px solid #313190;
 }
 
 /* On mouse-over, add a grey background color */
@@ -2914,7 +2914,7 @@ body.pad-top .secondary-menu ul li {
 }
 
 .cstm-chkbx input:checked~.checkmark {
-  background-color: #212363;
+  background-color: #313190;
 }
 
 .checkmark:after {
@@ -2945,7 +2945,7 @@ body.pad-top .secondary-menu ul li {
   font-size: 24px;
   font-family: "Quicksand", sans-serif;
   line-height: 33px;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -2955,7 +2955,7 @@ body.pad-top .secondary-menu ul li {
   font-family: "Quicksand", sans-serif;
   line-height: 28px;
   margin-bottom: 10px;
-  color: #212363;
+  color: #313190;
 }
 
 .filter-lists ul {
@@ -2987,7 +2987,7 @@ span.shw-all a {
   font-family: "Mulish", sans-serif;
   line-height: 20px;
   text-decoration-line: underline;
-  color: #212363 !important;
+  color: #313190 !important;
 }
 
 .sort-order select {
@@ -3086,7 +3086,7 @@ span.shw-all a {
 }
 
 .browse-categories {
-  background-color: #212363;
+  background-color: #313190;
 }
 
 .browse-categories h2 {
@@ -3166,7 +3166,7 @@ span.fil-optn {
 }
 
 .brands-shots ul li:hover span {
-  color: #212363;
+  color: #313190;
   transition: all 0.5s ease;
 }
 
@@ -3267,7 +3267,7 @@ span.fil-optn {
   top: 9px;
   width: 3px;
   height: 3px;
-  background-color: #212363;
+  background-color: #313190;
   border-radius: 100%;
 }
 
@@ -3608,7 +3608,7 @@ span.fil-optn {
   font-size: 28px;
   line-height: 35px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 20px;
 }
 
@@ -3792,7 +3792,7 @@ button.nav-link {
 }
 
 button.nav-link:hover {
-  color: #212363;
+  color: #313190;
   transition: all 0.3s ease;
 }
 
@@ -3837,7 +3837,7 @@ button.nav-link:hover {
 }
 
 .control-tunes.inside-pge {
-  background: #212363;
+  background: #313190;
 }
 
 .shop-carts {
@@ -3982,7 +3982,7 @@ button.refreshing img {
   font-size: 24px;
   line-height: 30px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -3991,7 +3991,7 @@ button.refreshing img {
   font-size: 20px;
   line-height: 25px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -4049,7 +4049,7 @@ button.refreshing img {
   font-size: 20px;
   line-height: 25px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .table.table-borderless.end-point td:last-child {
@@ -4076,7 +4076,7 @@ button.refreshing img {
 .customRadio input[type="radio"]+label:before {
   content: "";
   background: #fff;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   height: 15px;
   width: 15px;
   border-radius: 50%;
@@ -4087,7 +4087,7 @@ button.refreshing img {
 
 .customRadio input[type="radio"]+label:after {
   content: "";
-  background: #212363;
+  background: #313190;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -4109,7 +4109,7 @@ button.refreshing img {
   font-size: 30px;
   line-height: 38px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .shipping-addresss .load-btn {
@@ -4213,7 +4213,7 @@ button.refreshing img {
 
 .modal-dialog.cstmzed .modal-body input {
   height: 50px;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
@@ -4224,7 +4224,7 @@ button.refreshing img {
 
 .modal-dialog.cstmzed .modal-body select {
   height: 50px;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
@@ -4238,7 +4238,7 @@ button.refreshing img {
 }
 
 .modal-dialog.cstmzed .modal-footer button.btn.btn-secondary {
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   padding: 10px 20px;
   background-color: transparent;
@@ -4246,7 +4246,7 @@ button.refreshing img {
   font-size: 16px;
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   transition: all 0.3s ease;
 }
 
@@ -4258,10 +4258,10 @@ button.refreshing img {
 }
 
 .modal-dialog.cstmzed .modal-footer button.btn.btn-primary {
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   padding: 10px 20px;
-  background-color: #212363;
+  background-color: #313190;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -4296,7 +4296,7 @@ h4.accnt-deti {
   font-size: 30px;
   line-height: 38px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .deatils-fill a {
@@ -4321,7 +4321,7 @@ h4.accnt-deti {
   font-size: 18px;
   line-height: 8px;
   margin-bottom: 10px;
-  color: #212363;
+  color: #313190;
 }
 
 .frame-detils span {
@@ -4410,7 +4410,7 @@ h4.accnt-deti {
   font-size: 16px;
   line-height: 20px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   position: relative;
   top: 7px;
 }
@@ -4465,7 +4465,7 @@ ul.lst-edit li button {
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
   text-transform: capitalize;
-  color: #212363;
+  color: #313190;
   background: transparent;
   border: 0;
 }
@@ -4593,7 +4593,7 @@ ul.lst-edit li button {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #212363;
+  color: #313190;
   font-family: "Quicksand", sans-serif;
 }
 
@@ -4646,7 +4646,7 @@ ul.track-order li h4 {
   font-size: 20px;
   line-height: 25px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-top: 16px;
   transition: all 0.3s ease;
 }
@@ -4655,7 +4655,7 @@ ul.track-order li p {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #212363;
+  color: #313190;
   font-family: "Mulish", sans-serif;
   transition: all 0.3s ease;
 }
@@ -4760,7 +4760,7 @@ ul.track-order li.active h5 {
   width: 12px;
   border-radius: 100%;
   height: 12px;
-  background: #212363;
+  background: #313190;
   opacity: 1;
   transition: all 0.3s ease;
 }
@@ -4798,7 +4798,7 @@ ul.track-order li.active h5 {
 }
 
 .patrons-saying {
-  background: #212363;
+  background: #313190;
 }
 
 
@@ -4980,7 +4980,7 @@ body.pad-top .secondary-menu ul li {
   height: 20px;
   width: 20px;
   background-color: transparent;
-  border: 1px solid #212363;
+  border: 1px solid #313190;
 }
 
 /* On mouse-over, add a grey background color */
@@ -4990,7 +4990,7 @@ body.pad-top .secondary-menu ul li {
 }
 
 .cstm-chkbx input:checked~.checkmark {
-  background-color: #212363;
+  background-color: #313190;
 }
 
 .checkmark:after {
@@ -5021,7 +5021,7 @@ body.pad-top .secondary-menu ul li {
   font-size: 24px;
   font-family: "Quicksand", sans-serif;
   line-height: 33px;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -5031,7 +5031,7 @@ body.pad-top .secondary-menu ul li {
   font-family: "Quicksand", sans-serif;
   line-height: 28px;
   margin-bottom: 10px;
-  color: #212363;
+  color: #313190;
 }
 
 .filter-lists ul {
@@ -5063,7 +5063,7 @@ span.shw-all a {
   font-family: "Mulish", sans-serif;
   line-height: 20px;
   text-decoration-line: underline;
-  color: #212363 !important;
+  color: #313190 !important;
 }
 
 .sort-order select {
@@ -5163,7 +5163,7 @@ span.shw-all a {
 }
 
 .browse-categories {
-  background-color: #212363;
+  background-color: #313190;
 }
 
 .browse-categories h2 {
@@ -5243,7 +5243,7 @@ span.fil-optn {
 }
 
 .brands-shots ul li:hover span {
-  color: #212363;
+  color: #313190;
   transition: all 0.5s ease;
 }
 
@@ -5344,7 +5344,7 @@ span.fil-optn {
   top: 9px;
   width: 3px;
   height: 3px;
-  background-color: #212363;
+  background-color: #313190;
   border-radius: 100%;
 }
 
@@ -5685,7 +5685,7 @@ span.fil-optn {
   font-size: 28px;
   line-height: 35px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 20px;
 }
 
@@ -5882,7 +5882,7 @@ button.nav-link {
 }
 
 button.nav-link:hover {
-  color: #212363;
+  color: #313190;
   transition: all 0.3s ease;
 }
 
@@ -5927,7 +5927,7 @@ button.nav-link:hover {
 }
 
 .control-tunes.inside-pge {
-  background: #212363;
+  background: #313190;
 }
 
 .shop-carts {
@@ -6056,7 +6056,7 @@ button.refreshing img {
   font-size: 24px;
   line-height: 30px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -6065,7 +6065,7 @@ button.refreshing img {
   font-size: 20px;
   line-height: 25px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 15px;
 }
 
@@ -6123,7 +6123,7 @@ button.refreshing img {
   font-size: 20px;
   line-height: 25px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .table.table-borderless.end-point td:last-child {
@@ -6150,7 +6150,7 @@ button.refreshing img {
 .customRadio input[type="radio"]+label:before {
   content: "";
   background: #fff;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   height: 15px;
   width: 15px;
   border-radius: 50%;
@@ -6161,7 +6161,7 @@ button.refreshing img {
 
 .customRadio input[type="radio"]+label:after {
   content: "";
-  background: #212363;
+  background: #313190;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -6183,7 +6183,7 @@ button.refreshing img {
   font-size: 30px;
   line-height: 38px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .shipping-addresss .load-btn {
@@ -6281,7 +6281,7 @@ button.refreshing img {
 
 .cstmzed .modal-body input {
   height: 50px;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
@@ -6292,7 +6292,7 @@ button.refreshing img {
 
 .cstmzed .modal-body select {
   height: 50px;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
@@ -6306,7 +6306,7 @@ button.refreshing img {
 }
 
 .cstmzed .modal-footer button.btn.btn-secondary {
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   padding: 10px 20px;
   background-color: transparent;
@@ -6314,7 +6314,7 @@ button.refreshing img {
   font-size: 16px;
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   transition: all 0.3s ease;
 }
 
@@ -6326,10 +6326,10 @@ button.refreshing img {
 }
 
 .cstmzed .modal-footer button.btn.btn-primary {
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   padding: 10px 20px;
-  background-color: #212363;
+  background-color: #313190;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -6364,7 +6364,7 @@ h4.accnt-deti {
   font-size: 30px;
   line-height: 38px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .deatils-fill a {
@@ -6389,7 +6389,7 @@ h4.accnt-deti {
   font-size: 20px;
   line-height: 25px;
   margin-bottom: 10px;
-  color: #212363;
+  color: #313190;
 }
 
 .frame-detils span {
@@ -6475,7 +6475,7 @@ h4.accnt-deti {
   font-size: 16px;
   line-height: 0px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   position: relative;
   top: 0px;
 }
@@ -6530,7 +6530,7 @@ ul.lst-edit li button {
   line-height: 20px;
   font-family: "Quicksand", sans-serif;
   text-transform: capitalize;
-  color: #212363;
+  color: #313190;
   background: transparent;
   border: 0;
 }
@@ -6658,7 +6658,7 @@ ul.lst-edit li button {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #212363;
+  color: #313190;
   font-family: "Quicksand", sans-serif;
 }
 
@@ -6711,7 +6711,7 @@ ul.track-order li h4 {
   font-size: 20px;
   line-height: 25px;
   font-family: "Mulish", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-top: 16px;
   transition: all 0.3s ease;
 }
@@ -6720,7 +6720,7 @@ ul.track-order li p {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #212363;
+  color: #313190;
   font-family: "Mulish", sans-serif;
   transition: all 0.3s ease;
 }
@@ -6743,13 +6743,13 @@ ul.track-order li span {
   justify-content: center;
   background: #fff;
   color: #666;
-  border: 7px solid #212363;
+  border: 7px solid #313190;
   z-index: 99;
   transition: all 0.3s ease;
 }
 
 ul.track-order li.active span {
-  background: #212363;
+  background: #313190;
   color: #fff;
   transition: all 0.3s ease;
 }
@@ -6766,7 +6766,7 @@ ul.track-order li:before {
 }
 
 ul.track-order li.active:after {
-  background: #212363;
+  background: #313190;
   width: 3px;
   height: 100%;
   position: absolute;
@@ -6847,7 +6847,7 @@ ul.track-order li.active:last-child:after {
   font-size: 18px;
   line-height: 22px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
 }
 
 .dwd-order .table-borderless td span {
@@ -6863,7 +6863,7 @@ ul.track-order li.active:last-child:after {
   font-size: 22px;
   line-height: 28px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin: 0px;
 }
 
@@ -6904,7 +6904,7 @@ ul.track-order li.active:last-child:after {
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
-  color: #212363;
+  color: #313190;
 }
 
 .dwd-order .table-borderless td a.dwd-qry:hover {
@@ -6945,7 +6945,7 @@ ul.track-order li.active:last-child:after {
   font-size: 24px;
   line-height: 30px;
   font-family: "Quicksand", sans-serif;
-  color: #212363;
+  color: #313190;
   margin-bottom: 30px;
 }
 
@@ -7083,7 +7083,7 @@ ul.track-order li.active:last-child:after {
   font-family: "Mulish", sans-serif;
   line-height: 20px;
   text-decoration-line: underline;
-  color: #212363 !important;
+  color: #313190 !important;
   cursor: pointer;
   margin-bottom: 20px;
   position: absolute;
@@ -7092,10 +7092,10 @@ ul.track-order li.active:last-child:after {
 }
 
 .form-data.sbm button[type="submit"] {
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   padding: 10px 20px;
-  background-color: #212363;
+  background-color: #313190;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
@@ -7113,7 +7113,7 @@ ul.track-order li.active:last-child:after {
 }
 
 .user-regster a {
-  color: #212363;
+  color: #313190;
   font-weight: 800;
 }
 
@@ -7127,7 +7127,7 @@ img.prdt-clsimg {
   font-weight: 800;
   font-size: 28px;
   line-height: 48px;
-  color: #212363;
+  color: #313190;
 }
 
 .dhoni-bgm h2 span {
@@ -7137,7 +7137,7 @@ img.prdt-clsimg {
 
 .row.fully-bxn input {
   height: 50px;
-  border: 2px solid #212363;
+  border: 2px solid #313190;
   border-radius: 4px;
   font-weight: 600;
   font-size: 16px;
@@ -7325,7 +7325,7 @@ input+p {
 }
 
 tbody>tr.active>th.active {
-  background-color: #212363;
+  background-color: #313190;
   color: #fff;
 }
 
@@ -9233,7 +9233,7 @@ progress {
   .container-md,
   .container-sm,
   .container {
-    max-width: 1200px;
+    max-width: 1280px;
   }
 }
 
@@ -12353,11 +12353,11 @@ fieldset:disabled .btn {
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #14191e;
   --bs-btn-disabled-border-color: #14191e;
-  /* background-image: linear-gradient(to right bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
-  /* background-image: linear-gradient(to bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
-  /* background-image: linear-gradient(to left bottom, #212363, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  /* background-image: linear-gradient(to right bottom, #313190, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  /* background-image: linear-gradient(to bottom, #313190, #3e2774, #5c2a83, #7c288f, #9d2398); */
+  /* background-image: linear-gradient(to left bottom, #313190, #3e2774, #5c2a83, #7c288f, #9d2398); */
   /* background-image: linear-gradient(188deg, #9d2398, #8a2793, #78298e, #662987, #55297f, #4f236e, #491d5d, #41184e, #391135, #2b0e22, #1c0812, #000000); */
-  background-image: linear-gradient(153deg, #9b25ae, #792b9f, #592c8d, #3c2978, #232362);
+  background-image: linear-gradient(153deg, #9b25ae, #792b9f, #592c8d, #3c2978, #313190);
 }
 
 .btn-outline-primary {
@@ -18835,7 +18835,7 @@ fieldset:disabled .btn {
 /* rtl:end:remove */
 .text-primary {
   --bs-text-opacity: 1;
-  color: #232362 !important;
+  color: #313190 !important;
 }
 
 .text-secondary {
@@ -18973,7 +18973,7 @@ fieldset:disabled .btn {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  background-color: #232362 !important;
+  background-color: #313190 !important;
 }
 
 .bg-secondary {

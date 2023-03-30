@@ -15,13 +15,12 @@ export default function Footer({getSubMenu}) {
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between">
 
                             <div className="logo-social">
-                                <a href=""><img src="/assets/images/bottom-logo.png" /></a>
-                                <ul>
+                                <a href=""><img src={require('../../assets/images/logo.png')} /></a>
+                                <ul style={{ transform: 'translateX(30px)' }}>
                                     <li>
                                         <Link to='https://www.facebook.com/museemusicalofficial'>
                                             <i className="fa fa-facebook" aria-hidden="true"></i>
                                         </Link>
-                                        
                                     </li>
                                     <li>
                                         <Link to='https://www.instagram.com/museemusical' target="_blank">

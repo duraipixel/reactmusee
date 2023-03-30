@@ -191,7 +191,7 @@ export const Login = () => {
                                                             <ErrorMessage errors={errors} name="password" as="p" />
                                                         </div>
                                                         <div className='mb-3 text-end user-register'>
-                                                            <Link to='/forgotpassword' style={{ color: '#212363', fontWeight: '800' }}> Forgot Password? </Link>
+                                                            <Link to='/forgotpassword' style={{ color: '#313190', fontWeight: '800' }}> Forgot Password? </Link>
                                                         </div>
                                                         <div className="form-data sbm col-lg-12 mb-3">
                                                             <button type='submit' disabled={loginFormLoader} >

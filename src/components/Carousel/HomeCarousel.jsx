@@ -1,8 +1,6 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
+import { Fragment} from 'react';
 import './homecarousel.css';
 import { HomeCarouselItem } from './HomeCarouselItem';
-import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function HomeCarousel({ homeData }) {
