@@ -78,7 +78,7 @@ export const Brand = () => {
             {
                 getBrandList && getBrandList !== 'undefined' && (
                     <div className='card mb-3'>
-                        <div className="card-header py-2 text-primary top-search flex-column w-100">
+                        <div className="card-header py-2 text-primary top-search d-block flex-column w-100">
                             <b>Brands</b>
                             <input type="search" className='form-control form-control-sm mt-2 border py-2' placeholder="Search..." onChange={handleChange} />
                         </div>
