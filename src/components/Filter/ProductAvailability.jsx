@@ -13,10 +13,10 @@ export const ProductAvailability = ({ product_availability }) => {
     const [isFetchUrl, setIsFetchUrl] = useState('');
 
     var availabilitySelected = [];
-    if( searchParams.get('availability') ) {
-        availabilitySelected = searchParams.get('availability').split("-") ;
+    if (searchParams.get('availability')) {
+        availabilitySelected = searchParams.get('availability').split("-");
     }
-    
+
     const getProduct = (e) => {
         // const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
@@ -28,37 +28,41 @@ export const ProductAvailability = ({ product_availability }) => {
         }
         if (array.length > 0) {
             let checkedAvailabilityString = array.join("-");
-            searchParams.set('availability', checkedAvailabilityString );
+            searchParams.set('availability', checkedAvailabilityString);
             // url.searchParams.set("availability", checkedAvailabilityString);
         } else {
             searchParams.delete("availability");
         }
-        navigate(SUrl +'?'+ searchParams.toString());
-        setIsFetchUrl('?'+ searchParams.toString());
-        dispatch(fetchProducts( '?'+ searchParams.toString()));
+        navigate(SUrl + '?' + searchParams.toString());
+        setIsFetchUrl('?' + searchParams.toString());
+        dispatch(fetchProducts('?' + searchParams.toString()));
     }
 
-    
-    
+
+
 
     return (
         <Fragment>
             {
                 product_availability && (
-                    <ul>
-                        <h4>Product Availability</h4>
-                        {
-                            Object.entries(product_availability).map((item, i) => (
-                                <li key={i}>
-                                    <label className="cstm-chkbx">{item[1]}
-                                        <input type="checkbox" checked={ (availabilitySelected.includes(item[0]) ? 'checked' : '')} className='product_availability' name='product_availability[]' value={item[0]} onChange={() => getProduct()} />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </li>
-                            ))
-                        }
-
-                    </ul>
+                    <div className='card mb-3'>
+                        <div className="card-header py-2 text-primary">
+                            <b>Product Availability</b>
+                        </div>
+                        <ul className='list-group list-group-flush w-100 list-group-scrollable'>
+                            {
+                                Object.entries(product_availability).map((item, i) => (
+                                    <li key={i} className="list-group-item list-group-item-action w-100">
+                                        <label className="cstm-chkbx">
+                                            <small>{item[1]}</small>
+                                            <input type="checkbox" checked={(availabilitySelected.includes(item[0]) ? 'checked' : '')} className='product_availability' name='product_availability[]' value={item[0]} onChange={() => getProduct()} />
+                                            <span className="checkmark"></span>
+                                        </label>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
                 )
             }
         </Fragment>

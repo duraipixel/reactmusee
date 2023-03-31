@@ -4,7 +4,7 @@ import { CardActionArea } from "@mui/material";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CardComponent({ settings }) {
-    const { data, index } = settings
+    const { data, index, className } = settings
     const navigate = useNavigate()
     const showProduct = (url) => {
         const toProductPath = compile('/product/:product_url/');
@@ -13,7 +13,7 @@ function CardComponent({ settings }) {
         )
     }
     return (
-        <div className="arrival-product custom-card border rounded-2" key={index} onClick={() => showProduct(data.product_url)}>
+        <div className={`custom-card rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">

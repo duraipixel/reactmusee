@@ -47,6 +47,7 @@
     "react-toastify": "^9.1.1",
     "redux-persist": "^6.0.0",
     "rsuite": "^5.28.3",
+    "sass": "^1.60.0",
     "serve-build": "^0.1.0",
     "sort-by": "^1.2.0",
     "sweetalert2": "^11.7.0",

@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Brand } from '../components/Filter/Brand'
 import { DiscountCollection } from '../components/Filter/DiscountCollection'
 import { ProductAvailability } from '../components/Filter/ProductAvailability'
@@ -9,9 +9,9 @@ import { AttributeCollection } from '../components/Filter/AttributeCollection';
 import axios from 'axios';
 import { ProductCollection } from './../components/Filter/ProductCollection';
 
-export const Filter = ({filterStaticMenu}) => {
+export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
 
-    
+
     const product_availability = filterStaticMenu.product_availability;
     const video_shopping = filterStaticMenu.video_shopping;
     const discounts = filterStaticMenu.discounts;
@@ -25,17 +25,17 @@ export const Filter = ({filterStaticMenu}) => {
     const searchParams = new URLSearchParams(location.search);
 
     const CommonUrl = new URL(window.location.href);
-    
+
     var bookingSelected = [];
-   
-    if( searchParams.get('booking') ) {
-        bookingSelected = searchParams.get('booking').split("-") ;
+
+    if (searchParams.get('booking')) {
+        bookingSelected = searchParams.get('booking').split("-");
     }
 
     const categoryUrl = searchParams.get('category');
 
     const getProduct = () => {
-        
+
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
         var array = []
@@ -50,17 +50,17 @@ export const Filter = ({filterStaticMenu}) => {
         } else {
             searchParams.delete("booking");
         }
-        navigate(SUrl + '?'+ searchParams.toString());
-        dispatch(fetchProducts('?'+ searchParams.toString()));
+        navigate(SUrl + '?' + searchParams.toString());
+        dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
-    
+
     const getDynamicFilter = () => {
 
         axios({
             url: window.API_URL + '/get/dynamic/filter/category',
             method: 'POST',
-            data: {category_slug: categoryUrl},
+            data: { category_slug: categoryUrl },
         }).then((res) => {
             setDynamicFilter(res.data);
         }).catch((err) => {
@@ -69,7 +69,7 @@ export const Filter = ({filterStaticMenu}) => {
     }
 
     const clearFilter = () => {
-        
+
         const url = new URL(window.location.href);
         const SUrl = "/products/pfilter";
         url.searchParams.delete("booking");
@@ -82,11 +82,11 @@ export const Filter = ({filterStaticMenu}) => {
         url.searchParams.delete("category");
         url.searchParams.delete("attributes_category");
         var checkboxes = document.querySelectorAll('.filter_dynamic_attributes:checked')
-        
-        for(var i= 0; i<checkboxes.length; i++){
-            checkboxes[i].checked= false;
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
         }
-        
+
         document.getElementsByClassName("product_availability").checked = false;
         document.querySelectorAll('input[name=filter_dynamic_attributes]').checked = false;
         document.getElementsByClassName("filter_brand").checked = false;
@@ -100,61 +100,64 @@ export const Filter = ({filterStaticMenu}) => {
     }
 
     const closeFilterMenu = () => {
-        
+
         var filtermenu = document.getElementById('fil-optn')
         filtermenu.classList.remove('hide')
         filtermenu.classList.add('show')
-        
+
         var sidefilter = document.getElementById('sdmnu-repnsve');
         sidefilter.classList.remove('show')
     }
 
     useMemo(() => {
-        if( dynamicFilter.length == 0 ){
+        if (dynamicFilter.length == 0) {
             getDynamicFilter()
         }
     }, [categoryUrl])
 
     return (
-        <Fragment >
-            <div className="col-lg-3 col-md-3 col-sm-3 col-xs-12 sdmnu-repnsve mCustomScrollbar sticky-wraper" data-spy="affix" data-offset-top="224" data-offset-bottom="320" id="sdmnu-repnsve">
-                <div className="filter-lists d-flex">
-                    <h3>Filters </h3>
-                    <div className={`clear_filter ${Array.from(searchParams).length > 0 ? '':'hide'}`} onClick={() => clearFilter()}> 
-                        Clear Filter  
-                        {/* <i className="fa fa-times" aria-hidden="true"></i> */}
+        <div className={className}>
+            <div className='p-3 '>
+                <button className='fw-bold filter-group-icon rounded-pill mb-3 btn btn-sm btn-light' onClick={() => setFilterIcon(false)}>
+                    <i className='fa fa-chevron-left me-1'></i> CLOSE
+                </button>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h5 className='text-primary'>Filters </h5>
+                    <div className={`text-danger small ${Array.from(searchParams).length > 0 ? '' : 'hide'}`} onClick={() => clearFilter()}>
+                        <i className="fa fa-times me-2" aria-hidden="true"></i>
+                        Clear Filter
                     </div>
                 </div>
-                <div className="filter-lists">
-                    <span className="cl-se-btn" onClick={() => closeFilterMenu()}>
-                        <a > <img src="/assets/images/filter-close.png" /> </a>
-                    </span>
-                    <ProductAvailability product_availability={product_availability} />
-                </div>
+                {/* <span className="cl-se-btn" onClick={() => closeFilterMenu()}>
+                    <a > <img src="/assets/images/filter-close.png" /> </a>
+                </span> */}
+                <ProductAvailability product_availability={product_availability} />
                 <Brand />
                 {
-                    dynamicFilter && dynamicFilter.length > 0 && 
-                    <AttributeCollection dynamicFilter={dynamicFilter   } />
+                    dynamicFilter && dynamicFilter.length > 0 &&
+                    <AttributeCollection dynamicFilter={dynamicFilter} />
                 }
-                <div className="filter-lists">
-                    <ul>
-                        <h4>Video Shopping</h4>
-                        <li>
-                            <label className="cstm-chkbx">Video Shopping
-                                <br />is available
-                                <input type="checkbox" checked={ (bookingSelected.includes('video_shopping') ? 'checked' : '')} name='video_shopping' className='video_shopping' value="video_shopping" id="video_shopping" onChange={() => getProduct()}/>
+                <div className='card mb-3'>
+                    <div className="card-header py-2 text-primary">
+                        <b>Video Shopping</b>
+                    </div>
+                    <ul className='list-group list-group-flush w-100 list-group-scrollable'>
+                        <li className="list-group-item list-group-item-action w-100">
+                            <label className="cstm-chkbx">
+                                <small>Video Shopping is available</small>
+                                <input type="checkbox" checked={(bookingSelected.includes('video_shopping') ? 'checked' : '')} name='video_shopping' className='video_shopping' value="video_shopping" id="video_shopping" onChange={() => getProduct()} />
                                 <span className="checkmark"></span>
                             </label>
                         </li>
                     </ul>
                 </div>
-                {discounts &&  discounts.length > 0 &&
+                {discounts && discounts.length > 0 &&
                     <DiscountCollection discounts={discounts} />
                 }
-                {collection &&  collection.length > 0 &&
+                {collection && collection.length > 0 &&
                     <ProductCollection collection={collection} />
                 }
             </div>
-        </Fragment>
+        </div>
     )
 }

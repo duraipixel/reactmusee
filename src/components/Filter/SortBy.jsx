@@ -29,9 +29,9 @@ export const SortBy = ({sort_by}) => {
     
     return (
         <Fragment>
-            <div className="sort-order">
-                <span> Sort by</span>
-                <select className="form-control filter_sort_by" id="sort_by"  name="sort_by" onChange={() => getProducts()}>
+            <div className="row m-0 align-items-center pt-2">
+                <div className='col-4'> Sort by</div>
+                <select className="col form-select form-select-sm" id="sort_by"  name="sort_by" onChange={() => getProducts()}>
                     <option value="">--select--</option>
                     {
                         sort_by && sort_by.map((item, i) => (

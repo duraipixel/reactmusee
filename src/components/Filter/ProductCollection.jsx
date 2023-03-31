@@ -11,11 +11,11 @@ export const ProductCollection = ({ collection }) => {
   const searchParams = new URLSearchParams(location.search);
   const CommonUrl = new URL(window.location.href);
   var collectionSelected = [];
-  
-  if( searchParams.get('collection') ) {
-    collectionSelected = searchParams.get('collection').split("_") ;
+
+  if (searchParams.get('collection')) {
+    collectionSelected = searchParams.get('collection').split("_");
   }
-  
+
   const getProduct = () => {
 
     const url = new URL(window.location.href);
@@ -24,26 +24,26 @@ export const ProductCollection = ({ collection }) => {
     var checkboxes = document.querySelectorAll('.filter_collection:checked')
 
     for (var i = 0; i < checkboxes.length; i++) {
-        array.push(checkboxes[i].value)
+      array.push(checkboxes[i].value)
     }
     if (array.length > 0) {
-        let checkedAvailabilityString = array.join("_");
-        searchParams.set("collection", checkedAvailabilityString);
+      let checkedAvailabilityString = array.join("_");
+      searchParams.set("collection", checkedAvailabilityString);
 
-        searchParams.delete("booking");
-        searchParams.delete("discount");
-        searchParams.delete("brand");
-        searchParams.delete("availability");
-        searchParams.delete("page");
-        searchParams.delete("sort");
-        searchParams.delete("category");
-        searchParams.delete("attributes_category");
+      searchParams.delete("booking");
+      searchParams.delete("discount");
+      searchParams.delete("brand");
+      searchParams.delete("availability");
+      searchParams.delete("page");
+      searchParams.delete("sort");
+      searchParams.delete("category");
+      searchParams.delete("attributes_category");
 
     } else {
-        searchParams.delete("collection");
+      searchParams.delete("collection");
     }
-    navigate(SUrl + '?'+ searchParams.toString());
-    dispatch(fetchProducts('?'+ searchParams.toString()));
+    navigate(SUrl + '?' + searchParams.toString());
+    dispatch(fetchProducts('?' + searchParams.toString()));
 
   }
 
@@ -51,25 +51,26 @@ export const ProductCollection = ({ collection }) => {
     <Fragment>
       {
         collection && (
-          <div className="filter-lists">
-            <ul>
-              <h4>Collections</h4>
+          <div className='card mb-3'>
+            <div className="card-header py-2 text-primary">
+              <b>Collections</b>
+            </div>
+            <ul className='list-group list-group-flush w-100 list-group-scrollable'>
               {
-                collection.map((item) => (
-                  <li key={item.id}>
-                    <label className="cstm-chkbx"> {item.collection_name}
-                      <input type="checkbox" name='collection[]' checked={ (collectionSelected.includes(item.slug) ? 'checked' : '')} className='filter_collection' onChange={() => getProduct()} value={item.slug}  />
+                collection.map((item, i) => (
+                  <li key={i} className="list-group-item list-group-item-action w-100">
+                    <label className="cstm-chkbx">
+                      <small>{item.collection_name}</small>
+                      <input type="checkbox" name='collection[]' checked={(collectionSelected.includes(item.slug) ? 'checked' : '')} className='filter_collection' onChange={() => getProduct()} value={item.slug} />
                       <span className="checkmark"></span>
                     </label>
                   </li>
                 ))
               }
-              
             </ul>
           </div>
         )
       }
-
     </Fragment>
   )
 }

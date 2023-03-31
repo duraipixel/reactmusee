@@ -1,19 +1,15 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
 import { FilterPane } from '../components/Filter/FilterPane';
 import { ProductCount } from '../components/Filter/ProductCount';
 import { SortBy } from '../components/Filter/SortBy';
-import { Submenu } from '../components/Layouts/Submenu';
 import { OtherCategory } from '../components/Sliders/OtherCategory';
-import SideCustomScrollbar from './../components/SideCustomScrollbar';
 import { Filter } from './Filter';
-import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { Helmet } from 'react-helmet';
-import { useParams, useLocation, useOutletContext } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { fetchBrowseCategory } from './../app/reducer/otherCategorySlice';
-
+import { BsFilterCircleFill } from "react-icons/bs";
 export const Collection = () => {
 
     const [filterStaticMenu, setFilterStaticMenu] = useState([]);
@@ -24,7 +20,7 @@ export const Collection = () => {
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    
+
     const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
     const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
@@ -57,10 +53,10 @@ export const Collection = () => {
         })
     }
 
-    const getFilterTab = () => {    
+    const getFilterTab = () => {
         var filtermenu = document.getElementById('fil-optn')
         filtermenu.classList.add('hide')
-        
+
         var sidefilter = document.getElementById('sdmnu-repnsve');
         sidefilter.classList.add('show')
     }
@@ -70,51 +66,57 @@ export const Collection = () => {
             getFilterStaticMenuData();
         }
     }, []);
-
-    
-
-    // const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
+    const [filterIcon, setFilterIcon] = useState(true)
+    const toggle = () => {
+        setFilterIcon(!filterIcon)
+    }
     return (
         <Fragment>
             <Helmet>
-
                 <title> Product Filters | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 {/* <meta name="keyword" content="" /> */}
                 {/* <meta name="description" content={productInfo.meta.meta_description} /> */}
             </Helmet>
-            <div>
+            {/* <div>
                 <span className="fil-optn" id='fil-optn' onClick={getFilterTab}>
                     <i className="fa fa-filter" aria-hidden="true"></i>
                     Filter
                 </span>
-            </div>
+            </div> */}
 
-            <section className="all-pianos-list">
-                <div className="container">
-                    <div className="row">
-                        <Filter filterStaticMenu={filterStaticMenu} />
-                        <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                            <div className="pianos-lists">
-                                <div className="col-lg-12 col-md-12 col-sm-12 d-flex
-                                    justify-content-between">
-                                    <div className="primary-heads">
+            <div className='bg-light'>
+                <div className="container product-container">
+                    <div className="row g-s3">
+                        <div className="col-xl-3 p-0 p-xl-3 ">
+                            <div className='position-relative'>
+                                <Filter filterStaticMenu={filterStaticMenu} setFilterIcon={toggle} className={`filter-group ${filterIcon == true ? 'closed' : ''}`} />
+                            </div>
+                        </div>
+                        <div className="col-xl">
+                            <div className='card my-3'>
+                                <div className="p-2 d-md-flex justify-content-between align-items-center">
+                                    <div className='d-flex align-items-center'>
+                                        <div className="me-2">
+                                            <button className='filter-group-icon bg-none btn btn-sm'>
+                                                <BsFilterCircleFill className='text-primary' size={30} onClick={toggle} />
+                                            </button>
+                                        </div>
                                         <ProductCount />
                                     </div>
                                     <SortBy sort_by={filterStaticSideMenu.sory_by} />
                                 </div>
-                                <FilterPane />
                             </div>
+                            <FilterPane />
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
             {
                 otherCategory.browse && otherCategory.browse.length > 0 &&
                 <section className="browse-categories">
                     <div className="container">
                         <div className="row">
-
                             <div className="col-lg-12">
                                 <div className="common-heads light">
                                     <h2>Browse our other categories</h2>

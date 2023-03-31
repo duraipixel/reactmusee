@@ -53,8 +53,6 @@ export const FilterItems = () => {
                                 </Link>
                             </div>
                         </div>
-
-
                     )
                 )) : 
                 <div>

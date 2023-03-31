@@ -1,11 +1,11 @@
 import { Fragment, useState } from 'react'
-import { FilterItems } from './FilterItems';
-import { ProductSkeletonItem } from './../Skeleton/ProductSkeletonItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, createSearchParams, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { PongSpinner } from 'react-spinners-kit';
 import './filter.css';
+import ProductCardGroup from '../FilterPannel';
+import { Button } from '@mui/material';
 
 export const FilterPane = (props) => {
     const dispatch = useDispatch();
@@ -37,29 +37,14 @@ export const FilterPane = (props) => {
 
     return (
         <Fragment>
-            <div className="col-lg-12 col-md-12 col-sm-12
-                                    main-det-prdt">
-                <div className="row">
-                    {
-                        !filterData.loading && products ? (
-                            <FilterItems />
-                        ) :
-                            Array.from(
-                                { length: 6 },
-                                (_, i) => (
-                                    <ProductSkeletonItem key={i} />
-                                )
-                            )
-                    }
-
-                </div>
-
-                <div className={`col-lg-12 text-center ${filterData.products && filterData.products.to >= filterData.products.total_count ? 'hide' : ''}`} >
-                    <div className="load-btn">
-                        <button className='loadmore' onClick={() => loadMoreProduct()}>
-                            Load More
-                        </button>
-                    </div>
+            <div className="filter-product-list">
+                {!filterData.loading && products && <ProductCardGroup />}
+            </div>
+            <div className='my-4'>
+                <div className={`text-center ${filterData.products && filterData.products.to >= filterData.products.total_count ? 'hide' : ''}`} >
+                    <Button variant='outlined' onClick={() => loadMoreProduct()}>
+                        Load More
+                    </Button>
                 </div>
                 <div className='loadmore-loading'>
                     <PongSpinner
@@ -67,10 +52,8 @@ export const FilterPane = (props) => {
                         color="#0a1d4a"
                         loading={startLoadMore}
                         style={{ top: '50%', left: '45%' }}
-
                     />
                 </div>
-
             </div>
         </Fragment>
     )

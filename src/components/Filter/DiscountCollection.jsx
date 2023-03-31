@@ -11,11 +11,11 @@ export const DiscountCollection = ({ discounts }) => {
   const searchParams = new URLSearchParams(location.search);
   const CommonUrl = new URL(window.location.href);
   var discountSelected = [];
-  
-  if( searchParams.get('discount') ) {
-    discountSelected = searchParams.get('discount').split("_") ;
+
+  if (searchParams.get('discount')) {
+    discountSelected = searchParams.get('discount').split("_");
   }
-  
+
   const getProduct = () => {
 
     const url = new URL(window.location.href);
@@ -24,18 +24,18 @@ export const DiscountCollection = ({ discounts }) => {
     var checkboxes = document.querySelectorAll('.filter_discounts:checked')
 
     for (var i = 0; i < checkboxes.length; i++) {
-        array.push(checkboxes[i].value)
+      array.push(checkboxes[i].value)
     }
     if (array.length > 0) {
-        let checkedAvailabilityString = array.join("_");
-        searchParams.set("discount", checkedAvailabilityString);
-        searchParams.delete("collection");
+      let checkedAvailabilityString = array.join("_");
+      searchParams.set("discount", checkedAvailabilityString);
+      searchParams.delete("collection");
 
     } else {
-        searchParams.delete("discount");
+      searchParams.delete("discount");
     }
-    navigate(SUrl + '?'+ searchParams.toString());
-    dispatch(fetchProducts('?'+ searchParams.toString()));
+    navigate(SUrl + '?' + searchParams.toString());
+    dispatch(fetchProducts('?' + searchParams.toString()));
 
   }
 
@@ -43,26 +43,26 @@ export const DiscountCollection = ({ discounts }) => {
     <Fragment>
       {
         discounts && (
-          <div className="filter-lists">
-            <ul>
-              <h4>Discounts</h4>
+          <div className='card mb-3'>
+            <div className="card-header py-2 text-primary">
+              <b>Discounts</b>
+            </div>
+            <ul className='list-group list-group-flush w-100 list-group-scrollable'>
               {
-                discounts.map((item) => (
-                  <li key={item.id}>
-                    <label className="cstm-chkbx"> {item.collection_name}
-                    
-                      <input type="checkbox" name='discounts[]' checked={ (discountSelected.includes(item.slug) ? 'checked' : '')} className='filter_discounts' onChange={() => getProduct()} value={item.slug}  />
+                discounts.map((item, i) => (
+                  <li key={i} className="list-group-item list-group-item-action w-100">
+                    <label className="cstm-chkbx">
+                      <small>{item.collection_name}</small>
+                      <input type="checkbox" name='discounts[]' checked={(discountSelected.includes(item.slug) ? 'checked' : '')} className='filter_discounts' onChange={() => getProduct()} value={item.slug} />
                       <span className="checkmark"></span>
                     </label>
                   </li>
                 ))
               }
-              
             </ul>
           </div>
         )
       }
-
     </Fragment>
   )
 }
