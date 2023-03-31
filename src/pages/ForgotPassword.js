@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React from 'react'
 import { Fragment, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { ErrorMessage } from '@hookform/error-message'
 import { Link, useNavigate } from 'react-router-dom';
+import { Button } from 'rsuite';
+import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 export const ForgotPassword = () => {
 
@@ -58,9 +60,50 @@ export const ForgotPassword = () => {
             <Helmet>
                 <title>Forgot Password | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
-                <meta name='description' content='forgot password page'/>
+                <meta name='description' content='forgot password page' />
             </Helmet>
-            <section className="tab-of-sectors lgon-pge">
+            <section className='d-flex align-items-center justify-content-center p-2' style={{
+                background: 'linear-gradient(rgb(0 0 0 / 46%), rgb(0 0 0 / 67%)), url(https://cdn.pixabay.com/photo/2013/11/03/08/05/cheers-204742_960_720.jpg)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center center',
+                minHeight: '80vh'
+            }}>
+                <div className='card shadow-lg border col-lg-4 col-md-6 col-sm-8 rounded-4'>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <CardContent className='p-4'>
+                            <Typography gutterBottom variant="h5" component="div" className='mb-4 text-uppercase text-primary fw-bold text-center'>
+                                Forgot Password
+                            </Typography>
+                            <FormControl fullWidth variant="outlined" className='mb-4'>
+                                <InputLabel error={errors.email ? true : false} htmlFor="outlined-adornment-email">Email</InputLabel>
+                                <OutlinedInput
+                                    id="outlined-adornment-email"
+                                    type='email'
+                                    label="Email"
+                                    error={errors.email ? true : false}
+                                    {...register("email", {
+                                        required: true, pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "Invalid email address"
+                                        }
+                                    })}
+                                />
+                            </FormControl>
+                            <Button type='submit' loading={sendPasswordLink} size="lg" className='py-3 btn-dark text-white text-uppercase w-100' >
+                                <i class="bi bi-link me-2"></i>
+                                Reset Password
+                            </Button>
+                            <div className="col-lg-12 text-center mt-3">
+                                <div className="user-regster">
+                                    Having credentials?
+                                    <Link to="/login"> Login Here! </Link>
+                                </div>
+                            </div> 
+                        </CardContent>
+                    </form>
+                </div>
+            </section>
+            {/* <section className="tab-of-sectors lgon-pge">
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-9 col-md-9 col-sm-9">
@@ -81,7 +124,7 @@ export const ForgotPassword = () => {
                                                 <div className="col-lg-12 col-md-12 col-sm-12">
                                                     <div className="common-heading">
                                                         <h2>
-                                                            Forgot Password 
+                                                            Forgot Password
                                                         </h2>
                                                     </div>
                                                     <div className="row">
@@ -94,7 +137,7 @@ export const ForgotPassword = () => {
                                                             })} placeholder="Email" />
                                                             <ErrorMessage errors={errors} name="email" as="p" />
                                                         </div>
-                                                        
+
                                                         <div className="form-data sbm col-lg-12 mb-3">
                                                             <button type='submit' disabled={sendPasswordLink} >
                                                                 {sendPasswordLink && (
@@ -109,7 +152,7 @@ export const ForgotPassword = () => {
                                                             <h5>or</h5>
                                                         </div>
                                                     </div>
-                                                   
+
                                                     <div className="col-lg-12 text-center mt-3">
                                                         <div className="user-regster">
                                                             Having credentials?
@@ -131,7 +174,7 @@ export const ForgotPassword = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </Fragment>
     )
 }
