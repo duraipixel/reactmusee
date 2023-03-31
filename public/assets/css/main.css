@@ -963,7 +963,7 @@ section {
 }
 
 .prdt-img {
-  background-color: black;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2232,7 +2232,7 @@ section {
 }
 
 .prdt-img {
-  background-color: black;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;

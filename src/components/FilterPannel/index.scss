@@ -41,7 +41,7 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .filter-product-list > .custom-card {
-        width: calc(100% / 4 - 12px);
+        width: calc(100% / 3 - 12px);
     }
     .filter-group-icon {
         display: none;

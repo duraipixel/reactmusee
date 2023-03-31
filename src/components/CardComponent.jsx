@@ -13,7 +13,7 @@ function CardComponent({ settings }) {
         )
     }
     return (
-        <div className={`custom-card rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
+        <div className={`custom-card border shadow-sm rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">
@@ -26,7 +26,7 @@ function CardComponent({ settings }) {
                         </div>
                     }
                 </div>
-                <div className="trend-access bg-white border-top">
+                <div className="trend-access bg-light">
                     <div className="ratings d-flex justify-content-between">
                         <div className="prdt-type">
                             {data.category_name}

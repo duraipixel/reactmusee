@@ -85,7 +85,7 @@ export const Collection = () => {
                 </span>
             </div> */}
 
-            <div className='bg-light'>
+            <div className='bg-lightx'>
                 <div className="container product-container">
                     <div className="row g-s3">
                         <div className="col-xl-3 p-0 p-xl-3 ">
