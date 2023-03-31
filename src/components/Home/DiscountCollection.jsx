@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { DiscountSkeletonItem } from '../Skeleton/DiscountSkeletonItem'
 
-export default function DiscountCollection() {
+export default function DiscountCollection({className}) {
 
     const [discountCollectionData, setDiscountCollectionData] = useState([]);
 
@@ -32,7 +32,7 @@ export default function DiscountCollection() {
             {
                 discountCollectionData && discountCollectionData.length > 0 &&
 
-                <section className="list-of-deals" id="home-content">
+                <section className={`list-of-deals ${className}`} id="home-content">
                     <div className="container">
                         <div className="">
 

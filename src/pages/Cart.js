@@ -5,7 +5,6 @@ import { ShippingAddress } from '../components/Cart/ShippingAddress'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
@@ -15,6 +14,8 @@ import { fetchCarts } from '../app/reducer/cartSlice'
 import { Helmet } from 'react-helmet';
 import { AddressList } from '../components/Cart/AddressList'
 import { WaveSpinner } from "react-spinners-kit";
+import { Button } from '@mui/material';
+import DiscountCollection from '../components/Home/DiscountCollection';
 
 export const Cart = () => {
     const cart = useSelector((state) => state.cart);
@@ -197,7 +198,7 @@ export const Cart = () => {
             }
         }).catch((err) => {
         })
-        
+
     }
 
     const proceedCheckout = () => {
@@ -211,11 +212,11 @@ export const Cart = () => {
 
     async function updateCartAmount(shipping_id, type = '') {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
-        if( !customer?.id) {
-            
+        if (!customer?.id) {
+
             toast.error('Login to Apply Shipping Charges');
             navigate('/login')
-        }  
+        }
         await axios({
             url: window.API_URL + '/update/cartAmount',
             method: 'POST',
@@ -236,13 +237,13 @@ export const Cart = () => {
                 <title>Cart | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
-            <section className="shop-carts">
-                <div className="container">
-                    <div className="row"> 
-                        {
-                            cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
+            {
+                cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
+                    <section className="shop-carts">
+                        <div className="container">
+                            <div className="row">
                                 <>
-                                    <div className="col-lg-8"> 
+                                    <div className="col-lg-8">
                                         <div className="finalcart-list">
                                             <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
                                             <div className="shipping-addresss">
@@ -338,38 +339,50 @@ export const Cart = () => {
                                     </Modal>
                                     <AddressList fromList={fromList} handleListClose={handleListClose} showList={showList} customerAddress={customerAddress} handleSetAddress={handleSetAddress} shipping_address={shipping_address} />
                                 </>
-                                :
-                                <div className="col-lg-12">
-                                    <div className="finalcart-list text-center">
-                                        <img src='/assets/images/cart_empty.png' alt="call" className="img-fluid" />
-                                        <h3> Your cart is empty. </h3><br />
-                                        <div className='load-btn'>
-                                            <Link to='/' > Shop today’s deals </Link>
+                            </div>
+                        </div>
+                        {
+                            paymentLoader &&
+
+                            <div id="cart-loader" >
+                                <div className='loader-wrapper'>
+                                    <WaveSpinner
+                                        size={100}
+                                        color="#0a1d4a"
+                                        loading={paymentLoader}
+
+                                        style={{ top: '50%', left: '45%' }}
+
+                                    />
+                                    <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                                </div>
+                            </div>
+                        }
+                    </section>
+                    : <>
+                        <div class="jumbotron text-gray" >
+                            <div className='container  p-4'>
+                                <div className='row m-0 align-items-center'>
+                                    <div className='col-md-10'>
+                                        <h2 className='text-primary'>Your cart</h2>
+                                        <p className='mb-3'>is empty, A few clicks is all it takes.</p>
+                                        <Button variant="outlined" className='btn-dark' color='light' onClick={() => navigate('/')} role="button"> <i class="bi bi-music-note-beamed me-2 fs-5"></i> Shop now </Button>
+                                    </div>
+                                    <div className='col-md-2 text-center'>
+                                        <div>
+                                            <img src={require('../assets/images/empty-cart.png')} alt="empty-cart" width={180} />
+                                            <div>
+                                                <b className='h5 text-uppercase'> Cart is empty!. </b>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                        }
-
-                    </div>
-                </div>
-                {
-                    paymentLoader &&
-
-                    <div id="cart-loader" >
-                        <div className='loader-wrapper'>
-                            <WaveSpinner
-                                size={100}
-                                color="#0a1d4a"
-                                loading={paymentLoader}
-
-                                style={{ top: '50%', left: '45%' }}
-
-                            />
-                            <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                            </div>
                         </div>
-                    </div>
-                }
-            </section>
+                        <DiscountCollection className="py-4" />
+                    </>
+            }
+
 
         </Fragment>
     )
