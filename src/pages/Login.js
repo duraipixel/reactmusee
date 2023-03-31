@@ -119,7 +119,7 @@ export const Login = () => {
                 <meta name='description' content='login page' />
             </Helmet>
             <section className='d-flex align-items-center justify-content-center p-2' style={{
-                background: 'linear-gradient(rgb(0 0 0 / 46%), rgb(0 0 0 / 67%)), url(https://cdn.pixabay.com/photo/2013/11/03/08/05/cheers-204742_960_720.jpg)',
+                background: `linear-gradient(rgb(0 0 0 / 46%), rgb(0 0 0 / 67%)), url(${window.AUTH_BG})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center center',
                 minHeight: '80vh'
