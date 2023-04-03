@@ -36,7 +36,7 @@ const AddAddress = ({ addressType, states, addressInfo, addressFormShow, handleA
 
   return (
     <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={addressFormShow}>
-      <Card variant="outlined" className="col-md-5 m-2  position-relative">
+      <Card variant="outlined" className="col-md-5 m-2 position-relative">
         <form onSubmit={handleSubmit(addUpdateAddress)} id="addressForm">
           <CardContent>
             <h5 className="text-center mb-3 text-primary">Create new address</h5>

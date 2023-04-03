@@ -16,6 +16,8 @@ import { AddressList } from '../components/Cart/AddressList'
 import { WaveSpinner } from "react-spinners-kit";
 import { Button } from '@mui/material';
 import DiscountCollection from '../components/Home/DiscountCollection';
+import AddAddress from '../components/Profile/AddAddress';
+import AddressForm from './../components/Cart/AddressForm';
 
 export const Cart = () => {
     const cart = useSelector((state) => state.cart);
@@ -37,11 +39,15 @@ export const Cart = () => {
     const [addressType, setAddressType] = useState([]);
     const [rocketCharges, setRocketCharges] = useState([]);
     const [states, setStates] = useState('');
+    const [addressFormShow, setAddressFormShow] = useState(false);
+    const [updateAddressId, setUpdateAddressId] = useState(0);
+    const [addressInfo, setAddressInfo] = useState(null);
     const navigate = useNavigate();
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
     const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
+    const billing_address = JSON.parse(window.localStorage.getItem('billing_address'));
 
     const {
         register,
@@ -55,8 +61,30 @@ export const Cart = () => {
         document.getElementById('address_form').reset();
         setShow(false)
     };
-    const handleShow = (from_type) => {
-        setFromAdd(from_type);
+
+    const handleAddressModalClose = () => {
+
+        setUpdateAddressId(0)
+        document.getElementById('addressForm').reset();
+        setAddressFormShow(false)
+
+    };
+
+    const handleAddressModalShow = () => {
+        setAddressFormShow(true);
+        setTimeout(() => {
+            document.getElementById('addressForm').reset();
+        }, 100);
+    }
+
+    const handleShow = () => {
+        if (!customer?.id) {
+            toast.error('Login to add address');
+            setTimeout(() => {
+                navigate('/login');
+            })
+        }
+        setFromAdd();
         setShow(true);
     }
 
@@ -79,6 +107,16 @@ export const Cart = () => {
         })
     }
 
+    const handleSetShippingAddressView = (address_id) => {
+
+        if (customerAddress) {
+
+            let ship_selected = customerAddress.find(item => item.id == address_id);
+            setShippingAddress(ship_selected);
+        }
+
+    }
+
     useEffect(() => {
 
         if (Array.isArray(cart.cart.carts)) {
@@ -97,14 +135,15 @@ export const Cart = () => {
         }
 
         if (shipping_address) {
-            setShippingAddress(shipping_address);
+
+            handleSetShippingAddressView(shipping_address)
         }
 
         if (!states) {
             getAllStates();
         }
 
-    }, [])
+    }, [shipping_address])
 
 
     const NumericOnly = (e) => {
@@ -121,33 +160,47 @@ export const Cart = () => {
     const sameAsBilling = (e) => {
 
         if (e.target.checked) {
-            setShippingAddress(billingAddress);
-            localStorage.setItem('shipping_address', JSON.stringify(billingAddress));
-            toast.success('Shipping address has been set successfully')
-        } else {
-            setShippingAddress('');
-            localStorage.setItem('shipping_address', JSON.stringify(''));
-        }
-    }
-
-    const handleSetAddress = (address, from_type) => {
-
-        if (from_type === 'billing') {
-
-            setBillingAddress(address);
-            localStorage.setItem('billing_address', JSON.stringify(address));
+            setBillingAddress(shipping_address);
+            localStorage.setItem('billing_address', shipping_address);
             toast.success('Billing address has been set successfully')
 
         } else {
 
-            setShippingAddress(address);
-            dispatch(setDefaultShippingAddress(address));
-            localStorage.setItem('shipping_address', JSON.stringify(address));
-            toast.success('Shipping address has been set successfully')
-            document.getElementById('same_as_billing').checked = false;
+            setBillingAddress('');
+            localStorage.setItem('billing_address', '');
+
         }
-        getShippingRocketCharges(address, from_type);
-        handleListClose();
+    }
+
+    const handleSetShippingAddress = (value) => {
+
+        setShippingAddress(value.target.value);
+        localStorage.setItem('shipping_address', value.target.value);
+        toast.success('Shipping address has been set successfully')
+        // if (from_type === 'billing') {
+
+        //     setBillingAddress(address);
+        //     localStorage.setItem('billing_address', JSON.stringify(address));
+        //     toast.success('Billing address has been set successfully')
+
+        // } else {
+
+        //     setShippingAddress(address);
+        //     dispatch(setDefaultShippingAddress(address));
+        //     localStorage.setItem('shipping_address', JSON.stringify(address));
+        //     toast.success('Shipping address has been set successfully')
+        //     // document.getElementById('same_as_billing').checked = false;
+        // }
+        // getShippingRocketCharges(address, from_type);
+        // handleListClose();
+
+    }
+
+    const handleSetBillingAddress = (value) => {
+
+        setBillingAddress(value.target.value);
+        localStorage.setItem('billing_address', value.target.value);
+        toast.success('Billing address has been set successfully')
 
     }
 
@@ -183,15 +236,11 @@ export const Cart = () => {
                 toast.success(res.data.message);
 
                 localStorage.setItem('address', JSON.stringify(res.data.customer_address));
-                setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
 
-                if (fromAdd == 'billing') {
-                    setBillingAddress(res.data.address_info);
-                    localStorage.setItem('billing_address', JSON.stringify(res.data.address_info));
-                } else {
-                    setShippingAddress(res.data.address_info);
-                    dispatch(setDefaultShippingAddress(res.data.address_info));
-                    localStorage.setItem('shipping_address', JSON.stringify(res.data.address_info));
+                let defaultShip = res.data.customer_address.find(item => item.is_default == 1);
+                if (defaultShip) {
+                    setShippingAddress(defaultShip.id);
+                    localStorage.setItem('shipping_address', defaultShip.id);
                 }
                 reset();
                 handleClose();
@@ -230,6 +279,8 @@ export const Cart = () => {
         })
     }
 
+    console.log(shippingAddress, 'shippingAddress ')
+
     return (
         <Fragment>
             <Helmet>
@@ -237,129 +288,46 @@ export const Cart = () => {
                 <title>Cart | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
-            {
-                cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
-                    <section className="shop-carts">
-                        <div className="container">
-                            <div className="row">
-                                <>
-                                    <div className="col-lg-8">
-                                        <div className="finalcart-list">
-                                            <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
-                                            <div className="shipping-addresss">
-                                                <ShippingAddress sameAsBilling={sameAsBilling} billingAddress={billingAddress} handleListShow={handleListShow} handleShow={handleShow} customerAddress={customerAddress} setCustomerAddress={setCustomerAddress} shipping_address={shipping_address} />
+            <section>
+                {
+                    cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
+                        <section className="shop-carts">
+                            <div className="container">
+                                <div className="row">
+                                    <>
+                                        <div className="col-lg-8">
+                                            <div className="finalcart-list">
+                                                <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
+                                                <div className="shipping-addresss">
+                                                    <ShippingAddress handleSetShippingAddress={handleSetShippingAddress} handleSetBillingAddress={handleSetBillingAddress} sameAsBilling={sameAsBilling} handleShow={handleShow} customerAddress={customerAddress} />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-lg-4">
-                                        <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} updateCartAmount={updateCartAmount} />
-                                    </div>
-                                    <Modal className='cstmzed' show={show} onHide={handleClose}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title> ADD NEW {fromAdd.toUpperCase()} ADDRESS </Modal.Title>
-                                        </Modal.Header>
-                                        <form onSubmit={handleSubmit(onSubmit)} id="address_form">
-                                            <Modal.Body>
-                                                <div className="modal-body">
-                                                    <h4>Contact Details</h4>
-                                                    <div className="row">
-                                                        <div className="mb-3 col-lg-6">
-                                                            <input type="text" className="form-control" {...register("contact_name", { required: "Name is required", maxLength: 50 })} id="contact_name" placeholder="Name" />
-                                                            <ErrorMessage errors={errors} name="contact_name" as="p" />
-                                                        </div>
-                                                        <div className="mb-3 col-lg-6">
-                                                            <input type="text" {...register("mobile_no", { required: "Mobile Number is required", minLength: { value: 10, message: "Mobile Number is minimum 10 character" }, maxLength: { value: 10, message: "Mobile Number is maximum 10 character" } })} className="form-control" id="mobile_no" placeholder="Mobile Number" maxLength={10} onChange={NumericOnly} />
-                                                            <ErrorMessage errors={errors} name="mobile_no" as="p" />
-                                                        </div>
-                                                        <input type="hidden" {...register("from_address_type")} value={fromAdd} />
-                                                        <input type="hidden" {...register("customer_id", { required: "Customer id is required" })} id="customer_id" value={customer && customer.id} />
-                                                        <div className="mb-3 col-lg-6">
-                                                            <input className="form-control" type="email" {...register("email", {
-                                                                required: "Email is required", pattern: {
-                                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                                    message: "Invalid email address"
-                                                                }
-                                                            })} placeholder="E-mail" />
-                                                            <ErrorMessage errors={errors} name="email" as="p" />
-                                                        </div>
-                                                        <div className="mb-3 col-lg-6">
-                                                            <select className="form-control" id="address_type" {...register("address_type", { required: "Address type is required" })} placeholder="Telephone Number">
-                                                                <option value="">Address Type</option>
-                                                                {
-                                                                    addressType && addressType.length > 0 && addressType.map((item) => (
-                                                                        <option value={item.id} key={item.id}>{item.name}</option>
-                                                                    ))
-                                                                }
-                                                            </select>
-                                                            <ErrorMessage errors={errors} name="address_type" as="p" />
-                                                        </div>
-                                                    </div>
-                                                    <h4>Address</h4>
-                                                    <div className="row">
-
-                                                        <div className="mb-3 col-lg-12">
-                                                            <input type="text" className="form-control" id="address" {...register("address", { required: "Address is required" })} placeholder="Building Number, Street Name & Locality" />
-                                                            <ErrorMessage errors={errors} name="address" as="p" />
-                                                        </div>
-                                                        <div className="mb-3 col-lg-6">
-                                                            <input type="text" className="form-control" id="city" {...register("city", { required: "City is required" })} placeholder="City" />
-                                                            <ErrorMessage errors={errors} name="city" as="p" />
-                                                        </div>
-                                                        <div className="mb-3 col-lg-6">
-                                                            <input type="text" className="form-control" {...register("post_code", { required: "Post Code is required", maxLength: { value: 6, message: "Pincode is maximum 6 character" } })} id="post_code" placeholder="Pincode" onChange={NumericOnly} />
-                                                            <ErrorMessage errors={errors} name="post_code" as="p" />
-                                                        </div>
-                                                        <div className="mb-3 col-lg-6">
-                                                            <select className="form-control" id="state" {...register("state", { required: "State is required" })} >
-                                                                <option value="">SelectState</option>
-                                                                {
-                                                                    states && states.map((items) => (
-                                                                        <option value={items.id} key={items.id}>{items.state_name}</option>
-                                                                    ))
-                                                                }
-                                                            </select>
-                                                            <ErrorMessage errors={errors} name="state" as="p" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="secondary" onClick={handleClose}>
-                                                    Cancel
-                                                </Button>
-                                                <Button type="submit" variant="primary" disabled={formLoader} >
-                                                    {formLoader && (
-                                                        <span className="spinner-grow spinner-grow-sm"></span>
-                                                    )}
-                                                    Save Changes
-                                                </Button>
-                                            </Modal.Footer>
-                                        </form>
-                                    </Modal>
-                                    <AddressList fromList={fromList} handleListClose={handleListClose} showList={showList} customerAddress={customerAddress} handleSetAddress={handleSetAddress} shipping_address={shipping_address} />
-                                </>
-                            </div>
-                        </div>
-                        {
-                            paymentLoader &&
-
-                            <div id="cart-loader" >
-                                <div className='loader-wrapper'>
-                                    <WaveSpinner
-                                        size={100}
-                                        color="#0a1d4a"
-                                        loading={paymentLoader}
-
-                                        style={{ top: '50%', left: '45%' }}
-
-                                    />
-                                    <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                                        <div className="col-lg-4">
+                                            <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} customerAddress={customerAddress} updateCartAmount={updateCartAmount} />
+                                        </div>
+                                    </>
                                 </div>
                             </div>
-                        }
-                    </section>
-                    : <>
+                            {
+                                paymentLoader &&
+
+                                <div id="cart-loader" >
+                                    <div className='loader-wrapper'>
+                                        <WaveSpinner
+                                            size={100}
+                                            color="#0a1d4a"
+                                            loading={paymentLoader}
+
+                                            style={{ top: '50%', left: '45%' }}
+
+                                        />
+                                        <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                                    </div>
+                                </div>
+                            }
+                        </section>
+                        :
                         <div class="jumbotron text-gray" >
                             <div className='container  p-4'>
                                 <div className='row m-0 align-items-center'>
@@ -379,11 +347,9 @@ export const Cart = () => {
                                 </div>
                             </div>
                         </div>
-                        <DiscountCollection className="py-4" />
-                    </>
-            }
-
-
+                }
+            </section>
+            <AddressForm states={states} show={show} setShow={setShow} addressType={addressType} customer={customer} setCustomerAddress={setCustomerAddress} />
         </Fragment>
     )
 }

@@ -43,5 +43,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(topMenuApi.middleware).concat(quickLinkApi.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  }).concat(topMenuApi.middleware).concat(quickLinkApi.middleware)
 })

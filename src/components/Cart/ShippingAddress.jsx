@@ -4,74 +4,76 @@ import { MdAddLocation } from "react-icons/md";
 import { Panel, PanelGroup } from 'rsuite';
 import './cart.css';
 
-export const ShippingAddress = ({ sameAsBilling, billingAddress, handleListShow, handleShow, customerAddress, setCustomerAddress, shipping_address }) => {
+export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress}) => {
+    
+    const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
+    const billing_address = JSON.parse(window.localStorage.getItem('billing_address'));
+    const customer = JSON.parse(window.localStorage.getItem('customer'));
+   
+    
     return (
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
                 Choose Address
-                <Button variant="outlined">
+                <Button variant="outlined" onClick={() => handleShow()}>
                     <MdAddLocation size={20} className="me-1" />
                     Add Address
                 </Button>
             </h5>
-            <div className="card mb-3">
-                <div className="card-body py-2 d-flex align-items-center">
-                    <Checkbox id='same_as_billing' color='secondary' />
-                    <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
-                        Set Shipping address same as Billing Address
-                    </Typography>
-                </div>
-            </div>
-            <PanelGroup accordion defaultActiveKey={1} bordered className='bg-white'>
-                <Panel header="Shipping Address" eventKey={1} id="panel1">
-                    <RadioGroup className='list-group'>
-                        <label for="address_one" class="list-group-item list-group-item-action d-flex">
-                            <Radio value="radioA" name='shipping_address' id='address_one' />
-                            <div className='ps-3'>
-                                <b class="text-capitalize text-primary"> aec customer</b>
-                                <div>
-                                    customer@aecprefab.net, 1234567890
-                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
-                                </div>
+            {
+                customer?.id && (
+                    <>
+                        <div className="card mb-3">
+                            {shipping_address && 
+                            <div className="card-body py-2 d-flex align-items-center">
+                                <Checkbox id='same_as_billing' color='secondary' checked={shipping_address == billing_address ? 'checked' : ''} onChange={sameAsBilling} />
+                                <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
+                                    Set Shipping address same as Billing Address
+                                </Typography>
                             </div>
-                        </label>
-                        <label for="address_two" class="list-group-item list-group-item-action d-flex">
-                            <Radio value="radioB" name='shipping_address' id='address_two' />
-                            <div className='ps-3'>
-                                <b class="text-capitalize text-primary"> Surya</b>
-                                <div>
-                                    Surya@Surya.net, 1234567890
-                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
-                                </div>
-                            </div>
-                        </label>
-                    </RadioGroup>
-                </Panel>
-                <Panel header="Billing Address" eventKey={2} id="panel2">
-                    <RadioGroup className='list-group'>
-                        <label for="billing_address_one" class="list-group-item list-group-item-action d-flex">
-                            <Radio value="radioA" name='billing_address' id='billing_address_one' />
-                            <div className='ps-3'>
-                                <b class="text-capitalize text-primary"> aec customer</b>
-                                <div>
-                                    customer@aecprefab.net, 1234567890
-                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
-                                </div>
-                            </div>
-                        </label>
-                        <label for="billing_address_two" class="list-group-item list-group-item-action d-flex">
-                            <Radio value="radioB" name='billing_address' id='billing_address_two' />
-                            <div className='ps-3'>
-                                <b class="text-capitalize text-primary"> Surya</b>
-                                <div>
-                                    Surya@Surya.net, 1234567890
-                                    Holt and Harrington LLCÅlesund Tamil nadu 6020
-                                </div>
-                            </div>
-                        </label>
-                    </RadioGroup>
-                </Panel>
-            </PanelGroup>
+                            }
+                        </div>
+                        <PanelGroup accordion defaultActiveKey={1} bordered className='bg-white'>
+                            <Panel header="Shipping Address" eventKey={1} id="panel1">
+                                <RadioGroup className='list-group' value={shipping_address} onChange={handleSetShippingAddress}>
+                                    {customerAddress && customerAddress.map((item) => (
+
+                                    <label for={`address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                        <Radio value={item.id} name='shipping_address' id={`address_one_${item.id}`} />
+                                        <div className='ps-3'>
+                                            <b className="text-capitalize text-primary"> {item.name} </b>
+                                            <div>
+                                                {item?.email} {item?.mobile_no}
+                                                {item.address_line1} {item.state} {item.post_code}
+                                            </div>
+                                        </div>
+                                    </label>
+                                    ))}
+                                </RadioGroup>
+                                
+                            </Panel>
+                            <Panel header="Billing Address" eventKey={2} id="panel2">
+                                <RadioGroup className='list-group' value={billing_address} onChange={handleSetBillingAddress}>
+                                {
+                                    customerAddress && customerAddress.map((item) => (
+                                        <label for={`billing_address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                            <Radio value={item.id} name='billing_address' id={`billing_address_one_${item.id}`} />
+                                            <div className='ps-3'>
+                                                <b className="text-capitalize text-primary"> {item.name} </b>
+                                                <div>
+                                                    {item?.email}, {item?.mobile_no}
+                                                    {item.address_line1} {item.state} {item.post_code}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    ))
+                                }
+                                </RadioGroup>
+                            </Panel>
+                        </PanelGroup>
+                    </>
+                )
+            }
             {/* <div className="ship-list">
                 <h3>Set Biling and Shipping Address</h3>
                 <div className="line-spacer"></div>

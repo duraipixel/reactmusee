@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import { ShippingFee } from './ShippingFee'
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -14,22 +14,45 @@ import { Tooltip } from '@mui/material';
 import { setCoupon } from '../../app/reducer/couponSlice';
 
 
-export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, cartInfo }) => {
-    
+export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, customerAddress, cartInfo }) => {
+
     const coupon = useSelector((state) => state.coupon);
-    
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [selectShippingAddress, setSelectShippingAddress] = useState('');
     const [checkoutFormloading, setCheckoutFormLoading] = useState(false);
     const Razorpay = useRazorpay();
     const [isLoadingCoupon, setIsLoadingCoupon] = useState(false);
     // const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
+    const shipping_address = localStorage.getItem('shipping_address');
+
+    const handleShipAddress = (ship) => {
+        setSelectShippingAddress(ship);
+    }
+
+    useMemo(() => {
+
+        let ship = customerAddress.find(item => item.id == shipping_address);
+        handleShipAddress(ship);
+
+    }, [shipping_address])
+
 
     const handlePayment = async () => {
-        setCheckoutFormLoading(true);
-        setPaymentLoader(true);
+
 
         const customer = JSON.parse(window.localStorage.getItem('customer'));
+        if (!customer?.id) {
+            toast.error('Please Login to Checkout');
+            setTimeout(() => {
+                navigate('/login')
+            }, 300);
+            return false;
+        }
+
+        setCheckoutFormLoading(true);
+        setPaymentLoader(true);
         const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
         const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
         // console.log( shipping_address, 'shipping_address')
@@ -126,11 +149,11 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const applyCoupon = () => {
         setIsLoadingCoupon(true);
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-        if( !customer?.id) {
-            
+        if (!customer?.id) {
+
             toast.error('Login to Apply Coupon');
             navigate('/login')
-        }    
+        }
         var coupon_code = document.getElementById('coupon').value;
 
         if (coupon_code == '') {
@@ -188,7 +211,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         })
     }
 
-
+    console.log(coupon, 'coupon');
     return (
         <Fragment >
             <h5 className='text-primary mb-3 fw-bold text-uppercase'>Cart Details</h5>
@@ -203,6 +226,15 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                             <b>Taxes</b>
                             <span className='text-dark fw-bold'>₹{cart_total.tax_total}</span>
                         </li>
+                        
+                        {
+                            coupon?.value?.coupon_code && (
+                                <li className="list-group-item d-flex justify-content-between">
+                                    <b>Coupon [{coupon?.value?.coupon_code} {coupon?.value?.coupon_info?.coupon_type?.discount_type == 'percentage' ? coupon?.value?.coupon_info?.coupon_type.discount_value+'%' : ''}] (-)</b>
+                                    <span className='text-dark fw-bold'>₹{coupon.value.coupon_amount}</span>
+                                </li>
+                            )
+                        }
                     </ul>
                     <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} />
                     <ul className="list-group my-3">
@@ -211,17 +243,17 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                             <span className='text-dark fw-bold lead'>₹{cart_total.total}</span>
                         </li>
                     </ul>
-                    {shippingAddress &&
+                    {selectShippingAddress &&
                         <ul className="list-group my-3">
                             <li className="list-group-item">
                                 <b className='text-capitalize text-primary'>
-                                    <i className="fa fa-map-marker"></i>  {shippingAddress.name}
+                                    <i className="fa fa-map-marker"></i>  {selectShippingAddress.name}
                                 </b>
                                 <div className='text-secondary fw-bold'>
-                                    {shippingAddress.address_line1},
-                                    {shippingAddress.city}
-                                    {shippingAddress.state}
-                                    {shippingAddress.post_code}
+                                    {selectShippingAddress.address_line1},
+                                    {selectShippingAddress.city}
+                                    {selectShippingAddress.state}
+                                    {selectShippingAddress.post_code}
                                 </div>
                             </li>
                         </ul>
@@ -233,7 +265,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                         </Tooltip>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control border" placeholder='Enter here..' />
+                        <input type="text" id="coupon" class="form-control border" placeholder='Enter here..' />
                         <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()}>Apply</Button>
                         {/* loading={true} */}
                     </div>
