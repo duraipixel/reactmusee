@@ -229,7 +229,7 @@ export const ProductDetail = () => {
                                                     </Tooltip>
                                                 </div> */}
                                             </div>
-                                            : <Chip label="Out Of Stock" className='rounded' color='error' />}
+                                            : <Chip label="Out Of Stock" size='large' className='rounded p-3 py-4 text-uppercase mt-4 product-chip' color='error' />}
                                     </div>
                                 </div>
                             </div>

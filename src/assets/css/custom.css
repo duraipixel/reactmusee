@@ -151,3 +151,9 @@
     max-height: 350px;
     overflow-y: auto;
 }
+.product-chip {
+    background:linear-gradient(36deg, red, #34318e)
+}
+.custom-card:hover img {
+    transform: scale(1.3);
+}

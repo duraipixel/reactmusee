@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { compile } from 'path-to-regexp';
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Chip } from "@mui/material";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CardComponent({ settings }) {
@@ -17,7 +17,7 @@ function CardComponent({ settings }) {
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">
-                        <LazyLoadImage src={data.image} className="product-card-image" />
+                        <LazyLoadImage src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
                     </div>
                     {
                         data.badge == true &&
@@ -31,11 +31,12 @@ function CardComponent({ settings }) {
                         <div className="prdt-type">
                             {data.category_name}
                         </div>
+                        {data.stock_status == "out_of_stock" && <Chip size="small" className="product-chip" label="out of stock" color="error" />}
                     </div>
                     <div className="prdt-nameprc">
                         <h4>{data.product_name}</h4>
                         <h5 className="d-flex justify-content-between align-items-center">
-                            <del className="strike-rate">{data.sale_prices.strike_rate && data.sale_prices.strike_rate_original > 0 &&  `₹${data.sale_prices.strike_rate}`}</del>
+                            <del className="strike-rate">{data.sale_prices.strike_rate && data.sale_prices.strike_rate_original > 0 && `₹${data.sale_prices.strike_rate}`}</del>
                             <div className="text-primary fw-bold">₹{data.sale_prices.price}</div>
                         </h5>
                     </div>
