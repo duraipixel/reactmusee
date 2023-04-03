@@ -53,17 +53,11 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
         setCheckoutFormLoading(true);
         setPaymentLoader(true);
-        const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
+        const shipping_address = localStorage.getItem('shipping_address');
         const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
-        // console.log( shipping_address, 'shipping_address')
-        // console.log( shiprocket_charges, 'shiprocket_charges')
-        // return false;
-        if (!shippingAddress) {
+       
+        if (!shipping_address) {
             toast.error('Shipping address is required');
-            setCheckoutFormLoading(false);
-            setPaymentLoader(false);
-        } else if (!billingAddress) {
-            toast.error('Billing address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
         } else {
@@ -174,6 +168,9 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 toast.error(res.data.message);
             } else if (res.data.status == 'success') {
                 toast.success(res.data.message);
+                document.getElementById('coupon').readOnly = true;
+                document.getElementById('coupon_apply_btn').style.display = 'none';
+                document.getElementById('coupon_cancel_btn').style.display = 'block';
             }
             dispatch(setCoupon(res.data));
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
@@ -190,7 +187,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         fetchCartProducts();
         dispatch(setCoupon(''));
         let cancelApplyBtn = document.getElementById('coupon');
+        cancelApplyBtn.readOnly = false;
         cancelApplyBtn.value = '';
+        document.getElementById('coupon_cancel_btn').style.display = 'none';
+        document.getElementById('coupon_apply_btn').style.display = 'block';
     }
 
     async function fetchCartProducts() {
@@ -264,9 +264,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                             <i className="fa fa-info-circle ms-1 text-secondary"></i>
                         </Tooltip>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="text" id="coupon" class="form-control border" placeholder='Enter here..' />
-                        <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()}>Apply</Button>
+                    <div className="input-group mb-3">
+                        <input type="text" id="coupon" className="form-control border" placeholder='Enter here..' />
+                        <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()} id="coupon_apply_btn">Apply</Button>
+                        <Button loading={isLoadingCoupon} style={{ display:'none' }} className="btn text-white bg-dark" onClick={() => cancelCoupon()} id="coupon_cancel_btn">Cancel</Button>
                         {/* loading={true} */}
                     </div>
                     <Button className='btn-dark text-white w-100' size='lg'

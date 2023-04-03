@@ -169,7 +169,7 @@ export const Login = () => {
                             </FormControl>
                             <Link to='/forgotpassword' className='text-primary mb-3 mt-2 float-end'> Forgot Password? </Link>
                             <Button type='submit' loading={loginFormLoader} size="lg" className='py-3 btn-dark text-white text-uppercase w-100' >
-                                <i class="bi bi-music-note-beamed me-2"></i>
+                                <i className="bi bi-music-note-beamed me-2"></i>
                                 Sign In
                             </Button>
                             <div className="col-lg-12 text-center mt-3">

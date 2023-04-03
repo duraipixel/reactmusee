@@ -65,6 +65,7 @@ export const Layout = () => {
     };
 
     const getSubMenu = (category) => {
+        
         setIsPageLoaded(true);
         sessionStorage.setItem('isPageLoaded', true);
 

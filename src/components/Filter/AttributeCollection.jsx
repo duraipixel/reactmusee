@@ -39,7 +39,7 @@ export const AttributeCollection = ({ dynamicFilter }) => {
                 {
                     dynamicFilter.map((item, k) => (
                         <ul key={k} className='list-group list-group-flush w-100 list-group-scrollable'>
-                            <h4> {item.title} </h4>
+                            <h4 className='px-3'> {item.title} </h4>
                             {
                                 item.child && item.child.map((items, i) => (
                                     <li key={i} className="list-group-item list-group-item-action w-100">

@@ -328,13 +328,13 @@ export const Cart = () => {
                             }
                         </section>
                         :
-                        <div class="jumbotron text-gray" >
+                        <div className="jumbotron text-gray" >
                             <div className='container  p-4'>
                                 <div className='row m-0 align-items-center'>
                                     <div className='col-md-10'>
                                         <h2 className='text-primary'>Your cart</h2>
                                         <p className='mb-3'>is empty, A few clicks is all it takes.</p>
-                                        <Button variant="outlined" className='btn-dark' color='light' onClick={() => navigate('/')} role="button"> <i class="bi bi-music-note-beamed me-2 fs-5"></i> Shop now </Button>
+                                        <Button variant="outlined" className='btn-dark' color='light' onClick={() => navigate('/')} role="button"> <i className="bi bi-music-note-beamed me-2 fs-5"></i> Shop now </Button>
                                     </div>
                                     <div className='col-md-2 text-center'>
                                         <div>

@@ -90,7 +90,7 @@ export const ForgotPassword = () => {
                                 />
                             </FormControl>
                             <Button type='submit' loading={sendPasswordLink} size="lg" className='py-3 btn-dark text-white text-uppercase w-100' >
-                                <i class="bi bi-link me-2"></i>
+                                <i className="bi bi-link me-2"></i>
                                 Reset Password
                             </Button>
                             <div className="col-lg-12 text-center mt-3">

@@ -196,7 +196,7 @@ export const Register = () => {
                                 />
                             </FormControl>
                             <Button type='submit' loading={formLoader} size="lg" className='mt-4 btn-dark text-white text-uppercase w-100' >
-                                <i class="bi bi-music-note-beamed me-2"></i>
+                                <i className="bi bi-music-note-beamed me-2"></i>
                                 Sign Up
                             </Button>
                             <div className="col-lg-12 text-center mt-3">
