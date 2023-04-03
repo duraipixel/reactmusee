@@ -176,7 +176,8 @@ export const Cart = () => {
 
         setShippingAddress(value.target.value);
         localStorage.setItem('shipping_address', value.target.value);
-        toast.success('Shipping address has been set successfully')
+        toast.success('Shipping address has been set successfully');
+        getShippingRocketCharges(value.target.value, 'shipping');
         // if (from_type === 'billing') {
 
         //     setBillingAddress(address);
