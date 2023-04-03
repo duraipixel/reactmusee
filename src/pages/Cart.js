@@ -46,8 +46,8 @@ export const Cart = () => {
 
     let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const customer = JSON.parse(window.localStorage.getItem('customer'));
-    const shipping_address = JSON.parse(window.localStorage.getItem('shipping_address'));
-    const billing_address = JSON.parse(window.localStorage.getItem('billing_address'));
+    const shipping_address = window.localStorage.getItem('shipping_address');
+    const billing_address = window.localStorage.getItem('billing_address');
 
     const {
         register,
