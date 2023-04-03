@@ -114,12 +114,9 @@ export const Layout = () => {
                     <div id="cart-loader" >
                         <div className='loader-wrapper'>
                             <WaveSpinner
-                                size={100}
-                                color="#0a1d4a"
-                                loading={true}
-
-                                style={{ top: '50%', left: '45%' }}
-
+                                size={70}
+                                color="#fff"
+                                loading={true} 
                             />
                         </div>
                     </div>

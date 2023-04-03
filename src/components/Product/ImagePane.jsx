@@ -4,15 +4,16 @@ import 'react-image-lightbox/style.css';
 import Lightbox from 'react-image-lightbox';
 import Slider from "react-slick";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { Helmet } from 'react-helmet';
 
 
 export const ImagePane = ({ productInfo, hideMagnify }) => {
   const [productSliders, setProductSlider] = useState();
-  const [navslider, setNavSlider] = useState(); 
+  const [navslider, setNavSlider] = useState();
   const sampleImgSrc = ["/assets/images/no_img_category_sm.jpg"];
   const images = productInfo.gallery || sampleImgSrc;
   const [photoIndex, setPhotoIndex] = useState(null);
-
+  document.querySelector("html").style.overflow = photoIndex !== null ? 'hidden' : 'auto'
   return (
     <Fragment>
       <div className="product-vewslder">

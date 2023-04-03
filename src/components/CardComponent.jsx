@@ -13,7 +13,7 @@ function CardComponent({ settings }) {
         )
     }
     return (
-        <div className={`custom-card border shadow-sm rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
+        <div className={`custom-card bg-light border shadow-sm rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">

@@ -288,7 +288,7 @@ export const Cart = () => {
                 <title>Cart | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
-            <section>
+            <div>
                 {
                     cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
                         <section className="shop-carts">
@@ -348,7 +348,7 @@ export const Cart = () => {
                             </div>
                         </div>
                 }
-            </section>
+            </div>
             <AddressForm states={states} show={show} setShow={setShow} addressType={addressType} customer={customer} setCustomerAddress={setCustomerAddress} />
         </Fragment>
     )

@@ -16,6 +16,7 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import ProductFeatures from '../components/ProductFeatures';
 import { v4 as uuid } from 'uuid';
 import { PopupWidget } from 'react-calendly';
+import { Helmet } from 'react-helmet';
 
 
 export const ProductDetail = () => {
@@ -148,9 +149,7 @@ export const ProductDetail = () => {
             {
                 productInfo !== null && (
                     <>
-                        {
-                        /* <Helmet>
-
+                        <Helmet>
                             <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
                             {
@@ -161,7 +160,7 @@ export const ProductDetail = () => {
                                 productInfo.meta && productInfo.meta.meta_description &&
                                 <meta name="description" content={productInfo.meta.meta_description} />
                             }
-                        </Helmet> */}
+                        </Helmet> 
 
                         <section className="section product-details bg-white">
                             <div className="container">
@@ -169,7 +168,7 @@ export const ProductDetail = () => {
                                     <div className="col-lg-12">
                                         <div className="accordion-table text-left pb-4">
                                             <ul>
-                                                <li>{productInfo.parent_category_name}</li>
+                                                {productInfo.parent_category_name && <li>{productInfo.parent_category_name}</li>}
                                                 <li>
                                                     <Link to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`} >
                                                         {productInfo.category_name}

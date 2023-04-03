@@ -155,5 +155,5 @@
     background:linear-gradient(36deg, red, #34318e)
 }
 .custom-card:hover img {
-    transform: scale(1.3);
+    transform: scale(1.2);
 }
