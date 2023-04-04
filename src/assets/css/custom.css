@@ -1,3 +1,9 @@
+body {
+    -moz-transform: scale(0.9, 0.9);
+    zoom: 0.9;
+    zoom: 90%; 
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
@@ -151,9 +157,15 @@
     max-height: 350px;
     overflow-y: auto;
 }
+
 .product-chip {
-    background:linear-gradient(36deg, red, #34318e)
+    background: linear-gradient(36deg, red, #34318e)
 }
+
 .custom-card:hover img {
     transform: scale(1.2);
+}
+
+.cursor {
+    cursor: pointer;
 }

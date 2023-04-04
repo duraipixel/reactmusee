@@ -1,16 +1,35 @@
-import { Button, Checkbox, Radio, RadioGroup, Typography } from '@mui/material';
-import { Fragment } from 'react'
+import { Button, Checkbox, Collapse, Radio, RadioGroup, Typography } from '@mui/material';
+import { Fragment, useMemo, useState } from 'react'
 import { MdAddLocation } from "react-icons/md";
 import { Panel, PanelGroup } from 'rsuite';
 import './cart.css';
 
-export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress}) => {
-    
+export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress }) => {
+
     const shipping_address = window.localStorage.getItem('shipping_address');
     const billing_address = window.localStorage.getItem('billing_address');
     const customer = JSON.parse(window.localStorage.getItem('customer'));
-   
-    
+
+    const [address, setAddress] = useState(customerAddress)
+    const [billAddress, setBillAddress] = useState(customerAddress)
+    const [shppingToggle, setshppingToggle] = useState(false)
+    const [billToggle, setBillToggle] = useState(false)
+
+    const toggleAddress = (type) => {
+        if (type == 'ADD_ONE') {
+            setAddress(customerAddress.slice(0, address.length == 2 ? 1000 : 2))
+            setshppingToggle(!shppingToggle)
+        }
+        if (type == 'ADD_TWO') {
+            // let newbillAddress = billAddress;
+            setBillAddress(customerAddress.slice(0, billAddress.length == 2 ? 1000 : 2))
+            setBillToggle(!billToggle)
+        }
+    }
+    useMemo(() => {
+        setAddress(address.slice(0, 2))
+        setBillAddress(billAddress.slice(0, 2))
+    }, [])
     return (
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
@@ -24,53 +43,61 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                 customer?.id && (
                     <>
                         <div className="card mb-3">
-                            {shipping_address && 
-                            <div className="card-body py-2 d-flex align-items-center">
-                                <Checkbox id='same_as_billing' color='secondary' checked={shipping_address == billing_address ? 'checked' : ''} onChange={sameAsBilling} />
-                                <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
-                                    Set Shipping address same as Billing Address
-                                </Typography>
-                            </div>
+                            {shipping_address &&
+                                <div className="card-body py-2 d-flex align-items-center">
+                                    <Checkbox id='same_as_billing' color='secondary' checked={shipping_address == billing_address ? 'checked' : ''} onChange={sameAsBilling} />
+                                    <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
+                                        Set Shipping address same as Billing Address
+                                    </Typography>
+                                </div>
                             }
                         </div>
-                        <PanelGroup accordion defaultActiveKey={1} bordered className='bg-white'>
-                            <Panel header="Shipping Address" eventKey={1} id="panel1">
-                                <RadioGroup className='list-group' value={shipping_address} onChange={handleSetShippingAddress}>
-                                    {customerAddress && customerAddress.map((item) => (
-
-                                    <label for={`address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
-                                        <Radio value={item.id} name='shipping_address' id={`address_one_${item.id}`} />
-                                        <div className='ps-3'>
-                                            <b className="text-capitalize text-primary"> {item.name} </b>
-                                            <div>
-                                                {item?.email} {item?.mobile_no}
-                                                {item.address_line1} {item.state} {item.post_code}
-                                            </div>
-                                        </div>
-                                    </label>
-                                    ))}
-                                </RadioGroup>
-                                
-                            </Panel>
-                            <Panel header="Billing Address" eventKey={2} id="panel2">
-                                <RadioGroup className='list-group' value={billing_address} onChange={handleSetBillingAddress}>
-                                {
-                                    customerAddress && customerAddress.map((item) => (
-                                        <label for={`billing_address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
-                                            <Radio value={item.id} name='billing_address' id={`billing_address_one_${item.id}`} />
+                        <div className="row">
+                            <div className="col-md-6">
+                                <b className='mb-2 d-block'>Shipping Address</b>
+                                <RadioGroup className='list-group mb-3' value={shipping_address} onChange={handleSetShippingAddress}>
+                                    {address && address.length > 0 && address.map((item) => (
+                                        <label for={`address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                            <Radio value={item.id} name='shipping_address' id={`address_one_${item.id}`} />
                                             <div className='ps-3'>
                                                 <b className="text-capitalize text-primary"> {item.name} </b>
                                                 <div>
-                                                    {item?.email}, {item?.mobile_no}
+                                                    {item?.email} {item?.mobile_no}
                                                     {item.address_line1} {item.state} {item.post_code}
                                                 </div>
                                             </div>
                                         </label>
-                                    ))
-                                }
+                                    ))}
+                                    <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_ONE')}>
+                                        {shppingToggle ? 'Show less' : 'Show more'}
+                                        <i class={`ms-1 bi ${shppingToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                                    </div>
                                 </RadioGroup>
-                            </Panel>
-                        </PanelGroup>
+                            </div>
+                            <div className="col-md-6">
+                                <b className='mb-2 d-block'>Billing Address</b>
+                                <RadioGroup className='list-group' value={billing_address} onChange={handleSetBillingAddress}>
+                                    {
+                                        billAddress && billAddress.map((item) => (
+                                            <label for={`billing_address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                                <Radio value={item.id} name='billing_address' id={`billing_address_one_${item.id}`} />
+                                                <div className='ps-3'>
+                                                    <b className="text-capitalize text-primary"> {item.name} </b>
+                                                    <div>
+                                                        {item?.email}, {item?.mobile_no}
+                                                        {item.address_line1} {item.state} {item.post_code}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        ))
+                                    }
+                                    <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_TWO')}>
+                                        {shppingToggle ? 'Show less' : 'Show more'}
+                                        <i class={`ms-1 bi ${shppingToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                                    </div>
+                                </RadioGroup>
+                            </div>
+                        </div>
                     </>
                 )
             }
