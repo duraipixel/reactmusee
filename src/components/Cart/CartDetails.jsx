@@ -104,6 +104,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             modal:{
                 ondismiss: function() {
                     setPaymentLoader(false);
+                    setCheckoutFormLoading(false);
                 }
             }
         }
@@ -164,11 +165,12 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setIsLoadingCoupon(false);
             return false;
         }
-
+        var cartValues = JSON.parse(localStorage.getItem('cart'));
+       
         axios({
             url: window.API_URL + '/apply/coupon',
             method: 'POST',
-            data: { coupon_code: coupon_code, customer_id: customer.id },
+            data: { coupon_code: coupon_code, customer_id: customer.id, selected_shipping: cartValues?.selected_shipping_fees },
 
         }).then((res) => {
             setIsLoadingCoupon(false);
@@ -181,6 +183,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 document.getElementById('coupon_cancel_btn').style.display = 'block';
             }
             dispatch(setCoupon(res.data));
+            console.log(res.data.cart_info, 'cart coupon form   ');
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
             sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
@@ -192,6 +195,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     }
 
     const cancelCoupon = () => {
+        localStorage.removeItem('cart_coupon');
         fetchCartProducts();
         dispatch(setCoupon(''));
         let cancelApplyBtn = document.getElementById('coupon');
@@ -202,13 +206,13 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     }
 
     async function fetchCartProducts() {
-
+        var cartValues = JSON.parse(localStorage.getItem('cart'));
         let customer = JSON.parse(window.localStorage.getItem('customer'));
 
         await axios({
             url: window.API_URL + '/get/cart',
             method: 'POST',
-            data: { customer_id: customer?.id, guest_token: localStorage.getItem('guest_token') || '' },
+            data: { customer_id: customer?.id, selected_shipping: cartValues?.selected_shipping_fees, guest_token: localStorage.getItem('guest_token') || '' },
         }).then((res) => {
 
             localStorage.setItem('cart', JSON.stringify(res.data));

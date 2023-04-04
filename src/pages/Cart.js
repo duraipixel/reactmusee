@@ -13,7 +13,7 @@ import { setDefaultShippingAddress } from '../app/reducer/shippingAddressSlice'
 import { fetchCarts } from '../app/reducer/cartSlice'
 import { Helmet } from 'react-helmet';
 import { AddressList } from '../components/Cart/AddressList'
-import { WaveSpinner } from "react-spinners-kit";
+import { MagicSpinner, WaveSpinner } from "react-spinners-kit";
 import { Button } from '@mui/material';
 import DiscountCollection from '../components/Home/DiscountCollection';
 import AddAddress from '../components/Profile/AddAddress';
@@ -264,6 +264,8 @@ export const Cart = () => {
 
     async function updateCartAmount(shipping_id, type = '') {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
+        var couponData = JSON.parse(sessionStorage.getItem('cart_coupon'));
+        
         if (!customer?.id) {
 
             toast.error('Login to Apply Shipping Charges');
@@ -272,9 +274,9 @@ export const Cart = () => {
         await axios({
             url: window.API_URL + '/update/cartAmount',
             method: 'POST',
-            data: { shipping_id: shipping_id, customer_id: customer.id, type: type },
+            data: { shipping_id: shipping_id, customer_id: customer.id, type: type, coupon_data: couponData || '' },
         }).then((res) => {
-
+            console.log( res );
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
         }).catch((err) => {
@@ -316,14 +318,20 @@ export const Cart = () => {
 
                                 <div id="cart-loader" >
                                     <div className='loader-wrapper'>
-                                        <WaveSpinner
+                                        {/* <WaveSpinner
                                             size={100}
                                             color="#0a1d4a"
                                             loading={paymentLoader}
 
                                             style={{ top: '50%', left: '45%' }}
 
-                                        />
+                                        /> */}
+                                          <MagicSpinner
+                                                size={300}
+                                                color="#313190"
+                                                loading={true}
+                                                style={{ top: '50%', left: '45%' }}
+                                            />
                                         <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
                                     </div>
                                 </div>
