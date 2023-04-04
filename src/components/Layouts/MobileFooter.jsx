@@ -23,6 +23,9 @@ export const MobileFooter = () => {
         dispatch(clearCart());
         dispatch(logoutCustomer());
         dispatch(clearAttemptItem())
+        localStorage.removeItem('shipping_address');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('shiprocket_charges');
 
         if (location.pathname == '/cart') {
             navigate('/');

@@ -44,7 +44,10 @@ export default function Topbar({ isTopPage }) {
         localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
-        // dispatch(clearAttemptItem())
+        localStorage.removeItem('shipping_address');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('shiprocket_charges');
+        localStorage.removeItem('address');
        
         if (location.pathname == '/cart') {
             navigate('/');

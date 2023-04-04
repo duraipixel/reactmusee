@@ -112,7 +112,7 @@ export const Cart = () => {
         if (customerAddress) {
 
             let ship_selected = customerAddress.find(item => item.id == address_id);
-            setShippingAddress(ship_selected);
+            setShippingAddress(ship_selected?.id);
         }
 
     }
@@ -135,7 +135,7 @@ export const Cart = () => {
         }
 
         if (shipping_address) {
-
+            console.log(shipping_address, 'shipping_address');
             handleSetShippingAddressView(shipping_address)
         }
 
@@ -206,15 +206,17 @@ export const Cart = () => {
     }
 
     const getShippingRocketCharges = (address, from_type) => {
-
+        
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         axios({
             url: window.API_URL + '/get/shipping/rocket/charges',
             method: 'POST',
             data: { customer_id: customer.id, address: address, from_type: from_type },
         }).then((res) => {
+            
             setRocketCharges(res.data.shiprocket_charges);
             localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
+            console.log( 'shiprocket_charges_getting', localStorage.getItem('shiprocket_charges'));
         }).catch((err) => {
         })
 
@@ -280,7 +282,6 @@ export const Cart = () => {
         })
     }
 
-    console.log(shippingAddress, 'shippingAddress ')
 
     return (
         <Fragment>

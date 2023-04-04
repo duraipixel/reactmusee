@@ -61,12 +61,13 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
         } else {
-            console.log('going to checkout');
+            
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
                 data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, shipping_id: cartInfo.shipping_id },
             }).then((response) => {
+                
                 if (response.error == 1) {
                     toast.error(response.message);
                 } else {
@@ -100,13 +101,20 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             theme: {
                 color: params.theme.color,
             },
+            modal:{
+                ondismiss: function() {
+                    setPaymentLoader(false);
+                }
+            }
         }
 
         const rzp1 = new Razorpay(options);
-
+       
         rzp1.on("payment.failed", function (response) {
             verifySignature(response, 'fail')
         });
+
+       
 
         rzp1.open();
     };
@@ -211,7 +219,6 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         })
     }
 
-    console.log(coupon, 'coupon');
     return (
         <Fragment >
             <h5 className='text-primary mb-3 fw-bold text-uppercase'>Cart Details</h5>

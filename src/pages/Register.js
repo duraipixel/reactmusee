@@ -135,7 +135,7 @@ export const Register = () => {
                                 <OutlinedInput
                                     size='small'
                                     id="outlined-adornment-mobile"
-                                    type='number'
+                                    type='text'
                                     label="mobile"
                                     error={errors.mobile_no ? true : false}
                                     onChange={NumericOnly}
