@@ -105,11 +105,7 @@
     height: 150px !important;
     margin: 25px 0;
     object-fit: cover;
-}
-
-.deal-image {
-    height: 80px;
-}
+} 
 
 .custom-card,
 .custom-card:hover {
@@ -162,4 +158,139 @@
 
 .cursor {
     cursor: pointer;
+}
+
+.web-menu {
+    min-height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    background: #313190;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.moby-banner {
+    display: none !important;
+}
+
+.mobile-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body {
+    padding-top: 100px;
+}
+
+@media (max-width:600px) {
+    .pc-banner {
+        display: none !important;
+    }
+
+    .moby-banner {
+        display: block !important;
+    }
+
+    .web-menu {
+        min-height: 50px;
+    }
+
+    body {
+        padding-top: 50px;
+    }
+
+    #cssmenu ul {
+        top: 0px !important;
+    }
+
+    .logo-social,
+    .quick-links,
+    .contact-links {
+        text-align: center;
+    }
+
+    .logo-social img {
+        width: 120px;
+    }
+
+    .logo-social ul li {
+        margin: 0 10px !important;
+    }
+
+    .logo-social ul {
+        margin-top: 20px;
+        transform: translate(0px) !important
+    }
+
+    .package-support {
+        padding: 20px 0 !important;
+    }
+
+    .package-support img {
+        width: 150px;
+        height: 80px;
+        object-fit: cover;
+    }
+
+    .quick-links h4 {
+        font-size: 15px;
+    }
+
+    .quick-links li a {
+        font-size: 13px;
+    }
+    .bottom-bar p {
+        font-size: 11px;
+        line-height: 16px;
+        text-align: center;
+    }
+    .common-heads h2 , 
+    .common-heads.light h2{
+        font-size: 18px;
+        line-height: 25px;
+        text-align: center;
+    }
+    .shopping-video ,
+    .shopping-book {
+        text-align: center;
+    }
+    section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (max-width:1000px) {
+
+    .srch-btn,
+    header .button {
+        top: -40px !important;
+    }
+
+    .top-logo img {
+        width: 90px !important;
+    }
+
+    .secondary-menu {
+        display: none !important;
+    }
+}
+
+.zsiq_theme1.zsiq_floatmain {
+    bottom: 66px !important;
+}
+.deal-image-wrapper {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deal-image {
+    height: 60px;
 }

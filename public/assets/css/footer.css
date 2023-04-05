@@ -242,7 +242,7 @@ footer .footer-bottom p a {
 	position: fixed;
 	left: 0;
 	width: 100%;
-	bottom: -100px;
+	bottom: 0;
 	z-index: 999;
 	display: none;
 	align-items: center;

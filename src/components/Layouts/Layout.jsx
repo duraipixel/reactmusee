@@ -45,7 +45,7 @@ export const Layout = () => {
     const menuAll = sessionStorage.getItem('allMenu') ? JSON.parse(sessionStorage.getItem('allMenu')) : []
 
     useEffect(() => {
-        if(menuAll.length == 0 ) {
+        if (menuAll.length == 0) {
             getAllMenu();
         }
     }, [])
@@ -65,7 +65,7 @@ export const Layout = () => {
     };
 
     const getSubMenu = (category) => {
-        
+
         setIsPageLoaded(true);
         sessionStorage.setItem('isPageLoaded', true);
 
@@ -80,16 +80,16 @@ export const Layout = () => {
         );
 
         sessionStorage.setItem('topSubMenu', JSON.stringify(subMenus));
-         
+
         const SUrl = "/products/pfilter";
-            searchParams.set("category", category);
-            searchParams.delete("scategory");
-            searchParams.delete("page");
-            searchParams.delete("collection");
-            searchParams.delete("discount");
-            searchParams.delete("availability");
-            searchParams.delete("booking");
-      
+        searchParams.set("category", category);
+        searchParams.delete("scategory");
+        searchParams.delete("page");
+        searchParams.delete("collection");
+        searchParams.delete("discount");
+        searchParams.delete("availability");
+        searchParams.delete("booking");
+
         dispatch(fetchProducts('?' + searchParams.toString()));
         navigate(SUrl + '?' + searchParams.toString());
     }
@@ -98,14 +98,16 @@ export const Layout = () => {
         dispatch(isOpenSideBar());
     }
     const isSideBarOpen = useSelector((state) => state.sideMenuBar.value);
-    
+
     return (
         <Fragment>
             <div className="main-content">
                 <SideCustomScrollbar menuAll={menuAll} getSubMenu={getSubMenu} />
-                <Topbar isTopPage={isTopPage} />
-                <Topmenu isTopPage={isTopPage} topmenu={topMenuAll} getSubMenu={getSubMenu} />
-                <Submenu topSubmenu={topSubmenu} setIsPageLoaded={setIsPageLoaded} />
+                <div className="web-menu">
+                    <Topbar isTopPage={isTopPage} />
+                    <Topmenu isTopPage={isTopPage} topmenu={topMenuAll} getSubMenu={getSubMenu} />
+                    <Submenu topSubmenu={topSubmenu} setIsPageLoaded={setIsPageLoaded} />
+                </div>
                 <Outlet context={[isPageLoaded, setIsPageLoaded]} />
                 <Footer getSubMenu={getSubMenu} />
                 <Copyrights />
@@ -117,7 +119,7 @@ export const Layout = () => {
                             <WaveSpinner
                                 size={70}
                                 color="#fff"
-                                loading={true} 
+                                loading={true}
                             />
                         </div>
                     </div>

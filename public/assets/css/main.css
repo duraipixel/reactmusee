@@ -7685,9 +7685,9 @@ tbody>tr.active>th.active {
     z-index: 990;
   }
 
-  .deals-box {
+  /* .deals-box {
     margin-bottom: 30px;
-  }
+  } */
 
   .filter-lists h3 {
     margin-top: 20px;
@@ -7973,9 +7973,9 @@ tbody>tr.active>th.active {
     white-space: nowrap;
   }
 
-  .deals-box {
+  /* .deals-box {
     margin-bottom: 25px;
-  }
+  } */
 
   .desky-banner {
     display: none;

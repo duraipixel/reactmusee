@@ -30,23 +30,21 @@ export default function DiscountCollection({className}) {
         <Fragment>
             {
                 discountCollectionData && discountCollectionData.length > 0 &&
-
-                <section className={`list-of-deals ${className}`} id="home-content">
-                    <div className="container">
-                        <div className="">
-
+                <div className={`list-of-deals ${className}`} id="home-content">
+                    <div className="container pb-md-5 pb-3">
+                        <div>
                             <div className="col-lg-12 col-md-12 col-sm-12">
-                                <div className="common-heads">
-                                    <div className='fs-4 mb-4 fw-bold text-primary'>Deals You don’t Want to Miss</div>
+                                <div className="common-heads py-4 text-center">
+                                    <h2 className='m-0'>Deals You don't Want to Miss</h2>
                                 </div>
                             </div>
 
-                            <div className="row">
+                            <div className="row  g-3">
                                 <DiscountSkeletonItem discountCollectionData={discountCollectionData} />
                             </div>
                         </div>
                     </div>
-                </section>
+                </div>
             }
         </Fragment>
     )
