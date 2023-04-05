@@ -103,7 +103,7 @@ export const CancelOrderRequested = ({
           <div className="row">
             <div className="col-lg-12">
               <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label">
+                <FormLabel id="demo-radio-buttons-group-label" className="h3">
                   Reason
                 </FormLabel>
                 <RadioGroup
@@ -121,6 +121,7 @@ export const CancelOrderRequested = ({
                           value={item.name}
                           control={<Radio />}
                           label={item.name}
+                          className="fs-6"
                         />
                       );
                     })}

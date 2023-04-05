@@ -39,8 +39,7 @@ export default function Topbar({ isTopPage }) {
 
 
     const logout = () => {
-        // console.log( 'logusoguste');
-        // console.log(location);
+       
         localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
@@ -48,6 +47,7 @@ export default function Topbar({ isTopPage }) {
         localStorage.removeItem('cart');
         localStorage.removeItem('shiprocket_charges');
         localStorage.removeItem('address');
+        sessionStorage.removeItem('cart_coupon')
        
         if (location.pathname == '/cart') {
             navigate('/');

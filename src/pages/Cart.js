@@ -264,7 +264,8 @@ export const Cart = () => {
 
     async function updateCartAmount(shipping_id, type = '') {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
-        var couponData = JSON.parse(sessionStorage.getItem('cart_coupon'));
+        
+        var couponData = (sessionStorage.getItem('cart_coupon') && sessionStorage.getItem('cart_coupon') != 'undefined') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
         
         if (!customer?.id) {
 

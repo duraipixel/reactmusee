@@ -43,6 +43,8 @@ const Summary = () => {
     window.scroll(0, 0)
   }, [orderInfo])
 
+  console.log(orderInfo);
+
   return (
     <section className="shop-carts ordes-lsts">
       <div className="container">
@@ -59,7 +61,7 @@ const Summary = () => {
             <Link to="/profile" className="ms-3 text-secondary">
               <i className="bi bi-chevron-left"></i> My Orders
             </Link>
-            <h4 className="text-primary ms-3 my-3">Your order History</h4>
+            <h4 className="text-primary ms-3 my-3"> Your order History </h4>
             {orderInfo.items && orderInfo.items.length > 0 && <TimeLineContent orders={orderInfo} />}
           </div>
           <div className="col-lg-6">
@@ -91,7 +93,8 @@ const Summary = () => {
                 <ul className="list-unstyled fs-sm m-0">
                   <li className="d-flex justify-content-between align-items-center mb-1"><span className="me-2">Subtotal:</span><span className="text-end">₹{orderInfo?.sub_total}</span></li>
                   {orderInfo.tax_amount > 0 && <li className="d-flex justify-content-between align-items-center"><span className="me-2">Taxes:</span><span className="text-end">₹{orderInfo?.tax_amount}</span></li>}
-                  {orderInfo.shipping_amount > 0 && <li className="d-flex justify-content-between align-items-center fs-base"><span className="me-2">Total:</span><span className="text-end">₹{orderInfo?.shipping_amount}</span></li>}
+                  {orderInfo.shipping_amount > 0 && <li className="d-flex justify-content-between align-items-center fs-base"><span className="me-2">Shipping Fee:</span><span className="text-end">₹{orderInfo?.shipping_amount}</span></li>}
+                  {orderInfo.coupon_amount > 0 && <li className="d-flex justify-content-between align-items-center fs-base"><span className="me-2">Coupon [{orderInfo.coupon_code}] :</span><span className="text-end">(-) ₹{orderInfo?.coupon_amount}</span></li>}
                   <li className="text-dark d-flex justify-content-between align-items-center fs-6 mt-2"><span className="me-2 fw-bold">Total:</span><span className="text-end fw-bold fs-5">₹{orderInfo?.amount}</span></li>
                 </ul>
               </div>
