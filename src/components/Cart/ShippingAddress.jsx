@@ -53,7 +53,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                             }
                         </div>
                         <div className="row">
-                            <div className="col-md-6">
+                            <div className="col-md-6 ">
                                 <b className='mb-2 d-block'>Shipping Address</b>
                                 <RadioGroup className='list-group mb-3' value={shipping_address} onChange={handleSetShippingAddress}>
                                     {address && address.length > 0 && address.map((item) => (

@@ -1007,7 +1007,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         overflow: hidden;
         display: block;
         transition: all 1.5s;
-    } 
+    }
 
     #cssmenu ul li.mega-menu {
         position: relative;
@@ -1333,15 +1333,26 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         border-top: none
     }
 
+    #cssmenu ul:before {
+        position: absolute;
+        content: "";
+        right: 0;
+        bottom: 0;
+        background: url(../images/guitar-bg.png) no-repeat scroll 0 0;
+        width: 350px;
+        height: 674px;
+        opacity: 0.7;
+    }
+
     #cssmenu ul {
         position: absolute;
         top: 13px;
         left: 0px;
         padding: 0px;
         z-index: 999;
-        background: #ffffffb3;
+        background: white;
         box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
-        backdrop-filter: blur(9px);
+        /* backdrop-filter: blur(9px); */
     }
 
     header.fixed-top #cssmenu ul,

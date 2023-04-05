@@ -3755,7 +3755,7 @@ li.oly-btn a:hover {
 
 .tab-of-sectors {
   background-color: #f9f9f9;
-  padding: 50px 0px 100px;
+  /* padding: 50px 0px 100px; */
   position: relative;
 }
 
@@ -3848,7 +3848,7 @@ button.nav-link:hover {
 }
 
 .shop-carts {
-  padding: 50px 0px 100px;
+  /* padding: 50px 0px 100px; */
   background-color: #f9f9f9;
 }
 
@@ -5845,7 +5845,7 @@ li.oly-btn a:hover {
 
 .tab-of-sectors {
   background-color: #f9f9f9;
-  padding: 50px 0px 100px;
+  /* padding: 50px 0px 100px; */
   position: relative;
 }
 
@@ -5938,7 +5938,7 @@ button.nav-link:hover {
 }
 
 .shop-carts {
-  padding: 50px 0px 100px;
+  /* padding: 50px 0px 100px; */
   background-color: #f9f9f9;
 }
 
@@ -6919,9 +6919,9 @@ ul.track-order li.active:last-child:after {
   color: #1a1a1a;
 }
 
-.shop-carts.ordes-lsts {
+/* .shop-carts.ordes-lsts {
   padding: 60px 0px 100px;
-}
+} */
 
 .order-fist {
   margin-bottom: 40px;

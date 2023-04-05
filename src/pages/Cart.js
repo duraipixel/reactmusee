@@ -3,8 +3,7 @@ import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
 import { ShippingAddress } from '../components/Cart/ShippingAddress'
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'
-import Modal from 'react-bootstrap/Modal';
+import {  useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
@@ -296,7 +295,7 @@ export const Cart = () => {
             <div>
                 {
                     cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
-                        <section className="shop-carts">
+                        <div className="shop-carts py-lg-5">
                             <div className="container">
                                 <div className="row">
                                     <>
@@ -337,9 +336,9 @@ export const Cart = () => {
                                     </div>
                                 </div>
                             }
-                        </section>
+                        </div>
                         :
-                        <div className="jumbotron text-gray" >
+                        <div className="jumbotron text-gray py-3" >
                             <div className='container  p-4'>
                                 <div className='row m-0 align-items-center'>
                                     <div className='col-md-10'>

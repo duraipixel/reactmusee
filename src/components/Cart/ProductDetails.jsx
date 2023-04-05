@@ -114,15 +114,10 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
         })
 
-    }
-
-
-
-
-
+    } 
     return (
         <Fragment>
-            <h5 className="text-primary mb-3 fw-bold text-uppercase">Cart Items</h5>
+            <h5 className="text-primary my-3 fw-bold text-uppercase">Cart Items</h5>
             <div className="card border-0">
                 <div>
                     <ul className='list-group '>
@@ -130,10 +125,10 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                             cart && Object.entries(cart).map((key, item) => (
                                 <li className="list-group-item list-group-item-action" key={key}>
                                     <div className="row align-items-center">
-                                        <div className="col-3 col-md-2">
-                                            <img src={cart[item].image} alt="Ecommerce" className="avatar-img rounded border border-white border-3" />
+                                        <div className="p-max-sm-2 col-sm-3 col-md-2">
+                                            <img src={cart[item].image} alt="Ecommerce" className="product-list-image" />
                                         </div>
-                                        <div className="col-4 col-md-6 col-lg-5">
+                                        <div className="p-max-sm-2 col-sm-4 col-md-6 col-lg-5">
                                             <h6 className="mb-0 fs-6">{cart[item].product_name}</h6>
                                             <span><small className="text-secondary">₹{cart[item].price}</small></span>
                                             <div className="mt-2 small lh-1">
@@ -143,7 +138,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                                 </button>
                                             </div>
                                         </div>
-                                        <div className="col-3 col-md-3 col-lg-3">
+                                        <div className="p-max-sm-2 col-6 col-sm-3 col-md-3 col-lg-3">
                                             <InputGroup className='border me-2' style={{ width: '120px' }}>
                                                 <InputGroup.Button size='sm' onClick={() => decreaseCartProduct(cart[item])} className="border-end">
                                                     <AiOutlineMinus />
@@ -154,8 +149,8 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                                 </InputGroup.Button>
                                             </InputGroup>
                                         </div>
-                                        <div className="col-2 text-lg-end text-start text-md-end col-md-2">
-                                            <span className="fw-bold text-primary">₹{cart[item].sub_total}</span>
+                                        <div className="p-max-sm-2 col-6 col-sm-2 text-end text-start text-md-end col-md-2">
+                                            <span className="fw-bold text-primary fs-max-20">₹{cart[item].sub_total}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -163,94 +158,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                         }
                     </ul>
                 </div>
-            </div>
-            {/* <table className="table table-bordered desky-verson">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Product</th>
-                        <th></th>
-                        <th width="130">Price</th>
-                        <th width="130">Quantity</th>
-                        <th width="130">SubTotal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        cart && Object.entries(cart).map((key, item) => (
-                            <tr key={key}>
-                                <td><button onClick={() => removeCartProduct(cart[item])}><i className="fa fa-trash-o" aria-hidden="true"></i></button></td>
-                                <td><img className="prdt-clsimg" src={cart[item].image} /></td>
-                                <td>{cart[item].product_name}</td>
-                                <td><span className="price">₹{cart[item].price}</span></td>
-                                <td><button onClick={() => decreaseCartProduct(cart[item])}><img src="/assets/images/sub.png" /></button><span>{cart[item].quantity}</span><button onClick={() => increaseCartProduct(cart[item])}><img src="/assets/images/add.png" /></button></td>
-                                <td><span className="price">₹{cart[item].sub_total}</span></td>
-                            </tr>
-                        ))
-                    }
-
-                    <tr>
-                        <td colSpan="4" style={{ border: '0px' }}>Have a Coupon?<input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={coupon.value.coupon_code} disabled={coupon.value.coupon_code ? 'disabled' : ''} maxLength="6" />
-                            {
-                                cart_total.coupon_code ?
-                                    <button type='button' onClick={() => cancelCoupon()} >Cancel</button>
-                                    :
-                                    <button type='button' onClick={() => applyCoupon()}>Apply</button>
-                            }
-                        </td>
-                        <td colSpan="2" style={{ textAlign: 'right', border: '0px' }}>
-                            <button className="refreshing" onClick={() => clearCustomerCart()}>
-                                <img src="/assets/images/refresh.png" />
-                                Refresh Cart
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> */}
-
-            <div className='mobile-cartlst'>
-                {
-                    cart && Object.entries(cart).map((key, item) => (
-                        <div className='cat-fntion' key={key}>
-                            <button className='del-btm' onClick={() => removeCartProduct(cart[item])}><i className="fa fa-trash-o" aria-hidden="true"></i></button>
-                            <h4> {cart[item].product_name}</h4>
-                            <h5><span>Price : </span>₹{cart[item].price}</h5>
-                            <div className='m-flex'>
-                                <img src={cart[item].image} />
-                                <div className="prce-btm">
-                                    <button><img src="/assets/images/sub.png" onClick={() => decreaseCartProduct(cart[item])} /></button>
-                                    {cart[item].quantity}
-                                    <button><img src="/assets/images/add.png" onClick={() => increaseCartProduct(cart[item])} /></button>
-                                </div>
-                            </div>
-                            <h5 className='m-0 mt-3'><span>Sub Total : </span>₹{cart[item].sub_total}</h5>
-                        </div>
-                    ))
-                }
-                {/* <div className='copon-code'>
-                    <table>
-                        <tr>
-                            <td colSpan="4" style={{ border: '0px' }}>
-                                Have a Coupon?
-                                <input type="text" placeholder="Enter Coupon code here" id="coupon" name="coupon" value={cart_total.coupon_code} disabled={cart_total.coupon_code ? 'disabled' : ''} maxLength="6" />
-                                {
-                                    cart_total.coupon_code ?
-                                        <button type='button' onClick={() => cancelCoupon()} >Cancel</button>
-                                        :
-                                        <button type='button' onClick={() => applyCoupon()}>Apply</button>
-                                }
-                            </td>
-                            <td colSpan="2" style={{ textAlign: 'right', border: '0px' }}>
-                                <button className="refreshing" onClick={() => clearCustomerCart()}>
-                                    <img src="/assets/images/refresh.png" />
-                                    Refresh Cart
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </div> */}
-
-            </div>
+            </div> 
         </Fragment>
     )
 }

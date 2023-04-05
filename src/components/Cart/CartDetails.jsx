@@ -232,7 +232,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     return (
         <Fragment >
-            <h5 className='text-primary mb-3 fw-bold text-uppercase'>Cart Details</h5>
+            <h5 className='text-primary my-3 fw-bold text-uppercase'>Cart Details</h5>
             <div className="card mb-3">
                 <div className="card-body">
                     <ul className="list-group mb-3">

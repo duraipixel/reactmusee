@@ -51,9 +51,9 @@ export const MobileFooter = () => {
                         </Link>
 
                 }
-                <a href="/cart" data-toggle="tooltip" title="Cart Details">
+                <Link to="/cart" data-toggle="tooltip" title="Cart Details">
                     <img src="assets/images/mob-ic-3.png" alt="" className="img-fluid" /> Cart
-                </a>
+                </Link>
                 <a href="tel:+914428522780" target="_blank" data-toggle="tooltip" title="Call Us">
                     <img src="assets/images/mob-ic-5.png" alt="" className="img-fluid" /> Call Us
                 </a>
