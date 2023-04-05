@@ -8,12 +8,12 @@ export const LiveVideo = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex justify-content-between align-items-center">
-              <div className="shopping-video">
+              <div className="shopping-video col-lg-8">
                 <div className="common-heads light">
                   <h2>Virtual  Shopping</h2>
                 </div>
                 <div className="secondary-para">
-                  Connect with us via video call and our experts will help you choose<br /> the perfect musical instrument from the comfort of your home
+                  Experience the convenience and flexibility of shopping from the comfort of your home! Our Product Experts will help and guide you choose the perfect musical instrument via Video Call providing a personalized shopping experience at your fingertip!
                 </div>
               </div>
               <div className="shopping-book">

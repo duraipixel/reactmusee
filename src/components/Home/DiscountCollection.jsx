@@ -35,7 +35,7 @@ export default function DiscountCollection({className}) {
                         <div>
                             <div className="col-lg-12 col-md-12 col-sm-12">
                                 <div className="common-heads py-4 text-center">
-                                    <h2 className='m-0'>Deals You don't Want to Miss</h2>
+                                    <h2 className='m-0'> Exclusive Deals, Cool Prices!</h2>
                                 </div>
                             </div>
 
