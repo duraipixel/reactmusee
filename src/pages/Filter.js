@@ -21,6 +21,7 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
     const location = useLocation();
 
     const [dynamicFilter, setDynamicFilter] = useState([]);
+    const [dynamicBrands, setDynamicBrands] = useState([]);
 
     const searchParams = new URLSearchParams(location.search);
 
@@ -62,7 +63,12 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
             method: 'POST',
             data: { category_slug: categoryUrl },
         }).then((res) => {
-            setDynamicFilter(res.data);
+            if( res.data.attributes ) {
+                setDynamicFilter(res.data.attributes);
+            }
+            if( res.data.brands ) {
+                setDynamicBrands(res.data.brands);
+            }
         }).catch((err) => {
 
         })
@@ -132,7 +138,7 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
                     <a > <img src="/assets/images/filter-close.png" /> </a>
                 </span> */}
                 <ProductAvailability product_availability={product_availability} />
-                <Brand />
+                <Brand dynamicBrands={dynamicBrands} />
                 {
                     dynamicFilter && dynamicFilter.length > 0 &&
                     <AttributeCollection dynamicFilter={dynamicFilter} />

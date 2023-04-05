@@ -4,7 +4,7 @@ import { fetchBrands } from '../../app/reducer/brandSlice';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 
-export const Brand = () => {
+export const Brand = ({dynamicBrands}) => {
 
     const [searchField, setSearchField] = useState("");
     const navigate = useNavigate();
@@ -12,37 +12,18 @@ export const Brand = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
-    const getBrandList = sessionStorage.getItem('brands') ? JSON.parse(sessionStorage.getItem('brands')) : [];
-
-    async function getBrands() {
-
-        const response = await fetch(window.API_URL + '/get/brands')
-            .then((response) => response.json())
-            .then((data) => {
-                sessionStorage.setItem('brands', JSON.stringify(data.data));
-            })
-            .catch((err) => {
-            });
-    }
-
-    useMemo(() => {
-        if (getBrandList.length === 0) {
-            getBrands()
-        }
-    }, [getBrandList]);
-
     var brandSelected = [];
     if (searchParams.get('brand')) {
         brandSelected = searchParams.get('brand').split("_");
     }
     var filteredBrands = '';
 
-    if (getBrandList !== undefined && getBrandList.length > 0) {
+    if (dynamicBrands !== undefined && dynamicBrands.length > 0) {
 
-        filteredBrands = getBrandList.filter(
+        filteredBrands = dynamicBrands.filter(
             brand => {
                 return (
-                    brand.title.toLowerCase().includes(searchField.toLocaleLowerCase())
+                    brand.brand_name.toLowerCase().includes(searchField.toLocaleLowerCase())
                 )
             }
         );
@@ -76,7 +57,7 @@ export const Brand = () => {
     return (
         <Fragment>
             {
-                getBrandList && getBrandList !== 'undefined' && (
+                dynamicBrands && dynamicBrands !== 'undefined' && (
                     <div className='card mb-3'>
                         <div className="card-header py-2 text-primary top-search d-block flex-column w-100">
                             <b>Brands</b>
@@ -87,7 +68,7 @@ export const Brand = () => {
                                 filteredBrands ? filteredBrands.slice(0, 7).map((item, i) => (
                                     <li key={i} className="list-group-item list-group-item-action w-100">
                                         <label className="cstm-chkbx">
-                                            <small>{item.title}</small>
+                                            <small>{item.brand_name}</small>
                                             <input type="checkbox" checked={(brandSelected.includes(item.slug) ? 'checked' : '')} name='brand[]' className='filter_brand' value={item.slug} onChange={() => getProduct()} />
                                             <span className="checkmark"></span>
                                         </label>
