@@ -30,23 +30,15 @@ export const Brand = () => {
         slidesToShow: 6,
         dots: false,
         slidesToScroll: 1,
-        responsive: [{
-            breakpoint: 1400,
-            settings: {
-                slidesToShow: 4,
-                slidesToScroll: 1,
-            },
-        }, {
-            breakpoint: 990,
+        responsive: [ {
+            breakpoint: 600,
             settings: {
                 slidesToShow: 3,
                 slidesToScroll: 1,
-            },
-        }, {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
+                vertical: true,
+                verticalSwiping: true,
+                centerMode:true,
+                arrows: true,
             },
         },],
     }

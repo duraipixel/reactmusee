@@ -2562,10 +2562,10 @@ section {
   background-color: white;
 }
 
-.our-brands .slick-track {
+/* .our-brands .slick-track {
   display: flex;
   align-items: center;
-}
+} */
 
 .our-brands .col-lg-2 {
   position: relative;
@@ -4673,10 +4673,10 @@ ul.track-order li.active h5 {
   transition: all 0.3s ease;
 }
 
-.our-brands .slick-track {
+/* .our-brands .slick-track {
   display: flex;
   align-items: center;
-}
+} */
 
 .our-brands .col-lg-2 {
   position: relative;

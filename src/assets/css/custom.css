@@ -186,6 +186,32 @@ body {
 }
 
 @media (max-width:600px) {
+    .our-brands .slick-next {
+        right: -0;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px gray;
+    }
+    .our-brands .slick-prev {
+        left: -0;
+        z-index: 111;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 0 10px gray;
+    }
+    .brand {
+        text-align: center;
+        width: 200px;
+    }
+    .brand a {
+        background-color: white;
+        width: 100%;
+        text-align: center;
+    }
+    .brand img {
+        height: 70px !important;
+        margin: auto;
+    }
     .pc-banner {
         display: none !important;
     }
