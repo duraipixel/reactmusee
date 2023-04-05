@@ -24,7 +24,7 @@ export default function Topbar({ isTopPage }) {
     const getTotalQuantity = () => {
 
         let total = 0;
-        (cart.length > 0 || typeof cart == 'object') && cart.cart.carts && Object.entries(cart.cart.carts).map((key, item) => {
+        (cart.length > 0 || typeof cart == 'object') && cart?.cart?.carts && Object.entries(cart.cart.carts).map((key, item) => {
 
             return total += cart.cart.carts[item].quantity;
         })

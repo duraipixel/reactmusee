@@ -18,7 +18,7 @@ function ProductFeatures({ data }) {
                 <Box sx={{ borderBottom: 1, borderColor: 'divider', bgcolor: 'background.paper' }}>
                     <TabList onChange={handleChange} variant="fullWidth">
                         {data.map((item, i) => (
-                            <Tab key={i} label={item.name} value={item.name} />
+                            <Tab key={i} label={item.name == 'media' ? 'Audios & Videos' : item.name} value={item.name} />
                         ))}
                     </TabList>
                 </Box>

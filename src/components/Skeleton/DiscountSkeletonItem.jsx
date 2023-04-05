@@ -38,7 +38,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                                     <div className="deals-box p-3 card-box">
                                         <div className='fw-bold fs-6 text-primary mb-3'>
                                             <label className='m-0' onClick={() => goToProductListPage(item.slug)}>
-                                                {item.collection_name} <span>20% OFF</span>
+                                                {item.collection_name} <span></span>
                                             </label>
                                         </div>
                                         <div className='row m-0'>

@@ -16,7 +16,6 @@ export default function DiscountCollection({className}) {
             .catch((err) => {
             });
     }
-
     
     useEffect(() => {
 
