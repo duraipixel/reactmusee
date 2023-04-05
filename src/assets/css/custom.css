@@ -202,36 +202,34 @@ body {
 }
   
 @media (max-width:600px) {
+    .next-jump {
+        text-align: center;
+    }
     .border-bottom-max-md {
         border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
     }
-
     .our-brands .slick-next {
-        right: -0;
+        right: 15px;
         background-color: white;
         border-radius: 50%;
         box-shadow: 0 0 10px gray;
     }
-
     .our-brands .slick-prev {
-        left: -0;
+        left: 15px;
         z-index: 111;
         background-color: white;
         border-radius: 50%;
         box-shadow: 0 0 10px gray;
     }
-
     .brand {
         text-align: center;
         width: 200px;
     }
-
     .brand a {
         background-color: white;
         width: 100%;
         text-align: center;
     }
-
     .brand img {
         height: 70px !important;
         margin: auto;
@@ -355,4 +353,14 @@ body {
 
 .deal-image {
     height: 60px;
+}
+.menu-open {
+    height: 100vh !important;
+    transition: all .5s !important;
+}
+.slick-dots {
+    position: unset !important;
+}
+.the-trending .slick-dots {
+    margin-top: 20px;
 }

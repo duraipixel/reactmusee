@@ -57,72 +57,11 @@
 <script src="https://use.fontawesome.com/9ad0804c94.js"></script>
  <script type="text/javascript" src="/assets/js/product-zoom.js"></script> -->
 
-<script>
-  (function ($) {
-    $.fn.menumaker = function (options) {
-      var cssmenu = $(this),
-        settings = $.extend({
-          format: "dropdown",
-          sticky: false
-        }, options);
-      return this.each(function () {
-        $(this).find(".button").on('click', function () {
-          $(this).toggleClass('menu-opened');
-          var mainmenu = $(this).next('ul');
-          if (mainmenu.hasClass('open')) {
-            mainmenu.slideToggle().removeClass('open');
-          } else {
-            mainmenu.slideToggle().addClass('open');
-            if (settings.format === "dropdown") {
-              mainmenu.find('ul').show();
-            }
-          }
-        });
-        cssmenu.find('li ul').parent().addClass('has-sub');
-        multiTg = function () {
-          cssmenu.find(".has-sub").prepend('<span className="submenu-button"></span>');
-          cssmenu.find('.submenu-button').on('click', function () {
-            $(this).toggleClass('submenu-opened');
-            if ($(this).siblings('ul').hasClass('open')) {
-              $(this).siblings('ul').removeClass('open').slideToggle();
-            } else {
-              $(this).siblings('ul').addClass('open').slideToggle();
-            }
-          });
-        };
-        if (settings.format === 'multitoggle') multiTg();
-        else cssmenu.addClass('dropdown');
-        if (settings.sticky === true) cssmenu.css('position', 'fixed');
-        resizeFix = function () {
-          var mediasize = 1000;
-          if ($(window).width() > mediasize) {
-            cssmenu.find('ul').show();
-          }
-          if ($(window).width() <= mediasize) {
-            cssmenu.find('ul').hide().removeClass('open');
-          }
-        };
-        resizeFix();
-        return $(window).on('resize', resizeFix);
-      });
-    };
-  })(jQuery);
-
-  (function ($) {
-    $(document).ready(function () {
-      $("#cssmenu").menumaker({
-        format: "multitoggle"
-      });
-    });
-  })(jQuery);
-
-  // $(document).ready(function () {
-  //   $('#glasscase').glassCase({
-  //     'thumbsPosition': 'bottom'
-  //   });
-  // });
+<script type="text/javascript" id="zsiqchat">
+  window.addEventListener("DOMContentLoaded", (event) => {
+    var $zoho = $zoho || {}; $zoho.salesiq = $zoho.salesiq || { widgetcode: "81d3d70d0c48e7ff80b77cad3a314b2f7852c61c7894c09159737682af3913c113bf0c75dfc12c7f211dfff1a0f38ac5", values: {}, ready: function () { } }; var d = document; s = d.createElement("script"); s.type = "text/javascript"; s.id = "zsiqscript"; s.defer = true; s.src = "https://salesiq.zoho.in/widget"; t = d.getElementsByTagName("script")[0]; t.parentNode.insertBefore(s, t);
+  });
 </script>
-<script type="text/javascript" id="zsiqchat">var $zoho=$zoho || {};$zoho.salesiq = $zoho.salesiq || {widgetcode: "81d3d70d0c48e7ff80b77cad3a314b2f7852c61c7894c09159737682af3913c113bf0c75dfc12c7f211dfff1a0f38ac5", values:{},ready:function(){}};var d=document;s=d.createElement("script");s.type="text/javascript";s.id="zsiqscript";s.defer=true;s.src="https://salesiq.zoho.in/widget";t=d.getElementsByTagName("script")[0];t.parentNode.insertBefore(s,t);</script>
-
 <a href="#" className="back-to-top"><i className="fa fa-angle-up" aria-hidden="true"></i></a>
+
 </html>

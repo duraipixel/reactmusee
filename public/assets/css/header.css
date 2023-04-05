@@ -93,6 +93,7 @@ body.town-bus {
     from {
         transform: translate3d(0, -200px, 0)
     }
+
     to {
         transform: translate3d(0, 0, 0);
         opacity: 1
@@ -245,7 +246,7 @@ body.town-bus header #cssmenu>ul>li>a {
     position: relative;
     color: #FFF;
     font-weight: 400;
-    border-radius: 50px; 
+    border-radius: 50px;
     font-size: 16px;
     line-height: 20px;
 }
@@ -402,7 +403,9 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
     top: 0;
 }
 
-.fixed-top{z-index: 10;}
+.fixed-top {
+    z-index: 10;
+}
 
 .top-bar.top-fix {
     animation-name: fadeInDown;
@@ -919,94 +922,122 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
     #cssmenu>ul>li>a {
         padding: 36px 10px;
     }
+
     #cssmenu ul li.mega-menu ul ul li a img {
         max-width: 50px;
     }
+
     #cssmenu>ul>li.active>a {
         color: #FFF;
         background: #D31217;
     }
+
     .fixed-top #cssmenu>ul>li>a,
     body.town-bus header #cssmenu>ul>li>a {
         padding: 24px 10px;
     }
+
     .fixed-top #cssmenu ul li.contact a {
         padding: 15px 20px;
     }
+
     #cssmenu ul li.mega-menu ul ul {
         width: 400px;
     }
 }
 
 @media (max-width:1000px) {
-    .top-bar{z-index: 0;}
+    .top-bar {
+        z-index: 0;
+    }
+
     header.fixed-top .srch-btn {
         top: -39px;
     }
+
     header.fixed-top .button {
         top: 23px !important
     }
+
     #cssmenu>ul>li>a {
         color: #000;
         font-weight: 600;
         font-size: 17px !important;
     }
+
     #cssmenu>ul>li>button {
         color: #000;
         font-weight: 600;
         font-size: 17px !important;
     }
+
     li.having-hamber {
         display: none !important;
     }
+
     .logo2 {
         display: none
     }
+
     nav {
         width: 100%;
     }
+
     header .container {
         max-width: 100%;
         padding-left: 0px;
         padding-right: 0px;
     }
+
     .top-bar .container {
         max-width: 100%;
         padding-left: 20px;
         padding-right: 20px;
     }
+
     #cssmenu {
         width: 100%;
         padding-left: 15px;
         padding-right: 15px;
     }
+
     #cssmenu ul {
         width: 100%;
-        display: none;
-    }
+        height: 0;
+        overflow: hidden;
+        display: block;
+        transition: all 1.5s;
+    } 
+
     #cssmenu ul li.mega-menu {
         position: relative;
     }
+
     #cssmenu ul li.mega-menu ul,
     body.town-bus header #cssmenu ul li.mega-menu ul,
     body.town-bus header #cssmenu ul ul {
         top: 0px;
         min-height: inherit;
     }
+
     #cssmenu ul li.mega-menu ul li {
         max-width: inherit;
     }
+
     #cssmenu ul li {
         width: 100%;
         border-top: 1px solid #ebebeb;
     }
+
     #cssmenu ul ul li.active a {
         color: #000;
     }
+
     #cssmenu ul ul li,
     #cssmenu li:hover>ul>li {
         height: auto
     }
+
     #cssmenu ul li a,
     #cssmenu ul ul li a {
         width: 100%;
@@ -1014,74 +1045,93 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         border-radius: 0px;
         padding: 15px 10px !important;
     }
+
     #cssmenu>ul>li {
         float: none
     }
+
     #cssmenu ul li.mega-menu ul ul {
         width: auto;
         display: block;
         left: 0;
     }
+
     #cssmenu ul li.mega-menu ul ul li {
         padding: 0px;
         width: 100%;
         text-align: left;
     }
+
     #cssmenu ul li.mega-menu ul ul li h3 {
         padding: 0px 10px;
         font-size: 16px;
         margin-top: 10px;
     }
+
     #cssmenu ul li.mega-menu ul.active {
         min-height: auto;
     }
+
     #cssmenu ul li.mega-menu ul ul li a {
         position: relative;
         padding: 15px 10px 15px 60px !important;
     }
+
     #cssmenu ul li.mega-menu ul li#food-menu ul {
         top: 0px;
         max-height: inherit;
     }
+
     #cssmenu ul li.mega-menu ul li:hover ul {
         opacity: 1;
         visibility: visible;
     }
+
     #cssmenu ul li.mega-menu ul li.active ul li a {
         border-radius: 0px;
         max-width: 100%;
     }
+
     #cssmenu ul li.mega-menu ul ul li a img {
         position: absolute;
         left: 10px;
         top: 5px;
         max-width: 35px;
     }
+
     #cssmenu ul li.mega-menu ul li#food-menu ul li a img {
         top: 10px;
     }
+
     header.fixed-top #cssmenu ul ul,
     header.fixed-top #cssmenu ul li.mega-menu ul {
         top: 0px;
     }
+
     #cssmenu ul li.mega-menu ul {
         width: calc(100% - 50px);
     }
+
     #cssmenu ul li.mega-menu ul li a:hover {
         color: #D31217;
     }
+
     #cssmenu ul ul li a {
         padding-left: 25px
     }
+
     #cssmenu ul li.mega-menu>ul:before {
         display: none;
     }
+
     #cssmenu ul ul ul li a {
         padding-left: 35px
     }
+
     #cssmenu>ul>li>a:before {
         display: none;
     }
+
     #cssmenu ul ul,
     #cssmenu ul ul ul {
         position: relative;
@@ -1101,22 +1151,27 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         border-radius: 0px;
         box-shadow: none;
     }
+
     #cssmenu li:hover>ul {
         transition: all 0.2s ease;
     }
+
     #cssmenu>ul>li.has-sub>a:after,
     #cssmenu>ul>li.has-sub>a:before,
     #cssmenu ul ul>li.has-sub>a:after,
     #cssmenu ul ul>li.has-sub>a:before {
         display: none
     }
+
     #cssmenu #head-mobile {
         display: block;
         text-align: right;
     }
+
     #cssmenu ul li.contact {
         display: none;
     }
+
     #head-mobile a.contact {
         text-align: center;
         border-radius: 30px;
@@ -1127,13 +1182,16 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         display: inline-block;
         margin-right: 50px;
     }
+
     header.fixed-top #head-mobile a.contact,
     body.town-bus header #head-mobile a.contact {
         margin-top: 10px;
     }
+
     #head-mobile a.contact:hover {
         background: #D31217;
     }
+
     header .button {
         width: 31px;
         height: 21px;
@@ -1143,10 +1201,11 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         cursor: pointer;
         z-index: 12399994;
     }
-   
+
     body.town-bus header .button {
         top: 0px;
     }
+
     header .button::after {
         position: absolute;
         top: 9px;
@@ -1158,6 +1217,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         border-bottom: 2px solid #fff;
         content: '';
     }
+
     header .button::before {
         -webkit-transition: all .3s ease;
         -ms-transition: all .3s ease;
@@ -1171,6 +1231,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         background: #fff;
         content: '';
     }
+
     header .button.menu-opened:after {
         -webkit-transition: all .3s ease;
         -ms-transition: all .3s ease;
@@ -1185,6 +1246,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         -o-transform: rotate(45deg);
         transform: rotate(45deg)
     }
+
     header .button.menu-opened:before {
         top: 8px;
         background: #fff;
@@ -1194,10 +1256,12 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         -o-transform: rotate(-45deg);
         transform: rotate(-45deg)
     }
+
     header.fixed-top .button.menu-opened:after,
     header.fixed-top .button.menu-opened:before {
         top: 30px;
     }
+
     #cssmenu .submenu-button {
         position: absolute;
         z-index: 99;
@@ -1210,13 +1274,16 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         border-bottom: 1px solid #bbb;
         cursor: pointer
     }
+
     #cssmenu .submenu-button.submenu-opened {
         background: #cfcfcf;
     }
+
     #cssmenu ul ul .submenu-button {
         height: 44px;
         width: 44px
     }
+
     #cssmenu .submenu-button:after {
         position: absolute;
         top: 22px;
@@ -1227,13 +1294,16 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         background: #878787;
         content: ''
     }
+
     #cssmenu ul ul .submenu-button:after {
         top: 20px;
         right: 17px
     }
+
     #cssmenu .submenu-button.submenu-opened:after {
         background: #878787
     }
+
     #cssmenu .submenu-button:before {
         position: absolute;
         top: 19px;
@@ -1244,33 +1314,41 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         background: #878787;
         content: ''
     }
+
     #cssmenu ul ul .submenu-button:before {
         top: 17px;
         right: 20px
     }
+
     #cssmenu .submenu-button.submenu-opened:before {
         display: none
     }
+
     #cssmenu ul ul ul li.active a {
         border-left: none
     }
+
     #cssmenu>ul>li.has-sub>ul>li.active>a,
     #cssmenu>ul ul>li.has-sub>ul>li.active>a {
         border-top: none
     }
+
     #cssmenu ul {
         position: absolute;
         top: 13px;
         left: 0px;
         padding: 0px;
         z-index: 999;
-        background: #FFF;
+        background: #ffffffb3;
         box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
+        backdrop-filter: blur(9px);
     }
+
     header.fixed-top #cssmenu ul,
     body.town-bus header #cssmenu ul {
         top: 66px;
     }
+
     #cssmenu .submenu-button {
         background: #efefef;
         border-bottom: 1px solid #cfcfcf;

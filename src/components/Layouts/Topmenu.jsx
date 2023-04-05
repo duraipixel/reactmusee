@@ -12,6 +12,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
     const dispatch = useDispatch();
     const location = useLocation();
     const [searchShow, setSearchShow] = useState(false);
+    const [menu, setMenu] = useState(false);
     const searchParams = new URLSearchParams(location.search);
 
     const openSideBar = () => {
@@ -38,10 +39,8 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                         <img src="/assets/images/srch.png" />
                                     </button>
                                 </div>
-
-                                <div className="button"></div>
-
-                                <ul>
+                                <div className={`button ${menu ? "menu-opened" : ''}`} onClick={() => setMenu(!menu)}></div>
+                                <ul className={`${menu ? "menu-open" : ''}`}>
                                     <li className="having-hamber">
                                         <a className="toggle-button" onClick={openSideBar}>
                                             <img src="/assets/images/hamber.png" alt="" />All
@@ -50,7 +49,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                     {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
-                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => getSubMenu(item.slug)}>
+                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => {setMenu(!menu); getSubMenu(item.slug)}}>
                                                     {item.name}
                                                 </button>
 
