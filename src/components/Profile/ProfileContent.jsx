@@ -69,9 +69,9 @@ function ProfileContent({
           }}></div>
           <div className="card-body py-0">
             <div className="d-sm-flex align-items-start text-center text-sm-start">
-              <div>
+              <div> 
                 <div className="avatar avatar-xxl mt-n5 mb-3">
-                  <img className="avatar-img rounded-circle border border-white border-3" src={customer.profile_image} alt={customer.first_name} />
+                  <img className="avatar-img rounded-circle border border-white border-3" src={customer.profile_image !== "" ? customer.profile_image : 'https://cdn.pixabay.com/photo/2016/09/27/23/03/guitar-1699501_960_720.jpg'} alt={customer.first_name} />
                 </div>
               </div>
               <div className="ms-sm-4 mt-sm-3">

@@ -162,8 +162,8 @@ export const ProductDetail = () => {
                             }
                         </Helmet> 
 
-                        <section className="section product-details bg-white">
-                            <div className="container pt-3">
+                        <div className="py-md-5 py-3 bg-white">
+                            <div className="container py-md-3">
                                 <div className='row' >
                                     <div className="col-lg-12">
                                         <div className="accordion-table text-left pb-4">
@@ -232,7 +232,7 @@ export const ProductDetail = () => {
                                     </div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
                         <section className="tab-of-sectors" >
                             <div className="container">
                                 <div className="row">
