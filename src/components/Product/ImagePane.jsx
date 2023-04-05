@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import "./imagepane.css";
 import 'react-image-lightbox/style.css';
 import Lightbox from 'react-image-lightbox';
@@ -11,7 +11,15 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
   const [productSliders, setProductSlider] = useState();
   const [navslider, setNavSlider] = useState();
   const sampleImgSrc = ["/assets/images/no_img_category_sm.jpg"];
-  const images = productInfo.gallery || sampleImgSrc;
+  const tempImgs = productInfo.gallery || sampleImgSrc;
+  var images = []
+  if(tempImgs.length < 4) {
+    for (let index = 0; index < 5; index++) {
+      images.push(tempImgs[0])
+    }
+  } else {
+    images = tempImgs
+  }
   const [photoIndex, setPhotoIndex] = useState(null);
   document.querySelector("html").style.overflow = photoIndex !== null ? 'hidden' : 'auto'
   return (
