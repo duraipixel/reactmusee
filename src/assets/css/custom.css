@@ -251,7 +251,7 @@ body {
         width: 100%;
         text-align: center;
     }
-   
+
     .brand img {
         width: 220px !important;
         height: auto !important;
@@ -399,4 +399,27 @@ body {
 
 .product-list-image {
     height: 100px;
+}
+
+
+
+@keyframes pulse {
+    0% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1)
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.05, 1.05, 1.05);
+        transform: scale3d(1.05, 1.05, 1.05)
+    }
+
+    to {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1)
+    }
+}
+
+.CartButton {
+    animation: pulse 5s infinite;
 }

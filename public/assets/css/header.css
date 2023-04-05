@@ -446,7 +446,38 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
 .top-icons ul li {
     position: relative;
 }
+@keyframes MyTada {
+    0% {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1)
+    }
 
+    10%,
+    20% {
+        -webkit-transform: scale3d(.9, .9, .9) rotate(-3deg);
+        transform: scale3d(.9, .9, .9) rotate(-3deg)
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(3deg)
+    }
+
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate(-3deg)
+    }
+
+    to {
+        -webkit-transform: scaleX(1);
+        transform: scaleX(1)
+    }
+}
 .cart-tpimg {
     font-family: 'Mulish', sans-serif;
     font-weight: 800;
@@ -457,11 +488,12 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
     right: -8px;
     height: 20px;
     width: 20px;
-    background: #000;
+    background: #ff0000;
     border-radius: 100%;
     color: #fff;
     text-align: center;
     padding-top: 3px;
+    animation: MyTada 2s infinite;
 }
 
 #cssmenu>ul>li.has-sub:hover>a:after {

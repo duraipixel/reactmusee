@@ -5,6 +5,8 @@ import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 import { clearCart } from '../../app/reducer/cartSlice';
 import { logoutCustomer } from '../../app/reducer/customerSlice';
 import { isOpenSideBar } from '../../app/reducer/sideMenuBarSlice';
+import { useMemo } from 'react';
+import { useState } from 'react';
 
 export const MobileFooter = () => {
 
@@ -12,6 +14,24 @@ export const MobileFooter = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const [cartCount, setCartCount] = useState(0);
+    const cart = useSelector((state) => state.cart);
+    const getTotalQuantity = () => {
+
+        let total = 0;
+        (cart.length > 0 || typeof cart == 'object') && cart?.cart?.carts && Object.entries(cart.cart.carts).map((key, item) => {
+
+            return total += cart.cart.carts[item].quantity;
+        })
+
+        setCartCount(total);
+        return total
+    }
+
+    useMemo(() => {
+        getTotalQuantity();
+    }, [cart])
+
 
     const openSideBar = () => {
         dispatch(isOpenSideBar());
@@ -51,8 +71,9 @@ export const MobileFooter = () => {
                         </Link>
 
                 }
-                <Link to="/cart" data-toggle="tooltip" title="Cart Details">
+                <Link to="/cart" data-toggle="tooltip" title="Cart Details" className='position-relative'>
                     <img src="assets/images/mob-ic-3.png" alt="" className="img-fluid" /> Cart
+                    <span style={{  right: '22px',top: '7px' }} className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                 </Link>
                 <a href="tel:+914428522780" target="_blank" data-toggle="tooltip" title="Call Us">
                     <img src="assets/images/mob-ic-5.png" alt="" className="img-fluid" /> Call Us

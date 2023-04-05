@@ -39,7 +39,7 @@ export default function Topbar({ isTopPage }) {
 
 
     const logout = () => {
-       
+
         localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
@@ -48,7 +48,7 @@ export default function Topbar({ isTopPage }) {
         localStorage.removeItem('shiprocket_charges');
         localStorage.removeItem('address');
         sessionStorage.removeItem('cart_coupon')
-       
+
         if (location.pathname == '/cart') {
             navigate('/');
         } else {
@@ -94,7 +94,7 @@ export default function Topbar({ isTopPage }) {
     useMemo(() => {
         var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
         if (incUrl.includes(checkUrlChanged)) {
-            
+
 
             sessionStorage.removeItem('topSubMenu');
         }
@@ -160,10 +160,10 @@ export default function Topbar({ isTopPage }) {
                                             ))
                                                 :
 
-                                                
-                                                    !searchStart ? 
+
+                                                !searchStart ?
                                                     (
-                                                    <div className='w-100' style={{ textAlign: 'center' }}> No records found</div>
+                                                        <div className='w-100' style={{ textAlign: 'center' }}> No records found</div>
                                                     )
 
                                                     :
@@ -179,7 +179,7 @@ export default function Topbar({ isTopPage }) {
                                                             </div>
                                                         </div>
                                                     </li>)
-                                                
+
                                             }
 
                                         </ul>
