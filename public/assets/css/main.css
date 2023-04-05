@@ -2818,7 +2818,7 @@ body.pad-top .secondary-menu {
 
 .secondary-menu ul li {
   display: inline-block;
-  margin: 15px 38px 20px;
+  /* margin: 15px 38px 20px; */
   transition: all 0.3s ease;
 }
 
@@ -4894,7 +4894,7 @@ body.pad-top .secondary-menu {
 
 .secondary-menu ul li {
   display: inline-block;
-  margin: 15px 38px 20px;
+  /* margin: 15px 38px 20px; */
   transition: all 0.3s ease;
 }
 

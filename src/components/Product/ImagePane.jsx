@@ -20,7 +20,7 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
         <Slider arrows={true} asNavFor={navslider} ref={(slider1) => setProductSlider(slider1)} className="product-slider">
           {images.map((image, i) => (
             <div key={i} className='border rounded product-image-wrapper'>
-              <LazyLoadImage src={image} alt="product" className="product-slider-image" onClick={e => setPhotoIndex(i)} />
+              <LazyLoadImage effect="blur" src={image} alt="product" className="product-slider-image" onClick={e => setPhotoIndex(i)} />
             </div>
           ))}
         </Slider>

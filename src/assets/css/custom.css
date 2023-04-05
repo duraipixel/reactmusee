@@ -105,7 +105,7 @@
     height: 150px !important;
     margin: 25px 0;
     object-fit: cover;
-} 
+}
 
 .custom-card,
 .custom-card:hover {
@@ -184,14 +184,35 @@
 body {
     padding-top: 100px;
 }
-
+.secondary-menu {
+    display: flex;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+}
+.secondary-menu-link {
+    background-color: transparent !important;
+    padding: 10px 15px;
+    color: gray;
+    font-weight: bold;
+}
+.secondary-menu-link:hover ,
+.secondary-menu-link.active{
+    color: white;
+}
+  
 @media (max-width:600px) {
+    .border-bottom-max-md {
+        border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+    }
+
     .our-brands .slick-next {
         right: -0;
         background-color: white;
         border-radius: 50%;
         box-shadow: 0 0 10px gray;
     }
+
     .our-brands .slick-prev {
         left: -0;
         z-index: 111;
@@ -199,19 +220,23 @@ body {
         border-radius: 50%;
         box-shadow: 0 0 10px gray;
     }
+
     .brand {
         text-align: center;
         width: 200px;
     }
+
     .brand a {
         background-color: white;
         width: 100%;
         text-align: center;
     }
+
     .brand img {
         height: 70px !important;
         margin: auto;
     }
+
     .pc-banner {
         display: none !important;
     }
@@ -268,24 +293,33 @@ body {
     .quick-links li a {
         font-size: 13px;
     }
+
     .bottom-bar p {
         font-size: 11px;
         line-height: 16px;
         text-align: center;
     }
-    .common-heads h2 , 
-    .common-heads.light h2{
+
+    .common-heads h2,
+    .common-heads.light h2 {
         font-size: 18px;
         line-height: 25px;
         text-align: center;
     }
-    .shopping-video ,
+
+    .shopping-video,
     .shopping-book {
         text-align: center;
     }
+
     section {
         padding-top: 20px;
         padding-bottom: 20px;
+    }
+}
+@media (min-width:1000px) {
+    .padding-top {
+        padding-top: 180px;
     }
 }
 
@@ -308,6 +342,7 @@ body {
 .zsiq_theme1.zsiq_floatmain {
     bottom: 66px !important;
 }
+
 .deal-image-wrapper {
     width: 100%;
     height: 100px;
@@ -317,6 +352,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 .deal-image {
     height: 60px;
 }

@@ -4,7 +4,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
-import { CardActionArea } from '@mui/material';
+import { CardActionArea } from '@mui/material'; 
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 export const DiscountSkeletonItem = ({ discountCollectionData }) => {
 
@@ -48,7 +50,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                                                         <div className="col-6 p-1" key={i}>
                                                             <CardActionArea key={i} className="text-center p-1" onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
                                                                 <div className="deal-image-wrapper">
-                                                                    <img src={productItems.image} className="deal-image" />
+                                                                    <LazyLoadImage effect='blur' src={productItems.image} className="deal-image" />
                                                                 </div>
                                                                 <small className='d-block mt-1'>{productItems.category} </small>
                                                             </CardActionArea>

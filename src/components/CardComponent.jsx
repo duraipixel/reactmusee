@@ -17,7 +17,7 @@ function CardComponent({ settings }) {
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">
-                        <LazyLoadImage src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
+                        <LazyLoadImage effect="blur" src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
                     </div>
                     {
                         data.badge == true &&

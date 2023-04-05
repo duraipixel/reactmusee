@@ -47,7 +47,11 @@
         display: none;
     }
 }
-
+@media only screen and (max-width: 600px) {
+    .filter-group {
+        padding: 10px 0 !important;
+    }
+}
 @media only screen and (max-width: 1200px) {
     .filter-group.closed {
         transform: translateX(-100%);
@@ -61,12 +65,15 @@
     .filter-group {
         transition: all .5s;
         background: white;
-        position: absolute; 
-        z-index: 99999999999 !important; 
-        top: 0;
+        position: fixed; 
+        z-index: 1 !important; 
+        top: 56px;
         left: 0;
         border-right: 1px solid #b3b3b3;
         border-bottom: 1px solid #b3b3b3;
+        height: calc(100vh - 110px);
+        overflow: auto;
+        padding: 60px 0;
     }
     
 }
