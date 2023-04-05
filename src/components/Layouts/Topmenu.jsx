@@ -11,6 +11,8 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
     const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
+    
     const [searchShow, setSearchShow] = useState(false);
     const [menu, setMenu] = useState(false);
     const searchParams = new URLSearchParams(location.search);
@@ -25,7 +27,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
 
     const handleSearchModalClose = () => {
         setSearchShow(false)
-    } 
+    }
 
     return (
         <Fragment>
@@ -49,7 +51,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                     {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
-                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => {setMenu(!menu); getSubMenu(item.slug)}}>
+                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => { setMenu(!menu); getSubMenu(item.slug) }}>
                                                     {item.name}
                                                 </button>
 
@@ -57,7 +59,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                         ))
                                     }
                                     <li>
-                                        <Link to='/brand'>Shop by Brand</Link>
+                                        <button onClick={() => navigate('/brand')} className='menu-link'>Shop by Brand</button>
                                     </li>
                                 </ul>
                             </nav>

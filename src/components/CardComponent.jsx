@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { compile } from 'path-to-regexp';
 import { CardActionArea, Chip } from "@mui/material";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
 
 function CardComponent({ settings }) {
     const { data, index, className } = settings
@@ -17,7 +17,9 @@ function CardComponent({ settings }) {
             <CardActionArea>
                 <div className="prdt-img">
                     <div className="text-center">
-                        <LazyLoadImage effect="blur" src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
+                        <LazyLoadComponent>
+                            <LazyLoadImage effect="blur" src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
+                        </LazyLoadComponent>
                     </div>
                     {
                         data.badge == true &&

@@ -14,6 +14,7 @@ import { computeHeadingLevel } from '@testing-library/react';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { WaveSpinner } from 'react-spinners-kit';
 import { useTopMenuQuery } from '../../app/services/topMenuApi';
+import { LinearProgress } from '@mui/material';
 
 export const Layout = () => {
 
@@ -101,6 +102,7 @@ export const Layout = () => {
 
     return (
         <Fragment>
+            {isPageLoaded && <LinearProgress style={{ position:'absolute',width:'100%' }}/>}
             <div className="main-content">
                 <SideCustomScrollbar menuAll={menuAll} getSubMenu={getSubMenu} />
                 <div className="web-menu">
@@ -112,7 +114,7 @@ export const Layout = () => {
                 <Footer getSubMenu={getSubMenu} />
                 <Copyrights />
                 <MobileFooter />
-                {
+                {/* {
                     isPageLoaded &&
                     <div id="cart-loader" >
                         <div className='loader-wrapper'>
@@ -123,7 +125,7 @@ export const Layout = () => {
                             />
                         </div>
                     </div>
-                }
+                } */}
                 <div className={`overlay ${isSideBarOpen ? 'overlay-bg' : ''}`} onClick={openSideBar}></div>
             </div>
         </Fragment>

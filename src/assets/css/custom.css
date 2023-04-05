@@ -322,7 +322,10 @@ body {
 }
 
 @media (max-width:1000px) {
-
+    .menu-open {
+        height: 100vh !important;
+        transition: all .5s !important;
+    }
     .srch-btn,
     header .button {
         top: -40px !important;
@@ -354,10 +357,7 @@ body {
 .deal-image {
     height: 60px;
 }
-.menu-open {
-    height: 100vh !important;
-    transition: all .5s !important;
-}
+
 .slick-dots {
     position: unset !important;
 }
