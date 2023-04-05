@@ -400,7 +400,7 @@ body.town-bus header #cssmenu>ul>li.has-sub>button:before {
 .top-bar.top-fix {
     position: fixed;
     width: 100%;
-    top: -13px;
+    top: 0;
 }
 
 .fixed-top{z-index: 10;}
@@ -945,7 +945,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         top: -39px;
     }
     header.fixed-top .button {
-        top: -39px;
+        top: 23px !important
     }
     #cssmenu>ul>li>a {
         color: #000;
@@ -1145,7 +1145,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         z-index: 12399994;
     }
     header .button.menu-opened {
-        top: -59px;
+        top: 0 !important;
         height: 43px;
     }
     body.town-bus header .button {
@@ -1273,7 +1273,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
     }
     header.fixed-top #cssmenu ul,
     body.town-bus header #cssmenu ul {
-        top: 0px;
+        top: 66px;
     }
     #cssmenu .submenu-button {
         background: #efefef;
