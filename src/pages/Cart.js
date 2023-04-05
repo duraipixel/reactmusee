@@ -135,7 +135,7 @@ export const Cart = () => {
         }
 
         if (shipping_address) {
-            console.log(shipping_address, 'shipping_address');
+            
             handleSetShippingAddressView(shipping_address)
         }
 
@@ -216,7 +216,7 @@ export const Cart = () => {
             
             setRocketCharges(res.data.shiprocket_charges);
             localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
-            console.log( 'shiprocket_charges_getting', localStorage.getItem('shiprocket_charges'));
+            
         }).catch((err) => {
         })
 
@@ -276,7 +276,7 @@ export const Cart = () => {
             method: 'POST',
             data: { shipping_id: shipping_id, customer_id: customer.id, type: type, coupon_data: couponData || '' },
         }).then((res) => {
-            console.log( res );
+            
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
         }).catch((err) => {

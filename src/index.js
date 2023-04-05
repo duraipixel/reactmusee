@@ -8,6 +8,7 @@ import { HashRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import { hydrate, render } from "react-dom";
+import ReactDOM from "react-dom/client";
 import ScrollToTop from './components/ScrollToTop';
 
 let persistor = persistStore(store);
@@ -26,9 +27,6 @@ const RootApp = (
 );
 
 const rootElement = document.getElementById("root");
-render(RootApp, rootElement);
-// if (rootElement.hasChildNodes()) {
-//   hydrate(RootApp, rootElement);
-// } else {
-//   render(RootApp, rootElement);
-// }
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(RootApp);

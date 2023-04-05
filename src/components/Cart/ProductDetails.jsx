@@ -128,7 +128,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                     <ul className='list-group '>
                         {
                             cart && Object.entries(cart).map((key, item) => (
-                                <li className="list-group-item list-group-item-action">
+                                <li className="list-group-item list-group-item-action" key={key}>
                                     <div className="row align-items-center">
                                         <div className="col-3 col-md-2">
                                             <img src={cart[item].image} alt="Ecommerce" className="avatar-img rounded border border-white border-3" />

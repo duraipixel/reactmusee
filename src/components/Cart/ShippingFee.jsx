@@ -3,8 +3,7 @@ import { Fragment } from 'react'
 export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
 
     const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : [];
-    console.log( cartInfo?.selected_shipping_fees, 'cartinfo');
-    console.log( cartInfo, 'cartinfo main');
+  
     return (
         <Fragment>
             {

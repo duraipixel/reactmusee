@@ -26,7 +26,7 @@ export const VerifyAccount = () => {
                 toast.error(res.data.message);
                 navigate('/register')
             } else {
-                console.log(res.data);
+                
                 setTimeout(() => {
                     setIsPageLoaded(false)
                 }, 500);

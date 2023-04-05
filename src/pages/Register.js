@@ -43,7 +43,7 @@ export const Register = () => {
             setFormLoader(false);
             if (res.data.error == 1) {
                 let error_message = res.data.message;
-                console.log(error_message);
+                
                 error_message.forEach(x => toast.error(x));
                 reset();
             } else {

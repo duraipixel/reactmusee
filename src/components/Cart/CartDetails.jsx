@@ -183,7 +183,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 document.getElementById('coupon_cancel_btn').style.display = 'block';
             }
             dispatch(setCoupon(res.data));
-            console.log(res.data.cart_info, 'cart coupon form   ');
+            
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
             sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))

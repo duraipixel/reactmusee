@@ -82,13 +82,12 @@ export const BrandDetails = () => {
     useMemo(() => {
         getBrandCategory()
     }, [brand_slug])
-
-    console.log(brandData, 'brandData');
+    
     var dynamic_subCategory = false;
     if (Object.keys(brandData).length > 0) {
         dynamic_subCategory = brandData.category[Math.floor(Math.random() * brandData.category.length)];
     }
-    console.log(dynamic_subCategory, 'dynamic_subCategory');
+    
     return (
 
         (Object.keys(brandData).length > 0) &&

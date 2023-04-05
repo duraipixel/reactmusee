@@ -57,7 +57,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                 <b className='mb-2 d-block'>Shipping Address</b>
                                 <RadioGroup className='list-group mb-3' value={shipping_address} onChange={handleSetShippingAddress}>
                                     {address && address.length > 0 && address.map((item) => (
-                                        <label for={`address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                        <label htmlFor={`address_one_${item.id}`} key={item.id} className="list-group-item list-group-item-action d-flex">
                                             <Radio value={item.id} name='shipping_address' id={`address_one_${item.id}`} />
                                             <div className='ps-3'>
                                                 <b className="text-capitalize text-primary"> {item.name} </b>
@@ -70,7 +70,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                     ))}
                                     <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_ONE')}>
                                         {shppingToggle ? 'Show less' : 'Show more'}
-                                        <i class={`ms-1 bi ${shppingToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                                        <i className={`ms-1 bi ${shppingToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
                                     </div>
                                 </RadioGroup>
                             </div>
@@ -79,7 +79,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                 <RadioGroup className='list-group' value={billing_address} onChange={handleSetBillingAddress}>
                                     {
                                         billAddress && billAddress.map((item) => (
-                                            <label for={`billing_address_one_${item.id}`} className="list-group-item list-group-item-action d-flex">
+                                            <label htmlFor={`billing_address_one_${item.id}`} key={item.id} className="list-group-item list-group-item-action d-flex">
                                                 <Radio value={item.id} name='billing_address' id={`billing_address_one_${item.id}`} />
                                                 <div className='ps-3'>
                                                     <b className="text-capitalize text-primary"> {item.name} </b>

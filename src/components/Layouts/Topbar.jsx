@@ -94,7 +94,7 @@ export default function Topbar({ isTopPage }) {
     useMemo(() => {
         var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
         if (incUrl.includes(checkUrlChanged)) {
-            console.log(checkUrlChanged, 'checkUrlChanged');
+            
 
             sessionStorage.removeItem('topSubMenu');
         }
