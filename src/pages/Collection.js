@@ -13,6 +13,7 @@ import { BsFilterCircleFill } from "react-icons/bs";
 export const Collection = () => {
 
     const [filterStaticMenu, setFilterStaticMenu] = useState([]);
+    var top_sub_MenuAll = (sessionStorage.getItem('topSubMenu') ? JSON.parse(sessionStorage.getItem('topSubMenu')) : []);
 
     const otherCategory = useSelector((state) => state.browse);
     const [browseCategory, setBrowseCategory] = useState([]);
@@ -24,8 +25,7 @@ export const Collection = () => {
     const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
     const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
-    const dispatch = useDispatch();
-
+    const dispatch = useDispatch(); 
     async function getFilterStaticMenuData() {
 
         await fetch(window.API_URL + '/get/filter/static/sidemenus')
@@ -84,8 +84,7 @@ export const Collection = () => {
                     Filter
                 </span>
             </div> */}
-
-            <div className='bg-lightx'>
+            <div className={`bg-lightx  ${top_sub_MenuAll.length == 0 ? 'pt-lg-5' : ''}`}>
                 <div className="container product-container">
                     <div className="row g-s3">
                         <div className="col-xl-3 p-0 p-xl-3 ">

@@ -121,17 +121,17 @@ export default function Topbar({ isTopPage }) {
                                     </div> */}
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
                                         <input className="src-blnk pe-5" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
-                                        <ul className="src-fndings" id='searchPane'>
+                                        <ul className="list-group src-fndings " id='searchPane'>
 
                                             {searchData.length > 0 ? searchData.map((item, i) => (
-                                                <li key={i}>
+                                                <li key={i} className='list-group-item list-group-item-action'>
                                                     {
                                                         item.has_data === 'yes' ?
                                                             item.product_name ?
                                                                 <Link to={`/product/${item.product_url}`} className="w-100" >
                                                                     <div className='w-100 m-flex'>
                                                                         <div className='w-20'>
-                                                                            <img src={item.image} width="100" />
+                                                                            <img src={item.image} style={{ width:100,height:100,objectFit:'cover' }} />
                                                                         </div>
                                                                         <div className='w-80'>
                                                                             <label htmlFor="">
