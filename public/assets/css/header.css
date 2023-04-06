@@ -1384,7 +1384,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
         z-index: 999;
         background: white;
         box-shadow: 10px 10px 20px rgb(0 0 0 / 20%);
-        /* backdrop-filter: blur(9px); */
+        transition: all .5s !important;
     }
 
     header.fixed-top #cssmenu ul,

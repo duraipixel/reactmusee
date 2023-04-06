@@ -187,7 +187,7 @@ export const ProductDetail = () => {
                                         <div className="small mb-1">SKU: {productInfo.sku}</div>
                                         <h1 className="fw-bolder h3">{productInfo.product_name}</h1>
                                         <div className="fs-5 mb-3 text-dark">
-                                            {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through">₹{productInfo.sale_prices.strike_rate}</span>}
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <span className="text-decoration-line-through me-3 text-danger small">₹{productInfo.sale_prices.strike_rate}</span>}
                                             <span className='lead fw-bold text-primary'>₹{productInfo.mrp_price}</span>
                                         </div>
                                         <div className="d-flex align-items-center mb-3">

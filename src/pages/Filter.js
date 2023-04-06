@@ -63,10 +63,10 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
             method: 'POST',
             data: { category_slug: categoryUrl },
         }).then((res) => {
-            if( res.data.attributes ) {
+            if (res.data.attributes) {
                 setDynamicFilter(res.data.attributes);
             }
-            if( res.data.brands ) {
+            if (res.data.brands) {
                 setDynamicBrands(res.data.brands);
             }
         }).catch((err) => {
@@ -122,48 +122,50 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
     }, [categoryUrl])
 
     return (
-        <div className={className}>
-            <div className='p-3 '>
-                <button className='fw-bold filter-group-icon rounded-pill mb-3 btn btn-sm btn-light' onClick={() => setFilterIcon(false)}>
-                    <i className='fa fa-chevron-left me-1'></i> CLOSE
-                </button>
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h5 className='text-primary'>Filters </h5>
-                    <div className={`text-danger small ${Array.from(searchParams).length > 0 ? '' : 'hide'}`} onClick={() => clearFilter()}>
-                        <i className="fa fa-times me-2" aria-hidden="true"></i>
-                        Clear Filter
+        <>
+            <div className={className}>
+                <div className='p-3 warpper'>
+                    <button className='fw-bold filter-group-icon rounded-pill mb-3 btn btn-sm btn-light' onClick={() => setFilterIcon(false)}>
+                        <i className='fa fa-chevron-left me-1'></i> CLOSE
+                    </button>
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <h5 className='text-primary'>Filters </h5>
+                        <div className={`text-danger small ${Array.from(searchParams).length > 0 ? '' : 'hide'}`} onClick={() => clearFilter()}>
+                            <i className="fa fa-times me-2" aria-hidden="true"></i>
+                            Clear Filter
+                        </div>
                     </div>
-                </div>
-                {/* <span className="cl-se-btn" onClick={() => closeFilterMenu()}>
+                    {/* <span className="cl-se-btn" onClick={() => closeFilterMenu()}>
                     <a > <img src="/assets/images/filter-close.png" /> </a>
                 </span> */}
-                <ProductAvailability product_availability={product_availability} />
-                <Brand dynamicBrands={dynamicBrands} />
-                {
-                    dynamicFilter && dynamicFilter.length > 0 &&
-                    <AttributeCollection dynamicFilter={dynamicFilter} />
-                }
-                <div className='card mb-3'>
-                    <div className="card-header py-2 text-primary">
-                        <b>Video Shopping</b>
+                    <ProductAvailability product_availability={product_availability} />
+                    <Brand dynamicBrands={dynamicBrands} />
+                    {
+                        dynamicFilter && dynamicFilter.length > 0 &&
+                        <AttributeCollection dynamicFilter={dynamicFilter} />
+                    }
+                    <div className='card mb-3'>
+                        <div className="card-header py-2 text-primary">
+                            <b>Video Shopping</b>
+                        </div>
+                        <ul className='list-group list-group-flush w-100 list-group-scrollable'>
+                            <li className="list-group-item list-group-item-action w-100">
+                                <label className="cstm-chkbx">
+                                    <small>Video Shopping is available</small>
+                                    <input type="checkbox" checked={(bookingSelected.includes('video_shopping') ? 'checked' : '')} name='video_shopping' className='video_shopping' value="video_shopping" id="video_shopping" onChange={() => getProduct()} />
+                                    <span className="checkmark"></span>
+                                </label>
+                            </li>
+                        </ul>
                     </div>
-                    <ul className='list-group list-group-flush w-100 list-group-scrollable'>
-                        <li className="list-group-item list-group-item-action w-100">
-                            <label className="cstm-chkbx">
-                                <small>Video Shopping is available</small>
-                                <input type="checkbox" checked={(bookingSelected.includes('video_shopping') ? 'checked' : '')} name='video_shopping' className='video_shopping' value="video_shopping" id="video_shopping" onChange={() => getProduct()} />
-                                <span className="checkmark"></span>
-                            </label>
-                        </li>
-                    </ul>
+                    {discounts && discounts.length > 0 &&
+                        <DiscountCollection discounts={discounts} />
+                    }
+                    {collection && collection.length > 0 &&
+                        <ProductCollection collection={collection} />
+                    }
                 </div>
-                {discounts && discounts.length > 0 &&
-                    <DiscountCollection discounts={discounts} />
-                }
-                {collection && collection.length > 0 &&
-                    <ProductCollection collection={collection} />
-                }
             </div>
-        </div>
+        </>
     )
 }

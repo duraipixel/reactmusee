@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useMemo, useState } from "react";
 import { Container } from "react-bootstrap"
-import { Link } from "react-router-dom";
 import { AddressListPane } from "./AddressListPane";
 import ChangePassword from "./ChangePassword";
 import Box from '@mui/material/Box';
@@ -10,6 +9,8 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Button, LinearProgress, Tooltip } from "@mui/material";
 import { BsFillPinFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom"
+import EmptyCart from '../EmptyCart'
+import EmptyData from "../EmptyData";
 
 function ProfileContent({
   states,
@@ -58,9 +59,9 @@ function ProfileContent({
   }, [])
 
   return (
-    <Container className="py-3" style={{ minHeight: '100vh' }}>
+    <Container className="py-3 pt-lg-5" style={{ minHeight: '100vh' }}>
       <TabContext value={menu}>
-        <div className="card m-0">
+        <div className="card m-0 mt-lg-2">
           <div className="h-200px rounded-top" style={{
             backgroundImage: "url('https://cdn.pixabay.com/photo/2018/07/28/11/08/guitar-3567767_960_720.jpg')",
             backgroundPosition: "center",
@@ -150,7 +151,7 @@ function ProfileContent({
                         </ul>
                       </div>
                     ))
-                    : <b>No Orders Yet</b>
+                    : <EmptyData title="No Order History Available"/>
                   : null
             }
           </>
