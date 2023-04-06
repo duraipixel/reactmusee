@@ -333,7 +333,7 @@ export const Cart = () => {
                                                 loading={true}
                                                 style={{ top: '50%', left: '45%' }}
                                             />
-                                        <div className='loader-text'> Payment Processing, Don't try to go back or refresh </div>
+                                        <div className='loader-text'><i class="bi bi-exclamation-circle me-2"></i>  Payment Processing, Don't try to go back or refresh </div>
                                     </div>
                                 </div>
                             }

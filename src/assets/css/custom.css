@@ -218,6 +218,17 @@ body {
     border-bottom-right-radius: 5px !important;
 }
 @media (max-width:600px) {
+    .payment-icon {
+        width: 150px !important;
+    }
+    .title-1 {
+        font-size: 25px !important;
+        line-height: 30px !important;
+    }
+    .title-2 {
+        font-size: 18px !important;
+        line-height: 25px !important;
+    }
     .jumbotron {
         text-align: center;
     }
@@ -348,7 +359,9 @@ body {
         padding-top: 180px;
     }
 }
-
+#titlediv {
+    display: none !important;
+}
 @media (max-width:1000px) {
     .menu-open {
         height: 100vh !important;
