@@ -104,11 +104,11 @@
 }
 
 .loader-text {
-  color: #ffffff;
+  color: #673AB7;
   font-weight: bold;
   margin-top: 29px;
   position: relative;
-  background: #9c27b0;
+  background: #d7d5ff;
   padding: 15px;
   display: flex;
   border-radius: 5px;

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import { compile } from 'path-to-regexp';
-import { CardActionArea, Chip } from "@mui/material";
+import { Button, CardActionArea, Chip } from "@mui/material";
 import { LazyLoadComponent, LazyLoadImage } from 'react-lazy-load-image-component';
-
+import { SiYoutubemusic } from "react-icons/si";
 function CardComponent({ settings }) {
     const { data, index, className } = settings
     const navigate = useNavigate()
@@ -15,6 +15,9 @@ function CardComponent({ settings }) {
     return (
         <div className={`custom-card bg-light border shadow-sm rounded-2 ${className && className}`} key={index} onClick={() => showProduct(data.product_url)}>
             <CardActionArea>
+                {data?.has_video_shopping == 'yes' && <div title="Virtual Shopping" className="text-primary position-absolute top-0 end-0 m-3" style={{ zIndex:1 }}>
+                    <SiYoutubemusic size={30}  />
+                </div>}
                 <div className="prdt-img">
                     <div className="text-center">
                         <LazyLoadComponent>
