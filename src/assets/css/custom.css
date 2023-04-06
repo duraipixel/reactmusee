@@ -213,7 +213,10 @@ body {
         padding: 10px;
     }
 }
-
+#coupon_apply_btn {
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
 @media (max-width:600px) {
     .jumbotron {
         text-align: center;
@@ -268,12 +271,7 @@ body {
 
     .web-menu {
         min-height: 50px;
-    }
-
-    #coupon_apply_btn {
-        border-top-right-radius: 5px !important;
-        border-bottom-right-radius: 5px !important;
-    }
+    } 
 
     body {
         padding-top: 55px;
@@ -354,7 +352,6 @@ body {
 @media (max-width:1000px) {
     .menu-open {
         height: 100vh !important;
-        transition: all .5s !important;
     }
 
     .srch-btn,

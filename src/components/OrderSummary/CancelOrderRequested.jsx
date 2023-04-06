@@ -75,8 +75,8 @@ export const CancelOrderRequested = ({
   }
   useEffect(() => {
     CancelOrder();
-  },[]);
-  useEffect(()=>{
+  }, []);
+  useEffect(() => {
     if (radioValue === "other") {
       setTextFieldNotShow(false);
     } else {
@@ -94,74 +94,67 @@ export const CancelOrderRequested = ({
     >
       <Modal.Header closeButton className="bg-light">
         <Modal.Title>
-          {" "}
-          <h5 className="text-primary fw-bold">Request Cancel Order</h5>{" "}
+          <h5 className="text-primary fw-bold fs-6">What is a good reason to cancel order?</h5>
         </Modal.Title>
       </Modal.Header>
       <form id="cancelOrderForm" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Body>
-          <div className="row">
-            <div className="col-lg-12">
-              <FormControl>
-                <FormLabel id="demo-radio-buttons-group-label" className="h3">
-                  Reason
-                </FormLabel>
-                <RadioGroup
-                  className="mt-1"
-                  onChange={handleChange}
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="none"
-                  name="radio-buttons-group"
-                >
-                  {cancelOrderInputRadio &&
-                    cancelOrderInputRadio.map((item, i) => {
-                      return (
-                        <FormControlLabel
-                          key={i}
-                          value={item.name}
-                          control={<Radio />}
-                          label={item.name}
-                          className="fs-6"
-                        />
-                      );
-                    })}
-                  <FormControlLabel
-                    value="other"
-                    control={<Radio />}
-                    label="Other"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <TextField
-                className="mt-3"
-                hidden={textFieldNotShow}
-                id="outlined-textarea"
-                label="Your comments"
-                placeholder="Type here...."
-                multiline
-                rows={8}
-                autoFocus={true}
-                errors={errors.cancelReason ? true : false}
-                fullWidth
-                inputProps={{ maxLength: 500 }}
-                {...register("cancelReason", { required: true })}
-              />
-              <input
-                type="hidden"
-                {...register("customer_id", {
-                  required: "Customer id is required",
+          <FormControl>
+            <RadioGroup
+              className="list-group"
+              onChange={handleChange}
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue="none"
+              name="radio-buttons-group"
+            >
+              {cancelOrderInputRadio &&
+                cancelOrderInputRadio.map((item, i) => {
+                  return (
+                    <FormControlLabel
+                      key={i}
+                      value={item.name}
+                      control={<Radio size="small" />}
+                      label={item.name}
+                      className="fs-6 list-group-item list-group-item-action m-0"
+                    />
+                  );
                 })}
-                id="customer_id"
-                value={customer && customer.id}
+              <FormControlLabel
+                value="other"
+                control={<Radio size="small" />}
+                label="Other"
+                className="fs-6 list-group-item list-group-item-action m-0"
               />
-              <input
-                type="hidden"
-                {...register("order_id", { required: "Order id is required" })}
-                id="order_id"
-                value={orderId && orderId}
-              />
-            </div>
-          </div>
+            </RadioGroup>
+          </FormControl>
+          <TextField
+            className="mt-3"
+            hidden={textFieldNotShow}
+            id="outlined-textarea"
+            label="Your comments"
+            placeholder="Type here...."
+            multiline
+            rows={8}
+            autoFocus={true}
+            errors={errors.cancelReason ? true : false}
+            fullWidth
+            inputProps={{ maxLength: 500 }}
+            {...register("cancelReason", { required: true })}
+          />
+          <input
+            type="hidden"
+            {...register("customer_id", {
+              required: "Customer id is required",
+            })}
+            id="customer_id"
+            value={customer && customer.id}
+          />
+          <input
+            type="hidden"
+            {...register("order_id", { required: "Order id is required" })}
+            id="order_id"
+            value={orderId && orderId}
+          />
         </Modal.Body>
         <Modal.Footer className="justify-content-end">
           <Button
@@ -182,7 +175,7 @@ export const CancelOrderRequested = ({
             ) : (
               <i className="bi bi-send-fill me-1"></i>
             )}
-            Send request
+            submit
           </Button>
         </Modal.Footer>
       </form>

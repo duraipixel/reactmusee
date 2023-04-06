@@ -93,7 +93,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                     }
                                     <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_TWO')}>
                                         {billToggle ? 'Show less' : 'Show more'}
-                                        <i class={`ms-1 bi ${billToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
+                                        <i className={`ms-1 bi ${billToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
                                     </div>
                                 </RadioGroup>
                             </div>

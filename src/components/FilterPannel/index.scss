@@ -48,8 +48,8 @@
     }
 }
 @media only screen and (max-width: 600px) {
-    .filter-group {
-        padding: 10px 0 !important;
+    .filter-group  {
+        padding: 0 !important;
     }
 }
 @media only screen and (max-width: 1200px) {
@@ -63,8 +63,8 @@
         display: inline-block;
     }
     .filter-group {
-        transition: all .5s;
-        background: white;
+        background: #00000095;
+        transition: .5s;
         position: fixed; 
         z-index: 1 !important; 
         top: 56px;
@@ -73,7 +73,20 @@
         border-bottom: 1px solid #b3b3b3;
         height: calc(100vh - 110px);
         overflow: auto;
-        padding: 60px 0;
+        padding: 60px 0; 
+        width: 100%;
+        .warpper {
+            width: 80%;
+            background: white;
+        }
     }
-    
+    .overlayer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: red;
+        left: 0;
+        top: 0;
+        z-index: 11;
+    }
 }
