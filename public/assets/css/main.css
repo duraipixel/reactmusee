@@ -1875,13 +1875,13 @@ section {
   margin-right: 0px;
 }
 
-.top-search input[type="search"] {
+.top-search input[type="search"] ,
+.form-control[type="search"]{
   width: 100%;
-  border: 0px solid #d4d4d4;
   height: 45px;
   padding: 15px 35px 15px 15px;
   border-radius: 4px;
-  background: #fff url("../images/search.svg") no-repeat scroll 97% center;
+  background: #fff url("../images/search.svg") no-repeat scroll 97% center !important;
   margin-top: 0px;
   transition: all 0.3s ease;
 }
