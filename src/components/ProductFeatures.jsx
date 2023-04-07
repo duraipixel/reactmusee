@@ -6,28 +6,34 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import { Accordion } from 'react-bootstrap';
+import { useMemo } from 'react';
 
 function ProductFeatures({ data }) {
     const [value, setValue] = React.useState(data[0].name);
+    const [currentTab, setCurrentTab] = React.useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    useMemo(() => {
+        data.map((item, i) => {
+            if(item.has_data) {
+                setCurrentTab(i)
+            }
+        })
+    },[])
     return (
-        <div style={{ minHeight: '50vh' }} className="product-features">
-            <TabContext value={value} >
-                <Box sx={{ borderBottom: 1, borderColor: 'divider', bgcolor: 'background.paper' }}>
-                    <TabList onChange={handleChange} variant="fullWidth">
-                        {data.map((item, i) => (
-                            <Tab key={i} label={item.name == 'media' ? 'Audios & Videos' : item.name} value={item.name} />
-                        ))}
-                    </TabList>
-                </Box>
-                {data && data.map((item, i) => (
-                    <TabPanel key={i} value={item.name}>
-                        <FeatureTab data={item} />
-                    </TabPanel>
-                ))}
-            </TabContext>
+        <div className="product-features">
+            <Accordion defaultActiveKey={currentTab} alwaysOpen>
+                {data.map((item, i) => (
+                    item.has_data && <Accordion.Item eventKey={i} key={i}>
+                        <Accordion.Header><b className='text-uppercase'>{item.name == 'media' ? 'Audios & Videos' : item.name}</b></Accordion.Header>
+                        <Accordion.Body>
+                            <FeatureTab data={item} />
+                        </Accordion.Body>
+                    </Accordion.Item>
+                ))} 
+            </Accordion> 
         </div>
     )
 }
@@ -64,7 +70,7 @@ function FeatureTab({ data }) {
             {
                 data.data.length > 0 ? data.data.map((item) => (
                     <ImageListItem key={item.id}>
-                        <iframe loading="lazy" width="100%" height={200} src={item.url.replace('https://youtu.be/','https://www.youtube.com/embed/')} title="Violin Techniques - II Feat. Pedro Gómez-Briceño | Musee Musical School of Music" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                        <iframe loading="lazy" width="100%" height={200} src={item.url.replace('https://youtu.be/', 'https://www.youtube.com/embed/')} title="Violin Techniques - II Feat. Pedro Gómez-Briceño | Musee Musical School of Music" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                     </ImageListItem>
                 ))
                     : <p className='lead text-capitalize'>{data.name} is Empty!</p>

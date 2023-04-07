@@ -234,12 +234,8 @@ export const ProductDetail = () => {
                             </div>
                         </div>
                         <section className="tab-of-sectors" >
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-lg-12 col-md-12 col-sm-12 description-details">
-                                        <ProductFeatures data={productInfo?.product_extra_information} />
-                                    </div>
-                                </div>
+                            <div className="container"> 
+                                <ProductFeatures data={productInfo?.product_extra_information} /> 
                             </div>
                         </section>
                     </>
