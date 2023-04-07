@@ -163,7 +163,7 @@ export const ResetPassword = () => {
                                 <Link to='/forgotpassword' className='text-primary mb-3 mt-2 float-end'> Forgot Password? </Link>
                                 <Button type='submit' loading={loginFormLoader} size="lg" className='py-3 btn-dark text-white text-uppercase w-100' >
                                     <i className="bi bi-music-note-beamed me-2"></i>
-                                    Sign In
+                                    RESET
                                 </Button>
                                 <div className="col-lg-12 text-center mt-3">
                                     <div className="user-regster">
@@ -186,83 +186,7 @@ export const ResetPassword = () => {
                                 </div>
                         }
                     </div>}
-            </section>
-            {/* <section className="tab-of-sectors lgon-pge">
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-9 col-md-9 col-sm-9">
-                            <div className="row fully-bxn g-0">
-                                <div className="col-lg-6">
-                                    <div className="dhoni-bgm">
-                                        <div className="common-heading">
-                                            <h2>
-                                                Welcome to<br /> <span>Musee Musical</span>
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-6">
-                                    <div className="cir-frm">
-                                        {validCustomer && validCustomer.length > 0 ?
-                                            <form onSubmit={handleSubmit(onSubmit)}>
-                                                <div className="frm-fields row clearfix">
-                                                    <div className="col-lg-12 col-md-12 col-sm-12">
-                                                        <div className="common-heading">
-                                                            <h2>
-                                                                Reset Password
-                                                            </h2>
-                                                        </div>
-                                                        <div className="row">
-                                                            <div className="form-data col-lg-12 mb-3">
-                                                                <input className="form-control" type="password" {...register("password", { required: "Password is required", maxLength: 20 })} placeholder="Password" />
-                                                                <input type="hidden" {...register("customer_id")} value={validCustomer[0].id} />
-                                                                <ErrorMessage errors={errors} name="password" as="p" />
-                                                            </div>
-                                                            <div className="form-data col-lg-12 mb-3">
-                                                                <input className="form-control" type="password" {...register("confirmPassword", {
-                                                                    required: "Confirm Password is required", validate: (val) => {
-                                                                        if (watch('password') != val) {
-                                                                            return "Your password does not match";
-                                                                        }
-                                                                    },
-                                                                })} placeholder="Re-Enter Password" />
-                                                                <ErrorMessage errors={errors} name="confirmPassword" as="p" />
-                                                            </div>
-
-                                                            <div className="form-data sbm col-lg-12 mb-3">
-                                                                <button type='submit' disabled={sendResetPassword} >
-                                                                    {sendResetPassword && (
-                                                                        <span className="spinner-grow spinner-grow-sm"></span>
-                                                                    )} Reset Password
-                                                                </button>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            :
-                                            <div className='token-expired'>
-                                                {
-                                                    checkToken ?
-                                                        <div>
-                                                            Please wait checking token...
-                                                        </div>
-                                                        :
-                                                        <div>
-                                                            Token expired or invalid
-                                                        </div>
-                                                }
-
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
+            </section> 
         </Fragment>
     )
 }
