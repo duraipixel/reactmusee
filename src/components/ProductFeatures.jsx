@@ -16,15 +16,16 @@ function ProductFeatures({ data }) {
         setValue(newValue);
     };
     useMemo(() => {
-        data.map((item, i) => {
-            if(item.has_data) {
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].has_data) {
                 setCurrentTab(i)
+                break;
             }
-        })
-    },[])
+        }
+    }, [])
     return (
         <div className="product-features">
-            <Accordion defaultActiveKey={currentTab} alwaysOpen>
+            <Accordion defaultActiveKey={currentTab} alwaysOpen flush>
                 {data.map((item, i) => (
                     item.has_data && <Accordion.Item eventKey={i} key={i}>
                         <Accordion.Header><b className='text-uppercase'>{item.name == 'media' ? 'Audios & Videos' : item.name}</b></Accordion.Header>
@@ -32,36 +33,31 @@ function ProductFeatures({ data }) {
                             <FeatureTab data={item} />
                         </Accordion.Body>
                     </Accordion.Item>
-                ))} 
-            </Accordion> 
+                ))}
+            </Accordion>
         </div>
     )
 }
 function FeatureTab({ data }) {
     if (data.name == 'description') {
-        return <div dangerouslySetInnerHTML={{ __html: data.data }}></div>
+        return <div className='text-justifyed' dangerouslySetInnerHTML={{ __html: data.data }}></div>
     }
     if (data.name == 'specification') {
         return data.data.length !== 0 ? data.data.map((list, i) => (
-            <div className="card mb-3 shadow border" key={i}>
-                <div className="card-header bg-light p-2">
-                    <b>{list.title}</b>
-                </div>
-                <div className="card-body p-2">
-                    <table className='table table-hover table-borderless m-0'>
-                        <tbody>
-                            {
-                                list.child.map((spec, i) => (
-                                    <tr>
-                                        <th width='20%'>{spec.title}</th>
-                                        <td width='30'>:</td>
-                                        <td>{spec.value}</td>
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div className="card mb-3" key={i}>
+                <table className='table table-centered table-borderless m-0 table-md'>
+                    <tbody>
+                        {
+                            list.child.map((spec, i) => (
+                                <tr>
+                                    <th width='20%' className='bg-light p-md-3 text-dark'>{spec.title}</th>
+                                    <td width='30' className='bg-light p-md-3'>:</td>
+                                    <td className='p-md-3'>{spec.value}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
+                </table>
             </div>
         )) : <p className='lead text-capitalize'>{data.name} is Empty!</p>
     }

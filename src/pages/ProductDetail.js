@@ -120,8 +120,8 @@ export const ProductDetail = () => {
             method: 'POST',
             data: res_data,
         }).then((res) => {
-            
-            if( res.data.error == 1 ) {
+
+            if (res.data.error == 1) {
                 toast.error(res.data.message);
                 setTimeout(() => navigate('/login'), 500)
             } else {
@@ -142,7 +142,7 @@ export const ProductDetail = () => {
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
     }
-    console.log( productInfo , 'productInfo');
+    console.log(productInfo, 'productInfo');
     return (
         <Fragment>
 
@@ -150,7 +150,7 @@ export const ProductDetail = () => {
                 productInfo !== null && (
                     <>
                         <Helmet>
-                            <title> { productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
+                            <title> {productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
                             {
                                 productInfo.meta && productInfo.meta.meta_keyword &&
@@ -160,7 +160,7 @@ export const ProductDetail = () => {
                                 productInfo.meta && productInfo.meta.meta_description &&
                                 <meta name="description" content={productInfo.meta.meta_description} />
                             }
-                        </Helmet> 
+                        </Helmet>
 
                         <div className="py-md-5 py-3 bg-white">
                             <div className="container py-md-3">
@@ -231,13 +231,9 @@ export const ProductDetail = () => {
                                             : <Chip label="Out Of Stock" size='large' className='rounded p-3 py-4 text-uppercase mt-4 product-chip' color='error' />}
                                     </div>
                                 </div>
+                                <ProductFeatures data={productInfo?.product_extra_information} />
                             </div>
                         </div>
-                        <section className="tab-of-sectors" >
-                            <div className="container"> 
-                                <ProductFeatures data={productInfo?.product_extra_information} /> 
-                            </div>
-                        </section>
                     </>
                 )
             }
