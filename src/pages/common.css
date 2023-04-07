@@ -34,17 +34,16 @@ img.payment-success-image {
   top: -2px;
 }
 .calendly-badge-widget .calendly-badge-content:hover {
-  background : #505960 !important;
-  color: white !important;
+  background : #e3ebff !important;
 }
 .calendly-badge-widget .calendly-badge-content {
   display: inline-block !important;
   box-shadow: none !important;
   padding: 0px !important;
   font-family: "Quicksand", sans-serif !important;
-  color: #505960 !important;
+  color: #141f80 !important;
   transition: all 0.3s ease;
-  border: 1px solid #e6e6e6 !important;
+  border: 1px solid #141f80 !important;
   border-radius: 5px !important;
   background: white !important;
   position: relative;
