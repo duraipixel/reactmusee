@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, fetchCarts } from '../../app/reducer/cartSlice';
 import { toast } from 'react-toastify';
 
-import { Button, InputGroup, InputNumber } from 'rsuite';
+import { InputGroup, Button } from 'rsuite';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { setCoupon } from '../../app/reducer/couponSlice';
+import { CircularProgress } from '@mui/material';
 
 export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
 
@@ -27,7 +28,6 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     const decreaseCartProduct = (product) => {
-        let max_quantity = product.max_quantity;
         if (product.quantity == 1) {
             toast.error('Minimum quantity should be 1');
         } else {
@@ -36,20 +36,20 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         }
     }
 
-    const removeCartProduct = (product) => {
-        deleteProduct(product)
+    const [deleteLoader, setDeleteLoader] = useState(null)
+
+    const removeCartProduct = (product, key) => { 
+        setDeleteLoader(key[0])
+        deleteProduct(product,key[0])
     }
 
     async function clearCustomerCart() {
-
         let customer = JSON.parse(window.localStorage.getItem('customer'));
-
         await axios({
             url: window.API_URL + '/clear/cart',
             method: 'POST',
             data: { customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '' },
         }).then((res) => {
-
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(clearCart());
             localStorage.removeItem('shipping_address');
@@ -58,63 +58,46 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             dispatch(setCoupon(''));
             let cancelApplyBtn = document.getElementById('coupon');
             cancelApplyBtn.value = '';
-
             toast.success('Cart Cleared Successfully');
-
-        }).catch((err) => {
-
-        })
+        }) 
     }
 
     async function updateProduct(product, quantity) {
-        // console.log( product );
         setLoader(true)
         await axios({
             url: window.API_URL + '/update/cart',
             method: 'POST',
             data: { cart_id: product.cart_id, customer_id: product.customer_id, quantity: quantity, guest_token: product.guest_token },
         }).then((res) => {
-
             setLoader(false);
-
             if (res.data.error == 1) {
                 toast.error(res.data.message);
                 setTimeout(() => navigate('/login'), 500)
             } else {
-
                 localStorage.setItem('cart', JSON.stringify(res.data));
                 dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
                 dispatch(setCoupon(''));
-                let cancelApplyBtn = document.getElementById('coupon');
-                cancelApplyBtn.value = '';
+                document.getElementById('coupon').value = '';
                 getShippingRocketCharges('', '');
             }
-        }).catch((err) => {
-
-        })
+        });
     }
 
     async function deleteProduct(product) {
-
         await axios({
             url: window.API_URL + '/delete/cart',
             method: 'POST',
             data: { cart_id: product.cart_id, customer_id: product.customer_id, guest_token: product.guest_token },
         }).then((res) => {
-
+            setDeleteLoader(null)
             localStorage.setItem('cart', JSON.stringify(res.data));
             sessionStorage.removeItem('cart_coupon');
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
             getShippingRocketCharges('', '');
             dispatch(setCoupon(''));
-            let cancelApplyBtn = document.getElementById('coupon');
-            cancelApplyBtn.value = '';
-
-        }).catch((err) => {
-
-        })
-
-    } 
+            document.getElementById('coupon').value = '';
+        });
+    }
     return (
         <Fragment>
             <h5 className="text-primary my-3 fw-bold text-uppercase">Cart Items</h5>
@@ -132,10 +115,9 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                             <h6 className="mb-0 fs-6">{cart[item].product_name}</h6>
                                             <span><small className="text-secondary">₹{cart[item].price}</small></span>
                                             <div className="mt-2 small lh-1">
-                                                <button className='btn-link bg-white p-1 rounded text-danger' onClick={() => removeCartProduct(cart[item])}>
-                                                    <i className="fa fa-trash-o me-1" aria-hidden="true"></i>
-                                                    Remove
-                                                </button>
+                                                <Button size='sm' className='border-0' color="red" loading={deleteLoader == key[0] ? true : false} appearance="ghost" onClick={(event) => removeCartProduct(cart[item], key)}>
+                                                    <i className="fa fa-trash-o me-1" aria-hidden="true"></i> Remove
+                                                </Button>
                                             </div>
                                         </div>
                                         <div className="p-max-sm-2 col-6 col-sm-3 col-md-3 col-lg-3">
@@ -158,7 +140,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                         }
                     </ul>
                 </div>
-            </div> 
+            </div>
         </Fragment>
     )
 }
