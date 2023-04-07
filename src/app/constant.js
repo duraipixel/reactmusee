@@ -1,5 +1,5 @@
-const WEBURL = 'http://192.168.0.35:5000/api';
-// const WEBURL = 'https://admin.museemusical.shop/public/api';
+// const WEBURL = 'http://192.168.0.35:5000/api';
+const WEBURL = 'https://admin.museemusical.shop/public/api';
 window.API_URL = WEBURL;
 window.AUTH_BG = 'https://cdn.pixabay.com/photo/2013/11/03/08/05/cheers-204742_960_720.jpg';
 window.API_COLLECTION_SECTION_TWO_URL = WEBURL + '/get/product/collections/1';

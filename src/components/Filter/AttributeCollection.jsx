@@ -32,39 +32,38 @@ export const AttributeCollection = ({ dynamicFilter }) => {
 
     return (
         <Fragment>
-            <div className='card mb-3'>
-                <div className="card-header py-2 text-primary">
-                    <b>Product Availability</b>
-                </div>
-                {
-                    dynamicFilter.map((item, k) => (
-                        <ul key={k} className='list-group list-group-flush w-100 list-group-scrollable'>
-                            <h4 className='px-3'> {item.title} </h4>
-                            {
-                                item.child && item.child.map((items, i) => (
-                                    <li key={i} className="list-group-item list-group-item-action w-100">
-                                        <label >
-                                            {items.title}
-                                        </label>
-                                        {
-                                            items.child && items.child.map((filValues, j) => (
-                                                <div key={j}>
-                                                    <label className="cstm-chkbx">
-                                                        <small>{filValues.attribute_values}</small>
-                                                        <input type="checkbox" name='filter_dynamic_attributes[]' value={items.id} className='filter_dynamic_attributes' onChange={() => getProduct()} />
-                                                        <span className="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                            ))
-                                        }
+            {
+                dynamicFilter.map((item, k) => (
+                    <>
+                        {/* <b> {item.title} </b> */}
+                        {
+                            item.child && item.child.map((items, i) => (
+                                <div className='card mb-3'>
+                                    <div className="card-header py-2 text-primary">
+                                        <b>{items.title}</b>
+                                    </div>
+                                    <div >
+                                        <ul className="list-group list-group-flush w-100 list-group-scrollable">
+                                            {
+                                                items.child && items.child.map((filValues, j) => (
+                                                    <li key={i} className="list-group-item list-group-item-action w-100" >
+                                                        <label className="cstm-chkbx">
+                                                            <small>{filValues.attribute_values}</small>
+                                                            <input type="checkbox" name='filter_dynamic_attributes[]' value={items.id} className='filter_dynamic_attributes' onChange={() => getProduct()} />
+                                                            <span className="checkmark"></span>
+                                                        </label>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))
+                        }
+                    </>
+                ))
+            }
 
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    ))
-                }
-            </div>
         </Fragment>
     )
 }
