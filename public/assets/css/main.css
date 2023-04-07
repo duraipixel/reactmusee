@@ -7047,10 +7047,9 @@ ul.track-order li.active:last-child:after {
 }
 
 .form-data ul.src-fndings li img {
-  position: absolute;
-  left: 20px;
-  top: 9px;
-  opacity: 0;
+  max-width:130px;
+  height:100px;
+  object-fit:'cover'
 }
 
 .form-data.bluebg ul.src-fndings li img {

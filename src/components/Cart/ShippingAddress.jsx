@@ -34,9 +34,9 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
                 Choose Address
-                <Button variant="outlined" onClick={() => handleShow()}>
+                <Button variant="contained" color='dark' className='text-white' size='small' onClick={() => handleShow()}>
                     <MdAddLocation size={20} className="me-1" />
-                    Add Address
+                    CREATE
                 </Button>
             </h5>
             {
@@ -68,10 +68,10 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                             </div>
                                         </label>
                                     ))}
-                                    <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_ONE')}>
+                                    {customerAddress && customerAddress.length > 2 && <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_ONE')}>
                                         {shppingToggle ? 'Show less' : 'Show more'}
                                         <i className={`ms-1 bi ${shppingToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
-                                    </div>
+                                    </div>}
                                 </RadioGroup>
                             </div>
                             <div className="col-md-6">
@@ -90,11 +90,11 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                                 </div>
                                             </label>
                                         ))
-                                    }
-                                    <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_TWO')}>
+                                    } 
+                                    {customerAddress && customerAddress.length > 2 && <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_TWO')}>
                                         {billToggle ? 'Show less' : 'Show more'}
                                         <i className={`ms-1 bi ${billToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>
-                                    </div>
+                                    </div>}
                                 </RadioGroup>
                             </div>
                         </div>

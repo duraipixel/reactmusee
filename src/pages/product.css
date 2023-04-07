@@ -20,7 +20,14 @@
 }
 
 .calendly-badge-widget .calendly-badge-content::before {
-  content: '\F21A';
+  content: '\F4F2';
   font-family: bootstrap-icons !important; 
   margin-right: 10px;
+  font-size: 22px;
+  position: absolute;
+  left: 11px;
+  top: 10px;
 } 
+.calendly-badge-widget .calendly-badge-content {
+  padding-left:43px !important
+}

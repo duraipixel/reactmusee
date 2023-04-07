@@ -130,11 +130,11 @@ export default function Topbar({ isTopPage }) {
                                                             item.product_name ?
                                                                 <Link to={`/product/${item.product_url}`} className="w-100" >
                                                                     <div className='w-100 m-flex'>
-                                                                        <div className='w-20'>
-                                                                            <img src={item.image} style={{ width:100,height:100,objectFit:'cover' }} />
+                                                                        <div className='w-20 bg-white text-center '>
+                                                                            <img src={item.image} />
                                                                         </div>
-                                                                        <div className='w-80'>
-                                                                            <label htmlFor="">
+                                                                        <div className='w-80 ps-3'>
+                                                                            <label>
                                                                                 {item.product_name}
                                                                             </label>
                                                                             <span>
