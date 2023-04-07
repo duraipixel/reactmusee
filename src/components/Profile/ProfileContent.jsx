@@ -9,8 +9,10 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Button, LinearProgress, Tooltip } from "@mui/material";
 import { BsFillPinFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom"
-import EmptyCart from '../EmptyCart'
 import EmptyData from "../EmptyData";
+import { clearCart } from "../../app/reducer/cartSlice";
+import { logoutCustomer } from "../../app/reducer/customerSlice";
+import { useDispatch } from "react-redux";
 
 function ProfileContent({
   states,
@@ -38,10 +40,23 @@ function ProfileContent({
   const [loadingOrderItems, setLoadingOrderItems] = useState(false);
   const [menu, setMenu] = useState("MY_ORDERS");
   const navigate = useNavigate()
+  const dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setMenu(newValue);
   };
+
+  const logout = () => {
+    localStorage.removeItem('customer');
+    dispatch(clearCart());
+    dispatch(logoutCustomer());
+    localStorage.removeItem('shipping_address');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('shiprocket_charges');
+    localStorage.removeItem('address');
+    sessionStorage.removeItem('cart_coupon')
+    navigate('/login'); 
+}
 
   function getOrderInfo(id) {
     setLoadingOrderItems(true);
@@ -85,7 +100,7 @@ function ProfileContent({
                   Edit profile
                 </Button>
                 <Tooltip title="click to logout your account" arrow placement="top">
-                  <Button variant="contained" color="error" type="button" size="sm">
+                  <Button variant="contained" color="error" type="button" size="sm" onClick={logout}>
                     <i className="bi bi-power fa-fw me-1"></i> Logout
                   </Button>
                 </Tooltip>
