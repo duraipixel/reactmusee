@@ -59,7 +59,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                         ))
                                     }
                                     <li>
-                                        <button onClick={() => navigate('/brand')} className='menu-link'>Shop by Brand</button>
+                                        <button onClick={() => {setMenu(!menu); navigate('/brand')}} className='menu-link'>Shop by Brand</button>
                                     </li>
                                 </ul>
                             </nav>

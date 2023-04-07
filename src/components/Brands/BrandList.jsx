@@ -5,7 +5,7 @@ export const BrandList = ({brands}) => {
     const slicedArray = brands.slice(0, 12);
     return (
         <Fragment>
-            <div className="brands-shots">
+            <div className="brands-shots m-0">
                 <ul>
                     {
                         slicedArray && slicedArray.map((item, i) => (
