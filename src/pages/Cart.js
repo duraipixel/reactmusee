@@ -280,11 +280,11 @@ export const Cart = () => {
             
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+
         }).catch((err) => {
 
         })
     }
-
 
     return (
         <Fragment>
