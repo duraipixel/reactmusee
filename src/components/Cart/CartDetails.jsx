@@ -156,11 +156,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         setIsLoadingCoupon(true);
         let customer = JSON.parse(window.localStorage.getItem('customer'));
         if (!customer?.id) {
-
             toast.error('Login to Apply Coupon');
             navigate('/login')
         }
-       
+        
         var coupon_code = document.getElementById('coupon').value;
        
         if (coupon_code == '') {
@@ -169,13 +168,14 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setIsLoadingCoupon(false);
             return false;
         }
-       
-        var cartValues = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : '';
-       
+        
+        var cartValues = localStorage.getItem('cart') && localStorage.getItem('cart') != 'undefined' ? JSON.parse(localStorage.getItem('cart')) : '';
+        var selectCartShipValues = cartValues ? cartValues?.selected_shipping_fees : '';
+        
         axios({
             url: window.API_URL + '/apply/coupon',
             method: 'POST',
-            data: { coupon_code: coupon_code, customer_id: customer.id, selected_shipping: cartValues?.selected_shipping_fees },
+            data: { coupon_code: coupon_code, customer_id: customer.id, selected_shipping: selectCartShipValues },
 
         }).then((res) => {
             setIsLoadingCoupon(false);
@@ -227,8 +227,6 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
         })
     }
-
-    console.log(coupon);
 
     return (
         <Fragment >
