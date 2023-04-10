@@ -212,9 +212,11 @@ export const ProductDetail = () => {
                                         {productInfo.stock_status != 'out_of_stock'
                                             ?
                                             <div>
-                                                <div className='my-3 d-inline-flex'>
-                                                    <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2" />
-                                                    <PopupWidget url="https://calendly.com/museemusical/30min" text="Talk to our experts" prefill={prefillCalend} rootElement={document.getElementById("root")} />
+                                                <div className='text-center d-sm-inline-flex'>
+                                                    <CartButton product={productInfo} disabled={false} add={handleAddToCart} loader={loader} className="me-2 my-2" />
+                                                    <span className='my-2'>
+                                                        <PopupWidget url="https://calendly.com/museemusical/30min" text="Talk to our experts" prefill={prefillCalend} rootElement={document.getElementById("root")} />
+                                                    </span>
                                                 </div>
 
                                                 {/* <div className='d-flexs my-3 align-items-center'>
