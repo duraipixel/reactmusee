@@ -36,7 +36,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                     <>
                         {
                             discountCollectionData.map((item) => (
-                                <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={item.id}>
+                                <div className="col-xl col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={item.id}>
                                     <div className="deals-box p-3 card-box">
                                         <div className='fw-bold fs-6 text-primary mb-3'>
                                             <label className='m-0' onClick={() => goToProductListPage(item.slug)}>

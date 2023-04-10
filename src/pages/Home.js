@@ -112,7 +112,7 @@ export default function Home() {
             <HomeCarousel homeData={homeData} />
             <DiscountCollection />
             <HistoryVideo homeData={homeData} />
-            <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} />
+            {/* <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} /> */}
             <LiveVideo />
             <ProductSlider data={homeData.collection} />
             <Brand />
