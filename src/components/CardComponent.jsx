@@ -40,9 +40,9 @@ function CardComponent({ settings }) {
                     </div>
                     <div className="prdt-nameprc">
                         <h4>{data.product_name}</h4>
-                        <h5 className="d-flex justify-content-between align-items-center">
+                        <h5 className="text-end"> 
                             <del className="strike-rate">{data.sale_prices.strike_rate && data.sale_prices.strike_rate_original > 0 && `₹${data.sale_prices.strike_rate}`}</del>
-                            <div className="text-primary fw-bold">₹{data.sale_prices.price}</div>
+                            <div   className={`${data.sale_prices.strike_rate == '0.00' ? "margin-price-top" : ''} text-primary fw-bold`}>₹{data.sale_prices.price}</div>
                         </h5>
                     </div>
                 </div>

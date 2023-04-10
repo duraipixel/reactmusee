@@ -106,7 +106,12 @@
     margin: 25px 0;
     object-fit: cover;
 }
-
+.custom-card {
+    min-height: 390px;
+}
+.margin-price-top {
+    margin-top: 45px;
+}
 .custom-card,
 .custom-card:hover {
     transition: all .7s;
