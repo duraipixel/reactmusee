@@ -1,3 +1,4 @@
+@import url('./responsive.css');
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
@@ -93,7 +94,6 @@
 }
 
 .card-box {
-    min-height: 330px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -180,9 +180,32 @@
 .mobile-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
-
+.carousel-box-overlay {
+    position: relative;
+}
+/* .carousel-box-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#ffffff00,#252525);
+} */
+/* .carousel-caption ,
+.carousel-box-overlay::before,
+.carousel-box-overlay:hover::before {
+    transition: all 1s;
+} */
+/* .carousel-box-overlay:hover::before {
+    background-color: transparent;
+} */
+.carousel-box-overlay .carousel-caption{
+    text-shadow: 0 0 10px black;
+    transform: translateY(10px);
+}
 body {
-    padding-top: 100px;
+    padding-top: 144px;
 }
 
 .secondary-menu {
