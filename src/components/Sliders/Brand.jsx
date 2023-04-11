@@ -38,6 +38,7 @@ export const Brand = () => {
                 slidesToScroll: 1,
                 vertical: true,
                 verticalSwiping: true,
+                centerMode:true,
                 arrows: true,
             },
         },],

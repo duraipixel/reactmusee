@@ -1,4 +1,5 @@
 @import url('./responsive.css');
+
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
@@ -99,24 +100,30 @@
     align-items: center;
     flex-direction: column;
 }
+
 #homeCarousel.carousel .carousel-item {
     padding-bottom: 30px;
 }
+
 .carousel-indicators {
     margin: auto !important;
     bottom: 9px;
 }
+
 .product-card-image {
     height: 150px !important;
     margin: 25px 0;
     object-fit: contain;
 }
+
 .custom-card {
     min-height: 390px;
 }
+
 .margin-price-top {
     margin-top: 45px;
 }
+
 .custom-card,
 .custom-card:hover {
     transition: all .7s;
@@ -190,9 +197,11 @@
 .mobile-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
+
 .carousel-box-overlay {
     position: relative;
 }
+
 /* .carousel-box-overlay::before {
     content: '';
     position: absolute;
@@ -210,10 +219,11 @@
 /* .carousel-box-overlay:hover::before {
     background-color: transparent;
 } */
-.carousel-box-overlay .carousel-caption{
+.carousel-box-overlay .carousel-caption {
     text-shadow: 0 0 10px black;
     transform: translateY(10px);
 }
+
 body {
     padding-top: 144px;
 }
@@ -246,6 +256,7 @@ body {
         padding: 10px;
     }
 }
+
 #coupon_apply_btn {
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
@@ -254,6 +265,7 @@ body {
 .brand a {
     position: relative;
 }
+
 .brand a::after {
     content: '';
     height: 30px;
@@ -264,25 +276,42 @@ body {
     right: 0;
     transform: translateY(-50%);
 }
+
+@media (max-width:600px) {
+    .brand a::after {
+        top: unset !important;
+        bottom: -3px !important;
+        left: 50%;
+        height: 1px !important;
+        width: 40px;
+        transform: translateX(-50%);
+        background-color: #ffffff;
+    }
+}
+
 .brand img {
     width: 230px !important;
     height: 80px !important;
-    margin: auto; 
+    margin: auto;
     filter: brightness(0) invert(1);
     object-fit: contain;
 }
+
 @media (max-width:600px) {
     .payment-icon {
         width: 150px !important;
     }
+
     .title-1 {
         font-size: 25px !important;
         line-height: 30px !important;
     }
+
     .title-2 {
         font-size: 18px !important;
         line-height: 25px !important;
     }
+
     .jumbotron {
         text-align: center;
     }
@@ -321,8 +350,7 @@ body {
     }
 
     .brand img {
-        width: 220px !important;
-        height: auto !important;
+        width: 100% !important;
         margin: auto;
     }
 
@@ -336,7 +364,7 @@ body {
 
     .web-menu {
         min-height: 50px;
-    } 
+    }
 
     body {
         padding-top: 55px;
@@ -413,9 +441,11 @@ body {
         padding-top: 180px;
     }
 }
+
 #titlediv {
     display: none !important;
 }
+
 @media (max-width:1000px) {
     .menu-open {
         height: 100vh !important;
