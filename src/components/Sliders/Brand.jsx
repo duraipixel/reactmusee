@@ -30,6 +30,7 @@ export const Brand = () => {
         slidesToShow: 6,
         dots: false,
         slidesToScroll: 1,
+        centerMode:true,
         responsive: [ {
             breakpoint: 600,
             settings: {
@@ -37,7 +38,6 @@ export const Brand = () => {
                 slidesToScroll: 1,
                 vertical: true,
                 verticalSwiping: true,
-                centerMode:true,
                 arrows: true,
             },
         },],

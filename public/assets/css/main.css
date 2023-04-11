@@ -1275,7 +1275,7 @@ section {
 }
 
 .our-brands {
-  background: #313190;
+  background: #000000;
   padding: 0px;
 }
 
@@ -2546,7 +2546,7 @@ section {
 }
 
 .our-brands {
-  background: #252525;
+  background: #000000;
   padding: 0px;
 }
 .brand  a {
@@ -2554,11 +2554,6 @@ section {
   padding: 10px;
   display: inline-block;
   padding: 10px 0;
-}
-.brand img {
-  height: 30px;
-  padding: 0px 20px;
-  background-color: white;
 }
 
 /* .our-brands .slick-track {
@@ -7047,9 +7042,8 @@ ul.track-order li.active:last-child:after {
 }
 
 .form-data ul.src-fndings li img {
-  max-width:130px;
   height:100px;
-  object-fit:'cover'
+  object-fit: contain !important;
 }
 
 .form-data.bluebg ul.src-fndings li img {

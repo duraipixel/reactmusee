@@ -71,7 +71,7 @@
 
 .product-slider-image {
     height: 450px !important;
-    object-fit: cover;
+    object-fit: contain;
     cursor: zoom-in;
 }
 
@@ -99,7 +99,13 @@
     align-items: center;
     flex-direction: column;
 }
-
+#homeCarousel.carousel .carousel-item {
+    padding-bottom: 30px;
+}
+.carousel-indicators {
+    margin: auto !important;
+    bottom: 9px;
+}
 .product-card-image {
     height: 150px !important;
     margin: 25px 0;
@@ -243,6 +249,27 @@ body {
 #coupon_apply_btn {
     border-top-right-radius: 5px !important;
     border-bottom-right-radius: 5px !important;
+}
+
+.brand a {
+    position: relative;
+}
+.brand a::after {
+    content: '';
+    height: 30px;
+    width: 1px;
+    background-color: #606060;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+.brand img {
+    width: 230px !important;
+    height: 80px !important;
+    margin: auto; 
+    filter: brightness(0) invert(1);
+    object-fit: contain;
 }
 @media (max-width:600px) {
     .payment-icon {

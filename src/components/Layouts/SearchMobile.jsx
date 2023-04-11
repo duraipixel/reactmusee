@@ -88,7 +88,7 @@ export const SearchMobile = ({ searchShow, handleSearchModalClose }) => {
                                                 <div onClick={() => showProduct(item.product_url)} className="w-100 text-dark" >
                                                     <div className='row'>
                                                         <div className='col-3'>
-                                                            <img src={item.image} height={100} width={100} />
+                                                            <img src={item.image} style={{ objectFit:'contain',height:'100px' }}  />
                                                         </div>
                                                         <div className='col ps-0'>
                                                             <label className='fw-bold'>
