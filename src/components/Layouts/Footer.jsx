@@ -4,10 +4,10 @@ import { useQuickLinkQuery } from '../../app/services/quickLinkApi';
 import './footer.css';
 
 
-export default function Footer({getSubMenu}) {
-    
+export default function Footer({ getSubMenu }) {
+
     const { data, error, isLoading, isFetching, isSuccess } = useQuickLinkQuery();
-    
+
     return (
         <Fragment>
             <footer>
@@ -40,7 +40,7 @@ export default function Footer({getSubMenu}) {
                             <div className="quick-links">
                                 <h4>Quick links</h4>
                                 <ul>
-                                {
+                                    {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
                                                 {/* <label className='footer_links' onClick={() => getSubMenu(item.slug)}> 
@@ -51,25 +51,25 @@ export default function Footer({getSubMenu}) {
                                             </li>
                                         ))
                                     }
-                                   
+
                                 </ul>
                             </div>
 
                             <div className="quick-links">
                                 <h4>Information</h4>
                                 <ul>
-                                <li>
-                                    <Link to='/privacypolicy'>Privacy Policy</Link>
-                                </li>
-                                <li>
-                                    <Link to='/TermsofUse'>Terms of Use</Link>
-                                </li>
-                                <li>
-                                    <Link to='/returnpolicy'>Returns Policy</Link>
-                                </li>
-                                <li>
-                                    <Link to='/shippingpolicy'>Shipping Policy</Link>
-                                </li> 
+                                    <li>
+                                        <Link to='/privacypolicy'>Privacy Policy</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/TermsofUse'>Terms of Use</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/returnpolicy'>Returns Policy</Link>
+                                    </li>
+                                    <li>
+                                        <Link to='/shippingpolicy'>Shipping Policy</Link>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -77,10 +77,13 @@ export default function Footer({getSubMenu}) {
                                 <h4>Contact Us</h4>
                                 <ul>
                                     <li>
-                                        <img src="/assets/images/mail.png" /> support@museemusical.in
+                                        <a className='text-secondary' target='_blank' href="https://goo.gl/maps/1M68TMxcuZBPk6uPA"><i className="fa fa-map-marker me-2"></i>   73, Anna Salai, Chennai – 600 002</a>
                                     </li>
                                     <li>
-                                        <img src="/assets/images/call.png" /> +91 9940046621 
+                                        <a className='text-secondary' href="mailto:support@museemusical.in"><i className="fa fa-envelope me-2"></i>  support@museemusical.in</a>
+                                    </li>
+                                    <li>
+                                        <a className='text-secondary' href="tel:919940046621"><i className="fa fa-phone me-2"></i> +91 9940046621</a>
                                     </li>
                                 </ul>
                             </div>
