@@ -1624,7 +1624,7 @@ a:hover {
 .carousel .carousel-indicators button.active {
   width: 35px;
   transition: all 0.3s ease;
-  background: #fff;
+  background: #dedede;
 }
 
 @keyframes fadeInUp {
