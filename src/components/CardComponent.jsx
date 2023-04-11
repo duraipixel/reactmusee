@@ -32,11 +32,11 @@ function CardComponent({ settings }) {
                     }
                 </div>
                 <div className="trend-access bg-light">
-                    <div className="ratings d-flex justify-content-between">
-                        <div className="prdt-type">
+                    <div className="ratings">
+                        <div className="prdt-type text-start">
                             {data.category_name}
                         </div>
-                        {data.stock_status == "out_of_stock" && <Chip size="small" className="product-chip" label="out of stock" color="error" />}
+                        {data.stock_status == "out_of_stock" && <Chip size="small" className="bg-danger position-absolute top-0 start-0 m-3" label="out of stock" color="error" />}
                     </div>
                     <div className="prdt-nameprc">
                         <h4>{data.product_name}</h4>
