@@ -104,7 +104,7 @@
     width: auto;
     height: 150px !important;
     margin: 25px 0;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 .custom-card {
     min-height: 390px;
