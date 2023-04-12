@@ -2,25 +2,20 @@ import { Fragment, useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutCustomer } from '../../app/reducer/customerSlice';
-import { clearAttemptItem } from '../../app/reducer/attemptedCartSlice';
 import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
 import { MagicSpinner } from "react-spinners-kit";
 import './globalsearch.css';
 
 export default function Topbar({ isTopPage }) {
-
     const customer = useSelector((state) => state.customer);
     const location = useLocation();
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
-    const [paymentLoader, setPaymentLoader] = useState(false);
     const cart = useSelector((state) => state.cart);
     const dispatch = useDispatch();
-
     const [searchData, setSearchData] = useState([]);
     const [searchStart, setSearchStart] = useState(false);
-
     const getTotalQuantity = () => {
 
         let total = 0;
@@ -32,14 +27,10 @@ export default function Topbar({ isTopPage }) {
         setCartCount(total);
         return total
     }
-
     useMemo(() => {
         getTotalQuantity();
     }, [cart])
-
-
     const logout = () => {
-
         localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
@@ -48,14 +39,12 @@ export default function Topbar({ isTopPage }) {
         localStorage.removeItem('shiprocket_charges');
         localStorage.removeItem('address');
         sessionStorage.removeItem('cart_coupon')
-
         if (location.pathname == '/cart') {
             navigate('/');
         } else {
             navigate('/login');
         }
     }
-
     const globalSearch = (event) => {
         setSearchStart(true)
         var search_type = 'product';
@@ -64,7 +53,6 @@ export default function Topbar({ isTopPage }) {
         element.classList.add('bluebg')
         getAllStates(search_type, search_field);
     }
-
     async function getAllStates(search_type, search_field) {
         await axios({
             url: window.API_URL + '/get/global/search',
@@ -73,17 +61,13 @@ export default function Topbar({ isTopPage }) {
         }).then((res) => {
             setSearchData(res.data.products);
             setSearchStart(false)
-        }).catch((err) => {
         })
     }
-
     window.addEventListener('click', function (e) {
         if (document.getElementById('search-input').contains(e.target)) {
-
             var element = document.getElementById('parent_search_tab');
             element.classList.remove('bluebg')
         } else {
-
             var element = document.getElementById('parent_search_tab');
             element.classList.remove('bluebg')
         }
@@ -94,11 +78,8 @@ export default function Topbar({ isTopPage }) {
     useMemo(() => {
         var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
         if (incUrl.includes(checkUrlChanged)) {
-
-
             sessionStorage.removeItem('topSubMenu');
         }
-
     }, [checkUrlChanged])
 
     return (

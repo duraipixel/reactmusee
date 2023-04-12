@@ -8,7 +8,7 @@ import './globalsearch.css'
 import { SearchMobile } from './SearchMobile';
 
 export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
-    const { data, error, isLoading, isFetching, isSuccess } = useTopMenuQuery();
+    const { data, isSuccess } = useTopMenuQuery();
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
