@@ -1,20 +1,11 @@
-import React from 'react'
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+import { useState } from 'react'
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Accordion } from 'react-bootstrap';
 import { useMemo } from 'react';
 
 function ProductFeatures({ data }) {
-    const [value, setValue] = React.useState(data[0].name);
-    const [currentTab, setCurrentTab] = React.useState(0);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
+    const [currentTab, setCurrentTab] = useState(0);
     useMemo(() => {
         for (let i = 0; i < data.length; i++) {
             if (data[i].has_data) {

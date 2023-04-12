@@ -138,11 +138,9 @@ export const ProductDetail = () => {
     useMemo(() => {
         getProductsInfo();
     }, [product_url])
-
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
     }
-    console.log(productInfo, 'productInfo');
     return (
         <Fragment>
 
@@ -152,16 +150,9 @@ export const ProductDetail = () => {
                         <Helmet>
                             <title> {productInfo.meta && productInfo.meta !== null ? productInfo.meta.meta_title : ''} | Musee Musical</title>
                             <link rel="canonical" href={window.location.href} />
-                            {
-                                productInfo.meta && productInfo.meta.meta_keyword &&
-                                <meta name="keyword" content={productInfo.meta.meta_keyword} />
-                            }
-                            {
-                                productInfo.meta && productInfo.meta.meta_description &&
-                                <meta name="description" content={productInfo.meta.meta_description} />
-                            }
+                            {productInfo.meta && productInfo.meta.meta_keyword &&  <meta name="keyword" content={productInfo.meta.meta_keyword} />}
+                            { productInfo.meta && productInfo.meta.meta_description && <meta name="description" content={productInfo.meta.meta_description} />}
                         </Helmet>
-
                         <div className="py-md-5 py-3 bg-white">
                             <div className="container py-md-3">
                                 <div className='row' >
@@ -187,8 +178,8 @@ export const ProductDetail = () => {
                                         <div className="small mb-1">SKU: {productInfo.sku}</div>
                                         <h1 className="fw-bolder text-secondary h3">{productInfo.product_name}</h1>
                                         <div className="fs-5 mb-3 text-dark">
-                                            <span className='fs-4 fw-bold text-primary'>₹{productInfo.sale_prices.price}</span>
-                                            {productInfo.sale_prices.strike_rate_original > 0 && <small className="text-decoration-line-through ms-3 text-dark">₹{productInfo.sale_prices.strike_rate}</small>}
+                                            {productInfo.sale_prices.strike_rate_original > 0 && <small className="text-decoration-line-through text-danger">₹{productInfo.sale_prices.strike_rate}</small>}
+                                            <div className='fs-4 fw-bold text-primary mt-2'>₹{productInfo.sale_prices.price}</div>
                                         </div>
                                         <div className="d-flex align-items-center mb-3">
                                             <span>Qty : </span>
@@ -218,17 +209,6 @@ export const ProductDetail = () => {
                                                         <PopupWidget url="https://calendly.com/museemusical/30min" text="Talk to our experts" prefill={prefillCalend} rootElement={document.getElementById("root")} />
                                                     </span>
                                                 </div>
-
-                                                {/* <div className='d-flexs my-3 align-items-center'>
-                                                    <div className='mb-3'> <b>Talk to our experts :</b> </div>
-                                                    <Button variant="outlined">contact now</Button>
-                                                    <Tooltip title="Book a video shopping" arrow placement="top">
-                                                        <span>
-                                                            <PopupWidget url="https://calendly.com/museemusical/30min" text="&#xF3C3;" prefill={prefillCalend} rootElement={document.getElementById("root")} />
-                                                            contact
-                                                        </span>
-                                                    </Tooltip>
-                                                </div> */}
                                             </div>
                                             : <Chip label="Out Of Stock" size='large' className='rounded p-3 py-4 text-uppercase mt-4 product-chip' color='error' />}
                                     </div>

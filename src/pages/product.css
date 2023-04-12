@@ -37,9 +37,16 @@
   padding: 0 !important;
   border: none !important;
   background: white !important;
-  color: #141414 !important;
+  color: #34318e;
+
 }
 
+.product-features .accordion-button:not(.collapsed) {
+  color: #252525;
+}
+.accordion-flush .accordion-collapse {
+  border-bottom: 1px solid #252525; 
+}
 .product-features .accordion-body {
   padding-left: 0 !important;
   padding-right: 0 !important;

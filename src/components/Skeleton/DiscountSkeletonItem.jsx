@@ -52,7 +52,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                                             {
                                                 item.products.length > 0 ? (
                                                     item.products.map((productItems, i) => (
-                                                        <div className="col-lg-3 col-md-6" key={i}>
+                                                        <div className="col-lg-3 col-6" key={i}>
                                                             <CardActionArea key={i} className="text-center rounded bg-light p-2" onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
                                                                 <div className="deal-image-wrapper border rounded shadow-sm">
                                                                     <LazyLoadImage effect='blur' src={productItems.image} className="deal-image" />
