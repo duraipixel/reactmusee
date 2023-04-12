@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { fetchMenus } from './../app/reducer/menuSlice';
 
-export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoaded}) {
+export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoaded }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,15 +33,15 @@ export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoade
         searchParams.delete("availability");
         searchParams.delete("booking");
         getSubMenu(categorySlug);
-        navigate(SUrl +'?'+ searchParams.toString());
+        navigate(SUrl + '?' + searchParams.toString());
         dispatch(isOpenSideBar());
-        dispatch(fetchProducts('?'+ searchParams.toString()));
+        dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
 
     return (
         <Fragment>
-            <div className={`togle-menu wanted-scrlx mCustomScrollbar ${isSideBarOpen ? 'show' : ''}`} data-mcs-theme="dark">
+            <div className={`togle-menu  ${isSideBarOpen ? 'show' : ''}`} >
                 <div className="togmenu-header">
                     <a className="clse-menu" onClick={openSideBar}><img src="/assets/images/close.png" /></a>
                     <h4>What are you looking<br /> for today?</h4>
@@ -49,23 +49,21 @@ export default function SideCustomScrollbar({menuAll, getSubMenu, setIsPageLoade
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">
                         {
-                            menuAll && menuAll.length > 0  && menuAll.map((item, i) => (
+                            menuAll && menuAll.length > 0 && menuAll.map((item, i) => (
                                 <Accordion.Item eventKey={i} key={i}>
                                     <Accordion.Header>
                                         {item.name}
                                     </Accordion.Header>
                                     <Accordion.Body>
                                         <ul>
-                                            {
-                                                item.child && item.child.length > 0 && item.child.map((items, j) => (
-                                                    <li key={j}>
-                                                        <button className='sidemenu-button' onClick={() => handleSubMenu(item.slug, items.slug)}>
-                                                           - {items.name}
-                                                        </button>
-                                                    </li>
-
-                                                ))
-                                            }
+                                            {item.child && item.child.length > 0 && item.child.map((items, j) => (
+                                                <li key={j} className='d-flex align-items-start'>
+                                                    -
+                                                    <button className='sidemenu-button' onClick={() => handleSubMenu(item.slug, items.slug)}>
+                                                        {items.name}
+                                                    </button>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </Accordion.Body>
                                 </Accordion.Item>
