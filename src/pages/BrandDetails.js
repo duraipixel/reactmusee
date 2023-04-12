@@ -85,18 +85,19 @@ export const BrandDetails = () => {
     }, [brand_slug])
 
     var dynamic_subCategory = false;
-    if (Object.keys(brandData).length > 0) {
+    console.log( brandData?.category );
+    if (Object.keys(brandData).length > 0 && brandData?.category != undefined) {
         dynamic_subCategory = brandData.category[Math.floor(Math.random() * brandData.category.length)];
     }
-
+    
     return (
         (Object.keys(brandData).length > 0) &&
         (
             <Fragment>
                 <img src={`${brandData.banner ?? '/assets/images/banners/inner-banner-2.jpg'}`} width={'100%'} />
                 {
-                    brandData.category.length > 0 && (
-                        <div>
+                    brandData?.category && brandData?.category.length > 0 && brandData?.category != undefined && (
+                        <div className="text-center">
                             <div className="container">
                                 <div className="common-heads py-4 text-center">
                                     <h2 className='m-0'> Enjoy the exceptional musical instruments</h2>
@@ -105,9 +106,9 @@ export const BrandDetails = () => {
                                     {
                                         brandData.category.slice(0, 6).map((item, i) => (
                                             <div className={`col-lg-${[0, 1].includes(i) ? '6' : '3'} col-md-${[0, 1].includes(i) ? '6' : '3'} col-sm-${[0, 1].includes(i) ? '6' : '3'} col-xs-12`} key={i}>
-                                                <div class="border rounded shadow-sm brand-box carousel-item active carousel-box-overlay">
-                                                    <img src={[0, 1].includes(i) ? item.image_md : item.image_sm} class="d-block w-100" alt="..." />
-                                                    <div className="carousel-caption p-0" >
+                                                <div className="border rounded shadow-sm brand-box carousel-item active carousel-box-overlay">
+                                                    <img src={[0, 1].includes(i) ? item.image_md : item.image_sm} className="d-block w-100" alt="..." />
+                                                    <div className="carousel-caption p-0 ">
                                                         <h5 className='mb-2'>{item.name}</h5>
                                                         <Button variant='outlined' color='light' onClick={() => getBrandProducts(item.slug)} >
                                                             Browse All
@@ -134,6 +135,15 @@ export const BrandDetails = () => {
                                     dynamic_subCategory.sub_category[0] &&
                                     <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                         <BrandCardComponent data={dynamic_subCategory} onClick={getBrandProducts} />
+                                        <div className="border rounded shadow-sm brand-box carousel-item active carousel-box-overlay">
+                                            <img src={dynamic_subCategory.sub_category[0].image} className="d-block w-100" alt="..." />
+                                            <div className="carousel-caption p-0 ">
+                                                <h5 className='mb-2'>{dynamic_subCategory.sub_category[0].name}</h5>
+                                                <Button variant='outlined' color='light' onClick={() => getBrandProducts(dynamic_subCategory.slug, dynamic_subCategory.sub_category[0].slug)} >
+                                                    Browse All
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 }
                                 {
