@@ -41,9 +41,15 @@ export const FilterPane = (props) => {
                 {!filterData.loading && products && <ProductCardGroup />}
             </div>
             <div className='my-4'>
-                <div className={`text-center ${filterData.products && filterData.products.to >= filterData.products.total_count ? 'hide' : ''}`} >
-                    <Button variant='outlined' onClick={() => loadMoreProduct()}>
-                        Load More
+                <div className={`text-center `} >
+                    {
+                        filterData.products && filterData.products.to >= filterData.products.total_count ? null :
+                            <Button variant='outlined' onClick={() => loadMoreProduct()}>
+                                Load More
+                            </Button>
+                    }
+                    <Button variant='text' onClick={() => window.scroll(0,0)} className='m-md-2 m-4 float-md-end'>
+                       <i className="fa fa-arrow-up me-3"></i> Scroll to top
                     </Button>
                 </div>
                 <div className='loadmore-loading'>
