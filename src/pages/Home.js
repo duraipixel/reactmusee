@@ -41,7 +41,7 @@ export default function Home() {
                 isSuccess &&
                 <>
                     <HomeCarousel homeData={data} />
-                    <DiscountCollection />
+                    <DiscountCollection className='bg-white' />
                     <HistoryVideo homeData={data} />
                     <LiveVideo />
                     <ProductSlider data={data.collection} />

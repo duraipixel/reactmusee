@@ -4,7 +4,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
-import { CardActionArea } from '@mui/material'; 
+import { CardActionArea } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 
@@ -36,23 +36,28 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                     <>
                         {
                             discountCollectionData.map((item) => (
-                                <div className="col-xl col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={item.id}>
-                                    <div className="deals-box p-3 card-box">
-                                        <div className='fw-bold fs-6 text-primary mb-3'>
-                                            <label className='m-0' onClick={() => goToProductListPage(item.slug)}>
+                                <div className="col-md-6" key={item.id}>
+                                    <div className='p-3 rounded d-flex align-items-center justify-content-center'
+                                        style={{
+                                            background: `linear-gradient(rgb(0 0 0 / 46%), rgb(0 0 0 / 67%)), url(${window.AUTH_BG})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center center',
+                                            backgroundAttachment: 'fixed',
+                                            minHeight: 230
+                                        }}>
+                                        <div className='row g-3 w-100'>
+                                            <div className='col-12 fw-bold fs-6 text-white mb-2 text-center ' onClick={() => goToProductListPage(item.slug)}>
                                                 {item.collection_name} <span></span>
-                                            </label>
-                                        </div>
-                                        <div className='row m-0'>
+                                            </div>
                                             {
                                                 item.products.length > 0 ? (
                                                     item.products.map((productItems, i) => (
-                                                        <div className="col-6 p-1" key={i}>
-                                                            <CardActionArea key={i} className="text-center p-1" onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
-                                                                <div className="deal-image-wrapper">
+                                                        <div className="col-lg-3 col-md-6" key={i}>
+                                                            <CardActionArea key={i} className="text-center rounded bg-light p-2" onClick={() => goToProductListPage(item.slug, productItems.category_slug)}>
+                                                                <div className="deal-image-wrapper border rounded shadow-sm">
                                                                     <LazyLoadImage effect='blur' src={productItems.image} className="deal-image" />
                                                                 </div>
-                                                                <small className='d-block mt-1'>{productItems.category} </small>
+                                                                <small className='d-block mt-1 text-dark'>{productItems.category} </small>
                                                             </CardActionArea>
                                                         </div>
                                                     ))
@@ -65,7 +70,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                         }
 
                     </>
-                ) 
+                )
             }
         </Fragment>
     )
