@@ -45,17 +45,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
             </h5>
             {
                 customer?.id && (
-                    <>
-                        <div className="card mb-3">
-                            {shipping_address &&
-                                <div className="card-body py-2 d-flex align-items-center">
-                                    <Checkbox id='same_as_billing' color='secondary' checked={shipping_address == billing_address ? 'checked' : ''} onChange={sameAsBilling} />
-                                    <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
-                                        Set Shipping address same as Billing Address
-                                    </Typography>
-                                </div>
-                            }
-                        </div>
+                    <> 
                         <div className="row">
                             <div className="col-md-6 ">
                                 <b className='mb-2 d-block'>Shipping Address</b>
@@ -99,6 +89,16 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                     </div>}
                                 </RadioGroup>
                             </div>
+                        </div>
+                        <div className="card mt-3">
+                            {shipping_address &&
+                                <div className="card-body py-2 d-flex align-items-center">
+                                    <Checkbox id='same_as_billing' color='secondary' checked={shipping_address == billing_address ? 'checked' : ''} onChange={sameAsBilling} />
+                                    <Typography variant="span" color='secondary' component="label" htmlFor="same_as_billing">
+                                        Set Shipping address same as Billing Address
+                                    </Typography>
+                                </div>
+                            }
                         </div>
                     </>
                 )

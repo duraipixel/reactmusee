@@ -184,7 +184,7 @@
     left: 0;
     z-index: 999;
     width: 100%;
-    background: #313190;
+    background: linear-gradient(180deg, #2E2E85, #21143e);
     display: flex;
     flex-direction: column;
     justify-content: center;

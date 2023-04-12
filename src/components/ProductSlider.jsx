@@ -4,7 +4,7 @@ import CardComponent from "./CardComponent"
 function ProductSlider({ data }) {
     return (
         data && data.map((item, index) => (
-            <section className="the-trending text-center" style={{ background: `url('${String(item.banner_image)}')` }} key={index}>
+            <section className="the-trending text-center" style={{ background: `linear-gradient(45deg, #000000ba, #00000047) , url('${String(item.banner_image)}')` }} key={index}>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

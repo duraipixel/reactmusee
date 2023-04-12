@@ -1,5 +1,5 @@
 .top-bar {
-    background: #313190;
+    background: transparent;
     padding: 12px 0px;
     z-index: 999;
     position: relative;
@@ -54,10 +54,16 @@
     margin-right: 5px;
 }
 
+#headerNavbar {
+    background: linear-gradient(180deg, black, #222222);
+}
+header.MuiPaper-root ,
+.mobile-footer {
+    background: linear-gradient(180deg, #2E2E85, #21143e) !important;
+}
 header {
     position: relative;
     width: 100%;
-    background: #1A1A1A;
     z-index: 990 !important;
 }
 
