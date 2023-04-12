@@ -269,9 +269,6 @@ export const Cart = () => {
 
         })
     }
-
-    console.log(customerAddress, 'customerAddress');
-
     return (
         <Fragment>
             <Helmet>

@@ -13,13 +13,21 @@ export const homePageApi = createApi({
             query: () => ({
                 url: '/get/recent/view',
                 method: 'POST',
-                body: { customer_id: customer.id }
+                body: { customer_id: customer?.id }
             })
         }),
         discountCollection: builder.query({
             query: () => '/get/discount/collections'
         }),
+        brands: builder.query({
+            query: () => '/get/brands'
+        }),
     })
 })
 
-export const { useHomePageDataQuery, useRecentViewsQuery, useDiscountCollectionQuery } = homePageApi;
+export const { 
+    useHomePageDataQuery, 
+    useRecentViewsQuery, 
+    useDiscountCollectionQuery,
+    useBrandsQuery
+} = homePageApi;
