@@ -32,7 +32,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
     return (
         <Fragment>
             {
-                discountCollectionData.length > 0 ? (
+                discountCollectionData.length > 0 && (
                     <>
                         {
                             discountCollectionData.map((item) => (
@@ -65,35 +65,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                         }
 
                     </>
-                ) :
-                    Array.from(
-                        { length: 4 },
-                        (_, i) => (
-                            <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={i}>
-                                <div className="deals-box">
-                                    <Skeleton />
-                                    <ul>
-                                        <li>
-                                            <Skeleton width={100} height={100} />
-                                            <Skeleton />
-                                        </li>
-                                        <li>
-                                            <Skeleton width={100} height={100} />
-                                            <Skeleton />
-                                        </li>
-                                        <li>
-                                            <Skeleton width={100} height={100} />
-                                            <Skeleton />
-                                        </li>
-                                        <li>
-                                            <Skeleton width={100} height={100} />
-                                            <Skeleton />
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        )
-                    )
+                ) 
             }
         </Fragment>
     )

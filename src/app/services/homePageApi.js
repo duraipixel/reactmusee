@@ -16,7 +16,10 @@ export const homePageApi = createApi({
                 body: { customer_id: customer.id }
             })
         }),
+        discountCollection: builder.query({
+            query: () => '/get/discount/collections'
+        }),
     })
 })
 
-export const { useHomePageDataQuery, useRecentViewsQuery } = homePageApi;
+export const { useHomePageDataQuery, useRecentViewsQuery, useDiscountCollectionQuery } = homePageApi;
