@@ -20,7 +20,7 @@ export default function Home() {
     useEffect(() => {
         if (!customer)  dispatch(clearCart());
     }, [])
-    const { data, isSuccess, isLoading } = useHomePageDataQuery()
+    const { data, isSuccess, isFetching } = useHomePageDataQuery()
     const recent = useRecentViewsQuery()
     return (
         <Fragment>
@@ -32,7 +32,7 @@ export default function Home() {
                 <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.' />
             </Helmet>
             {
-                isLoading &&
+                isFetching &&
                 <section style={{ minHeight: '100vh' }} className='d-flex align-items-center justify-content-center fixed-top bg-white'>
                     <img src={require('../assets/gif/loader.gif')} width={100} />
                 </section>

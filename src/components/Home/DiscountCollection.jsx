@@ -4,8 +4,8 @@ import { DiscountSkeletonItem } from '../Skeleton/DiscountSkeletonItem'
 import { useDiscountCollectionQuery } from '../../app/services/homePageApi';
 
 export default function DiscountCollection({ className }) {
-    const { data, isLoading, isSuccess } = useDiscountCollectionQuery() 
-    if (isSuccess) return (
+    const { data, isLoading, isSuccess } = useDiscountCollectionQuery()
+    return (
         <div className={`list-of-deals ${className}`} id="home-content">
             <div className="container pb-md-5 pb-3">
                 <div>
@@ -13,13 +13,17 @@ export default function DiscountCollection({ className }) {
                         <h2 className='m-0'> Exclusive Deals, Cool Prices!</h2>
                     </div>
                     <div className="row g-3">
-                        <DiscountSkeletonItem discountCollectionData={data} />
+                        {isSuccess && <DiscountSkeletonItem discountCollectionData={data} />}
+                        {isLoading && <DiscountLoader/>}
                     </div>
                 </div>
             </div>
         </div>
     )
-    if (isLoading) return Array.from(
+}
+
+const DiscountLoader = () => {
+    return Array.from(
         { length: 4 },
         (_, i) => (
             <div className="col-lg-3 col-md-6 col-sm-12 xol-xs-12" key={i}>
