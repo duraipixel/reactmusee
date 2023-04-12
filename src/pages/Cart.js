@@ -3,7 +3,7 @@ import { CartDetails } from '../components/Cart/CartDetails'
 import { ProductDetails } from '../components/Cart/ProductDetails'
 import { ShippingAddress } from '../components/Cart/ShippingAddress'
 import { useSelector, useDispatch } from 'react-redux';
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
@@ -135,7 +135,7 @@ export const Cart = () => {
         }
 
         if (shipping_address) {
-            
+
             handleSetShippingAddressView(shipping_address)
         }
 
@@ -178,7 +178,7 @@ export const Cart = () => {
         localStorage.setItem('shipping_address', value.target.value);
         toast.success('Shipping address has been set successfully');
         getShippingRocketCharges(value.target.value, 'shipping');
-       
+
     }
 
     const handleSetBillingAddress = (value) => {
@@ -190,17 +190,17 @@ export const Cart = () => {
     }
 
     const getShippingRocketCharges = (address, from_type) => {
-        
+
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         axios({
             url: window.API_URL + '/get/shipping/rocket/charges',
             method: 'POST',
             data: { customer_id: customer.id, address: address, from_type: from_type },
         }).then((res) => {
-            
+
             setRocketCharges(res.data.shiprocket_charges);
             localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
-            
+
         }).catch((err) => {
         })
 
@@ -248,9 +248,9 @@ export const Cart = () => {
 
     async function updateCartAmount(shipping_id, type = '') {
         const customer = JSON.parse(window.localStorage.getItem('customer'));
-        
+
         var couponData = (sessionStorage.getItem('cart_coupon') && sessionStorage.getItem('cart_coupon') != 'undefined') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
-        
+
         if (!customer?.id) {
 
             toast.error('Login to Apply Shipping Charges');
@@ -261,7 +261,7 @@ export const Cart = () => {
             method: 'POST',
             data: { shipping_id: shipping_id, customer_id: customer.id, type: type, coupon_data: couponData || '' },
         }).then((res) => {
-            
+
             localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
@@ -302,26 +302,18 @@ export const Cart = () => {
 
                                 <div id="cart-loader" >
                                     <div className='loader-wrapper'>
-                                        {/* <WaveSpinner
-                                            size={100}
-                                            color="#0a1d4a"
-                                            loading={paymentLoader}
-
+                                        <MagicSpinner
+                                            size={300}
+                                            color="#313190"
+                                            loading={true}
                                             style={{ top: '50%', left: '45%' }}
-
-                                        /> */}
-                                          <MagicSpinner
-                                                size={300}
-                                                color="#313190"
-                                                loading={true}
-                                                style={{ top: '50%', left: '45%' }}
-                                            />
+                                        />
                                         <div className='loader-text'><i class="bi bi-exclamation-circle me-2"></i>  Payment Processing, Don't try to go back or refresh </div>
                                     </div>
                                 </div>
                             }
                         </div>
-                        : <section><EmptyCart/></section> 
+                        : <section><EmptyCart /></section>
                 }
             </div>
             <AddressForm states={states} show={show} setShow={setShow} addressType={addressType} customer={customer} setCustomerAddress={setCustomerAddress} />

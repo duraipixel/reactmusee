@@ -27,13 +27,13 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
             setBillToggle(!billToggle)
         }
     }
-  
+
     useEffect(() => {
         setAddress(customerAddress.slice(0, 2))
         setBillAddress(customerAddress.slice(0, 2))
     }, [customerAddress])
 
-    
+
     return (
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
@@ -66,8 +66,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                             <div className='ps-3'>
                                                 <b className="text-capitalize text-primary"> {item.name} </b>
                                                 <div>
-                                                    {item?.email} {item?.mobile_no}
-                                                    {item.address_line1} {item.state} {item.post_code}
+                                                    <span>{item.address_line1}, {item.state}, <b>{item.post_code}</b></span>
                                                 </div>
                                             </div>
                                         </label>
@@ -88,13 +87,12 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                                 <div className='ps-3'>
                                                     <b className="text-capitalize text-primary"> {item.name} </b>
                                                     <div>
-                                                        {item?.email} {item?.mobile_no}
-                                                        {item.address_line1} {item.state} {item.post_code}
+                                                        <span>{item.address_line1}, {item.state}, <b>{item.post_code}</b></span>
                                                     </div>
                                                 </div>
                                             </label>
                                         ))
-                                    } 
+                                    }
                                     {customerAddress && customerAddress.length > 2 && <div className="cursor list-group-item list-group-item-action text-center bg-light text-secondary fw-normal" onClick={() => toggleAddress('ADD_TWO')}>
                                         {billToggle ? 'Show less' : 'Show more'}
                                         <i className={`ms-1 bi ${billToggle ? 'bi-chevron-up' : 'bi-chevron-down'}`}></i>

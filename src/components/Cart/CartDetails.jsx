@@ -51,24 +51,24 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             }, 300);
             return false;
         }
-       
+
         setCheckoutFormLoading(true);
         setPaymentLoader(true);
         const shipping_address = localStorage.getItem('shipping_address');
         const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
-       
+
         if (!shipping_address) {
             toast.error('Shipping address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
         } else {
-            
+
             axios({
                 url: window.API_URL + '/proceed/checkout',
                 method: 'POST',
                 data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, selected_shipping_fees: cartInfo.selected_shipping_fees },
             }).then((response) => {
-                
+
                 if (response.error == 1) {
                     toast.error(response.message);
                 } else {
@@ -103,8 +103,8 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             theme: {
                 color: params.theme.color,
             },
-            modal:{
-                ondismiss: function() {
+            modal: {
+                ondismiss: function () {
                     setPaymentLoader(false);
                     setCheckoutFormLoading(false);
                 }
@@ -112,12 +112,12 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         }
 
         const rzp1 = new Razorpay(options);
-       
+
         rzp1.on("payment.failed", function (response) {
             verifySignature(response, 'fail')
         });
 
-       
+
 
         rzp1.open();
     };
@@ -159,19 +159,19 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             toast.error('Login to Apply Coupon');
             navigate('/login')
         }
-        
+
         var coupon_code = document.getElementById('coupon').value;
-       
+
         if (coupon_code == '') {
             toast.error('Coupon code is required');
             document.getElementById('coupon').focus();
             setIsLoadingCoupon(false);
             return false;
         }
-        
+
         var cartValues = localStorage.getItem('cart') && localStorage.getItem('cart') != 'undefined' ? JSON.parse(localStorage.getItem('cart')) : '';
         var selectCartShipValues = cartValues ? cartValues?.selected_shipping_fees : '';
-        
+
         axios({
             url: window.API_URL + '/apply/coupon',
             method: 'POST',
@@ -179,7 +179,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
         }).then((res) => {
             setIsLoadingCoupon(false);
-            
+
             if (res.data.status == 'error') {
                 toast.error(res.data.message);
             } else if (res.data.status == 'success') {
@@ -188,9 +188,9 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 document.getElementById('coupon_apply_btn').style.display = 'none';
                 document.getElementById('coupon_cancel_btn').style.display = 'block';
             }
-           
+
             dispatch(setCoupon(res.data));
-           
+
             localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
             sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
@@ -241,11 +241,11 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                         <li className="list-group-item d-flex justify-content-between">
                             <b>Taxes</b>
                             <span className='text-dark fw-bold'>₹{cart_total.tax_total}</span>
-                        </li>                        
+                        </li>
                         {
                             coupon?.value?.coupon_code && (
                                 <li className="list-group-item d-flex justify-content-between">
-                                    <b>Coupon [{coupon?.value?.coupon_code} {coupon?.value?.coupon_info?.coupon_type?.discount_type == 'percentage' ? coupon?.value?.coupon_info?.coupon_type.discount_value+'%' : ''}] (-)</b>
+                                    <b>Coupon [{coupon?.value?.coupon_code} {coupon?.value?.coupon_info?.coupon_type?.discount_type == 'percentage' ? coupon?.value?.coupon_info?.coupon_type.discount_value + '%' : ''}] (-)</b>
                                     <span className='text-dark fw-bold'>₹{coupon.value.coupon_amount}</span>
                                 </li>
                             )
@@ -265,10 +265,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                                     <i className="fa fa-map-marker"></i>  {selectShippingAddress.name}
                                 </b>
                                 <div className='text-secondary fw-bold'>
-                                    {selectShippingAddress.address_line1},
-                                    {selectShippingAddress.city}
-                                    {selectShippingAddress.state}
-                                    {selectShippingAddress.post_code}
+                                    <span>{selectShippingAddress.address_line1}, {selectShippingAddress.state}, <b>{selectShippingAddress.post_code}</b></span>
                                 </div>
                             </li>
                         </ul>
@@ -281,9 +278,9 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     </div>
                     <div className="input-group mb-3">
                         <input type="text" id="coupon" className="form-control border" value={coupon?.value?.coupon_code} role={`${coupon?.value?.coupon_code ? 'button' : ''}`} placeholder='Enter here..' />
-                       
-                                <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()} id="coupon_apply_btn">Apply</Button>
-                                <Button loading={isLoadingCoupon}  style={{display: 'none'}} className="btn text-white bg-dark" onClick={() => cancelCoupon()} id="coupon_cancel_btn">Cancel</Button>
+
+                        <Button loading={isLoadingCoupon} className="btn text-white bg-dark" onClick={() => applyCoupon()} id="coupon_apply_btn">Apply</Button>
+                        <Button loading={isLoadingCoupon} style={{ display: 'none' }} className="btn text-white bg-dark" onClick={() => cancelCoupon()} id="coupon_cancel_btn">Cancel</Button>
                         {/* loading={true} */}
                     </div>
                     <Button className='btn-dark text-white w-100' size='lg'
@@ -293,7 +290,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                         Proceed to Checkout
                     </Button>
                 </div>
-            </div>            
+            </div>
         </Fragment>
     )
 }
