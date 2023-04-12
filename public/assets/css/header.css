@@ -58,7 +58,9 @@
     background: linear-gradient(180deg, black, #222222);
 }
 header.MuiPaper-root ,
-.mobile-footer {
+.mobile-footer,
+.togmenu-header,
+.bottom-bar {
     background: linear-gradient(180deg, #2E2E85, #21143e) !important;
 }
 header {
@@ -846,8 +848,7 @@ body.town-bus header #cssmenu ul li.mega-menu ul ul {
     transition: all 0.5s ease;
 }
 
-.togmenu-header {
-    background: #313190;
+.togmenu-header { 
     padding: 30px 30px 30px 40px;
     transition: all 0.5s ease;
 }
