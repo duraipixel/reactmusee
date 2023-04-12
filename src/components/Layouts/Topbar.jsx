@@ -171,8 +171,8 @@ export default function Topbar({ isTopPage }) {
                                         <li>
                                             <Link to="cart">
                                                 <img src="/assets/images/cart.png" alt="" />
+                                                <span className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                                             </Link>
-                                            <span className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                                         </li>
                                         <li>
                                             <Link to={`${customer.value ? '/profile' : '/login'}`}>
