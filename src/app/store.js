@@ -26,6 +26,7 @@ const persistConfig = {
 const reducer = combineReducers({
   [topMenuApi.reducerPath]: topMenuApi.reducer,
   [quickLinkApi.reducerPath]:quickLinkApi.reducer,
+  [homePageApi.reducerPath]:homePageApi.reducer,
   products: productFilterSlice,
   browse: otherCategorySlice,
   attempt_cart: attemptedCartReducer,
@@ -45,5 +46,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false
-  }).concat(topMenuApi.middleware).concat(quickLinkApi.middleware)
+  }).concat(topMenuApi.middleware)
+  .concat(quickLinkApi.middleware)
+  .concat(homePageApi.middleware)
 })

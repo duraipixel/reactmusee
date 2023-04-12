@@ -1,105 +1,27 @@
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect } from 'react'
 import DiscountCollection from '../components/Home/DiscountCollection';
-import SideCustomScrollbar from '../components/SideCustomScrollbar';
 import HistoryVideo from '../components/Home/HistoryVideo';
-import { CollectionSectionOne } from '../components/Sliders/CollectionSectionOne';
 import { LiveVideo } from '../components/LiveVideo';
-import { CollectionToprank } from '../components/Sliders/CollectionToprank';
-import { CollectionTrending } from '../components/Sliders/CollectionTrending';
-import { CollectionBlockBuster } from '../components/Sliders/CollectionBlockBuster';
 import { Brand } from '../components/Sliders/Brand';
-import { CollectionKeyboards } from '../components/Sliders/CollectionKeyboards';
-import { CollectionBestSeller } from '../components/Sliders/CollectionBestSeller';
-import { CollectionControlTunes } from '../components/Sliders/CollectionControlTunes';
-import { CollectionRecommend } from '../components/Sliders/CollectionRecommend';
 import { RecentView } from '../components/Sliders/RecentView';
 import { Testimonials } from '../components/Sliders/Testimonials';
 import { PackageSupport } from '../components/Home/PackageSupport';
 import HomeCarousel from './../components/Carousel/HomeCarousel';
-import { useDispatch, useSelector } from 'react-redux';
-import { isOpenSideBar } from '../app/reducer/sideMenuBarSlice';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { clearCart } from '../app/reducer/cartSlice';
-import { clearAttemptItem } from '../app/reducer/attemptedCartSlice';
 import { Helmet } from 'react-helmet';
-import axios from 'axios';
-import { fetchProducts } from '../app/reducer/productFilterSlice';
 import './common.css';
 import ProductSlider from '../components/ProductSlider';
+import { useHomePageDataQuery, useRecentViewsQuery } from '../app/services/homePageApi';
 
 export default function Home() {
-
     const dispatch = useDispatch();
     const customer = JSON.parse(window.localStorage.getItem('customer'));
-    const [recentData, setRecentData] = useState([]);
-    const [homeData, setHomeData] = useState([]);
-    const [recentDataLoading, setRecentDataLoading] = useState(true);
-
-    const navigate = useNavigate();
-    const location = useLocation();
-
-    const searchParams = new URLSearchParams(location.search);
-
-    const goToProductListPageCollection = (collection_slug) => {
-
-        const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
-
-        searchParams.set("collection", collection_slug);
-
-        navigate(SUrl + '?' + searchParams.toString());
-        dispatch(fetchProducts('?' + searchParams.toString()));
-    }
-
-    async function getRecentViewData() {
-
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-        setRecentDataLoading(false);
-        await axios({
-            url: window.API_URL + '/get/recent/view',
-            method: 'POST',
-            data: { customer_id: customer.id },
-        }).then((res) => {
-
-            setRecentData(res.data);
-        }).catch((err) => {
-            setRecentDataLoading(true);
-        })
-    }
-
-    async function getHomeData() {
-        await axios({
-            url: window.API_URL + '/get/home/details',
-            method: 'GET',
-        }).then((res) => {
-            if (res.data) {
-                setHomeData(res.data)
-            }
-        }).catch((err) => {
-        })
-    }
-
-    useMemo(() => {
-        if (homeData.length === 0) {
-            getHomeData()
-        }
-    }, [homeData])
-
     useEffect(() => {
-
-        if (!customer) {
-            dispatch(clearCart());
-            // dispatch(clearAttemptItem())
-        } else {
-            if (recentData.length == 0 && recentDataLoading) {
-                getRecentViewData();
-            }
-        }
-        const openSideBar = () => {
-            dispatch(isOpenSideBar());
-        }
+        if (!customer)  dispatch(clearCart());
     }, [])
-
+    const { data, isSuccess, isLoading } = useHomePageDataQuery()
+    const recent = useRecentViewsQuery()
     return (
         <Fragment>
             <Helmet>
@@ -109,16 +31,26 @@ export default function Home() {
                 <meta name='title' content="Shop Music Instruments, Accessories and Music Books - Musée Musical"></meta>
                 <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.' />
             </Helmet>
-            <HomeCarousel homeData={homeData} />
-            <DiscountCollection />
-            <HistoryVideo homeData={homeData} />
-            {/* <CollectionSectionOne homeData={homeData} goToProductListPageCollection={goToProductListPageCollection} /> */}
-            <LiveVideo />
-            <ProductSlider data={homeData.collection} />
-            <Brand />
-            { recentData.length > 5 && <RecentView recentData={recentData} /> }
-            <Testimonials homeData={homeData} />
-            <PackageSupport />
+            {
+                isLoading &&
+                <section style={{ minHeight: '100vh' }} className='d-flex align-items-center justify-content-center fixed-top bg-white'>
+                    <img src={require('../assets/gif/loader.gif')} width={100} />
+                </section>
+            }
+            {
+                isSuccess &&
+                <>
+                    <HomeCarousel homeData={data} />
+                    <DiscountCollection />
+                    <HistoryVideo homeData={data} />
+                    <LiveVideo />
+                    <ProductSlider data={data.collection} />
+                    <Brand />
+                    {recent.isSuccess && recent.data.length > 5 && <RecentView recentData={recent.data} />}
+                    <Testimonials homeData={data} />
+                    <PackageSupport />
+                </>
+            }
         </Fragment>
     )
 }
