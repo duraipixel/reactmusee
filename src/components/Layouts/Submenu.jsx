@@ -21,7 +21,7 @@ export const Submenu = ({ topSubmenu }) => {
     var top_sub_MenuAll = (sessionStorage.getItem('topSubMenu') ? JSON.parse(sessionStorage.getItem('topSubMenu')) : []);
 
     const setUrlCategory = (slug) => {
-
+        window.scroll(0,0)
         const SUrl = "/products/pfilter";
         if (slug == 'all') {
             searchParams.set("category", top_sub_MenuAll[0].slug);

@@ -51,10 +51,9 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                     {
                                         isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                             <li key={i}>
-                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => { setMenu(!menu); getSubMenu(item.slug) }}>
+                                                <button className={`menu-link ${searchParams.get('category') == item.slug ? 'active' : ''}`} onClick={() => { window.scroll(0,0); setMenu(!menu); getSubMenu(item.slug) }}>
                                                     {item.name}
                                                 </button>
-
                                             </li>
                                         ))
                                     }
