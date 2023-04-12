@@ -3,6 +3,7 @@ import { Fragment, useMemo, useState } from 'react'
 import { MdAddLocation } from "react-icons/md";
 import { Panel, PanelGroup } from 'rsuite';
 import './cart.css';
+import { useEffect } from 'react';
 
 export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress }) => {
 
@@ -26,10 +27,13 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
             setBillToggle(!billToggle)
         }
     }
-    useMemo(() => {
-        setAddress(address.slice(0, 2))
-        setBillAddress(billAddress.slice(0, 2))
-    }, [])
+  
+    useEffect(() => {
+        setAddress(customerAddress.slice(0, 2))
+        setBillAddress(customerAddress.slice(0, 2))
+    }, [customerAddress])
+
+    
     return (
         <Fragment>
             <h5 className="text-primary d-flex justify-content-between align-items-center mb-3 mt-4 fw-bold text-uppercase">
@@ -84,7 +88,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                                 <div className='ps-3'>
                                                     <b className="text-capitalize text-primary"> {item.name} </b>
                                                     <div>
-                                                        {item?.email}, {item?.mobile_no}
+                                                        {item?.email} {item?.mobile_no}
                                                         {item.address_line1} {item.state} {item.post_code}
                                                     </div>
                                                 </div>

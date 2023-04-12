@@ -178,23 +178,7 @@ export const Cart = () => {
         localStorage.setItem('shipping_address', value.target.value);
         toast.success('Shipping address has been set successfully');
         getShippingRocketCharges(value.target.value, 'shipping');
-        // if (from_type === 'billing') {
-
-        //     setBillingAddress(address);
-        //     localStorage.setItem('billing_address', JSON.stringify(address));
-        //     toast.success('Billing address has been set successfully')
-
-        // } else {
-
-        //     setShippingAddress(address);
-        //     dispatch(setDefaultShippingAddress(address));
-        //     localStorage.setItem('shipping_address', JSON.stringify(address));
-        //     toast.success('Shipping address has been set successfully')
-        //     // document.getElementById('same_as_billing').checked = false;
-        // }
-        // getShippingRocketCharges(address, from_type);
-        // handleListClose();
-
+       
     }
 
     const handleSetBillingAddress = (value) => {
@@ -285,6 +269,8 @@ export const Cart = () => {
 
         })
     }
+
+    console.log(customerAddress, 'customerAddress');
 
     return (
         <Fragment>
