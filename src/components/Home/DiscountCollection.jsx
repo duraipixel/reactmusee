@@ -12,7 +12,7 @@ export default function DiscountCollection({ className }) {
                     <div className="common-heads py-4 text-center">
                         <h2 className='m-0'> Exclusive Deals, Cool Prices!</h2>
                     </div>
-                    <div className="row g-3 p-3 rounded justify-content-center">
+                    <div className="row g-3 p-2 rounded justify-content-center">
                         {isSuccess && <DiscountSkeletonItem discountCollectionData={data} />}
                         {isLoading && <DiscountLoader/>}
                     </div>
