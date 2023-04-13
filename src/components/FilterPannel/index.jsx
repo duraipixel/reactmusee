@@ -16,6 +16,7 @@ function ProductCardGroup() {
     }, []);
 
     const filterData = useSelector((state) => state.products);
+    
     const products = filterData.products && filterData.products != 'undefined' ? filterData.products.products : []
     if (products && products.length > 0) {
         return products.map((item, i) => <CardComponent key={i} settings={{

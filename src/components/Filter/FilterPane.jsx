@@ -15,7 +15,7 @@ export const FilterPane = (props) => {
     const [startLoadMore, setStartLoadMore] = useState(false);
 
     const filterData = useSelector((state) => state.products);
-
+    
     const products = filterData.products != undefined ? filterData.products.products : [];
     // const from = filterData.products.from;
     const to = filterData.products != undefined ? filterData.products.to : 0;

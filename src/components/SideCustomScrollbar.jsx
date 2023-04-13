@@ -25,6 +25,7 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
 
     const handleSubMenu = (categorySlug, subCategorySlug) => {
         //?category=keyboard-case-keyboard&scategory=gator-keyboard-case-keyboard-case
+        
         const SUrl = "/products/pfilter";
         searchParams.set("category", categorySlug);
         searchParams.set("scategory", subCategorySlug);
@@ -32,10 +33,11 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
         searchParams.delete("brand");
         searchParams.delete("availability");
         searchParams.delete("booking");
-        getSubMenu(categorySlug);
+        // getSubMenu(categorySlug, 'sidemenu');
+        dispatch(fetchProducts('?' + searchParams.toString()));
+        
         navigate(SUrl + '?' + searchParams.toString());
         dispatch(isOpenSideBar());
-        dispatch(fetchProducts('?' + searchParams.toString()));
 
     }
 
@@ -68,8 +70,7 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
                                     </Accordion.Body>
                                 </Accordion.Item>
                             ))
-                        }
-
+                        } 
                     </Accordion>
                 </div>
             </div>
