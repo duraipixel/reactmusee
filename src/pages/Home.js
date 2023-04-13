@@ -1,25 +1,18 @@
-import { Fragment, useEffect } from 'react'
+import './common.css';
+import { Helmet } from 'react-helmet';
+import { Fragment } from 'react'
 import DiscountCollection from '../components/Home/DiscountCollection';
 import HistoryVideo from '../components/Home/HistoryVideo';
+import HomeCarousel from './../components/Carousel/HomeCarousel';
+import ProductSlider from '../components/ProductSlider';
 import { LiveVideo } from '../components/LiveVideo';
 import { Brand } from '../components/Sliders/Brand';
 import { RecentView } from '../components/Sliders/RecentView';
 import { Testimonials } from '../components/Sliders/Testimonials';
 import { PackageSupport } from '../components/Home/PackageSupport';
-import HomeCarousel from './../components/Carousel/HomeCarousel';
-import { useDispatch } from 'react-redux';
-import { clearCart } from '../app/reducer/cartSlice';
-import { Helmet } from 'react-helmet';
-import './common.css';
-import ProductSlider from '../components/ProductSlider';
 import { useHomePageDataQuery, useRecentViewsQuery } from '../app/services/homePageApi';
 
 export default function Home() {
-    const dispatch = useDispatch();
-    const customer = JSON.parse(window.localStorage.getItem('customer'));
-    useEffect(() => {
-        if (!customer)  dispatch(clearCart());
-    }, [])
     const { data, isSuccess, isFetching } = useHomePageDataQuery()
     const recent = useRecentViewsQuery()
     return (
