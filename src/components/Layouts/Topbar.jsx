@@ -13,19 +13,21 @@ export default function Topbar({ isTopPage }) {
     const navigate = useNavigate();
     const [cartCount, setCartCount] = useState(0);
     const cart = useSelector((state) => state.cart);
+    const cart_count = useSelector((state) => state.cart_count);
     const dispatch = useDispatch();
     const [searchData, setSearchData] = useState([]);
     const [searchStart, setSearchStart] = useState(false);
+    console.log(cart_count, 'topbar')
     const getTotalQuantity = () => {
 
-        let total = 0;
-        (cart.length > 0 || typeof cart == 'object') && cart?.cart?.carts && Object.entries(cart.cart.carts).map((key, item) => {
+        // let total = 0;
+        // (cart.length > 0 || typeof cart == 'object') && cart?.cart?.carts && Object.entries(cart.cart.carts).map((key, item) => {
 
-            return total += cart.cart.carts[item].quantity;
-        })
+        //     return total += cart.cart.carts[item].quantity;
+        // })
 
-        setCartCount(total);
-        return total
+        // setCartCount(total);
+        // return total
     }
     useMemo(() => {
         getTotalQuantity();
@@ -171,7 +173,7 @@ export default function Topbar({ isTopPage }) {
                                         <li>
                                             <Link to="cart">
                                                 <img src="/assets/images/cart.png" alt="" />
-                                                <span className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
+                                                <span className={`cart-tpimg ${cart_count.value > 0 ? '' : 'hide'}`}>{cart_count.value}</span>
                                             </Link>
                                         </li>
                                         <li>

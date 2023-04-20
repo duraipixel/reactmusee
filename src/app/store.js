@@ -16,6 +16,7 @@ import couponSlice from "./reducer/couponSlice";
 import customerAddressSlice from "./reducer/customerAddressSlice";
 import sideMenuBarSlice from "./reducer/sideMenuBarSlice";
 import { quickLinkApi } from './services/quickLinkApi';
+import cartCountSlice from "./reducer/cartCountSlice";
 
 const persistConfig = {
   key: "root",
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   menus: menuSlice,
   banners: bannerSlice,
   cart: cartSlice,
+  cart_count: cartCountSlice,
   customer: customerSlice,
   coupon: couponSlice,
   address: customerAddressSlice,

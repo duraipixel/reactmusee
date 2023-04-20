@@ -17,6 +17,7 @@ import ProductFeatures from '../components/ProductFeatures';
 import { v4 as uuid } from 'uuid';
 import { PopupWidget } from 'react-calendly';
 import { Helmet } from 'react-helmet';
+import { setCartCount } from '../app/reducer/cartCountSlice';
 
 
 export const ProductDetail = () => {
@@ -125,11 +126,12 @@ export const ProductDetail = () => {
                 toast.error(res.data.message);
                 setTimeout(() => navigate('/login'), 500)
             } else {
-
+                
                 toast.success('Product added successfully ');
                 localStorage.setItem('cart', JSON.stringify(res.data));
-                dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+                dispatch(setCartCount(res.data.cart_count));
                 setTimeout(() => setloader(false), 500)
+                dispatch(fetchCarts(res.data))
             }
 
         });

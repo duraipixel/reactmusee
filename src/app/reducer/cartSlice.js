@@ -10,7 +10,7 @@ export const cartSlice = createSlice({
     
     fetchCarts: (state, action) => {
       
-      state.cart = {...action.payload};
+      state.cart = action.payload;
     },
 
     clearCart:(state,action) => {
