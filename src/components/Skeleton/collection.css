@@ -1,0 +1,11 @@
+.product-label-collection {
+  line-height: 1em;
+  height: 3.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 11px;
+  margin-top: 4px;
+}

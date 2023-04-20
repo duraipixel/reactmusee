@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { fetchProducts } from './../../app/reducer/productFilterSlice';
 import { CardActionArea } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import './collection.css';
 
 
 export const DiscountSkeletonItem = ({ discountCollectionData }) => {
@@ -29,6 +30,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
         dispatch(fetchProducts('?' + searchParams.toString()));
     }
 
+    
     return (
         <Fragment>
             {
@@ -57,7 +59,11 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
                                                                 <div className="deal-image-wrapper border rounded shadow-sm">
                                                                     <LazyLoadImage effect='blur' src={productItems.image} className="deal-image" />
                                                                 </div>
-                                                                <small className='d-block mt-1 text-dark'>{productItems.category} </small>
+                                                                <div className='product-label-collection'>
+
+                                                                    <small className='text-dark'>{productItems.product_name}</small>
+                                                                </div>
+                                                                {/* <small className='d-block mt-1 text-dark'>{productItems.category} </small> */}
                                                             </CardActionArea>
                                                         </div>
                                                     ))
