@@ -39,7 +39,7 @@ export const VerifyAccount = () => {
                     toast.success(res.data.message);
                 }
 
-                navigate('/profile', {state:{verification_message: res.data.message}});
+                navigate('/', {state:{verification_message: res.data.message}});
             }
         }).catch((err) => {
         })
@@ -50,8 +50,8 @@ export const VerifyAccount = () => {
         doVerifyAccount();      
     }, [])
     
-    console.log( token, 'token' );
+    // console.log( token, 'token' );
   return (
-    <div>VerifyAccount</div>
+    <div></div>
   )
 }
