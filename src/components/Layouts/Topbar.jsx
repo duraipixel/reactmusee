@@ -17,7 +17,7 @@ export default function Topbar({ isTopPage }) {
     const dispatch = useDispatch();
     const [searchData, setSearchData] = useState([]);
     const [searchStart, setSearchStart] = useState(false);
-    console.log(cart_count, 'topbar')
+    
     const getTotalQuantity = () => {
 
         // let total = 0;

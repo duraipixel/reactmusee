@@ -53,7 +53,7 @@ export const Testimonials = ({ homeData }) => {
 
                             <div className="col-lg-12 col-md-12 col-sm-12">
                                 <div className="common-heads light text-center">
-                                    <h2>What our patrons are saying about Musee Musicals?</h2>
+                                    <h2>What our patrons are saying about Musee Musical?</h2>
                                 </div>
                             </div>
 

@@ -12,7 +12,7 @@ import { RocketShippingFee } from './RocketShippingFee';
 import { Button } from 'rsuite';
 import { Tooltip } from '@mui/material';
 import { setCoupon } from '../../app/reducer/couponSlice';
-import { CollectionSectionOneSkeleton } from '../Skeleton/CollectionSectionOneSkeleton';
+import { setCartCount } from '../../app/reducer/cartCountSlice';
 
 
 export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, customerAddress, cartInfo }) => {
@@ -139,6 +139,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 localStorage.removeItem('cart');
                 localStorage.removeItem('shiprocket_charges');
                 sessionStorage.removeItem('cart_coupon')
+                dispatch(setCartCount(0));
                 dispatch(clearCart());
                 toast.success(response.data.message);
                 navigate('/thankyou/success');
