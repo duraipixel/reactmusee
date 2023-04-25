@@ -204,7 +204,7 @@ export const ProductDetail = () => {
                                             </InputGroup>
                                         </div>
                                         <div className="lead text-dark" dangerouslySetInnerHTML={{ __html: productInfo.description }}></div>
-                                        {productInfo.stock_status != 'out_of_stock'
+                                        {productInfo.stock_status.includes('in_stock')
                                             ?
                                             <div>
                                                 <div className='text-center d-sm-inline-flex'>
@@ -214,7 +214,7 @@ export const ProductDetail = () => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            : <Chip label="Out Of Stock" size='large' className='rounded p-3 py-4 text-uppercase mt-4 product-chip' color='error' />}
+                                            : <Chip label={productInfo.stock_status.replace('_', ' ')} size='large' className='rounded p-3 py-4 text-uppercase mt-4 product-chip' color='error' />}
                                         {
                                             productInfo?.feature_information &&
                                             <div className="abt-prduct">
