@@ -102,6 +102,8 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         });
     }
     
+    console.log(cart,'cart');
+
     return (
         <Fragment>
             <h5 className="text-primary my-3 fw-bold text-uppercase">Cart Items</h5>
@@ -119,7 +121,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                             <h6 className="mb-0 fs-6">{cart[item].product_name}</h6>
                                             <span>
                                                 <small className="text-secondary">₹{cart[item].sale_prices.price}</small>
-                                                {cart[item]?.sale_prices?.strike_rate &&
+                                                {cart[item]?.sale_prices?.strike_rate && cart[item]?.sale_prices.strike_rate_original > 0 &&
                                                     <small className="text-decoration-line-through text-danger ms-1">₹{cart[item].sale_prices.strike_rate}</small>
                                                 }
                                             </span>
