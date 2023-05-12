@@ -23,12 +23,13 @@ export const Cart = () => {
     const cart = useSelector((state) => state.cart);
     const defaultShipping = useSelector((state) => state.shipping_address);
     const charges = useSelector((state) => state.charges);
-    const [cartLength, setCartlength] = useState(0);
+    const cart_count = useSelector((state) => state.cart_count);
     const [shippingAddress, setShippingAddress] = useState('');
     const [billingAddress, setBillingAddress] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
     const [shippCharges, setShippCharges] = useState([]);
     const [show, setShow] = useState(false);
+   
     const [showList, setShowList] = useState(false);
     const [paymentLoader, setPaymentLoader] = useState(false);
     const [fromList, setFromList] = useState('');
@@ -44,10 +45,10 @@ export const Cart = () => {
     const [addressInfo, setAddressInfo] = useState(null);
     const navigate = useNavigate();
 
-    let site_info = JSON.parse(window.localStorage.getItem('site_info'));
-    const customer = JSON.parse(window.localStorage.getItem('customer'));
-    const shipping_address = window.localStorage.getItem('shipping_address');
-    const billing_address = window.localStorage.getItem('billing_address');
+    let site_info = JSON.parse(window.sessionStorage.getItem('site_info'));
+    const customer = JSON.parse(window.sessionStorage.getItem('customer'));
+    const shipping_address = window.sessionStorage.getItem('shipping_address');
+    const billing_address = window.sessionStorage.getItem('billing_address');
     // console.log(cart, 'cart');
     const {
         register,
@@ -119,15 +120,9 @@ export const Cart = () => {
 
     useEffect(() => {
 
-        if (Array.isArray(cart.cart.carts)) {
-            setCartlength(cart.cart.carts.length);
-        } else {
-            if (cart.cart.carts) {
-                setCartlength(Object.keys(cart.cart.carts).length);
-            }
-        }
-        if (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined') {
-            setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+       
+        if (window.sessionStorage.getItem('address') && window.sessionStorage.getItem('address') != 'undefined') {
+            setCustomerAddress(JSON.parse(window.sessionStorage.getItem('address')));
         }
 
         if (site_info) {
@@ -161,13 +156,13 @@ export const Cart = () => {
 
         if (e.target.checked) {
             setBillingAddress(shipping_address);
-            localStorage.setItem('billing_address', shipping_address);
+            sessionStorage.setItem('billing_address', shipping_address);
             toast.success('Billing address has been set successfully')
 
         } else {
 
             setBillingAddress('');
-            localStorage.setItem('billing_address', '');
+            sessionStorage.setItem('billing_address', '');
 
         }
     }
@@ -175,7 +170,7 @@ export const Cart = () => {
     const handleSetShippingAddress = (value) => {
 
         setShippingAddress(value.target.value);
-        localStorage.setItem('shipping_address', value.target.value);
+        sessionStorage.setItem('shipping_address', value.target.value);
         toast.success('Shipping address has been set successfully');
         getShippingRocketCharges(value.target.value, 'shipping');
 
@@ -184,14 +179,14 @@ export const Cart = () => {
     const handleSetBillingAddress = (value) => {
 
         setBillingAddress(value.target.value);
-        localStorage.setItem('billing_address', value.target.value);
+        sessionStorage.setItem('billing_address', value.target.value);
         toast.success('Billing address has been set successfully')
 
     }
 
     const getShippingRocketCharges = (address, from_type) => {
 
-        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
         axios({
             url: window.API_URL + '/get/shipping/rocket/charges',
             method: 'POST',
@@ -199,7 +194,7 @@ export const Cart = () => {
         }).then((res) => {
 
             setRocketCharges(res.data.shiprocket_charges);
-            localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
+            sessionStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
 
         }).catch((err) => {
         })
@@ -222,12 +217,12 @@ export const Cart = () => {
             } else {
                 toast.success(res.data.message);
 
-                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                sessionStorage.setItem('address', JSON.stringify(res.data.customer_address));
 
                 let defaultShip = res.data.customer_address.find(item => item.is_default == 1);
                 if (defaultShip) {
                     setShippingAddress(defaultShip.id);
-                    localStorage.setItem('shipping_address', defaultShip.id);
+                    sessionStorage.setItem('shipping_address', defaultShip.id);
                 }
                 reset();
                 handleClose();
@@ -247,7 +242,7 @@ export const Cart = () => {
     }
 
     async function updateCartAmount(shipping_id, type = '') {
-        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
 
         var couponData = (sessionStorage.getItem('cart_coupon') && sessionStorage.getItem('cart_coupon') != 'undefined') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
 
@@ -262,14 +257,15 @@ export const Cart = () => {
             data: { shipping_id: shipping_id, customer_id: customer.id, type: type, coupon_data: couponData || '' },
         }).then((res) => {
 
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            sessionStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
 
         }).catch((err) => {
 
         })
     }
-    console.log(cart, 'cart data');
+    // console.log( 'cart', cart.cart.carts);
+    // console.log( 'cart_count', cart_count.value)
     return (
         <Fragment>
             <Helmet>
@@ -279,7 +275,7 @@ export const Cart = () => {
             </Helmet>
             <div>
                 {
-                    cart.cart.carts && cartLength > 0 && JSON.stringify(cart.cart.carts) !== '{}' ?
+                    cart.cart.carts && cart_count.value > 0 ?
                         <div className="shop-carts py-lg-5">
                             <div className="container">
                                 <div className="row">
@@ -293,7 +289,7 @@ export const Cart = () => {
                                             </div>
                                         </div>
                                         <div className="col-lg-4">
-                                            <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} customerAddress={customerAddress} updateCartAmount={updateCartAmount} />
+                                            <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} customerAddress={customerAddress} updateCartAmount={updateCartAmount}  />
                                         </div>
                                     </>
                                 </div>

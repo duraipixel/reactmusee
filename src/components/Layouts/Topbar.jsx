@@ -6,12 +6,13 @@ import { clearCart } from '../../app/reducer/cartSlice';
 import axios from 'axios';
 import { MagicSpinner } from "react-spinners-kit";
 import './globalsearch.css';
+import { setCartCount } from '../../app/reducer/cartCountSlice';
 
 export default function Topbar({ isTopPage }) {
     const customer = useSelector((state) => state.customer);
     const location = useLocation();
     const navigate = useNavigate();
-    const [cartCount, setCartCount] = useState(0);
+    // const [cartCount, setCartCount] = useState(0);
     const cart = useSelector((state) => state.cart);
     const cart_count = useSelector((state) => state.cart_count);
     const dispatch = useDispatch();
@@ -33,13 +34,14 @@ export default function Topbar({ isTopPage }) {
         getTotalQuantity();
     }, [cart])
     const logout = () => {
-        localStorage.removeItem('customer');
+        sessionStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
-        localStorage.removeItem('shipping_address');
-        localStorage.removeItem('cart');
-        localStorage.removeItem('shiprocket_charges');
-        localStorage.removeItem('address');
+        dispatch(setCartCount(0));
+        sessionStorage.removeItem('shipping_address');
+        sessionStorage.removeItem('cart');
+        sessionStorage.removeItem('shiprocket_charges');
+        sessionStorage.removeItem('address');
         sessionStorage.removeItem('cart_coupon')
         if (location.pathname == '/cart') {
             navigate('/');

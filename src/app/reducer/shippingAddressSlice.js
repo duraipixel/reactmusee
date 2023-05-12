@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const shippingAddressSlice = createSlice({
   name: 'shipping_address',
   initialState: {
-    shipping: window.localStorage.getItem('shipping_address') || [],
+    shipping: window.sessionStorage.getItem('shipping_address') || [],
   },
   reducers: {
     

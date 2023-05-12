@@ -2,7 +2,7 @@ import React from 'react'
 
 export const RocketShippingFee = () => {
 
-    const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : [];
+    const shiprocket_charges = sessionStorage.getItem('shiprocket_charges') ? JSON.parse(sessionStorage.getItem('shiprocket_charges')) : [];
 
     return (
         <div>

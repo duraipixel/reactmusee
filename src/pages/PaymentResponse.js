@@ -15,7 +15,7 @@ export const PaymentResponse = () => {
                 <div className='container payment-container py-3' style={{ zIndex: 1 }}>
                     <img src={require('../assets/images/music.png')} width="180px" className='mb-4 payment-icon' alt='img' />
                     <h2 className='title-1' style={{ color: "#9C27B0" }}><b>YOUR ORDER HAS BEEN RECEIVED</b></h2>
-                    <h3 className='title-2 my-3' style={{ color: "#25ae3a" }}>Thank you for your payment, it’s processing</h3>
+                    <h3 className='title-2 my-3' style={{ color: "#25ae3a" }}>Thank you for your order</h3>
                     <p className='mb-4 text-primary'>You will receive an order confirmation email with details of your order and a link to track your process.</p>
                     <Link to="/profile" className='btn-dark text-white btn'>
                         <BsMusicPlayerFill size={20} className='me-2'/>

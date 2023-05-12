@@ -14,6 +14,7 @@ import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput } fr
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { setCartCount } from '../app/reducer/cartCountSlice';
 
 export const Login = () => {
     const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export const Login = () => {
 
     async function fetchCartProducts() {
 
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
 
         await axios({
             url: window.API_URL + '/get/cart',
@@ -42,8 +43,8 @@ export const Login = () => {
             data: { customer_id: customer.id },
         }).then((res) => {
 
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            sessionStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
 
         }).catch((err) => {
 
@@ -52,7 +53,7 @@ export const Login = () => {
 
     const setCustomerAddress = () => {
 
-        let address = JSON.parse(window.localStorage.getItem('addres'));
+        let address = JSON.parse(window.sessionStorage.getItem('addres'));
         dispatch(fetchAddress(address));
 
     }
@@ -62,13 +63,13 @@ export const Login = () => {
             url: window.API_URL + '/get/site/info',
             method: 'GET',
         }).then((res) => {
-            localStorage.setItem('site_info', JSON.stringify(res.data));
+            sessionStorage.setItem('site_info', JSON.stringify(res.data));
         }).catch((err) => {
         })
     }
 
     async function doLoginCustomer(formData) {
-        const form_data = { ...formData, guest_token: localStorage.getItem('guest_token') || '' }
+        const form_data = { ...formData, guest_token: sessionStorage.getItem('guest_token') || '' }
         setLoginFormLoader(true);
         axios({
             url: window.API_URL + '/login',
@@ -84,22 +85,25 @@ export const Login = () => {
 
             } else {
                 toast.success(window.LOGIN_SUCCESS_MSG);
+                console.log( res.data);
                 if (res.data.customer_data) {
-                    localStorage.removeItem('guest_token');
-                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
-                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
-                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
+
+                    sessionStorage.removeItem('guest_token');
+                    sessionStorage.setItem('customer', JSON.stringify(res.data.customer_data))
+                    dispatch(loginCustomer(JSON.parse(window.sessionStorage.getItem('customer'))));
+                    sessionStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
                     fetchCartProducts();
                     setCustomerAddress() 
                     getSiteInformation();
                 }
+                dispatch(setCartCount(res.data.total_cart_count || 0));
                 navigate(-1);
             }
         }).catch((err) => {
         })
     }
     useEffect(() => {
-        if (window.localStorage.getItem('customer')) {
+        if (window.sessionStorage.getItem('customer')) {
             navigate('/');
         }
     }, [])

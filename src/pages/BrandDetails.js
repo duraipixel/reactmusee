@@ -20,7 +20,7 @@ export const BrandDetails = () => {
     async function getBrandCategory() {
         const response = await fetch(window.API_URL + '/get/brands/all/' + brand_slug)
             .then((response) => {
-                localStorage.setItem('brand_slug', brand_slug);
+                sessionStorage.setItem('brand_slug', brand_slug);
                 return response.json()
             }).then((data) => setBrandData(data))
             .catch((err) => {

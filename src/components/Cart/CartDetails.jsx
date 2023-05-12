@@ -13,12 +13,14 @@ import { Button } from 'rsuite';
 import { Tooltip } from '@mui/material';
 import { setCoupon } from '../../app/reducer/couponSlice';
 import { setCartCount } from '../../app/reducer/cartCountSlice';
+import CaptchaForm from './CaptchaForm';
 
 
 export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, customerAddress, cartInfo }) => {
 
     const coupon = useSelector((state) => state.coupon);
-
+    const [showCaptcha, setShowCaptcha] = useState(false);
+    const [codFormloading, setCodFormloading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [selectShippingAddress, setSelectShippingAddress] = useState('');
@@ -26,7 +28,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const Razorpay = useRazorpay();
     const [isLoadingCoupon, setIsLoadingCoupon] = useState(false);
     // const couponInfo = sessionStorage.getItem('cart_coupon') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
-    const shipping_address = localStorage.getItem('shipping_address');
+    const shipping_address = sessionStorage.getItem('shipping_address');
 
     const handleShipAddress = (ship) => {
         setSelectShippingAddress(ship);
@@ -40,10 +42,10 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     }, [shipping_address])
 
 
-    const handlePayment = async () => {
+    const handlePayment = async (pay_type = '') => {
 
 
-        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
         if (!customer?.id) {
             toast.error('Please Login to Checkout');
             setTimeout(() => {
@@ -52,30 +54,37 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             return false;
         }
 
-        setCheckoutFormLoading(true);
-        setPaymentLoader(true);
-        const shipping_address = localStorage.getItem('shipping_address');
-        const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
+       
+        const shipping_address = sessionStorage.getItem('shipping_address');
+        const shiprocket_charges = sessionStorage.getItem('shiprocket_charges') ? JSON.parse(sessionStorage.getItem('shiprocket_charges')) : []
 
         if (!shipping_address) {
             toast.error('Shipping address is required');
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
         } else {
-
-            axios({
-                url: window.API_URL + '/proceed/checkout',
-                method: 'POST',
-                data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, selected_shipping_fees: cartInfo.selected_shipping_fees },
-            }).then((response) => {
-
-                if (response.error == 1) {
-                    toast.error(response.message);
-                } else {
-                    verifyPayment(response.data);
-                }
-
-            });
+            if( pay_type == 'cod' ) {
+                setShowCaptcha(true);
+                setCodFormloading(true);
+                console.log('cod ')
+                
+            } else {
+                setCheckoutFormLoading(true);
+                setPaymentLoader(true);
+                axios({
+                    url: window.API_URL + '/proceed/checkout',
+                    method: 'POST',
+                    data: { customer_id: customer.id, shipping_address: shipping_address, shiprocket_charges: shiprocket_charges, billing_address: billingAddress, cart_total: cart_total, cart_items: cart_items, selected_shipping_fees: cartInfo.selected_shipping_fees },
+                }).then((response) => {
+    
+                    if (response.error == 1) {
+                        toast.error(response.message);
+                    } else {
+                        verifyPayment(response.data);
+                    }
+    
+                });
+            }
         }
     }
 
@@ -124,7 +133,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
     const verifySignature = (data, type) => {
 
-        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
 
         axios({
             url: window.API_URL + '/verify/payment/signature',
@@ -135,9 +144,9 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setCheckoutFormLoading(false);
             setPaymentLoader(false);
             if (response.data.success) {
-                localStorage.removeItem('shipping_address');
-                localStorage.removeItem('cart');
-                localStorage.removeItem('shiprocket_charges');
+                sessionStorage.removeItem('shipping_address');
+                sessionStorage.removeItem('cart');
+                sessionStorage.removeItem('shiprocket_charges');
                 sessionStorage.removeItem('cart_coupon')
                 dispatch(setCartCount(0));
                 dispatch(clearCart());
@@ -155,7 +164,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     const applyCoupon = () => {
 
         setIsLoadingCoupon(true);
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
         if (!customer?.id) {
             toast.error('Login to Apply Coupon');
             navigate('/login')
@@ -170,7 +179,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             return false;
         }
 
-        var cartValues = localStorage.getItem('cart') && localStorage.getItem('cart') != 'undefined' ? JSON.parse(localStorage.getItem('cart')) : '';
+        var cartValues = sessionStorage.getItem('cart') && sessionStorage.getItem('cart') != 'undefined' ? JSON.parse(sessionStorage.getItem('cart')) : '';
         var selectCartShipValues = cartValues ? cartValues?.selected_shipping_fees : '';
 
         axios({
@@ -192,16 +201,16 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
             dispatch(setCoupon(res.data));
 
-            localStorage.setItem('cart', JSON.stringify(res.data.cart_info));
+            sessionStorage.setItem('cart', JSON.stringify(res.data.cart_info));
             sessionStorage.setItem('cart_coupon', JSON.stringify(res.data.coupon_info));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
 
         }).catch((err) => {
         })
     }
 
     const cancelCoupon = () => {
-        localStorage.removeItem('cart_coupon');
+        sessionStorage.removeItem('cart_coupon');
         fetchCartProducts();
         dispatch(setCoupon(''));
         let cancelApplyBtn = document.getElementById('coupon');
@@ -212,17 +221,17 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     }
 
     async function fetchCartProducts() {
-        var cartValues = JSON.parse(localStorage.getItem('cart'));
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        var cartValues = JSON.parse(sessionStorage.getItem('cart'));
+        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
 
         await axios({
             url: window.API_URL + '/get/cart',
             method: 'POST',
-            data: { customer_id: customer?.id, selected_shipping: cartValues?.selected_shipping_fees, guest_token: localStorage.getItem('guest_token') || '' },
+            data: { customer_id: customer?.id, selected_shipping: cartValues?.selected_shipping_fees, guest_token: sessionStorage.getItem('guest_token') || '' },
         }).then((res) => {
 
-            localStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            sessionStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
 
         }).catch((err) => {
 
@@ -290,8 +299,17 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                     >
                         Proceed to Checkout
                     </Button>
+
+                    <Button className='btn-success text-white w-100 mt-3' size='lg'
+                        onClick={() => handlePayment('cod')}
+                        loading={codFormloading}
+                    >
+                        Cash On Delivery
+                    </Button>
                 </div>
             </div>
+            <CaptchaForm setShowCaptcha={setShowCaptcha} showCaptcha={showCaptcha} setCodFormloading={setCodFormloading} setPaymentLoader={setPaymentLoader} billingAddress={billingAddress} cart_total={cart_total} cart_items={cart_items} cartInfo={cartInfo} />
+
         </Fragment>
     )
 }

@@ -47,13 +47,13 @@ function ProfileContent({
   };
 
   const logout = () => {
-    localStorage.removeItem('customer');
+    sessionStorage.removeItem('customer');
     dispatch(clearCart());
     dispatch(logoutCustomer());
-    localStorage.removeItem('shipping_address');
-    localStorage.removeItem('cart');
-    localStorage.removeItem('shiprocket_charges');
-    localStorage.removeItem('address');
+    sessionStorage.removeItem('shipping_address');
+    sessionStorage.removeItem('cart');
+    sessionStorage.removeItem('shiprocket_charges');
+    sessionStorage.removeItem('address');
     sessionStorage.removeItem('cart_coupon')
     navigate('/login'); 
 }

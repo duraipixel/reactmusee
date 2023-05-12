@@ -23,8 +23,8 @@ export const AddressListPane = ({ handleEditAddressModalShow, states, setAddress
                 error_message.forEach(x => toast.error(x));
             } else {
                 toast.success(res.data.message)
-                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
-                setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+                sessionStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                setCustomerAddress(JSON.parse(window.sessionStorage.getItem('address')));
                 setOpen(false)
             }
             setLoading(false)

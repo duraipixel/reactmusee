@@ -24,7 +24,7 @@ export const Collection = () => {
 
     const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
-    const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
+    const filterStaticSideMenu = sessionStorage.getItem('filterStaticMenu') ? JSON.parse(sessionStorage.getItem('filterStaticMenu')) : [];
     const dispatch = useDispatch(); 
     async function getFilterStaticMenuData() {
 
@@ -32,7 +32,7 @@ export const Collection = () => {
             .then((response) => response.json())
             .then((data) => {
                 setFilterStaticMenu(data);
-                localStorage.setItem('filterStaticMenu', JSON.stringify(data));
+                sessionStorage.setItem('filterStaticMenu', JSON.stringify(data));
             }
             )
             .catch((err) => {

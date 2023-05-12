@@ -33,12 +33,12 @@ const AddressForm = ({ states, show, setShow, addressType, customer, setCustomer
                 let error_message = res.data.message;
                 error_message.forEach(x => toast.error(x));
             } else {
-                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                sessionStorage.setItem('address', JSON.stringify(res.data.customer_address));
                 toast.success(res.data.message)
                 setTimeout(() => {
                     closeAddForm();
                     reset()
-                    setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
+                    setCustomerAddress(JSON.parse(window.sessionStorage.getItem('address')));
                 }, 1000);
             }
         }).catch((err) => {

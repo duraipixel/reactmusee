@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 
 export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress }) => {
 
-    const shipping_address = window.localStorage.getItem('shipping_address');
-    const billing_address = window.localStorage.getItem('billing_address');
-    const customer = JSON.parse(window.localStorage.getItem('customer'));
+    const shipping_address = window.sessionStorage.getItem('shipping_address');
+    const billing_address = window.sessionStorage.getItem('billing_address');
+    const customer = JSON.parse(window.sessionStorage.getItem('customer'));
 
     const [address, setAddress] = useState(customerAddress)
     const [billAddress, setBillAddress] = useState(customerAddress)

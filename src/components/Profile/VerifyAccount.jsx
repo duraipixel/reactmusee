@@ -32,10 +32,10 @@ export const VerifyAccount = () => {
                 }, 500);
                  if (res.data.customer) {
 
-                    localStorage.setItem('customer', JSON.stringify(res.data.customer))
-                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
+                    sessionStorage.setItem('customer', JSON.stringify(res.data.customer))
+                    dispatch(loginCustomer(JSON.parse(window.sessionStorage.getItem('customer'))));
                     
-                    localStorage.setItem('address', JSON.stringify(res.data.customer.customer_address))
+                    sessionStorage.setItem('address', JSON.stringify(res.data.customer.customer_address))
                     toast.success(res.data.message);
                 }
 

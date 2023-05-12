@@ -14,13 +14,13 @@ import { CancelOrderRequested } from '../components/OrderSummary/CancelOrderRequ
 
 export const Profile = () => {
 
-    const [customer, setCustomer] = useState(JSON.parse(window.localStorage.getItem('customer')));
+    const [customer, setCustomer] = useState(JSON.parse(window.sessionStorage.getItem('customer')));
     const [customerAddress, setCustomerAddress] = useState([]);
-    const [customerOrders, setCustomerOrders] = useState(JSON.parse(window.localStorage.getItem('orders')));
+    const [customerOrders, setCustomerOrders] = useState(JSON.parse(window.sessionStorage.getItem('orders')));
     const navigate = useNavigate();
     const location = useLocation();
     
-    const cAddress = (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined' ) ? JSON.parse(window.localStorage.getItem('address')) : [];
+    const cAddress = (window.sessionStorage.getItem('address') && window.sessionStorage.getItem('address') != 'undefined' ) ? JSON.parse(window.sessionStorage.getItem('address')) : [];
     const [personalShow, setPersonalShow] = useState(false);
     const [passwordShow, setPasswordShow] = useState(false);
 
@@ -100,7 +100,7 @@ export const Profile = () => {
 
     useEffect(() => {
 
-        if (!window.localStorage.getItem('customer')) {
+        if (!window.sessionStorage.getItem('customer')) {
             navigate('/login');
         }
         if (states.length === 0) {

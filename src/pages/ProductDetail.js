@@ -45,7 +45,7 @@ export const ProductDetail = () => {
     const [prefillCalend, setPrefillCalend] = useState(calendlyPrefill);
 
     const setRecentProduct = (product_url) => {
-        const customer = JSON.parse(window.localStorage.getItem('customer'));
+        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
         axios({
             url: window.API_URL + '/set/recent',
             method: 'POST',
@@ -109,12 +109,12 @@ export const ProductDetail = () => {
     }
 
     async function addCartProduct(item) {
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
-        if (!window.localStorage.getItem('guest_token') && !customer?.id) {
-            localStorage.setItem('guest_token', unique_id);
+        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
+        if (!window.sessionStorage.getItem('guest_token') && !customer?.id) {
+            sessionStorage.setItem('guest_token', unique_id);
         }
 
-        const res_data = { ...item, customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
+        const res_data = { ...item, customer_id: customer?.id || '', guest_token: sessionStorage.getItem('guest_token') || '', quantity: productSelectedQuantity };
 
         await axios({
             url: window.API_URL + '/add/cart',
@@ -128,7 +128,7 @@ export const ProductDetail = () => {
             } else {
                 
                 toast.success('Product added successfully ');
-                localStorage.setItem('cart', JSON.stringify(res.data));
+                sessionStorage.setItem('cart', JSON.stringify(res.data));
                 dispatch(setCartCount(res.data.cart_count));
                 setTimeout(() => setloader(false), 500)
                 dispatch(fetchCarts(res.data))
@@ -143,8 +143,7 @@ export const ProductDetail = () => {
     function hideMagnify() {
         document.getElementById('myresult').style.visibility = "hidden";
     }
-
-    console.log(productInfo, 'productInfo');
+    
     return (
         <Fragment>
 

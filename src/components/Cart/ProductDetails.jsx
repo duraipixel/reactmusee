@@ -9,6 +9,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { setCoupon } from '../../app/reducer/couponSlice';
 import { CircularProgress } from '@mui/material';
+import { setCartCount } from '../../app/reducer/cartCountSlice';
 
 export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
 
@@ -44,16 +45,16 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     async function clearCustomerCart() {
-        let customer = JSON.parse(window.localStorage.getItem('customer'));
+        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
         await axios({
             url: window.API_URL + '/clear/cart',
             method: 'POST',
-            data: { customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '' },
+            data: { customer_id: customer?.id || '', guest_token: sessionStorage.getItem('guest_token') || '' },
         }).then((res) => {
-            localStorage.setItem('cart', JSON.stringify(res.data));
+            sessionStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(clearCart());
-            localStorage.removeItem('shipping_address');
-            localStorage.removeItem('shiprocket_charges');
+            sessionStorage.removeItem('shipping_address');
+            sessionStorage.removeItem('shiprocket_charges');
             getShippingRocketCharges('', '');
             dispatch(setCoupon(''));
             let cancelApplyBtn = document.getElementById('coupon');
@@ -74,8 +75,8 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                 toast.error(res.data.message);
                 setTimeout(() => navigate('/login'), 500)
             } else {
-                localStorage.setItem('cart', JSON.stringify(res.data));
-                dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+                sessionStorage.setItem('cart', JSON.stringify(res.data));
+                dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
                 dispatch(setCoupon(''));
                 document.getElementById('coupon').value = '';
                 getShippingRocketCharges('', '');
@@ -90,16 +91,17 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             data: { cart_id: product.cart_id, customer_id: product.customer_id, guest_token: product.guest_token },
         }).then((res) => {
             setDeleteLoader(null);
-            
-            localStorage.setItem('cart', JSON.stringify(res.data));
+
+            sessionStorage.setItem('cart', JSON.stringify(res.data));
             sessionStorage.removeItem('cart_coupon');
-            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
+            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
             getShippingRocketCharges('', '');
             dispatch(setCoupon(''));
             document.getElementById('coupon').value = '';
+            dispatch(setCartCount(res.data.cart_count || 0))
         });
     }
-    console.log(cart);
+    
     return (
         <Fragment>
             <h5 className="text-primary my-3 fw-bold text-uppercase">Cart Items</h5>
