@@ -66,3 +66,9 @@
   height: 500px;
   left: 0px;
 }
+
+.slick-single-track .slick-list .slick-track {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

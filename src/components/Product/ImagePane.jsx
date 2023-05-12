@@ -13,13 +13,17 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
   const sampleImgSrc = ["/assets/images/no_img_category_sm.jpg"];
   const tempImgs = productInfo.gallery || sampleImgSrc;
   var images = []
-  if(tempImgs.length < 4) {
-    for (let index = 0; index < 5; index++) {
-      images.push(tempImgs[0])
-    }
-  } else {
-    images = tempImgs
-  }
+  // console.log(tempImgs, 'tempImgs');
+  // if(tempImgs.length < 4) {
+  //   for (let index = 0; index < 2; index++) {
+  //     images.push(tempImgs[0])
+  //   }
+  // } else {
+  //   images = tempImgs
+  // }
+  images = tempImgs
+  console.log(images);
+
   const [photoIndex, setPhotoIndex] = useState(null);
   document.querySelector("html").style.overflow = photoIndex !== null ? 'hidden' : 'auto'
   return (
@@ -41,11 +45,11 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
           arrows={false}
           focusOnSelect={true}
           infinite
-          centerMode
+          centerMode={true}
           cssEase={'linear'}
           variableWidth={true}
           variableHeight={true}
-          className="thumb-sliders my-2"
+          className={`thumb-sliders my-2 ${images.length < 4 ? 'slick-single-track' : ''}`}
           responsive={[{
             breakpoint: 1400,
             settings: {
@@ -66,7 +70,7 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
             },
           }]}>
           {images.map((image, i) => (
-            <div className="rounded border thumb-image-wrapper" key={i}>
+            <div className="rounded border thumb-image-wrapper text-center" key={i}>
               <LazyLoadImage src={image} alt="call" className="product-thumb-image" />
             </div>
           ))}

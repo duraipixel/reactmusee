@@ -40,7 +40,7 @@ function FeatureTab({ data }) {
                     <tbody>
                         {
                             list.child.map((spec, i) => (
-                                <tr>
+                                <tr key={i}>
                                     <th width='20%' className='bg-light p-md-3 text-dark'>{spec.title}</th>
                                     <td width='30' className='bg-light p-md-3'>:</td>
                                     <td className='p-md-3'>{spec.value}</td>
