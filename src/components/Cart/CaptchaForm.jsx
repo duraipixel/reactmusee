@@ -41,7 +41,7 @@ const CaptchaForm = (props) => {
 
         if (formData.name == captchaText) {
             console.log('matched');
-            const customer = JSON.parse(window.sessionStorage.getItem('customer'));
+            const customer = JSON.parse(window.localStorage.getItem('customer'));
             if (!customer?.id) {
                 toast.error('Please Login to Checkout');
                 setTimeout(() => {
@@ -50,8 +50,8 @@ const CaptchaForm = (props) => {
                 return false;
             }
 
-            const shipping_address = sessionStorage.getItem('shipping_address');
-            const shiprocket_charges = sessionStorage.getItem('shiprocket_charges') ? JSON.parse(sessionStorage.getItem('shiprocket_charges')) : []
+            const shipping_address = localStorage.getItem('shipping_address');
+            const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : []
 
             toast.success('Captcha Verified', 'Success');
             props.setShowCaptcha(false);
@@ -65,10 +65,10 @@ const CaptchaForm = (props) => {
                 props.setCodFormloading(false);
                 props.setPaymentLoader(false);
                 if (response.data.success) {
-                    sessionStorage.removeItem('shipping_address');
-                    sessionStorage.removeItem('cart');
-                    sessionStorage.removeItem('shiprocket_charges');
-                    sessionStorage.removeItem('cart_coupon')
+                    localStorage.removeItem('shipping_address');
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('shiprocket_charges');
+                    localStorage.removeItem('cart_coupon')
                     dispatch(setCartCount(0));
                     dispatch(clearCart());
                     toast.success(response.data.message);

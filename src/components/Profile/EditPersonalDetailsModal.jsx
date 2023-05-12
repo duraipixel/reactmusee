@@ -40,8 +40,8 @@ const EditPersonalDetailsModal = ({ setPersonalShow, setCustomer, handlePersonal
         setSuccessMessage(null)
         setPersonalShow(false)
       }, 1000);
-      sessionStorage.setItem('customer', JSON.stringify(res.data.customer_data));
-      setCustomer(JSON.parse(window.sessionStorage.getItem('customer')));
+      localStorage.setItem('customer', JSON.stringify(res.data.customer_data));
+      setCustomer(JSON.parse(window.localStorage.getItem('customer')));
       handlePersonalClose();
     }).catch((err) => {
     })

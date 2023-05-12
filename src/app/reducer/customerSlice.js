@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const customerSlice = createSlice({
   name: 'customer',
   initialState: {
-    value: window.sessionStorage.getItem('customer') || null,
+    value: window.localStorage.getItem('customer') || null,
   },
   reducers: {
     loginCustomer: (state, action ) => {

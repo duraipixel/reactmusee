@@ -45,10 +45,10 @@ export const Cart = () => {
     const [addressInfo, setAddressInfo] = useState(null);
     const navigate = useNavigate();
 
-    let site_info = JSON.parse(window.sessionStorage.getItem('site_info'));
-    const customer = JSON.parse(window.sessionStorage.getItem('customer'));
-    const shipping_address = window.sessionStorage.getItem('shipping_address');
-    const billing_address = window.sessionStorage.getItem('billing_address');
+    let site_info = JSON.parse(window.localStorage.getItem('site_info'));
+    const customer = JSON.parse(window.localStorage.getItem('customer'));
+    const shipping_address = window.localStorage.getItem('shipping_address');
+    const billing_address = window.localStorage.getItem('billing_address');
     // console.log(cart, 'cart');
     const {
         register,
@@ -121,8 +121,8 @@ export const Cart = () => {
     useEffect(() => {
 
        
-        if (window.sessionStorage.getItem('address') && window.sessionStorage.getItem('address') != 'undefined') {
-            setCustomerAddress(JSON.parse(window.sessionStorage.getItem('address')));
+        if (window.localStorage.getItem('address') && window.localStorage.getItem('address') != 'undefined') {
+            setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
         }
 
         if (site_info) {
@@ -156,13 +156,13 @@ export const Cart = () => {
 
         if (e.target.checked) {
             setBillingAddress(shipping_address);
-            sessionStorage.setItem('billing_address', shipping_address);
+            localStorage.setItem('billing_address', shipping_address);
             toast.success('Billing address has been set successfully')
 
         } else {
 
             setBillingAddress('');
-            sessionStorage.setItem('billing_address', '');
+            localStorage.setItem('billing_address', '');
 
         }
     }
@@ -170,7 +170,7 @@ export const Cart = () => {
     const handleSetShippingAddress = (value) => {
 
         setShippingAddress(value.target.value);
-        sessionStorage.setItem('shipping_address', value.target.value);
+        localStorage.setItem('shipping_address', value.target.value);
         toast.success('Shipping address has been set successfully');
         getShippingRocketCharges(value.target.value, 'shipping');
 
@@ -179,14 +179,14 @@ export const Cart = () => {
     const handleSetBillingAddress = (value) => {
 
         setBillingAddress(value.target.value);
-        sessionStorage.setItem('billing_address', value.target.value);
+        localStorage.setItem('billing_address', value.target.value);
         toast.success('Billing address has been set successfully')
 
     }
 
     const getShippingRocketCharges = (address, from_type) => {
 
-        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
+        const customer = JSON.parse(window.localStorage.getItem('customer'));
         axios({
             url: window.API_URL + '/get/shipping/rocket/charges',
             method: 'POST',
@@ -194,7 +194,7 @@ export const Cart = () => {
         }).then((res) => {
 
             setRocketCharges(res.data.shiprocket_charges);
-            sessionStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
+            localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
 
         }).catch((err) => {
         })
@@ -217,12 +217,12 @@ export const Cart = () => {
             } else {
                 toast.success(res.data.message);
 
-                sessionStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
 
                 let defaultShip = res.data.customer_address.find(item => item.is_default == 1);
                 if (defaultShip) {
                     setShippingAddress(defaultShip.id);
-                    sessionStorage.setItem('shipping_address', defaultShip.id);
+                    localStorage.setItem('shipping_address', defaultShip.id);
                 }
                 reset();
                 handleClose();
@@ -242,9 +242,9 @@ export const Cart = () => {
     }
 
     async function updateCartAmount(shipping_id, type = '') {
-        const customer = JSON.parse(window.sessionStorage.getItem('customer'));
+        const customer = JSON.parse(window.localStorage.getItem('customer'));
 
-        var couponData = (sessionStorage.getItem('cart_coupon') && sessionStorage.getItem('cart_coupon') != 'undefined') ? JSON.parse(sessionStorage.getItem('cart_coupon')) : '';
+        var couponData = (localStorage.getItem('cart_coupon') && localStorage.getItem('cart_coupon') != 'undefined') ? JSON.parse(localStorage.getItem('cart_coupon')) : '';
 
         if (!customer?.id) {
 
@@ -257,8 +257,8 @@ export const Cart = () => {
             data: { shipping_id: shipping_id, customer_id: customer.id, type: type, coupon_data: couponData || '' },
         }).then((res) => {
 
-            sessionStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
         }).catch((err) => {
 

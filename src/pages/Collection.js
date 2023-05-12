@@ -13,7 +13,7 @@ import { BsFilterCircleFill } from "react-icons/bs";
 export const Collection = () => {
 
     const [filterStaticMenu, setFilterStaticMenu] = useState([]);
-    var top_sub_MenuAll = (sessionStorage.getItem('topSubMenu') ? JSON.parse(sessionStorage.getItem('topSubMenu')) : []);
+    var top_sub_MenuAll = (localStorage.getItem('topSubMenu') ? JSON.parse(localStorage.getItem('topSubMenu')) : []);
 
     const otherCategory = useSelector((state) => state.browse);
     const [browseCategory, setBrowseCategory] = useState([]);
@@ -24,7 +24,7 @@ export const Collection = () => {
 
     const cUrl = new URL(window.location.href);
     const categoryUrl = searchParams.get('category');
-    const filterStaticSideMenu = sessionStorage.getItem('filterStaticMenu') ? JSON.parse(sessionStorage.getItem('filterStaticMenu')) : [];
+    const filterStaticSideMenu = localStorage.getItem('filterStaticMenu') ? JSON.parse(localStorage.getItem('filterStaticMenu')) : [];
     const dispatch = useDispatch(); 
     async function getFilterStaticMenuData() {
 
@@ -32,7 +32,7 @@ export const Collection = () => {
             .then((response) => response.json())
             .then((data) => {
                 setFilterStaticMenu(data);
-                sessionStorage.setItem('filterStaticMenu', JSON.stringify(data));
+                localStorage.setItem('filterStaticMenu', JSON.stringify(data));
             }
             )
             .catch((err) => {

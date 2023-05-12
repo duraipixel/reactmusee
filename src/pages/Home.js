@@ -17,10 +17,10 @@ export default function Home() {
     const { data, isSuccess, isFetching } = useHomePageDataQuery()
     const recent = useRecentViewsQuery();
     useEffect(() => {
-        if( localStorage.length > 0 ) {
-            localStorage.clear();
-            console.log( localStorage.length, 'localstorgae length');
-        }
+        // if( localStorage.length > 0 ) {
+        //     localStorage.clear();
+        //     console.log( localStorage.length, 'localstorgae length');
+        // }
     }, [])
     
     return (

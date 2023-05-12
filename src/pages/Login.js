@@ -35,7 +35,7 @@ export const Login = () => {
 
     async function fetchCartProducts() {
 
-        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
 
         await axios({
             url: window.API_URL + '/get/cart',
@@ -43,8 +43,8 @@ export const Login = () => {
             data: { customer_id: customer.id },
         }).then((res) => {
 
-            sessionStorage.setItem('cart', JSON.stringify(res.data));
-            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
 
         }).catch((err) => {
 
@@ -53,7 +53,7 @@ export const Login = () => {
 
     const setCustomerAddress = () => {
 
-        let address = JSON.parse(window.sessionStorage.getItem('addres'));
+        let address = JSON.parse(window.localStorage.getItem('addres'));
         dispatch(fetchAddress(address));
 
     }
@@ -63,13 +63,13 @@ export const Login = () => {
             url: window.API_URL + '/get/site/info',
             method: 'GET',
         }).then((res) => {
-            sessionStorage.setItem('site_info', JSON.stringify(res.data));
+            localStorage.setItem('site_info', JSON.stringify(res.data));
         }).catch((err) => {
         })
     }
 
     async function doLoginCustomer(formData) {
-        const form_data = { ...formData, guest_token: sessionStorage.getItem('guest_token') || '' }
+        const form_data = { ...formData, guest_token: localStorage.getItem('guest_token') || '' }
         setLoginFormLoader(true);
         axios({
             url: window.API_URL + '/login',
@@ -88,10 +88,10 @@ export const Login = () => {
                 console.log( res.data);
                 if (res.data.customer_data) {
 
-                    sessionStorage.removeItem('guest_token');
-                    sessionStorage.setItem('customer', JSON.stringify(res.data.customer_data))
-                    dispatch(loginCustomer(JSON.parse(window.sessionStorage.getItem('customer'))));
-                    sessionStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
+                    localStorage.removeItem('guest_token');
+                    localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
+                    dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
+                    localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))
                     fetchCartProducts();
                     setCustomerAddress() 
                     getSiteInformation();
@@ -103,7 +103,7 @@ export const Login = () => {
         })
     }
     useEffect(() => {
-        if (window.sessionStorage.getItem('customer')) {
+        if (window.localStorage.getItem('customer')) {
             navigate('/');
         }
     }, [])

@@ -7,7 +7,7 @@ import axios from "axios";
 
 const EditAddress = ({ addressType, states, addressInfo, editAddressFormShow, handleEditAddressModalClose, customer, setCustomerAddress }) => {
 
-    let site_info = JSON.parse(window.sessionStorage.getItem('site_info'));
+    let site_info = JSON.parse(window.localStorage.getItem('site_info'));
     const [formLoader, setFormLoader] = useState(false);   
     const defaultValues = {
         name: '',
@@ -75,8 +75,8 @@ const EditAddress = ({ addressType, states, addressInfo, editAddressFormShow, ha
             } else {
                 toast.success(res.data.message);
 
-                sessionStorage.setItem('address', JSON.stringify(res.data.customer_address));
-                setCustomerAddress(JSON.parse(window.sessionStorage.getItem('address')));
+                localStorage.setItem('address', JSON.stringify(res.data.customer_address));
+                setCustomerAddress(JSON.parse(window.localStorage.getItem('address')));
                 setInputValue(defaultValues);
                 makeResetFromClose();
             }

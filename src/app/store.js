@@ -17,15 +17,18 @@ import customerAddressSlice from "./reducer/customerAddressSlice";
 import sideMenuBarSlice from "./reducer/sideMenuBarSlice";
 import { quickLinkApi } from './services/quickLinkApi';
 import cartCountSlice from "./reducer/cartCountSlice";
+import { allMenuApi } from "./services/allMenuApi";
 
 const persistConfig = {
   key: "root",
   version: 1,
-  storage
+  storage: storage,
+  blacklist: ['topMenuApi', 'allMenuApi', 'homePageApi'] 
 }
 
 const reducer = combineReducers({
   [topMenuApi.reducerPath]: topMenuApi.reducer,
+  [allMenuApi.reducerPath]: allMenuApi.reducer,
   [quickLinkApi.reducerPath]:quickLinkApi.reducer,
   [homePageApi.reducerPath]:homePageApi.reducer,
   products: productFilterSlice,
@@ -51,4 +54,5 @@ export const store = configureStore({
   }).concat(topMenuApi.middleware)
   .concat(quickLinkApi.middleware)
   .concat(homePageApi.middleware)
+  .concat(allMenuApi.middleware)
 })

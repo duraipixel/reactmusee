@@ -45,16 +45,16 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
     }
 
     async function clearCustomerCart() {
-        let customer = JSON.parse(window.sessionStorage.getItem('customer'));
+        let customer = JSON.parse(window.localStorage.getItem('customer'));
         await axios({
             url: window.API_URL + '/clear/cart',
             method: 'POST',
-            data: { customer_id: customer?.id || '', guest_token: sessionStorage.getItem('guest_token') || '' },
+            data: { customer_id: customer?.id || '', guest_token: localStorage.getItem('guest_token') || '' },
         }).then((res) => {
-            sessionStorage.setItem('cart', JSON.stringify(res.data));
+            localStorage.setItem('cart', JSON.stringify(res.data));
             dispatch(clearCart());
-            sessionStorage.removeItem('shipping_address');
-            sessionStorage.removeItem('shiprocket_charges');
+            localStorage.removeItem('shipping_address');
+            localStorage.removeItem('shiprocket_charges');
             getShippingRocketCharges('', '');
             dispatch(setCoupon(''));
             let cancelApplyBtn = document.getElementById('coupon');
@@ -75,8 +75,8 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                 toast.error(res.data.message);
                 setTimeout(() => navigate('/login'), 500)
             } else {
-                sessionStorage.setItem('cart', JSON.stringify(res.data));
-                dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
+                localStorage.setItem('cart', JSON.stringify(res.data));
+                dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
                 dispatch(setCoupon(''));
                 document.getElementById('coupon').value = '';
                 getShippingRocketCharges('', '');
@@ -92,9 +92,9 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
         }).then((res) => {
             setDeleteLoader(null);
 
-            sessionStorage.setItem('cart', JSON.stringify(res.data));
-            sessionStorage.removeItem('cart_coupon');
-            dispatch(fetchCarts(JSON.parse(window.sessionStorage.getItem('cart'))))
+            localStorage.setItem('cart', JSON.stringify(res.data));
+            localStorage.removeItem('cart_coupon');
+            dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
             getShippingRocketCharges('', '');
             dispatch(setCoupon(''));
             document.getElementById('coupon').value = '';

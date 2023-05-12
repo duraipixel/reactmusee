@@ -7,8 +7,11 @@ import './sideMenuBar.css';
 import { useState } from 'react';
 import { fetchProducts } from './../app/reducer/productFilterSlice';
 import { fetchMenus } from './../app/reducer/menuSlice';
+import { useAllMenuQuery } from '../app/services/allMenuApi';
 
 export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoaded }) {
+    const { data, isSuccess } = useAllMenuQuery();
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -51,7 +54,7 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">
                         {
-                            menuAll && menuAll.length > 0 && menuAll.map((item, i) => (
+                            isSuccess && data.data.length > 0 && data.data.map((item, i) => (
                                 <Accordion.Item eventKey={i} key={i}>
                                     <Accordion.Header>
                                         {item.name}

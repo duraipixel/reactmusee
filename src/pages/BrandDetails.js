@@ -20,7 +20,7 @@ export const BrandDetails = () => {
     async function getBrandCategory() {
         const response = await fetch(window.API_URL + '/get/brands/all/' + brand_slug)
             .then((response) => {
-                sessionStorage.setItem('brand_slug', brand_slug);
+                localStorage.setItem('brand_slug', brand_slug);
                 return response.json()
             }).then((data) => setBrandData(data))
             .catch((err) => {
@@ -36,7 +36,7 @@ export const BrandDetails = () => {
         }
         searchParams.set("brand", brand_slug);
 
-        const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : [];
+        const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : [];
 
         var subMenus = topMenuAll.filter(
             menu => {
@@ -46,7 +46,7 @@ export const BrandDetails = () => {
             }
         );
 
-        sessionStorage.setItem('topSubMenu', JSON.stringify(subMenus));
+        localStorage.setItem('topSubMenu', JSON.stringify(subMenus));
 
         dispatch(fetchProducts('?' + searchParams.toString()));
         navigate(SUrl + '?' + searchParams.toString());

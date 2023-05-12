@@ -26,6 +26,7 @@ export const Layout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const [checkAllMenu, setCheckAllMenu] = useState();
 
     const searchParams = new URLSearchParams(location.search);
 
@@ -34,7 +35,8 @@ export const Layout = () => {
         const response = await fetch(window.API_URL + '/get/allMenu')
             .then((response) => response.json())
             .then((data) => {
-                sessionStorage.setItem('allMenu', JSON.stringify(data.data));
+                setCheckAllMenu(data.data)
+                localStorage.setItem('allMenu', JSON.stringify(data.data));
             }
             )
             .catch((err) => {
@@ -42,14 +44,14 @@ export const Layout = () => {
             });
     }
 
-    const topMenuAll = sessionStorage.getItem('topMenu') ? JSON.parse(sessionStorage.getItem('topMenu')) : []
-    const menuAll = sessionStorage.getItem('allMenu') ? JSON.parse(sessionStorage.getItem('allMenu')) : []
+    const topMenuAll = localStorage.getItem('topMenu') ? JSON.parse(localStorage.getItem('topMenu')) : []
+    const menuAll = localStorage.getItem('allMenu') ? JSON.parse(localStorage.getItem('allMenu')) : []
 
     useEffect(() => {
         if (menuAll.length == 0) {
             getAllMenu();
         }
-    }, [])
+    }, [checkAllMenu])
     // console.log(menuAll, 'menuAll');
     const stickNavbar = () => {
         if (window !== undefined) {
@@ -68,7 +70,7 @@ export const Layout = () => {
     const getSubMenu = (category) => {
 
         setIsPageLoaded(true);
-        sessionStorage.setItem('isPageLoaded', true);
+        localStorage.setItem('isPageLoaded', true);
 
         const topMenuAll = topMenu.isSuccess && topMenu.data.data.length > 0 ? topMenu.data.data : [];
 
@@ -80,7 +82,7 @@ export const Layout = () => {
             }
         );
 
-        sessionStorage.setItem('topSubMenu', JSON.stringify(subMenus));
+        localStorage.setItem('topSubMenu', JSON.stringify(subMenus));
 
         const SUrl = "/products/pfilter";
         searchParams.set("category", category);

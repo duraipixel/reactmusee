@@ -18,7 +18,7 @@ export const Submenu = ({ topSubmenu }) => {
     const searchParams = new URLSearchParams(location.search);
     const commonUrl = new URL(window.location.href);
 
-    var top_sub_MenuAll = (sessionStorage.getItem('topSubMenu') ? JSON.parse(sessionStorage.getItem('topSubMenu')) : []);
+    var top_sub_MenuAll = (localStorage.getItem('topSubMenu') ? JSON.parse(localStorage.getItem('topSubMenu')) : []);
 
     const setUrlCategory = (slug) => {
         window.scroll(0,0)

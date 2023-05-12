@@ -39,14 +39,14 @@ export const MobileFooter = () => {
 
     const logout = () => {
 
-        sessionStorage.removeItem('customer');
+        localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
         dispatch(clearAttemptItem())
-        sessionStorage.removeItem('shipping_address');
-        sessionStorage.removeItem('cart');
-        sessionStorage.removeItem('shiprocket_charges');
-        sessionStorage.removeItem('billing_address');
+        localStorage.removeItem('shipping_address');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('shiprocket_charges');
+        localStorage.removeItem('billing_address');
 
 
         if (location.pathname == '/cart') {

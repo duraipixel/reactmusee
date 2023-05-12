@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const customer = JSON.parse(window.sessionStorage.getItem('customer'));
+const customer = JSON.parse(window.localStorage.getItem('customer'));
 export const homePageApi = createApi({
     reducerPath: 'homePageApi',
     baseQuery: fetchBaseQuery({ baseUrl: window.API_URL }),

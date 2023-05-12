@@ -47,14 +47,14 @@ function ProfileContent({
   };
 
   const logout = () => {
-    sessionStorage.removeItem('customer');
+    localStorage.removeItem('customer');
     dispatch(clearCart());
     dispatch(logoutCustomer());
-    sessionStorage.removeItem('shipping_address');
-    sessionStorage.removeItem('cart');
-    sessionStorage.removeItem('shiprocket_charges');
-    sessionStorage.removeItem('address');
-    sessionStorage.removeItem('cart_coupon')
+    localStorage.removeItem('shipping_address');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('shiprocket_charges');
+    localStorage.removeItem('address');
+    localStorage.removeItem('cart_coupon')
     navigate('/login'); 
 }
 

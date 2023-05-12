@@ -34,15 +34,15 @@ export default function Topbar({ isTopPage }) {
         getTotalQuantity();
     }, [cart])
     const logout = () => {
-        sessionStorage.removeItem('customer');
+        localStorage.removeItem('customer');
         dispatch(clearCart());
         dispatch(logoutCustomer());
         dispatch(setCartCount(0));
-        sessionStorage.removeItem('shipping_address');
-        sessionStorage.removeItem('cart');
-        sessionStorage.removeItem('shiprocket_charges');
-        sessionStorage.removeItem('address');
-        sessionStorage.removeItem('cart_coupon')
+        localStorage.removeItem('shipping_address');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('shiprocket_charges');
+        localStorage.removeItem('address');
+        localStorage.removeItem('cart_coupon')
         if (location.pathname == '/cart') {
             navigate('/');
         } else {
@@ -82,7 +82,7 @@ export default function Topbar({ isTopPage }) {
     useMemo(() => {
         var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
         if (incUrl.includes(checkUrlChanged)) {
-            sessionStorage.removeItem('topSubMenu');
+            localStorage.removeItem('topSubMenu');
         }
     }, [checkUrlChanged])
 

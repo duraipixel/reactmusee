@@ -11,7 +11,7 @@ const Summary = () => {
   const [orderId, setOrderId] = useState('');
   const { order_no } = useParams();
   const [cancelShow, setCancelShow] = useState(false);
-  const customer = JSON.parse(window.sessionStorage.getItem('customer')) 
+  const customer = JSON.parse(window.localStorage.getItem('customer')) 
 
   const handleCancelRequestShow = (id) => {
     setCancelShow(true)

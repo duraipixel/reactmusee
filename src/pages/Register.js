@@ -66,7 +66,7 @@ export const Register = () => {
     }
 
     useEffect(() => {
-        if (window.sessionStorage.getItem('customer')) {
+        if (window.localStorage.getItem('customer')) {
             navigate('/');
         }
     }, [])

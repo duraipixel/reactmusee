@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 export const cartSlice = createSlice({
   name: 'cart',
   initialState: {
-    cart: window.sessionStorage.getItem('cart') && window.sessionStorage.getItem('cart') != 'undefined'  ? JSON.parse(window.sessionStorage.getItem('cart')) : [],
+    cart: window.localStorage.getItem('cart') && window.localStorage.getItem('cart') != 'undefined'  ? JSON.parse(window.localStorage.getItem('cart')) : [],
   },
   reducers: {
     
