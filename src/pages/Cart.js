@@ -269,6 +269,7 @@ export const Cart = () => {
 
         })
     }
+    console.log(cart, 'cart data');
     return (
         <Fragment>
             <Helmet>

@@ -38,9 +38,9 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
 
     const [deleteLoader, setDeleteLoader] = useState(null)
 
-    const removeCartProduct = (product, key) => { 
+    const removeCartProduct = (product, key) => {
         setDeleteLoader(key[0])
-        deleteProduct(product,key[0])
+        deleteProduct(product, key[0])
     }
 
     async function clearCustomerCart() {
@@ -59,7 +59,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             let cancelApplyBtn = document.getElementById('coupon');
             cancelApplyBtn.value = '';
             toast.success('Cart Cleared Successfully');
-        }) 
+        })
     }
 
     async function updateProduct(product, quantity) {
@@ -89,7 +89,8 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             method: 'POST',
             data: { cart_id: product.cart_id, customer_id: product.customer_id, guest_token: product.guest_token },
         }).then((res) => {
-            setDeleteLoader(null)
+            setDeleteLoader(null);
+            
             localStorage.setItem('cart', JSON.stringify(res.data));
             sessionStorage.removeItem('cart_coupon');
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
@@ -98,6 +99,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             document.getElementById('coupon').value = '';
         });
     }
+    console.log(cart);
     return (
         <Fragment>
             <h5 className="text-primary my-3 fw-bold text-uppercase">Cart Items</h5>
@@ -113,7 +115,12 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
                                         </div>
                                         <div className="p-max-sm-2 col-sm-4 col-md-6 col-lg-5">
                                             <h6 className="mb-0 fs-6">{cart[item].product_name}</h6>
-                                            <span><small className="text-secondary">₹{cart[item].price}</small></span>
+                                            <span>
+                                                <small className="text-secondary">₹{cart[item].sale_prices.price}</small>
+                                                {cart[item]?.sale_prices?.strike_rate &&
+                                                    <small className="text-decoration-line-through text-danger ms-1">₹{cart[item].sale_prices.strike_rate}</small>
+                                                }
+                                            </span>
                                             <div className="mt-2 small lh-1">
                                                 <Button size='sm' className='border-0' color="red" loading={deleteLoader == key[0] ? true : false} appearance="ghost" onClick={(event) => removeCartProduct(cart[item], key)}>
                                                     <i className="fa fa-trash-o me-1" aria-hidden="true"></i> Remove
