@@ -22,7 +22,7 @@ export const ImagePane = ({ productInfo, hideMagnify }) => {
   //   images = tempImgs
   // }
   images = tempImgs
-  console.log(images);
+  
 
   const [photoIndex, setPhotoIndex] = useState(null);
   document.querySelector("html").style.overflow = photoIndex !== null ? 'hidden' : 'auto'

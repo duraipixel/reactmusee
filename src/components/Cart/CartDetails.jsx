@@ -43,14 +43,18 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
 
 
     const handlePayment = async (pay_type = '') => {
-
-
+        
         const customer = JSON.parse(window.localStorage.getItem('customer'));
         if (!customer?.id) {
             toast.error('Please Login to Checkout');
             setTimeout(() => {
                 navigate('/login')
             }, 300);
+            return false;
+        }
+        
+        if( !cartInfo.selected_shipping_fees ) {
+            toast.error('Shipping Speed is required');
             return false;
         }
 

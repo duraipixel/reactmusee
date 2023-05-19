@@ -13,17 +13,28 @@ function ProductFeatures({ data }) {
                 break;
             }
         }
+
     }, [])
+
+    const metdata_data = data.find((ele) => {
+        return ele.name == 'media';
+    })
+
+
     return (
         <div className="product-features">
             <Accordion defaultActiveKey={currentTab} alwaysOpen flush>
                 {data.map((item, i) => (
-                    item.has_data && <Accordion.Item eventKey={i} key={i}>
-                        <Accordion.Header><b className='text-uppercase'>{item.name == 'media' ? 'Audios & Videos' : item.name}</b></Accordion.Header>
-                        <Accordion.Body>
-                            <FeatureTab data={item} />
-                        </Accordion.Body>
-                    </Accordion.Item>
+                    item.has_data && (
+
+                        <Accordion.Item eventKey={i} key={i} style={item.name == 'media' && metdata_data.data.length == 0 ? { display: 'none' } : {}}>
+
+                            <Accordion.Header><b className='text-uppercase'>{item.name == 'media' ? 'Audios & Videos' : item.name}</b></Accordion.Header>
+                            <Accordion.Body>
+                                <FeatureTab data={item} />
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    )
                 ))}
             </Accordion>
         </div>
