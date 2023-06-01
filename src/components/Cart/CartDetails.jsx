@@ -16,7 +16,7 @@ import { setCartCount } from '../../app/reducer/cartCountSlice';
 import CaptchaForm from './CaptchaForm';
 
 
-export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, customerAddress, cartInfo }) => {
+export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart_items, shippingAddress, proceedCheckout, shippCharges, updateCartAmount, customerAddress, cartInfo, flatCharge }) => {
 
     const coupon = useSelector((state) => state.coupon);
     const [showCaptcha, setShowCaptcha] = useState(false);
@@ -152,6 +152,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                 localStorage.removeItem('cart');
                 localStorage.removeItem('shiprocket_charges');
                 localStorage.removeItem('cart_coupon')
+                localStorage.removeItem('flat_charge');
                 dispatch(setCartCount(0));
                 dispatch(clearCart());
                 toast.success(response.data.message);
@@ -265,7 +266,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
                             )
                         }
                     </ul>
-                    <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} />
+                    <ShippingFee shippCharges={shippCharges} updateCartAmount={updateCartAmount} cartInfo={cartInfo} flatCharge={flatCharge} />
                     <ul className="list-group my-3">
                         <li className="list-group-item d-flex justify-content-between align-items-end">
                             <b className='lead'>Grand Total</b>

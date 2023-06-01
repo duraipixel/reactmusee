@@ -27,7 +27,7 @@ export const Cart = () => {
     const [shippingAddress, setShippingAddress] = useState('');
     const [billingAddress, setBillingAddress] = useState('');
     const [customerAddress, setCustomerAddress] = useState([]);
-    const [shippCharges, setShippCharges] = useState([]);
+    const [flatCharge, setFlatCharge] = useState(localStorage.getItem('flat_charge') || '');
     const [show, setShow] = useState(false);
    
     const [showList, setShowList] = useState(false);
@@ -195,6 +195,8 @@ export const Cart = () => {
 
             setRocketCharges(res.data.shiprocket_charges);
             localStorage.setItem('shiprocket_charges', JSON.stringify(res.data.shiprocket_charges));
+            setFlatCharge(res.data.flat_charge || 0);
+            localStorage.setItem('flat_charge', res.data.flat_charge || 0);
 
         }).catch((err) => {
         })
@@ -284,12 +286,12 @@ export const Cart = () => {
                                             <div className="finalcart-list">
                                                 <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} />
                                                 <div className="shipping-addresss">
-                                                    <ShippingAddress handleSetShippingAddress={handleSetShippingAddress} handleSetBillingAddress={handleSetBillingAddress} sameAsBilling={sameAsBilling} handleShow={handleShow} customerAddress={customerAddress} />
+                                                    <ShippingAddress handleSetShippingAddress={handleSetShippingAddress} handleSetBillingAddress={handleSetBillingAddress} sameAsBilling={sameAsBilling} handleShow={handleShow} customerAddress={customerAddress}  />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-lg-4">
-                                            <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} customerAddress={customerAddress} updateCartAmount={updateCartAmount}  />
+                                            <CartDetails billingAddress={billingAddress} setPaymentLoader={setPaymentLoader} cart_total={cart.cart.cart_total} cart_items={cart.cart.carts} shippingAddress={shippingAddress} proceedCheckout={proceedCheckout} shippCharges={cart.cart.shipping_charges} cartInfo={cart.cart} customerAddress={customerAddress} updateCartAmount={updateCartAmount} flatCharge={flatCharge}  />
                                         </div>
                                     </>
                                 </div>

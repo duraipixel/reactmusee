@@ -69,6 +69,7 @@ const CaptchaForm = (props) => {
                     localStorage.removeItem('cart');
                     localStorage.removeItem('shiprocket_charges');
                     localStorage.removeItem('cart_coupon')
+                    localStorage.removeItem('flat_charge')
                     dispatch(setCartCount(0));
                     dispatch(clearCart());
                     toast.success(response.data.message);

@@ -1,13 +1,14 @@
 import { Fragment } from 'react'
 
-export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
+export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo, flatCharge }) => {
 
     const shiprocket_charges = localStorage.getItem('shiprocket_charges') ? JSON.parse(localStorage.getItem('shiprocket_charges')) : [];
-  
+    console.log(flatCharge, 'flat_charge');
+
     return (
         <Fragment>
             {
-                cartInfo.shipping_charges ? (
+                cartInfo.shipping_charges && (
                     <Fragment>
                         <div className='lead fs-6 my-2 text-primary'>Select Shipping Speed</div>
                         <ul className="list-group customRadio">
@@ -40,9 +41,25 @@ export const ShippingFee = ({ shippCharges, updateCartAmount, cartInfo }) => {
                                     </li>
                                 ))
                             }
+                            {
+                                flatCharge != 0 && (
+                                    <li className="list-group-item d-flex justify-content-between align-items-end" key="21">
+                                        <div>
+                                            <input type="radio" checked={`${cartInfo?.selected_shipping_fees?.shipping_type == 'flat' ? 'checked' : ''}`} onClick={() => updateCartAmount(flatCharge, 'flat')} name="shippingChargeId" id="flat_charge" value={flatCharge} />
+                                            <label htmlFor="flat_charge">Flat Charge <br />
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <span className='text-dark fw-bold'>
+                                                ₹{flatCharge}
+                                            </span>
+                                        </div>
+                                    </li>
+                                )
+                            }
                         </ul>
                     </Fragment>
-                ) : null
+                ) 
             }
         </Fragment>
     )
