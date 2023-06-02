@@ -286,7 +286,7 @@ export const Cart = () => {
                                             <div className="finalcart-list">
                                                 <ProductDetails cart={cart.cart.carts} cart_total={cart.cart.cart_total} getShippingRocketCharges={getShippingRocketCharges} setShippingAddress={setShippingAddress} setFlatCharge={setFlatCharge}/>
                                                 <div className="shipping-addresss">
-                                                    <ShippingAddress handleSetShippingAddress={handleSetShippingAddress} handleSetBillingAddress={handleSetBillingAddress} sameAsBilling={sameAsBilling} handleShow={handleShow} customerAddress={customerAddress}  />
+                                                    <ShippingAddress handleSetShippingAddress={handleSetShippingAddress} handleSetBillingAddress={handleSetBillingAddress} sameAsBilling={sameAsBilling} handleShow={handleShow} customerAddress={customerAddress} billingAddress={billingAddress}  />
                                                 </div>
                                             </div>
                                         </div>

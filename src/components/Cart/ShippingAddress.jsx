@@ -5,7 +5,7 @@ import { Panel, PanelGroup } from 'rsuite';
 import './cart.css';
 import { useEffect } from 'react';
 
-export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress }) => {
+export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddress, sameAsBilling, handleShow, customerAddress, billingAddress }) => {
 
     const shipping_address = window.localStorage.getItem('shipping_address');
     const billing_address = window.localStorage.getItem('billing_address');
@@ -27,33 +27,32 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
             setBillToggle(!billToggle)
         }
     }
-
-    function reorder(data, index) {
-        return data.slice(index).concat(data.slice(0, index))
-      };
-
+   
     useEffect(() => {
-        if( shipping_address ) {
+        if( shipping_address  && customerAddress.length > 2 ) {
 
             let shipIndex = customerAddress.findIndex(o => o.id == shipping_address);
             let old_data = customerAddress[0];
             
             customerAddress[0] = customerAddress[shipIndex];
             customerAddress[shipIndex] = old_data;
+            console.log(customerAddress, 'shipping');
 
         } 
         setAddress(customerAddress.slice(0, 2))
 
-        if( billing_address ) {
+        if( billing_address && customerAddress.length > 2 ) {
 
             let billIndex = customerAddress.findIndex(o => o.id == billing_address);
             let old_data = customerAddress[0];
             
             customerAddress[0] = customerAddress[billIndex];
             customerAddress[billIndex] = old_data;
+            console.log(customerAddress, 'billing');
+
         }
         setBillAddress(customerAddress.slice(0, 2))
-    }, [customerAddress])
+    }, [customerAddress, billingAddress])
 
     
 
