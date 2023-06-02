@@ -11,7 +11,7 @@ import { setCoupon } from '../../app/reducer/couponSlice';
 import { CircularProgress } from '@mui/material';
 import { setCartCount } from '../../app/reducer/cartCountSlice';
 
-export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) => {
+export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges, setShippingAddress, setFlatCharge }) => {
 
     const coupon = useSelector((state) => state.coupon);
     const dispatch = useDispatch();
@@ -91,7 +91,7 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             data: { cart_id: product.cart_id, customer_id: product.customer_id, guest_token: product.guest_token },
         }).then((res) => {
             setDeleteLoader(null);
-
+            console.log( res.data)
             localStorage.setItem('cart', JSON.stringify(res.data));
             localStorage.removeItem('cart_coupon');
             dispatch(fetchCarts(JSON.parse(window.localStorage.getItem('cart'))))
@@ -99,10 +99,16 @@ export const ProductDetails = ({ cart, cart_total, getShippingRocketCharges }) =
             dispatch(setCoupon(''));
             document.getElementById('coupon').value = '';
             dispatch(setCartCount(res.data.cart_count || 0))
+            if( res.data.cart_count == 0 ) {
+
+                setShippingAddress('');
+                localStorage.removeItem('shipping_address');
+                localStorage.removeItem('billing_address');
+                localStorage.removeItem('flat_charge');
+                setFlatCharge('');
+            }
         });
     }
-    
-    console.log(cart,'cart');
 
     return (
         <Fragment>

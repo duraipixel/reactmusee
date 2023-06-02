@@ -43,7 +43,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                     CREATE
                 </Button>
             </h5>
-            {
+            { 
                 customer?.id && (
                     <> 
                         <div className="row">
