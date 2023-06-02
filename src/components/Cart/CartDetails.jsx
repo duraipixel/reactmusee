@@ -243,6 +243,17 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
         })
     }
 
+    useEffect(() => {
+        if(Object.keys(coupon.value).length == 0) {
+            // console.log('this is running');
+            document.getElementById('coupon_cancel_btn').style.display = 'none';
+            document.getElementById('coupon_apply_btn').style.display = 'block';
+        }
+    }, [coupon.value])
+    
+    // console.log('configint', Object.keys(coupon.value).length);
+    // console.log( coupon.value, 'coupon');
+
     return (
         <Fragment >
             <h5 className='text-primary my-3 fw-bold text-uppercase'>Cart Details</h5>

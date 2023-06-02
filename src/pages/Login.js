@@ -89,6 +89,9 @@ export const Login = () => {
                 if (res.data.customer_data) {
 
                     localStorage.removeItem('guest_token');
+                    localStorage.removeItem('shipping_address');
+                    localStorage.removeItem('billing_address');
+                    localStorage.removeItem('flat_charge');
                     localStorage.setItem('customer', JSON.stringify(res.data.customer_data))
                     dispatch(loginCustomer(JSON.parse(window.localStorage.getItem('customer'))));
                     localStorage.setItem('address', JSON.stringify(res.data.customer_data.customer_address))

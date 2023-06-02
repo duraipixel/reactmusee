@@ -28,11 +28,34 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
         }
     }
 
+    function reorder(data, index) {
+        return data.slice(index).concat(data.slice(0, index))
+      };
+
     useEffect(() => {
+        if( shipping_address ) {
+
+            let shipIndex = customerAddress.findIndex(o => o.id == shipping_address);
+            let old_data = customerAddress[0];
+            
+            customerAddress[0] = customerAddress[shipIndex];
+            customerAddress[shipIndex] = old_data;
+
+        } 
         setAddress(customerAddress.slice(0, 2))
+
+        if( billing_address ) {
+
+            let billIndex = customerAddress.findIndex(o => o.id == billing_address);
+            let old_data = customerAddress[0];
+            
+            customerAddress[0] = customerAddress[billIndex];
+            customerAddress[billIndex] = old_data;
+        }
         setBillAddress(customerAddress.slice(0, 2))
     }, [customerAddress])
 
+    
 
     return (
         <Fragment>
@@ -56,7 +79,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                             <div className='ps-3'>
                                                 <b className="text-capitalize text-primary"> {item.name} </b>
                                                 <div>
-                                                    <span>{item.address_line1}, {item.state}, <b>{item.post_code}</b></span>
+                                                    <span>{item.address_line1}, {item.city}, {item.state}, <b>{item.post_code}</b>, {item.country}</span>
                                                 </div>
                                             </div>
                                         </label>
@@ -77,7 +100,7 @@ export const ShippingAddress = ({ handleSetShippingAddress, handleSetBillingAddr
                                                 <div className='ps-3'>
                                                     <b className="text-capitalize text-primary"> {item.name} </b>
                                                     <div>
-                                                        <span>{item.address_line1}, {item.state}, <b>{item.post_code}</b></span>
+                                                        <span>{item.address_line1}, {item.city}, {item.state}, <b>{item.post_code}</b>, {item.country}</span>
                                                     </div>
                                                 </div>
                                             </label>

@@ -18,6 +18,7 @@ import { v4 as uuid } from 'uuid';
 import { PopupWidget } from 'react-calendly';
 import { Helmet } from 'react-helmet';
 import { setCartCount } from '../app/reducer/cartCountSlice';
+import { setCoupon } from '../app/reducer/couponSlice';
 
 
 export const ProductDetail = () => {
@@ -132,6 +133,8 @@ export const ProductDetail = () => {
                 dispatch(setCartCount(res.data.cart_count));
                 setTimeout(() => setloader(false), 500)
                 dispatch(fetchCarts(res.data))
+                dispatch(setCoupon(''));
+
             }
 
         });
