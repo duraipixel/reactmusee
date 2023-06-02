@@ -246,6 +246,9 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
     useEffect(() => {
         if(Object.keys(coupon.value).length == 0) {
             // console.log('this is running');
+            let cancelApplyBtn = document.getElementById('coupon');
+            cancelApplyBtn.readOnly = false;
+            cancelApplyBtn.value = '';
             document.getElementById('coupon_cancel_btn').style.display = 'none';
             document.getElementById('coupon_apply_btn').style.display = 'block';
         }
