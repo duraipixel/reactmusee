@@ -60,25 +60,25 @@ export const MobileFooter = () => {
         <Fragment >
             <div className="mobile-footer">
                 <a className="toggle-button" data-toggle="tooltip" title="All Products" onClick={openSideBar}>
-                    <img src="assets/images/mob-ic-1.png" alt="" className="img-fluid" /> Products
+                    <img src="assets/images/mob-ic-1.png" alt="All Products" className="img-fluid" /> Products
                 </a>
                 {
                     customer.value ? 
                         <Link to="/profile" data-toggle="tooltip" title="profile">
-                            <img src="assets/images/mob-ic-2.png" alt="" className="img-fluid" /> My Profile
+                            <img src="assets/images/mob-ic-2.png" alt="profile" className="img-fluid" /> My Profile
                         </Link>
                         :
                         <Link to="/login" data-toggle="tooltip" title="Login">
-                            <img src="assets/images/mob-ic-2.png" alt="" className="img-fluid" /> Login
+                            <img src="assets/images/mob-ic-2.png" alt="Login" className="img-fluid" /> Login
                         </Link>
 
                 }
                 <Link to="/cart" data-toggle="tooltip" title="Cart Details" className='position-relative'>
-                    <img src="assets/images/mob-ic-3.png" alt="" className="img-fluid" /> Cart
+                    <img src="assets/images/mob-ic-3.png" alt="Cart Details" className="img-fluid" /> Cart
                     <span style={{  right: '22px',top: '7px' }} className={`cart-tpimg ${cartCount > 0 ? '' : 'hide'}`}>{cartCount}</span>
                 </Link>
                 <a href="tel:+914428522780" target="_blank" data-toggle="tooltip" title="Call Us">
-                    <img src="assets/images/mob-ic-5.png" alt="" className="img-fluid" /> Call Us
+                    <img src="assets/images/mob-ic-5.png" alt="tooltip" className="img-fluid" /> Call Us
                 </a>
             </div>
         </Fragment>

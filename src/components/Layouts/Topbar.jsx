@@ -95,7 +95,7 @@ export default function Topbar({ isTopPage }) {
                             <div className="d-flex align-items-center justify-content-between">
                                 <div className="top-logo">
                                     <Link to="/">
-                                        <img src="/assets/images/logo.svg" alt="" />
+                                        <img src="/assets/images/logo.svg" alt="logo" />
                                     </Link>
                                 </div>
                                 <div className="top-search">
@@ -174,13 +174,13 @@ export default function Topbar({ isTopPage }) {
                                     <ul>
                                         <li>
                                             <Link to="cart">
-                                                <img src="/assets/images/cart.png" alt="" />
+                                                <img src="/assets/images/cart.png" alt="cart" />
                                                 <span className={`cart-tpimg ${cart_count.value > 0 ? '' : 'hide'}`}>{cart_count.value}</span>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link to={`${customer.value ? '/profile' : '/login'}`}>
-                                                <img src="/assets/images/user.png" alt="" />
+                                                <img src="/assets/images/user.png" alt="user" />
                                             </Link>
                                         </li>
                                         {
@@ -188,7 +188,7 @@ export default function Topbar({ isTopPage }) {
 
                                                 <li>
                                                     <span onClick={() => logout()}>
-                                                        <img src="/assets/images/logout.png" alt="" />
+                                                        <img src="/assets/images/logout.png" alt="logout" />
                                                     </span>
                                                 </li>
                                                 : null}

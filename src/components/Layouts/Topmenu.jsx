@@ -45,7 +45,7 @@ export default function Topmenu({ isTopPage, topmenu, getSubMenu }) {
                                 <ul className={`${menu ? "menu-open" : ''}`}>
                                     <li className="having-hamber">
                                         <a className="toggle-button" onClick={openSideBar}>
-                                            <img src="/assets/images/hamber.png" alt="" />All
+                                            <img src="/assets/images/hamber.png" alt="hamber" />All
                                         </a>
                                     </li>
                                     {
