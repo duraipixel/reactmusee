@@ -118,7 +118,7 @@ export const Collection = () => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="common-heads light">
-                                    <h2>Browse our other categories</h2>
+                                    <h1>Browse our other categories</h1>
                                 </div>
                             </div>
                             <OtherCategory otherCategory={otherCategory.browse} categoryUrl={categoryUrl} />

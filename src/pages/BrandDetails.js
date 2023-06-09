@@ -100,7 +100,7 @@ export const BrandDetails = () => {
                         <div className="text-center">
                             <div className="container">
                                 <div className="common-heads py-4 text-center">
-                                    <h2 className='m-0'> Enjoy the exceptional musical instruments</h2>
+                                    <h1 className='m-0'> Enjoy the exceptional musical instruments</h1>
                                 </div>
                                 <div className="row g-3">
                                     {

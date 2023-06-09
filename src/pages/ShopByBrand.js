@@ -58,7 +58,7 @@ export const ShopByBrand = () => {
             <div className="py-lg-4 py-3 shop-brands-top text-center">
                 <div className="container">
                     <div className="common-heads text-center">
-                        <h2>Shop from the top brands</h2>
+                        <h1>Shop from the top brands</h1>
                     </div>
                     <BrandList brands={brands} />
                     <AllBrands brands={brands} brandsalphs={brandsalphs} isOpenBrand={isOpenBrand} />
