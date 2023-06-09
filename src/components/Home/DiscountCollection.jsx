@@ -10,7 +10,7 @@ export default function DiscountCollection({ className }) {
             <div className="container pb-md-5 pb-3">
                 <div>
                     <div className="common-heads py-4 text-center">
-                        <h2 className='m-0'> Exclusive Deals, Cool Prices!</h2>
+                        <h1 className='m-0 h2'> Exclusive Deals, Cool Prices!</h1>
                     </div>
                     <div className="row g-3 p-2 rounded justify-content-center">
                         {isSuccess && <DiscountSkeletonItem discountCollectionData={data} />}

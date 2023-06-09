@@ -31,11 +31,12 @@ export default function Home() {
                 <link rel="canonical" href={window.location.href} />
                 <meta name='title' content="Shop Music Instruments, Accessories and Music Books - Musée Musical"></meta>
                 <meta name='description' content='Musée Musical was established in 1842. Explore our wide range of guitars, drums, Pianos, Music books, and Music instrument accessories online at the best price.' />
+                <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
             </Helmet>
             {
                 isFetching &&
                 <section style={{ minHeight: '100vh' }} className='d-flex align-items-center justify-content-center fixed-top bg-white'>
-                    <img src={require('../assets/gif/loader.gif')} width={100} />
+                    <img src={require('../assets/gif/loader.gif')} width={100} alt="loader"/>
                 </section>
             }
             {

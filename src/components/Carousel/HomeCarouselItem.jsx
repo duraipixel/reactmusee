@@ -13,7 +13,6 @@ export const HomeCarouselItem = ({ banners }) => {
               className={`carousel-item ${item.id == 2 ? "active" : ""}`}
               key={item.id}
             >
-              {console.log(item)}
               <Link to={item.links} target="_blank">
                 <LazyLoadImage
                   effect="blur"

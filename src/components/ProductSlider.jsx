@@ -11,7 +11,7 @@ function ProductSlider({ data }) {
                             <div className="trending-lsts">
                                 <div className="shopping-video">
                                     <div className="common-heads light">
-                                        <h2> {item.collection_name} </h2>
+                                        <h3> {item.collection_name} </h3>
                                     </div>
                                     <div className="primary-para">
                                         {item.tag_line}

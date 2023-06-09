@@ -435,8 +435,8 @@ body {
         text-align: center;
     }
 
-    .common-heads h2,
-    .common-heads.light h2 {
+    .common-heads h1,
+    .common-heads.light h1 {
         font-size: 18px;
         line-height: 25px;
         text-align: center;

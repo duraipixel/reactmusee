@@ -399,16 +399,24 @@ section {
   display: none;
 }
 
-.common-heads h2 {
+.common-heads h1 {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 38px;
   line-height: 48px;
   color: #313190;
+  letter-spacing: 0px !important;
+  text-transform: none !important;
 }
 
-.common-heads.light h2 {
+.common-heads.light h2, .common-heads.light h3,.common-heads.light h4 {
   color: #fff;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 48px;
+  letter-spacing: 0px !important;
+  text-transform: none !important;
 }
 
 .primary-heads h3 {
@@ -1671,7 +1679,7 @@ section {
   display: none;
 }
 
-.common-heads h2 {
+.common-heads h1 {
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: 38px;
@@ -4604,7 +4612,7 @@ ul.lst-edit li button {
   color: #000;
 }
 
-.ordes-lsts .common-heads h2 {
+.ordes-lsts .common-heads h1 {
   font-size: 36px;
 }
 
@@ -6669,7 +6677,7 @@ ul.lst-edit li button {
   color: #000;
 }
 
-.ordes-lsts .common-heads h2 {
+.ordes-lsts .common-heads h1 {
   font-size: 36px;
 }
 
@@ -7462,7 +7470,7 @@ tbody>tr.active>th.active {
     display: block;
   }
 
-  .common-heads h2 {
+  .common-heads h1 {
     font-size: 25px;
   }
 
@@ -7476,7 +7484,7 @@ tbody>tr.active>th.active {
     margin-bottom: 15px;
   }
 
-  .common-heads h2 {
+  .common-heads h1 {
     margin-bottom: 10px;
   }
 
@@ -8325,7 +8333,7 @@ tbody>tr.active>th.active {
     height: 300px;
   }
 
-  .common-heads h2 {
+  .common-heads h1 {
     font-size: 26px;
   }
 
@@ -8368,7 +8376,7 @@ tbody>tr.active>th.active {
     width: 10%;
   }
 
-  .common-heads h2 {
+  .common-heads h1 {
     font-size: 20px;
   }
 
