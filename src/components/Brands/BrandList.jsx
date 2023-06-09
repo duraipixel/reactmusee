@@ -14,7 +14,7 @@ export const BrandList = ({brands}) => {
                                 
                                 {/* <Link to={`/products/pfilter?brand=${item.slug}`}> */}
                                 <Link to={`/brands/${item.slug}`}>
-                                    <img src={item.image} />
+                                    <img src={item.image} alt={item.title} />
                                     <span>{item.title}</span>
                                 </Link>
                             </li>

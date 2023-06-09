@@ -94,7 +94,7 @@ export const BrandDetails = () => {
         (Object.keys(brandData).length > 0) &&
         (
             <Fragment>
-                <img src={`${brandData.banner ?? '/assets/images/banners/inner-banner-2.jpg'}`} width={'100%'} />
+                <img src={`${brandData.banner ?? '/assets/images/banners/inner-banner-2.jpg'}`} alt="brand banner" width={'100%'} />
                 {
                     brandData?.category && brandData?.category.length > 0 && brandData?.category != undefined && (
                         <div className="text-center">
@@ -107,7 +107,7 @@ export const BrandDetails = () => {
                                         brandData.category.slice(0, 6).map((item, i) => (
                                             <div className={`col-lg-${[0, 1].includes(i) ? '6' : '3'} col-md-${[0, 1].includes(i) ? '6' : '3'} col-sm-${[0, 1].includes(i) ? '6' : '3'} col-xs-12`} key={i}>
                                                 <div className="border rounded shadow-sm brand-box carousel-item active carousel-box-overlay">
-                                                    <img src={[0, 1].includes(i) ? item.image_md : item.image_sm} className="d-block w-100" alt="..." />
+                                                    <img src={[0, 1].includes(i) ? item.image_md : item.image_sm} className="d-block w-100" alt={item.name} />
                                                     <div className="carousel-caption p-0 ">
                                                         <h5 className='mb-2'>{item.name}</h5>
                                                         <Button variant='outlined' color='light' onClick={() => getBrandProducts(item.slug)} >

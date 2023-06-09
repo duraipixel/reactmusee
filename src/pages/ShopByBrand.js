@@ -55,11 +55,11 @@ export const ShopByBrand = () => {
                 <meta name='description' content='Searching for shop-branded musical instruments? Look no further than Musée Musical. Browse our selection online and find your perfect instrument today. Shop now!'></meta>
                 <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
             </Helmet>
-            <img src={require('../assets/images/inner-banner-1.jpg')} className='w-100' />
+            <img src={require('../assets/images/inner-banner-1.jpg')} className='w-100' alt="banner"/>
             <div className="py-lg-4 py-3 shop-brands-top text-center">
                 <div className="container">
                     <div className="common-heads text-center">
-                        <h1>Shop from the top brands</h1>
+                        <h2>Shop from the top brands</h2>
                     </div>
                     <BrandList brands={brands} />
                     <AllBrands brands={brands} brandsalphs={brandsalphs} isOpenBrand={isOpenBrand} />
@@ -74,8 +74,8 @@ export const ShopByBrand = () => {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="common-heads light">
-                                <h2>Can’t decide a brand?<br /> Shop by
-                                    category instead</h2>
+                                <h3>Can’t decide a brand?<br /> Shop by
+                                    category instead</h3>
                             </div>
                         </div>
                         <OtherCategory />

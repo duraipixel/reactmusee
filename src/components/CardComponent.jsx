@@ -21,7 +21,7 @@ function CardComponent({ settings }) {
                 <div className="prdt-img">
                     <div className="text-center">
                         <LazyLoadComponent>
-                            <LazyLoadImage effect="blur" src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
+                            <LazyLoadImage effect="blur" alt={data.category_name} src={data.image} style={{ opacity: data.stock_status == "out_of_stock" ? .7 : 1 }} className="product-card-image" />
                         </LazyLoadComponent>
                     </div>
                     {

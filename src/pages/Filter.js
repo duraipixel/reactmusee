@@ -129,7 +129,7 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
                         <i className='fa fa-chevron-left me-1'></i> CLOSE
                     </button>
                     <div className="d-flex justify-content-between align-items-center mb-3">
-                        <h5 className='text-primary'>Filters </h5>
+                        <h3 className='text-primary h5'>Filters </h3>
                         <div className={`text-danger small ${Array.from(searchParams).length > 0 ? '' : 'hide'}`} onClick={() => clearFilter()}>
                             <i className="fa fa-times me-2" aria-hidden="true"></i>
                             Clear Filter
