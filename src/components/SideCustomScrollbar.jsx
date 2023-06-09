@@ -48,8 +48,8 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
         <Fragment>
             <div className={`togle-menu  ${isSideBarOpen ? 'show' : ''}`} >
                 <div className="togmenu-header">
-                    <a className="clse-menu" onClick={openSideBar}><img src="/assets/images/close.png" /></a>
-                    <h4>What are you looking<br /> for today?</h4>
+                    <a className="clse-menu" onClick={openSideBar}><img src="/assets/images/close.png" alt="close"/></a>
+                    <h1>What are you looking<br /> for today?</h1>
                 </div>
                 <div className="togmenu-lists">
                     <Accordion defaultActiveKey="0">

@@ -68,7 +68,7 @@ export const Testimonials = ({ homeData }) => {
                                             </div>
                                             <div className="d-flex justify-content-start align-items-center">
                                                 <div className='me-3'>
-                                                    <img src={item.image} className='rounded-circle' width="50px" />   
+                                                    <img src={item.image} className='rounded-circle' width="50px" alt={item.title}/>   
                                                 </div>
                                                 <div className='text-white fs-5'>
                                                     {item.title || <Skeleton />}

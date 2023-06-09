@@ -116,7 +116,7 @@ export default function Topbar({ isTopPage }) {
                                                                 <Link to={`/product/${item.product_url}`} className="w-100" >
                                                                     <div className='w-100 m-flex'>
                                                                         <div className='w-20 bg-white text-center '>
-                                                                            <img src={item.image} />
+                                                                            <img src={item.image} alt={item.product_name}/>
                                                                         </div>
                                                                         <div className='w-80 ps-3'>
                                                                             <label>
@@ -131,7 +131,7 @@ export default function Topbar({ isTopPage }) {
                                                                 </Link>
                                                                 :
                                                                 <Link to='/'>
-                                                                    <img src={item.image} width="100" /> {item.product_name}
+                                                                    <img src={item.image} width="100" alt={item.product_name}/> {item.product_name}
                                                                     <span>
                                                                         Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
                                                                     </span>

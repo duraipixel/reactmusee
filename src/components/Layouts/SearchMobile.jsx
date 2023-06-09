@@ -63,7 +63,7 @@ export const SearchMobile = ({ searchShow, handleSearchModalClose }) => {
                 <AppBar sx={{ position: 'relative' }}>
                     <Toolbar>
                         <Typography sx={{ flex: 1 }} variant="h6" component="div">
-                            <img src="/assets/images/logo.svg" width={80} />
+                            <img src="/assets/images/logo.svg" width={80} alt="logo"/>
                         </Typography>
                         <IconButton
                             edge="start"
