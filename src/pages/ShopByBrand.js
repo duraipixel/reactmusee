@@ -53,6 +53,7 @@ export const ShopByBrand = () => {
                 <link rel="canonical" href={window.location.href} />
                 <meta name='title' content="Shop Branded Musical Instruments Online - Musée Musical"></meta>
                 <meta name='description' content='Searching for shop-branded musical instruments? Look no further than Musée Musical. Browse our selection online and find your perfect instrument today. Shop now!'></meta>
+                <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
             </Helmet>
             <img src={require('../assets/images/inner-banner-1.jpg')} className='w-100' />
             <div className="py-lg-4 py-3 shop-brands-top text-center">

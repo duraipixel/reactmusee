@@ -90,6 +90,7 @@ export const Register = () => {
                 <meta charSet="utf-8" />
                 <title>Register | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
+                <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
             </Helmet>
             <section className='d-flex align-items-center justify-content-center p-2' style={{
                 background: `linear-gradient(rgb(0 0 0 / 46%), rgb(0 0 0 / 67%)), url(${window.AUTH_BG})`,

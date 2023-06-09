@@ -75,6 +75,7 @@ export const Collection = () => {
             <Helmet>
                 <title> Product Filters | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
+                <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
                 {/* <meta name="keyword" content="" /> */}
                 {/* <meta name="description" content={productInfo.meta.meta_description} /> */}
             </Helmet>
