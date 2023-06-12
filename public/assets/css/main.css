@@ -5211,7 +5211,7 @@ span.fil-optn {
   background-position: center center;
 }
 
-.inner-liners h1 {
+.inner-liners h3 {
   font-weight: 700;
   font-size: 38px;
   line-height: 48px;
@@ -8182,7 +8182,7 @@ tbody>tr.active>th.active {
     display: none;
   }
 
-  .inner-liners h1 {
+  .inner-liners h3 {
     font-size: 24px;
     line-height: 38px;
   }

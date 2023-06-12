@@ -9,9 +9,9 @@ export const ShippingPolicy = () => {
                 <div className="container">
                     <div className="row">
                         <div className="inner-liners">
-                            <h1>
+                            <h3>
                                 Shipping Policy
-                            </h1>
+                            </h3>
                         </div>
                     </div>
                 </div>

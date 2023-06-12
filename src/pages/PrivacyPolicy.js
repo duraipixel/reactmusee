@@ -9,9 +9,9 @@ export const PrivacyPolicy = () => {
                 <div className="container">
                     <div className="row">
                         <div className="inner-liners">
-                            <h1>
+                            <h3>
                                 Privacy Policy
-                            </h1>
+                            </h3>
                         </div>
                     </div>
                 </div>

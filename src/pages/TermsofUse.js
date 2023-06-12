@@ -8,7 +8,7 @@ export const TermsofUse = () => {
         <div className="container">
           <div className="row">
             <div className="inner-liners">
-              <h1>Terms of Use</h1>
+              <h3>Terms of Use</h3>
             </div>
           </div>
         </div>

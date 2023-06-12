@@ -135,7 +135,7 @@ export const Login = () => {
                 <div className='card shadow-lg border col-lg-4 col-md-6 col-sm-8 rounded-4'>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <CardContent className='p-4'>
-                            <Typography gutterBottom variant="h5" component="div" className='mb-4 text-uppercase text-primary fw-bold text-center'>
+                            <Typography gutterBottom variant="h5" component="h3" className='mb-4 text-uppercase text-primary fw-bold text-center'>
                                 Login Here!
                             </Typography>
                             <FormControl fullWidth variant="outlined" className='mb-4'>

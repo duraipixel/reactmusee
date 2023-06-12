@@ -8,7 +8,7 @@ export const ReturnPolicy = () => {
         <div className="container">
           <div className="row">
             <div className="inner-liners">
-              <h1>Return Policy</h1>
+              <h3>Return Policy</h3>
             </div>
           </div>
         </div>

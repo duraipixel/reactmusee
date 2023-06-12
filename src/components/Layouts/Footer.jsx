@@ -62,7 +62,7 @@ export default function Footer({ getSubMenu }) {
               </div>
 
               <div className="quick-links">
-                <h4>Information</h4>
+                <h5>Information</h5>
                 <ul>
                   <li>
                     <Link to="/privacypolicy">Privacy Policy</Link>
@@ -80,7 +80,7 @@ export default function Footer({ getSubMenu }) {
               </div>
 
               <div className="contact-links">
-                <h4>Contact Us</h4>
+                <h6>Contact Us</h6>
                 <ul>
                   <li>
                     <a
