@@ -291,7 +291,15 @@ const ProductDetail = () => {
       <RelatedProduct related_products={productInfo?.related_products} />
       {productInfo === null && (
         <div id="cart-loader">
-          <div className="loader-wrapper">
+          <div
+            className="loader-wrapper"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height:"50vh"
+            }}
+          >
             <WaveSpinner
               size={100}
               color="#0a1d4a"
