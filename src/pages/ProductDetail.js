@@ -149,7 +149,7 @@ export const ProductDetail = () => {
               {productInfo.meta && productInfo.meta !== null
                 ? productInfo.meta.meta_title
                 : ""}{" "}
-              | Musee Musical
+              - Musee Musical
             </title>
             <link rel="canonical" href={window.location.href} />
             {productInfo.meta && productInfo.meta.meta_keyword && (

@@ -88,7 +88,7 @@ export const Register = () => {
         <Fragment>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Register | Musee Musical</title>
+                <title>Register - Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />
             </Helmet>

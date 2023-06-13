@@ -92,7 +92,7 @@ export const ResetPassword = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Reset Password | Musee Musical</title>
+                <title>Reset Password - Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 <meta name='description' content='reset password page' />
                 <meta name="google-site-verification" content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk" />

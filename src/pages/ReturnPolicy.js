@@ -1,9 +1,22 @@
 import React from "react";
 import { PackageSupport } from "../components/Home/PackageSupport";
+import { Helmet } from "react-helmet";
 
 export const ReturnPolicy = () => {
   return (
     <div>
+      <Helmet>
+        <title>Shipping Policy - Musee Musical</title>
+        <link rel="canonical" href={window.location.href} />
+        <meta
+          name="description"
+          content="Our return and refund policy prioritizes your satisfaction. Discover how we make the return and refund process seamless and convenient."
+        />
+        <meta
+          name="google-site-verification"
+          content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk"
+        />
+      </Helmet>
       <section className="inner-banner privacypolicy">
         <div className="container">
           <div className="row">

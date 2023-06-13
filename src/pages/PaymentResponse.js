@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./common.css";
 import { BsMusicPlayerFill } from "react-icons/bs";
+import { Helmet } from "react-helmet";
 
 export const PaymentResponse = () => {
   const params = useParams();
@@ -22,6 +23,18 @@ export const PaymentResponse = () => {
           overflow: "hidden",
         }}
       >
+        <Helmet>
+          <title>Payment Response - Secure and Convenient</title>
+          <link rel="canonical" href={window.location.href} />
+          <meta
+            name="description"
+            content="Enjoy a seamless transaction with our easy payment response. Discover how we make the payment process simple and hassle-free."
+          />
+          <meta
+            name="google-site-verification"
+            content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk"
+          />
+        </Helmet>
         <img
           style={{ position: "absolute", top: 0, left: 0 }}
           src={require("../assets/gif/animate.gif")}
@@ -65,6 +78,18 @@ export const PaymentResponse = () => {
         overflow: "hidden",
       }}
     >
+      <Helmet>
+        <title>Payment Response - Secure and Convenient</title>
+        <link rel="canonical" href={window.location.href} />
+        <meta
+          name="description"
+          content="Enjoy a seamless transaction with our easy payment response. Discover how we make the payment process simple and hassle-free."
+        />
+        <meta
+          name="google-site-verification"
+          content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk"
+        />
+      </Helmet>
       <div style={{ zIndex: 1 }}>
         <img
           src="https://cdn-icons-png.flaticon.com/512/7032/7032646.png"

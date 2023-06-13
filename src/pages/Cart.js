@@ -271,7 +271,7 @@ export const Cart = () => {
     <Fragment>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Cart | Musee Musical</title>
+        <title>Cart - Musee Musical</title>
         <link rel="canonical" href={window.location.href} />
         <meta
           name="google-site-verification"

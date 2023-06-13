@@ -49,7 +49,7 @@ export const ShopByBrand = () => {
         <Fragment>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title> Brand | Musee Musical</title>
+                <title> Brand - Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 <meta name='title' content="Shop Branded Musical Instruments Online - Musée Musical"></meta>
                 <meta name='description' content='Searching for shop-branded musical instruments? Look no further than Musée Musical. Browse our selection online and find your perfect instrument today. Shop now!'></meta>
