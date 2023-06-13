@@ -2,7 +2,7 @@ import React from "react";
 import { PackageSupport } from "../components/Home/PackageSupport";
 import { Helmet } from "react-helmet";
 
-export const ShippingPolicy = () => {
+const ShippingPolicy = () => {
   return (
     <div>
       <Helmet>
@@ -129,3 +129,5 @@ export const ShippingPolicy = () => {
     </div>
   );
 };
+
+export default ShippingPolicy;

@@ -4,7 +4,7 @@ import "./common.css";
 import { BsMusicPlayerFill } from "react-icons/bs";
 import { Helmet } from "react-helmet";
 
-export const PaymentResponse = () => {
+const PaymentResponse = () => {
   const params = useParams();
   useEffect(() => {
     window.scroll(0, 0);
@@ -107,3 +107,5 @@ export const PaymentResponse = () => {
     </div>
   );
 };
+
+export default PaymentResponse;

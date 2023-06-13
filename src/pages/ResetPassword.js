@@ -13,7 +13,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
 
     const {
         register,
@@ -191,3 +191,5 @@ export const ResetPassword = () => {
         </Fragment>
     )
 }
+
+export default ResetPassword;

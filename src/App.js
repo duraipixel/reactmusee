@@ -1,34 +1,38 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './app/constant.js';
-import { Layout } from './components/Layouts/Layout.jsx';
-import { NoMatch } from './components/Layouts/NoMatch.jsx'; 
-import { ProductDetail } from './pages/ProductDetail.js';
-import { Collection } from './pages/Collection';
-import { Category } from './pages/Category.js';
-import { ShopByBrand } from './pages/ShopByBrand';
-import { Cart } from './pages/Cart';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { Profile } from './pages/Profile';
-import { PaymentResponse } from './pages/PaymentResponse.js';
-import OrderSummary from './pages/OrderSummary.js';
-import { ForgotPassword } from './pages/ForgotPassword.js';
-import { ResetPassword } from './pages/ResetPassword.js';
-import { PrivacyPolicy } from './pages/PrivacyPolicy.js';
-import { TermsofUse } from './pages/TermsofUse.js';
-import { ReturnPolicy } from './pages/ReturnPolicy.js';
-import { ShippingPolicy } from './pages/ShippingPolicy.js';
-import { BrandDetails } from './pages/BrandDetails';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import "rsuite/dist/rsuite.min.css";
 import 'rsuite/styles/index.less';
 import './assets/css/custom.css';
+import { Layout } from './components/Layouts/Layout.jsx';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ToastContainer } from 'react-toastify';
 import { VerifyAccount } from './components/Profile/VerifyAccount';
 import PreLoader from './components/PreLoader'
+
+const HomeComponent = lazy(() => import('./pages/Home.js'));
+const NoMatch = lazy(() => import('./components/Layouts/NoMatch.jsx'));
+const ProductDetail= lazy(() => import('./pages/ProductDetail.js'));
+const Collection = lazy(() => import('./pages/Collection'));
+const Category= lazy(() => import('./pages/Category.js'));
+const ShopByBrand = lazy(() => import('./pages/ShopByBrand'));
+const  Cart= lazy(() => import('./pages/Cart'));
+const  Login= lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const Profile = lazy(() => import('./pages/Profile'));
+const PaymentResponse = lazy(() => import('./pages/PaymentResponse.js'));
+const  OrderSummary= lazy(() => import('./pages/OrderSummary.js'));
+const  ForgotPassword= lazy(() => import('./pages/ForgotPassword.js'));
+const  ResetPassword= lazy(() => import('./pages/ResetPassword.js'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy.js'));
+const TermsofUse = lazy(() => import('./pages/TermsofUse.js'));
+const  ReturnPolicy= lazy(() => import('./pages/ReturnPolicy.js'));
+const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy.js'));
+const BrandDetails = lazy(() => import('./pages/BrandDetails.js'));
+
+
 
 const theme = createTheme({
   palette: {
@@ -52,7 +56,6 @@ const theme = createTheme({
     },
   },
 });
-const HomeComponent = lazy(() => import('./pages/Home.js'));
 
 const App = () => {
   return (

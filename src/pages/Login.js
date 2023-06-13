@@ -16,7 +16,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { setCartCount } from '../app/reducer/cartCountSlice';
 
-export const Login = () => {
+const Login = () => {
     const dispatch = useDispatch();
     const {
         register,
@@ -193,3 +193,5 @@ export const Login = () => {
         </Fragment >
     )
 }
+
+export default Login;

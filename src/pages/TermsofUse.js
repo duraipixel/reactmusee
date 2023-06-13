@@ -2,7 +2,7 @@ import React from "react";
 import { PackageSupport } from "../components/Home/PackageSupport";
 import { Helmet } from 'react-helmet';
 
-export const TermsofUse = () => {
+const TermsofUse = () => {
   return (
     <div>
       <Helmet>
@@ -728,3 +728,5 @@ export const TermsofUse = () => {
     </div>
   );
 };
+
+export default TermsofUse;

@@ -2,7 +2,7 @@ import React from "react";
 import { PackageSupport } from "../components/Home/PackageSupport";
 import { Helmet } from "react-helmet";
 
-export const ReturnPolicy = () => {
+const ReturnPolicy = () => {
   return (
     <div>
       <Helmet>
@@ -171,3 +171,5 @@ export const ReturnPolicy = () => {
     </div>
   );
 };
+
+export default ReturnPolicy;

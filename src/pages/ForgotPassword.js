@@ -9,7 +9,7 @@ import { FormControl, InputLabel, OutlinedInput } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
-export const ForgotPassword = () => {
+const ForgotPassword = () => {
 
     const {
         register,
@@ -58,7 +58,7 @@ export const ForgotPassword = () => {
     return (
         <Fragment>
             <Helmet>
-                <title>Forgot Password - Musee Musical</title>
+                <title>Forgot Password | Musee Musical</title>
                 <link rel="canonical" href={window.location.href} />
                 <meta name='description' content='forgot password page' />
             </Helmet>
@@ -178,3 +178,5 @@ export const ForgotPassword = () => {
         </Fragment>
     )
 }
+
+export default ForgotPassword;

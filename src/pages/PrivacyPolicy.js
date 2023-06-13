@@ -2,7 +2,7 @@ import React from "react";
 import { PackageSupport } from "../components/Home/PackageSupport";
 import { Helmet } from "react-helmet";
 
-export const PrivacyPolicy = () => {
+const PrivacyPolicy = () => {
   return (
     <div>
       <Helmet>
@@ -268,3 +268,5 @@ export const PrivacyPolicy = () => {
     </div>
   );
 };
+
+export default PrivacyPolicy;

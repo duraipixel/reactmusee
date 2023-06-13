@@ -5,7 +5,7 @@ import { OtherCategory } from './../components/Sliders/OtherCategory';
 import { Helmet } from 'react-helmet';
 import { Button } from '@mui/material';
 
-export const ShopByBrand = () => {
+const ShopByBrand = () => {
 
     const [isOpenBrand, setIsOpenBrand] = useState(false);
     const [brands, setBrands] = useState([]);
@@ -85,3 +85,5 @@ export const ShopByBrand = () => {
         </Fragment>
     )
 }
+
+export default ShopByBrand;

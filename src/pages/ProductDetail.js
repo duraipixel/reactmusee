@@ -20,7 +20,7 @@ import { Helmet } from "react-helmet";
 import { setCartCount } from "../app/reducer/cartCountSlice";
 import { setCoupon } from "../app/reducer/couponSlice";
 
-export const ProductDetail = () => {
+const ProductDetail = () => {
   const unique_id = uuid();
 
   const [productInfo, SetProductInfo] = useState(null);
@@ -304,3 +304,5 @@ export const ProductDetail = () => {
     </Fragment>
   );
 };
+
+export default ProductDetail;

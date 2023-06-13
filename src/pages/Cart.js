@@ -19,7 +19,7 @@ import AddAddress from "../components/Profile/AddAddress";
 import AddressForm from "./../components/Cart/AddressForm";
 import EmptyCart from "../components/EmptyCart";
 
-export const Cart = () => {
+const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const defaultShipping = useSelector((state) => state.shipping_address);
   const charges = useSelector((state) => state.charges);
@@ -357,3 +357,5 @@ export const Cart = () => {
     </Fragment>
   );
 };
+
+export default Cart;

@@ -10,7 +10,8 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { fetchBrowseCategory } from "./../app/reducer/otherCategorySlice";
 import { BsFilterCircleFill } from "react-icons/bs";
-export const Collection = () => {
+
+const Collection = () => {
   const [filterStaticMenu, setFilterStaticMenu] = useState([]);
   var top_sub_MenuAll = localStorage.getItem("topSubMenu")
     ? JSON.parse(localStorage.getItem("topSubMenu"))
@@ -150,3 +151,5 @@ export const Collection = () => {
     </Fragment>
   );
 };
+
+export default Collection;

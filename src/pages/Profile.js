@@ -12,7 +12,7 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { CancelOrderRequested } from '../components/OrderSummary/CancelOrderRequested'
 
-export const Profile = () => {
+const Profile = () => {
 
     const [customer, setCustomer] = useState(JSON.parse(window.localStorage.getItem('customer')));
     const [customerAddress, setCustomerAddress] = useState([]);
@@ -142,3 +142,5 @@ export const Profile = () => {
         </Fragment>
     )
 }
+
+export default Profile;

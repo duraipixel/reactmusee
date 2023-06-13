@@ -14,7 +14,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Button } from 'rsuite';
 
-export const Register = () => {
+const Register = () => {
 
     const {
         register,
@@ -293,3 +293,5 @@ export const Register = () => {
         </Fragment>
     )
 }
+
+export default Register;

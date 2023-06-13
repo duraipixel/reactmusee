@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 import BrandCardComponent from "../components/BrandCardComponent";
 import { Helmet } from "react-helmet";
 
-export const BrandDetails = () => {
+const BrandDetails = () => {
   const { brand_slug } = useParams();
   const [brandData, setBrandData] = useState([]);
   const dispatch = useDispatch();
@@ -267,3 +267,5 @@ export const BrandDetails = () => {
     )
   );
 };
+
+export default BrandDetails;
