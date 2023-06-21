@@ -149,6 +149,7 @@ export const CartDetails = ({ billingAddress, setPaymentLoader, cart_total, cart
             setPaymentLoader(false);
             if (response.data.success) {
                 localStorage.removeItem('shipping_address');
+                localStorage.removeItem('billing_address');
                 localStorage.removeItem('cart');
                 localStorage.removeItem('shiprocket_charges');
                 localStorage.removeItem('cart_coupon')
