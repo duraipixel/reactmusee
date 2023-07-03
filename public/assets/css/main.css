@@ -51297,3 +51297,5 @@ html[dir=rtl] .document-nav {
 .css-13xfq8m-MuiTabPanel-root {
   padding: 24px 0 !important;
 }
+
+.lazy-load-image-background.blur.lazy-load-image-loaded {width: 100% !important;}
