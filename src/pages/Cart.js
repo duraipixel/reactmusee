@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { CartDetails } from "../components/Cart/CartDetails";
 import { ProductDetails } from "../components/Cart/ProductDetails";
 import { ShippingAddress } from "../components/Cart/ShippingAddress";
@@ -105,7 +105,7 @@ const Cart = () => {
       .then((res) => {
         setStates(res.data);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 
   const handleSetShippingAddressView = (address_id) => {
@@ -115,16 +115,29 @@ const Cart = () => {
     }
   };
 
+  const getAddressTypes = () => {
+    axios({
+      url: window.API_URL + "/get/address_type",
+      method: "GET",
+      data: {
+        customer_id: customer.id,
+      },
+    })
+      .then((res) => {
+        console.log( res.data );
+
+        setAddressType(res.data);
+      })
+      .catch((err) => { });
+  }
+
   useEffect(() => {
+    
     if (
       window.localStorage.getItem("address") &&
       window.localStorage.getItem("address") != "undefined"
     ) {
       setCustomerAddress(JSON.parse(window.localStorage.getItem("address")));
-    }
-
-    if (site_info) {
-      setAddressType(site_info.data.address_type);
     }
 
     if (shipping_address) {
@@ -135,6 +148,10 @@ const Cart = () => {
       getAllStates();
     }
   }, [shipping_address]);
+
+  useMemo(() => {
+    getAddressTypes();
+  }, []);
 
   const NumericOnly = (e) => {
     const reg = /^[0-9\b]+$/;
@@ -191,7 +208,7 @@ const Cart = () => {
         setFlatCharge(res.data.flat_charge || 0);
         localStorage.setItem("flat_charge", res.data.flat_charge || 0);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   async function addAddress(formData) {
@@ -226,7 +243,7 @@ const Cart = () => {
           handleClose();
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 
   const proceedCheckout = () => {
@@ -241,7 +258,7 @@ const Cart = () => {
 
     var couponData =
       localStorage.getItem("cart_coupon") &&
-      localStorage.getItem("cart_coupon") != "undefined"
+        localStorage.getItem("cart_coupon") != "undefined"
         ? JSON.parse(localStorage.getItem("cart_coupon"))
         : "";
 
@@ -263,7 +280,7 @@ const Cart = () => {
         localStorage.setItem("cart", JSON.stringify(res.data));
         dispatch(fetchCarts(JSON.parse(window.localStorage.getItem("cart"))));
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
   // console.log( 'cart', cart.cart.carts);
   // console.log( 'cart_count', cart_count.value)
