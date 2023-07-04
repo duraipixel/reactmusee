@@ -120,7 +120,7 @@ const Cart = () => {
       url: window.API_URL + "/get/address_type",
       method: "GET",
       data: {
-        customer_id: customer.id,
+        customer_id: customer?.id || '',
       },
     })
       .then((res) => {
