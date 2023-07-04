@@ -1,0 +1,8 @@
+.search_product:hover {
+  background: #ddd;
+  color: black;
+}
+
+.search_product span:hover {
+  font-weight: 800;
+}

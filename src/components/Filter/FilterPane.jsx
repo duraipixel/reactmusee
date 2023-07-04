@@ -34,6 +34,7 @@ export const FilterPane = (props) => {
         setStartLoadMore(false)
 
     }
+    console.log( filterData.products.total_count, 'filte rlist' );
 
     return (
         <Fragment>
@@ -43,7 +44,7 @@ export const FilterPane = (props) => {
             <div className='my-4'>
                 <div className={`text-center `} >
                     {
-                        filterData.products && filterData.products.to >= filterData.products.total_count ? null :
+                        filterData.products.total_count == 0 && filterData.products.to >= filterData.products.total_count ? null :
                             <Button variant='outlined' onClick={() => loadMoreProduct()}>
                                 Load More
                             </Button>

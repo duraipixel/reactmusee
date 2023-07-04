@@ -7,18 +7,20 @@ import axios from 'axios';
 import { MagicSpinner } from "react-spinners-kit";
 import './globalsearch.css';
 import { setCartCount } from '../../app/reducer/cartCountSlice';
+import { fetchProducts } from '../../app/reducer/productFilterSlice';
 
 export default function Topbar({ isTopPage }) {
     const customer = useSelector((state) => state.customer);
     const location = useLocation();
     const navigate = useNavigate();
+    const searchParams = new URLSearchParams(location.search);
     // const [cartCount, setCartCount] = useState(0);
     const cart = useSelector((state) => state.cart);
     const cart_count = useSelector((state) => state.cart_count);
     const dispatch = useDispatch();
     const [searchData, setSearchData] = useState([]);
     const [searchStart, setSearchStart] = useState(false);
-    
+
     const getTotalQuantity = () => {
 
         // let total = 0;
@@ -53,9 +55,12 @@ export default function Topbar({ isTopPage }) {
         setSearchStart(true)
         var search_type = 'product';
         var search_field = event.target.value;
-        var element = document.getElementById('parent_search_tab');
-        element.classList.add('bluebg')
-        getAllStates(search_type, search_field);
+        if(search_field.length > 3) {
+
+            var element = document.getElementById('parent_search_tab');
+            element.classList.add('bluebg')
+            getAllStates(search_type, search_field);
+        }
     }
     async function getAllStates(search_type, search_field) {
         await axios({
@@ -79,6 +84,24 @@ export default function Topbar({ isTopPage }) {
 
     const commonUrl = new URL(window.location.href);
     var checkUrlChanged = commonUrl.hash.replace('/', '');
+
+    const searchEnterPress = (e) => {
+        if (e.key === 'Enter') {
+            console.log( e.target.value );
+            const url = new URL(window.location.href);
+            const SUrl = "/products/pfilter";
+
+            searchParams.set("search",  e.target.value);
+            navigate(SUrl + '?' + searchParams.toString());
+
+            dispatch(fetchProducts('?' + searchParams.toString()));
+            var element = document.getElementById('parent_search_tab');
+            element.classList.remove('bluebg')
+            let search_input = document.getElementById('search-input');
+            search_input.value = '';
+        }
+    }
+
     useMemo(() => {
         var incUrl = ['#', '#brand', '#cart', '#login', '#register', '#forgotpassword'];
         if (incUrl.includes(checkUrlChanged)) {
@@ -105,7 +128,7 @@ export default function Topbar({ isTopPage }) {
                                         </select>
                                     </div> */}
                                     <div className={`form-data ${searchData.length > 0 ? 'bluebg' : ''}`} id='parent_search_tab'>
-                                        <input className="src-blnk pe-5" id='search-input' type="search" onChange={globalSearch} placeholder="Search..." />
+                                        <input className="src-blnk pe-5" id='search-input' type="search" onKeyPress={(e) => searchEnterPress(e)} onKeyUp={globalSearch} placeholder="Search..." />
                                         <ul className="list-group src-fndings " id='searchPane'>
 
                                             {searchData.length > 0 ? searchData.map((item, i) => (
@@ -116,7 +139,7 @@ export default function Topbar({ isTopPage }) {
                                                                 <Link to={`/product/${item.product_url}`} className="w-100" >
                                                                     <div className='w-100 m-flex'>
                                                                         <div className='w-20 bg-white text-center '>
-                                                                            <img src={item.image} alt={item.product_name}/>
+                                                                            <img src={item.image} alt={item.product_name} />
                                                                         </div>
                                                                         <div className='w-80 ps-3'>
                                                                             <label>
@@ -131,7 +154,7 @@ export default function Topbar({ isTopPage }) {
                                                                 </Link>
                                                                 :
                                                                 <Link to='/'>
-                                                                    <img src={item.image} width="100" alt={item.product_name}/> {item.product_name}
+                                                                    <img src={item.image} width="100" alt={item.product_name} /> {item.product_name}
                                                                     <span>
                                                                         Home | {item.parent_category_name} | {item.category_name} | {item.brand_name} | {item.product_name}
                                                                     </span>

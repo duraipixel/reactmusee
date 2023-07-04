@@ -6,13 +6,18 @@ import { SortBy } from "../components/Filter/SortBy";
 import { OtherCategory } from "../components/Sliders/OtherCategory";
 import { Filter } from "./Filter";
 import { Helmet } from "react-helmet";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { fetchBrowseCategory } from "./../app/reducer/otherCategorySlice";
 import { BsFilterCircleFill } from "react-icons/bs";
+import { Button } from '@mui/material';
+import './searchCss.css';
+import { Divider } from '@mui/material/Divider';
+import { fetchProducts } from "../app/reducer/productFilterSlice";
 
 const Collection = () => {
   const [filterStaticMenu, setFilterStaticMenu] = useState([]);
+  const navigate = useNavigate();
   var top_sub_MenuAll = localStorage.getItem("topSubMenu")
     ? JSON.parse(localStorage.getItem("topSubMenu"))
     : [];
@@ -25,6 +30,7 @@ const Collection = () => {
 
   const cUrl = new URL(window.location.href);
   const categoryUrl = searchParams.get("category");
+  const searchKeyword = searchParams.get("search");
   const filterStaticSideMenu = localStorage.getItem("filterStaticMenu")
     ? JSON.parse(localStorage.getItem("filterStaticMenu"))
     : [];
@@ -50,7 +56,7 @@ const Collection = () => {
       .then((res) => {
         dispatch(fetchBrowseCategory(res.data));
       })
-      .catch((err) => {});
+      .catch((err) => { });
   }
 
   const getFilterTab = () => {
@@ -70,6 +76,16 @@ const Collection = () => {
   const toggle = () => {
     setFilterIcon(!filterIcon);
   };
+
+  const removeSearchKeyword = () => {
+
+    const url = new URL(window.location.href);
+    const SUrl = "/products/pfilter";
+    searchParams.delete("search");
+    navigate(SUrl + '?' + searchParams.toString());
+    dispatch(fetchProducts('?' + searchParams.toString()));
+  
+  }
   return (
     <Fragment>
       <Helmet>
@@ -102,13 +118,31 @@ const Collection = () => {
                 <Filter
                   filterStaticMenu={filterStaticMenu}
                   setFilterIcon={toggle}
-                  className={`filter-group ${
-                    filterIcon == true ? "closed" : ""
-                  }`}
+                  className={`filter-group ${filterIcon == true ? "closed" : ""
+                    }`}
                 />
               </div>
             </div>
             <div className="col-xl">
+              {searchKeyword && 
+              <div className="card my-3">
+                <div className="p-2 d-md-flex justify-content-between align-items-center">
+                  <div className="d-flex align-items-center">
+                    <div className="me-3">
+                    Search result of : 
+                    </div>
+                    <div className="card my-2 me-2">
+                      
+                    <label className='px-2 search_product'>
+                        {searchKeyword}
+                      
+                      <span className="ms-2 px-1 text-danger" role="button" onClick={() => removeSearchKeyword()}>x</span>
+                    </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              }
               <div className="card my-3">
                 <div className="p-2 d-md-flex justify-content-between align-items-center">
                   <div className="d-flex align-items-center">
