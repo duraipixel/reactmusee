@@ -23,14 +23,15 @@ export const HomeCarouselItem = ({ banners }) => {
       var frag_data = urlWithoutFragment.split("&");
       let search_data;
       search_data = frag_data.find((user) => user.includes("search"));
-     
+      
       if( typeof search_data == 'undefined') {
         // console.log( 'teste');
         window.location.href = search_slug;
       } else {
-
-        var search_url_params = urlWithoutFragment.split("=")[1];
-        search_url_params = search_url_params.replace('+', '');
+        
+        var search_url_params = search_data.split("=")[1];
+        search_url_params = search_url_params.replace('+', ' ');
+        
         const SUrl = "/products/pfilter";
         searchParams.set("search", search_url_params);
         navigate(SUrl + '?' + searchParams.toString());
@@ -55,6 +56,7 @@ export const HomeCarouselItem = ({ banners }) => {
                   src={item.image}
                   alt={item.title}
                   className="w-100 pc-banner"
+                  role="button"
                 />
                 <LazyLoadImage
                   effect="blur"
