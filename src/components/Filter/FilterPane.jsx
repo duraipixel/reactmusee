@@ -13,7 +13,7 @@ export const FilterPane = (props) => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const [startLoadMore, setStartLoadMore] = useState(false);
-
+    
     const filterData = useSelector((state) => state.products);
     
     const products = filterData.products != undefined ? filterData.products.products : [];
@@ -34,7 +34,7 @@ export const FilterPane = (props) => {
         setStartLoadMore(false)
 
     }
-    console.log( filterData.products.total_count, 'filte rlist' );
+    
 
     return (
         <Fragment>
