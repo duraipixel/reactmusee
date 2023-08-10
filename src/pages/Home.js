@@ -11,18 +11,10 @@ import { RecentView } from '../components/Sliders/RecentView';
 import { Testimonials } from '../components/Sliders/Testimonials';
 import { PackageSupport } from '../components/Home/PackageSupport';
 import { useHomePageDataQuery, useRecentViewsQuery } from '../app/services/homePageApi';
-import { useEffect } from 'react';
 
 export default function Home() {
     const { data, isSuccess, isFetching } = useHomePageDataQuery()
     const recent = useRecentViewsQuery();
-    useEffect(() => {
-        // if( localStorage.length > 0 ) {
-        //     localStorage.clear();
-        //     console.log( localStorage.length, 'localstorgae length');
-        // }
-    }, [])
-    
     return (
         <Fragment>
             <Helmet>
