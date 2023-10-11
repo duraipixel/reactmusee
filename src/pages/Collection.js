@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FilterPane } from "../components/Filter/FilterPane";
 import { ProductCount } from "../components/Filter/ProductCount";
@@ -24,12 +24,15 @@ const Collection = () => {
 
   const otherCategory = useSelector((state) => state.browse);
   const [browseCategory, setBrowseCategory] = useState([]);
+  const [metaData, setMetaData] = useState([]);
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
+  console.log(searchParams);
 
   const cUrl = new URL(window.location.href);
   const categoryUrl = searchParams.get("category");
+  const subCategoryUrl = searchParams.get("scategory");
   const searchKeyword = searchParams.get("search");
   const filterStaticSideMenu = localStorage.getItem("filterStaticMenu")
     ? JSON.parse(localStorage.getItem("filterStaticMenu"))
@@ -59,6 +62,24 @@ const Collection = () => {
       .catch((err) => { });
   }
 
+  async function getMetaData() {
+    await axios({
+      url: window.API_URL + "/get-category-meta",
+      method: "GET",
+      params: { category: categoryUrl, scategory: subCategoryUrl },
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.status == 200 && res.data.meta) {
+          if (res?.data.meta != null) {
+            setMetaData(res.data.meta);
+          }
+        }
+      })
+      .catch((err) => { });
+  }
+
+
   const getFilterTab = () => {
     var filtermenu = document.getElementById("fil-optn");
     filtermenu.classList.add("hide");
@@ -66,6 +87,14 @@ const Collection = () => {
     var sidefilter = document.getElementById("sdmnu-repnsve");
     sidefilter.classList.add("show");
   };
+
+  useEffect(() => {
+    if (metaData.length == 0) {
+      getMetaData();
+    } else {
+      console.log(metaData);
+    }
+  });
 
   useMemo(() => {
     if (filterStaticMenu.length === 0) {
@@ -84,23 +113,42 @@ const Collection = () => {
     searchParams.delete("search");
     navigate(SUrl + '?' + searchParams.toString());
     dispatch(fetchProducts('?' + searchParams.toString()));
-  
+
   }
   return (
     <Fragment>
       <Helmet>
         <title>
-          Explore Our Collection of Musical Instruments - Musee Musical
+          {" "}
+          {metaData?.meta_title && metaData?.meta_title !== null
+            ? metaData?.meta_title
+            : 'Explore Our Collection of Musical Instruments - Musee Musical'}{" "}
         </title>
         <link rel="canonical" href={window.location.href} />
         <meta
           name="google-site-verification"
           content="Sz-Y0bbkprXfafs3xbhe_JgUQh4UABqy_dyTY4TJ9rk"
         />
-        <meta
-          name="description"
-          content="Discover the finest collection of musical instruments available. Browse through our curated selection to find your perfect instrument."
-        />
+        {metaData && metaData.meta_keyword && (
+          <meta
+            name="keywords"
+            content={metaData.meta_keyword}
+          />
+        )}
+
+        {metaData && metaData.meta_description && (
+          <meta
+            name="description"
+            content={metaData.meta_description}
+          />
+        )}
+
+        {metaData == null && (
+          <meta
+            name="description"
+            content="Discover the finest collection of musical instruments available. Browse through our curated selection to find your perfect instrument."
+          />
+        )}
       </Helmet>
       {/* <div>
                 <span className="fil-optn" id='fil-optn' onClick={getFilterTab}>
@@ -124,24 +172,24 @@ const Collection = () => {
               </div>
             </div>
             <div className="col-xl">
-              {searchKeyword && 
-              <div className="card my-3">
-                <div className="p-2 d-md-flex justify-content-between align-items-center">
-                  <div className="d-flex align-items-center">
-                    <div className="me-3">
-                    Search result of : 
-                    </div>
-                    <div className="card my-2 me-2">
-                      
-                    <label className='px-2 search_product'>
-                        {searchKeyword}
-                      
-                      <span className="ms-2 px-1 text-danger" role="button" onClick={() => removeSearchKeyword()}>x</span>
-                    </label>
+              {searchKeyword &&
+                <div className="card my-3">
+                  <div className="p-2 d-md-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center">
+                      <div className="me-3">
+                        Search result of :
+                      </div>
+                      <div className="card my-2 me-2">
+
+                        <label className='px-2 search_product'>
+                          {searchKeyword}
+
+                          <span className="ms-2 px-1 text-danger" role="button" onClick={() => removeSearchKeyword()}>x</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               }
               <div className="card my-3">
                 <div className="p-2 d-md-flex justify-content-between align-items-center">
