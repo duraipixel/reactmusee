@@ -10,9 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { fetchBrowseCategory } from "./../app/reducer/otherCategorySlice";
 import { BsFilterCircleFill } from "react-icons/bs";
-import { Button } from '@mui/material';
 import './searchCss.css';
-import { Divider } from '@mui/material/Divider';
 import { fetchProducts } from "../app/reducer/productFilterSlice";
 
 const Collection = () => {
@@ -28,7 +26,7 @@ const Collection = () => {
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  console.log(searchParams);
+  //console.log(searchParams);
 
   const cUrl = new URL(window.location.href);
   const categoryUrl = searchParams.get("category");
@@ -69,7 +67,7 @@ const Collection = () => {
       params: { category: categoryUrl, scategory: subCategoryUrl },
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.status == 200 && res.data.meta) {
           if (res?.data.meta != null) {
             setMetaData(res.data.meta);
@@ -89,12 +87,9 @@ const Collection = () => {
   };
 
   useEffect(() => {
-    if (metaData.length == 0) {
-      getMetaData();
-    } else {
-      console.log(metaData);
-    }
-  });
+    setMetaData([]);
+    getMetaData();
+  }, [subCategoryUrl, categoryUrl]);
 
   useMemo(() => {
     if (filterStaticMenu.length === 0) {
