@@ -58,34 +58,33 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<HomeComponent />} />
-          <Route path="product/:product_url" element={<ProductDetail />} />
-          <Route path="category/:category_slug" element={<Category />} />
-          <Route path="products/:collection_slug" element={<Collection />} />
-          <Route path="brand" element={<ShopByBrand />} />
-          <Route path="brands/:brand_slug" element={<BrandDetails />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="forgotpassword" element={<ForgotPassword />} />
-          <Route path="reset-password/:token" element={<ResetPassword />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="ordersummary/:order_no" element={<OrderSummary />} />
-          <Route
-            path="thankyou/:payment_response"
-            element={<PaymentResponse />}
-          />
-          <Route path="privacypolicy" element={<PrivacyPolicy />} />
-          <Route path="termsofuse" element={<TermsofUse />} />
-          <Route path="returnpolicy" element={<ReturnPolicy />} />
-          <Route path="shippingpolicy" element={<ShippingPolicy />} />
-          <Route path="verify-account/:token" element={<VerifyAccount />} />
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Routes>
-
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomeComponent />} />
+            <Route path="product/:product_url" element={<ProductDetail />} />
+            <Route path="category/:category_slug" element={<Category />} />
+            <Route path="products/:collection_slug" element={<Collection />} />
+            <Route path="brand" element={<ShopByBrand />} />
+            <Route path="brands/:brand_slug" element={<BrandDetails />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="forgotpassword" element={<ForgotPassword />} />
+            <Route path="reset-password/:token" element={<ResetPassword />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="ordersummary/:order_no" element={<OrderSummary />} />
+            <Route
+              path="thankyou/:payment_response"
+              element={<PaymentResponse />}
+            />
+            <Route path="privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="termsofuse" element={<TermsofUse />} />
+            <Route path="returnpolicy" element={<ReturnPolicy />} />
+            <Route path="shippingpolicy" element={<ShippingPolicy />} />
+            <Route path="verify-account/:token" element={<VerifyAccount />} />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
       <ToastContainer
         position="top-center"
         autoClose={1000}

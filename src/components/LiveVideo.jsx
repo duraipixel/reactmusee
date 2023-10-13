@@ -17,7 +17,7 @@ export const LiveVideo = () => {
                 </div>
               </div>
               <div className="shopping-book">
-                <Link to='/products/pfilter?booking=video_shopping'>
+                <Link to='/products/search?booking=video_shopping'>
                   Book Now
                 </Link>
               </div>

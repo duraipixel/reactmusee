@@ -29,7 +29,7 @@ export default function SideCustomScrollbar({ menuAll, getSubMenu, setIsPageLoad
     const handleSubMenu = (categorySlug, subCategorySlug) => {
         //?category=keyboard-case-keyboard&scategory=gator-keyboard-case-keyboard-case
         
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         searchParams.set("category", categorySlug);
         searchParams.set("scategory", subCategorySlug);
         searchParams.delete("page");

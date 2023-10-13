@@ -19,7 +19,7 @@ export const ProductAvailability = ({ product_availability }) => {
 
     const getProduct = (e) => {
         // const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         var array = []
         var checkboxes = document.querySelectorAll('.product_availability:checked')
 

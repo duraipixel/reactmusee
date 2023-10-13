@@ -104,7 +104,7 @@ const Collection = () => {
   const removeSearchKeyword = () => {
 
     const url = new URL(window.location.href);
-    const SUrl = "/products/pfilter";
+    const SUrl = "/products/search";
     searchParams.delete("search");
     navigate(SUrl + '?' + searchParams.toString());
     dispatch(fetchProducts('?' + searchParams.toString()));

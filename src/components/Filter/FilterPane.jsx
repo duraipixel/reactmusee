@@ -25,7 +25,7 @@ export const FilterPane = (props) => {
         setStartLoadMore(true)
         let page = parseInt(to) / parseInt(window.productLimit);
         const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
 
         searchParams.set("page", page);
         navigate(SUrl + '?' + searchParams.toString());

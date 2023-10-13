@@ -32,7 +32,7 @@ const BrandDetails = () => {
   }
 
   const getBrandProducts = (category_slug, subcategory_slug = "") => {
-    const SUrl = "/products/pfilter";
+    const SUrl = "/products/search";
     searchParams.set("category", category_slug);
     if (subcategory_slug != "") {
       searchParams.set("scategory", subcategory_slug);

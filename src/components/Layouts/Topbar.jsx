@@ -89,7 +89,7 @@ export default function Topbar({ isTopPage }) {
         if (e.key === 'Enter') {
             console.log( e.target.value );
             const url = new URL(window.location.href);
-            const SUrl = "/products/pfilter";
+            const SUrl = "/products/search";
 
             searchParams.set("search",  e.target.value);
             navigate(SUrl + '?' + searchParams.toString());

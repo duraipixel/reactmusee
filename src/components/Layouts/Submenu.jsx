@@ -22,7 +22,7 @@ export const Submenu = ({ topSubmenu }) => {
 
     const setUrlCategory = (slug) => {
         window.scroll(0,0)
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         if (slug == 'all') {
             searchParams.set("category", top_sub_MenuAll[0].slug);
             searchParams.delete("scategory");

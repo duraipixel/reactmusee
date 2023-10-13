@@ -83,7 +83,7 @@ export const Layout = () => {
 
     localStorage.setItem("topSubMenu", JSON.stringify(subMenus));
 
-    const SUrl = "/products/pfilter";
+    const SUrl = "/products/search";
     searchParams.set("category", category);
     searchParams.delete("scategory");
     searchParams.delete("page");

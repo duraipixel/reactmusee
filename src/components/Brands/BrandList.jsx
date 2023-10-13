@@ -12,7 +12,7 @@ export const BrandList = ({brands}) => {
                             
                             <li key={item.id}>
                                 
-                                {/* <Link to={`/products/pfilter?brand=${item.slug}`}> */}
+                                {/* <Link to={`/products/search?brand=${item.slug}`}> */}
                                 <Link to={`/brands/${item.slug}`}>
                                     <img src={item.image} alt={item.title} />
                                     <span>{item.title}</span>

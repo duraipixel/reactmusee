@@ -33,7 +33,7 @@ export const Brand = () => {
                             {
                                 data.data.map((item) => (
                                     <div className="brand" key={item.id}>
-                                        <Link to={`/products/pfilter?brand=${item.slug}`}>
+                                        <Link to={`/products/search?brand=${item.slug}`}>
                                             <img src={item.image} alt={item.title} />
                                         </Link>
                                     </div>

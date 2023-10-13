@@ -177,7 +177,7 @@ const ProductDetail = () => {
                       )}
                       <li>
                         <Link
-                          to={`/products/pfilter?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`}
+                          to={`/products/search?category=${productInfo.parent_category_slug}&scategory=${productInfo.category_slug}`}
                         >
                           {productInfo.category_name}
                         </Link>

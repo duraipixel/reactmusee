@@ -12,7 +12,7 @@ export const AttributeCollection = ({ dynamicFilter }) => {
 
     const getProduct = (e) => {
         const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         var array = []
         var checkboxes = document.querySelectorAll('.filter_dynamic_attributes:checked')
 

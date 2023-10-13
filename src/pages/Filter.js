@@ -38,7 +38,7 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
     const getProduct = () => {
 
         const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         var array = []
         var checkboxes = document.querySelectorAll('.video_shopping:checked')
 
@@ -77,7 +77,7 @@ export const Filter = ({ filterStaticMenu, className, setFilterIcon }) => {
     const clearFilter = () => {
 
         const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
         url.searchParams.delete("booking");
         url.searchParams.delete("collection");
         url.searchParams.delete("discount");

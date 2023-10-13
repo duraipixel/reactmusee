@@ -13,7 +13,7 @@ export const SortBy = ({sort_by}) => {
     const getProducts = () => {
         
         const url   = new URL(window.location.href);
-        const SUrl  = "/products/pfilter";
+        const SUrl  = "/products/search";
         var array   = []
         var sortby  = document.getElementById('sort_by').value
         

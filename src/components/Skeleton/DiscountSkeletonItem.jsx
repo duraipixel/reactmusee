@@ -19,7 +19,7 @@ export const DiscountSkeletonItem = ({ discountCollectionData }) => {
 
     const goToProductListPage = (discount_slug, category_slug = '') => {
         const url = new URL(window.location.href);
-        const SUrl = "/products/pfilter";
+        const SUrl = "/products/search";
 
         searchParams.set("discount", discount_slug);
         if (category_slug) {
