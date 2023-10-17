@@ -44,7 +44,7 @@ const Collection = () => {
         localStorage.setItem("filterStaticMenu", JSON.stringify(data));
       })
       .catch((err) => {
-        // console.log(err.message)
+        console.log(err.message)
       });
   }
 
