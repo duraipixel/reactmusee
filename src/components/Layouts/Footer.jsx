@@ -102,8 +102,8 @@ export default function Footer({ getSubMenu }) {
                     </a>
                   </li>
                   <li>
-                    <a className="text-secondary" href="tel:919940046621">
-                      <i className="fa fa-phone me-2"></i> +91 9940046621
+                    <a className="text-secondary" href="tel:18005710119">
+                      <i className="fa fa-phone me-2"></i> 18005710119
                     </a>
                   </li>
                 </ul>
