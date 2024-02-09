@@ -21,21 +21,20 @@ import EmptyCart from "../components/EmptyCart";
 
 const Cart = () => {
 	const [CheckoutResponse, setCheckoutResponse] = useState("");
-	console.log(CheckoutResponse, "CheckoutResponse2");
 	const [showResponse, setShowResponse] = useState(true);
-	useEffect(() => {
-		let timer;
-		if (CheckoutResponse) {
-			timer = setTimeout(() => {
-				setShowResponse(false);
-				window.location.reload();
-			},5000);
-		}
+	// useEffect(() => {
+	// 	let timer;
+	// 	if (CheckoutResponse) {
+	// 		timer = setTimeout(() => {
+	// 			setShowResponse(false);
+	// 			window.location.reload();
+	// 		},5000);
+	// 	}
 	
-		return () => {
-			if (timer) clearTimeout(timer);
-		};
-	}, [CheckoutResponse]);
+	// 	return () => {
+	// 		if (timer) clearTimeout(timer);
+	// 	};
+	// }, [CheckoutResponse]);
 	const cart = useSelector((state) => state.cart);
 	const defaultShipping = useSelector((state) => state.shipping_address);
 	const charges = useSelector((state) => state.charges);

@@ -83,7 +83,7 @@ export const CartDetails = ({
 				console.log("cod ");
 			} else {
 				setCheckoutFormLoading(true);
-				setPaymentLoader(true);
+				// setPaymentLoader(true);
 				axios({
 					url: window.API_URL + "/proceed/checkout",
 					method: "POST",
@@ -97,11 +97,17 @@ export const CartDetails = ({
 						selected_shipping_fees: cartInfo.selected_shipping_fees,
 					},
 				}).then((response) => {
-					console.log(response.data.message, "responseData");
-					setCheckoutResponse(response.data.message);
+					console.log(response.data.status, "responseData");
+					
+					// setCheckoutResponse(response.data.message);
 					if (response.error == 1) {
 						toast.error(response.message);
-					} else {
+						setCheckoutFormLoading(false);
+					} else if (response.data?.status === false){
+						toast.error(response.data?.message);
+						setCheckoutFormLoading(false);
+					}
+					else {
 						verifyPayment(response.data);
 					}
 				});
